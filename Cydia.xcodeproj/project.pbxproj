@@ -89,8 +89,8 @@
 				30DD94D61F8DE058002F0E99 /* LAEventDataSource.h */,
 				30DD94D71F8DE058002F0E99 /* LAListener.h */,
 				30DD94D81F8DE058002F0E99 /* LASettingsViewController.h */,
-				30DD94D91F8DE058002F0E99 /* libactivator.h */,
 				30DD94DA1F8DE058002F0E99 /* UIImageView+Activator.h */,
+				30DD94D91F8DE058002F0E99 /* libactivator.h */,
 			);
 			path = "libactivator-headers";
 			sourceTree = "<group>";
