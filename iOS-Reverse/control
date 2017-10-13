@@ -1,0 +1,9 @@
+Package: com.klone1127.iosrewechatview
+Name: iOSREWeChatView
+Depends: mobilesubstrate
+Version: 1.0
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: klone1127
+Author: klone1127
+Section: Tweaks

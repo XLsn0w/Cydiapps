@@ -16,6 +16,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3072D0871F9059EF00F1956C /* CaptainHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaptainHook.h; sourceTree = "<group>"; };
+		3072D0881F9059F000F1956C /* TXVideoPod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TXVideoPod.m; sourceTree = "<group>"; };
+		3072D0891F9059F000F1956C /* TXVideoPod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TXVideoPod.h; sourceTree = "<group>"; };
+		3072D08A1F90684400F1956C /* Tweak.xm */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tweak.xm; sourceTree = "<group>"; };
+		3072D08B1F9069F400F1956C /* control */ = {isa = PBXFileReference; lastKnownFileType = text; path = control; sourceTree = "<group>"; };
+		3072D08C1F9069F400F1956C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		3072D08D1F9069F400F1956C /* iOSREWeChatView.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = iOSREWeChatView.plist; sourceTree = "<group>"; };
 		30DD94B91F8DE04E002F0E99 /* Cydia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cydia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30DD94BC1F8DE04E002F0E99 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		30DD94BD1F8DE04E002F0E99 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -47,9 +54,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30CDC45D1F8F58E30067B379 /* iOS-Reverse */ = {
+			isa = PBXGroup;
+			children = (
+				3072D0871F9059EF00F1956C /* CaptainHook.h */,
+				3072D0891F9059F000F1956C /* TXVideoPod.h */,
+				3072D0881F9059F000F1956C /* TXVideoPod.m */,
+				3072D08A1F90684400F1956C /* Tweak.xm */,
+				3072D08B1F9069F400F1956C /* control */,
+				3072D08D1F9069F400F1956C /* iOSREWeChatView.plist */,
+				3072D08C1F9069F400F1956C /* Makefile */,
+			);
+			path = "iOS-Reverse";
+			sourceTree = "<group>";
+		};
 		30DD94B01F8DE04E002F0E99 = {
 			isa = PBXGroup;
 			children = (
+				30CDC45D1F8F58E30067B379 /* iOS-Reverse */,
 				30DD94D21F8DE058002F0E99 /* libactivator-headers */,
 				30DD94BB1F8DE04E002F0E99 /* Cydia */,
 				30DD94BA1F8DE04E002F0E99 /* Products */,
