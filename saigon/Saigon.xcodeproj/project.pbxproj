@@ -1,0 +1,639 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75213E6B1F776EED003FA69D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75213E6A1F776EED003FA69D /* IOKit.framework */; };
+		75213E751F776F3F003FA69D /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75213E6D1F776F3F003FA69D /* AlertViewController.swift */; };
+		75213E761F776F3F003FA69D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75213E6E1F776F3F003FA69D /* AppDelegate.swift */; };
+		75213E781F776F3F003FA69D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75213E701F776F3F003FA69D /* Main.storyboard */; };
+		75213E791F776F3F003FA69D /* SiagonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75213E721F776F3F003FA69D /* SiagonViewController.swift */; };
+		75213E7A1F776F3F003FA69D /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E741F776F3F003FA69D /* Utilities.m */; };
+		75213E911F776F66003FA69D /* apple_ave_pwn.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E7D1F776F66003FA69D /* apple_ave_pwn.m */; };
+		75213E921F776F66003FA69D /* apple_ave_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E7F1F776F66003FA69D /* apple_ave_utils.m */; };
+		75213E931F776F66003FA69D /* heap_spray.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E831F776F66003FA69D /* heap_spray.m */; };
+		75213E941F776F66003FA69D /* iosurface_utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E851F776F66003FA69D /* iosurface_utils.m */; };
+		75213E951F776F66003FA69D /* kernel_read.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E871F776F66003FA69D /* kernel_read.m */; };
+		75213E961F776F66003FA69D /* offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E891F776F66003FA69D /* offsets.m */; };
+		75213E971F776F66003FA69D /* post_exploit_ziva.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E8B1F776F66003FA69D /* post_exploit_ziva.m */; };
+		75213E981F776F66003FA69D /* rwx.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E8D1F776F66003FA69D /* rwx.m */; };
+		75213E991F776F66003FA69D /* ziva_main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E901F776F66003FA69D /* ziva_main.m */; };
+		75213EA31F776F7F003FA69D /* extra_offsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213E9C1F776F7F003FA69D /* extra_offsets.m */; };
+		75213EA41F776F7F003FA69D /* jailbreak.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213E9D1F776F7F003FA69D /* jailbreak.c */; };
+		75213EA51F776F7F003FA69D /* patchfinder64.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213E9E1F776F7F003FA69D /* patchfinder64.c */; };
+		75213EA61F776F7F003FA69D /* unjail.m in Sources */ = {isa = PBXBuildFile; fileRef = 75213EA21F776F7F003FA69D /* unjail.m */; };
+		75213EC01F776F93003FA69D /* cdhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EA81F776F93003FA69D /* cdhash.c */; };
+		75213EC11F776F93003FA69D /* drop_payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EAA1F776F93003FA69D /* drop_payload.c */; };
+		75213EC21F776F93003FA69D /* minibplist16.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EAC1F776F93003FA69D /* minibplist16.c */; };
+		75213EC31F776F93003FA69D /* patch_amfid.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EAE1F776F93003FA69D /* patch_amfid.c */; };
+		75213EC41F776F93003FA69D /* post_exploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EB01F776F93003FA69D /* post_exploit.c */; };
+		75213EC51F776F93003FA69D /* remote_call.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EB21F776F93003FA69D /* remote_call.c */; };
+		75213EC61F776F93003FA69D /* remote_file.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EB41F776F93003FA69D /* remote_file.c */; };
+		75213EC71F776F93003FA69D /* remote_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EB61F776F93003FA69D /* remote_memory.c */; };
+		75213EC81F776F93003FA69D /* remote_ports.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EB81F776F93003FA69D /* remote_ports.c */; };
+		75213EC91F776F93003FA69D /* sploit.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EBA1F776F93003FA69D /* sploit.c */; };
+		75213ECA1F776F93003FA69D /* task_ports.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EBC1F776F93003FA69D /* task_ports.c */; };
+		75213ECB1F776F93003FA69D /* xpc_handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EBE1F776F93003FA69D /* xpc_handshake.c */; };
+		75213EE21F776FA0003FA69D /* oxpc_array.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ECD1F776FA0003FA69D /* oxpc_array.c */; };
+		75213EE31F776FA0003FA69D /* oxpc_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ECF1F776FA0003FA69D /* oxpc_data.c */; };
+		75213EE41F776FA0003FA69D /* oxpc_dictionary.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ED11F776FA0003FA69D /* oxpc_dictionary.c */; };
+		75213EE51F776FA0003FA69D /* oxpc_mach_send.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ED31F776FA0003FA69D /* oxpc_mach_send.c */; };
+		75213EE61F776FA0003FA69D /* oxpc_object.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ED51F776FA0003FA69D /* oxpc_object.c */; };
+		75213EE71F776FA0003FA69D /* oxpc_ool_data.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ED71F776FA0003FA69D /* oxpc_ool_data.c */; };
+		75213EE81F776FA0003FA69D /* oxpc_string.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213ED91F776FA0003FA69D /* oxpc_string.c */; };
+		75213EE91F776FA0003FA69D /* oxpc_uint64.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EDB1F776FA0003FA69D /* oxpc_uint64.c */; };
+		75213EEA1F776FA0003FA69D /* oxpc_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EDD1F776FA0003FA69D /* oxpc_utils.c */; };
+		75213EEB1F776FA0003FA69D /* oxpc_uuid.c in Sources */ = {isa = PBXBuildFile; fileRef = 75213EDF1F776FA0003FA69D /* oxpc_uuid.c */; };
+		75213EED1F777000003FA69D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75213EEC1F777000003FA69D /* Info.plist */; };
+		75D8DCC91F77895200AC2763 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D8DCC81F77895200AC2763 /* Images.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		75213E6A1F776EED003FA69D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		75213E6D1F776F3F003FA69D /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertViewController.swift; path = saigon/AlertViewController.swift; sourceTree = "<group>"; };
+		75213E6E1F776F3F003FA69D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = saigon/AppDelegate.swift; sourceTree = "<group>"; };
+		75213E701F776F3F003FA69D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = saigon/Main.storyboard; sourceTree = "<group>"; };
+		75213E711F776F3F003FA69D /* Saigon-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Saigon-Bridging-Header.h"; path = "saigon/Saigon-Bridging-Header.h"; sourceTree = "<group>"; };
+		75213E721F776F3F003FA69D /* SiagonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SiagonViewController.swift; path = saigon/SiagonViewController.swift; sourceTree = "<group>"; };
+		75213E731F776F3F003FA69D /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = saigon/Utilities.h; sourceTree = "<group>"; };
+		75213E741F776F3F003FA69D /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = saigon/Utilities.m; sourceTree = "<group>"; };
+		75213E7C1F776F66003FA69D /* apple_ave_pwn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = apple_ave_pwn.h; path = saigon/ziva/apple_ave_pwn.h; sourceTree = "<group>"; };
+		75213E7D1F776F66003FA69D /* apple_ave_pwn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = apple_ave_pwn.m; path = saigon/ziva/apple_ave_pwn.m; sourceTree = "<group>"; };
+		75213E7E1F776F66003FA69D /* apple_ave_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = apple_ave_utils.h; path = saigon/ziva/apple_ave_utils.h; sourceTree = "<group>"; };
+		75213E7F1F776F66003FA69D /* apple_ave_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = apple_ave_utils.m; path = saigon/ziva/apple_ave_utils.m; sourceTree = "<group>"; };
+		75213E801F776F66003FA69D /* device_port.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = device_port.h; path = saigon/ziva/device_port.h; sourceTree = "<group>"; };
+		75213E811F776F66003FA69D /* device_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = device_types.h; path = saigon/ziva/device_types.h; sourceTree = "<group>"; };
+		75213E821F776F66003FA69D /* heap_spray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heap_spray.h; path = saigon/ziva/heap_spray.h; sourceTree = "<group>"; };
+		75213E831F776F66003FA69D /* heap_spray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = heap_spray.m; path = saigon/ziva/heap_spray.m; sourceTree = "<group>"; };
+		75213E841F776F66003FA69D /* iosurface_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iosurface_utils.h; path = saigon/ziva/iosurface_utils.h; sourceTree = "<group>"; };
+		75213E851F776F66003FA69D /* iosurface_utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iosurface_utils.m; path = saigon/ziva/iosurface_utils.m; sourceTree = "<group>"; };
+		75213E861F776F66003FA69D /* kernel_read.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kernel_read.h; path = saigon/ziva/kernel_read.h; sourceTree = "<group>"; };
+		75213E871F776F66003FA69D /* kernel_read.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = kernel_read.m; path = saigon/ziva/kernel_read.m; sourceTree = "<group>"; };
+		75213E881F776F66003FA69D /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = offsets.h; path = saigon/ziva/offsets.h; sourceTree = "<group>"; };
+		75213E891F776F66003FA69D /* offsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = offsets.m; path = saigon/ziva/offsets.m; sourceTree = "<group>"; };
+		75213E8A1F776F66003FA69D /* post_exploit_ziva.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = post_exploit_ziva.h; path = saigon/ziva/post_exploit_ziva.h; sourceTree = "<group>"; };
+		75213E8B1F776F66003FA69D /* post_exploit_ziva.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = post_exploit_ziva.m; path = saigon/ziva/post_exploit_ziva.m; sourceTree = "<group>"; };
+		75213E8C1F776F66003FA69D /* rwx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rwx.h; path = saigon/ziva/rwx.h; sourceTree = "<group>"; };
+		75213E8D1F776F66003FA69D /* rwx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rwx.m; path = saigon/ziva/rwx.m; sourceTree = "<group>"; };
+		75213E8E1F776F66003FA69D /* ziva_iokit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ziva_iokit.h; path = saigon/ziva/ziva_iokit.h; sourceTree = "<group>"; };
+		75213E8F1F776F66003FA69D /* ziva_main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ziva_main.h; path = saigon/ziva/ziva_main.h; sourceTree = "<group>"; };
+		75213E901F776F66003FA69D /* ziva_main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ziva_main.m; path = saigon/ziva/ziva_main.m; sourceTree = "<group>"; };
+		75213E9B1F776F7F003FA69D /* extra_offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = extra_offsets.h; path = saigon/extra_recipe/extra_offsets.h; sourceTree = "<group>"; };
+		75213E9C1F776F7F003FA69D /* extra_offsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = extra_offsets.m; path = saigon/extra_recipe/extra_offsets.m; sourceTree = "<group>"; };
+		75213E9D1F776F7F003FA69D /* jailbreak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jailbreak.c; path = saigon/extra_recipe/jailbreak.c; sourceTree = "<group>"; };
+		75213E9E1F776F7F003FA69D /* patchfinder64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = patchfinder64.c; path = saigon/extra_recipe/patchfinder64.c; sourceTree = "<group>"; };
+		75213E9F1F776F7F003FA69D /* patchfinder64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = patchfinder64.h; path = saigon/extra_recipe/patchfinder64.h; sourceTree = "<group>"; };
+		75213EA01F776F7F003FA69D /* pte_stuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pte_stuff.h; path = saigon/extra_recipe/pte_stuff.h; sourceTree = "<group>"; };
+		75213EA11F776F7F003FA69D /* unjail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unjail.h; path = saigon/extra_recipe/unjail.h; sourceTree = "<group>"; };
+		75213EA21F776F7F003FA69D /* unjail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = unjail.m; path = saigon/extra_recipe/unjail.m; sourceTree = "<group>"; };
+		75213EA81F776F93003FA69D /* cdhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cdhash.c; path = saigon/triple_fetch/cdhash.c; sourceTree = "<group>"; };
+		75213EA91F776F93003FA69D /* cdhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cdhash.h; path = saigon/triple_fetch/cdhash.h; sourceTree = "<group>"; };
+		75213EAA1F776F93003FA69D /* drop_payload.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = drop_payload.c; path = saigon/triple_fetch/drop_payload.c; sourceTree = "<group>"; };
+		75213EAB1F776F93003FA69D /* drop_payload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drop_payload.h; path = saigon/triple_fetch/drop_payload.h; sourceTree = "<group>"; };
+		75213EAC1F776F93003FA69D /* minibplist16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minibplist16.c; path = saigon/triple_fetch/minibplist16.c; sourceTree = "<group>"; };
+		75213EAD1F776F93003FA69D /* minibplist16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = minibplist16.h; path = saigon/triple_fetch/minibplist16.h; sourceTree = "<group>"; };
+		75213EAE1F776F93003FA69D /* patch_amfid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = patch_amfid.c; path = saigon/triple_fetch/patch_amfid.c; sourceTree = "<group>"; };
+		75213EAF1F776F93003FA69D /* patch_amfid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = patch_amfid.h; path = saigon/triple_fetch/patch_amfid.h; sourceTree = "<group>"; };
+		75213EB01F776F93003FA69D /* post_exploit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = post_exploit.c; path = saigon/triple_fetch/post_exploit.c; sourceTree = "<group>"; };
+		75213EB11F776F93003FA69D /* post_exploit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = post_exploit.h; path = saigon/triple_fetch/post_exploit.h; sourceTree = "<group>"; };
+		75213EB21F776F93003FA69D /* remote_call.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = remote_call.c; path = saigon/triple_fetch/remote_call.c; sourceTree = "<group>"; };
+		75213EB31F776F93003FA69D /* remote_call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = remote_call.h; path = saigon/triple_fetch/remote_call.h; sourceTree = "<group>"; };
+		75213EB41F776F93003FA69D /* remote_file.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = remote_file.c; path = saigon/triple_fetch/remote_file.c; sourceTree = "<group>"; };
+		75213EB51F776F93003FA69D /* remote_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = remote_file.h; path = saigon/triple_fetch/remote_file.h; sourceTree = "<group>"; };
+		75213EB61F776F93003FA69D /* remote_memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = remote_memory.c; path = saigon/triple_fetch/remote_memory.c; sourceTree = "<group>"; };
+		75213EB71F776F93003FA69D /* remote_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = remote_memory.h; path = saigon/triple_fetch/remote_memory.h; sourceTree = "<group>"; };
+		75213EB81F776F93003FA69D /* remote_ports.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = remote_ports.c; path = saigon/triple_fetch/remote_ports.c; sourceTree = "<group>"; };
+		75213EB91F776F93003FA69D /* remote_ports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = remote_ports.h; path = saigon/triple_fetch/remote_ports.h; sourceTree = "<group>"; };
+		75213EBA1F776F93003FA69D /* sploit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sploit.c; path = saigon/triple_fetch/sploit.c; sourceTree = "<group>"; };
+		75213EBB1F776F93003FA69D /* sploit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sploit.h; path = saigon/triple_fetch/sploit.h; sourceTree = "<group>"; };
+		75213EBC1F776F93003FA69D /* task_ports.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = task_ports.c; path = saigon/triple_fetch/task_ports.c; sourceTree = "<group>"; };
+		75213EBD1F776F93003FA69D /* task_ports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = task_ports.h; path = saigon/triple_fetch/task_ports.h; sourceTree = "<group>"; };
+		75213EBE1F776F93003FA69D /* xpc_handshake.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xpc_handshake.c; path = saigon/triple_fetch/xpc_handshake.c; sourceTree = "<group>"; };
+		75213EBF1F776F93003FA69D /* xpc_handshake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xpc_handshake.h; path = saigon/triple_fetch/xpc_handshake.h; sourceTree = "<group>"; };
+		75213ECD1F776FA0003FA69D /* oxpc_array.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_array.c; path = saigon/triple_fetch/liboxpc/oxpc_array.c; sourceTree = "<group>"; };
+		75213ECE1F776FA0003FA69D /* oxpc_array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_array.h; path = saigon/triple_fetch/liboxpc/oxpc_array.h; sourceTree = "<group>"; };
+		75213ECF1F776FA0003FA69D /* oxpc_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_data.c; path = saigon/triple_fetch/liboxpc/oxpc_data.c; sourceTree = "<group>"; };
+		75213ED01F776FA0003FA69D /* oxpc_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_data.h; path = saigon/triple_fetch/liboxpc/oxpc_data.h; sourceTree = "<group>"; };
+		75213ED11F776FA0003FA69D /* oxpc_dictionary.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_dictionary.c; path = saigon/triple_fetch/liboxpc/oxpc_dictionary.c; sourceTree = "<group>"; };
+		75213ED21F776FA0003FA69D /* oxpc_dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_dictionary.h; path = saigon/triple_fetch/liboxpc/oxpc_dictionary.h; sourceTree = "<group>"; };
+		75213ED31F776FA0003FA69D /* oxpc_mach_send.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_mach_send.c; path = saigon/triple_fetch/liboxpc/oxpc_mach_send.c; sourceTree = "<group>"; };
+		75213ED41F776FA0003FA69D /* oxpc_mach_send.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_mach_send.h; path = saigon/triple_fetch/liboxpc/oxpc_mach_send.h; sourceTree = "<group>"; };
+		75213ED51F776FA0003FA69D /* oxpc_object.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_object.c; path = saigon/triple_fetch/liboxpc/oxpc_object.c; sourceTree = "<group>"; };
+		75213ED61F776FA0003FA69D /* oxpc_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_object.h; path = saigon/triple_fetch/liboxpc/oxpc_object.h; sourceTree = "<group>"; };
+		75213ED71F776FA0003FA69D /* oxpc_ool_data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_ool_data.c; path = saigon/triple_fetch/liboxpc/oxpc_ool_data.c; sourceTree = "<group>"; };
+		75213ED81F776FA0003FA69D /* oxpc_ool_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_ool_data.h; path = saigon/triple_fetch/liboxpc/oxpc_ool_data.h; sourceTree = "<group>"; };
+		75213ED91F776FA0003FA69D /* oxpc_string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_string.c; path = saigon/triple_fetch/liboxpc/oxpc_string.c; sourceTree = "<group>"; };
+		75213EDA1F776FA0003FA69D /* oxpc_string.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_string.h; path = saigon/triple_fetch/liboxpc/oxpc_string.h; sourceTree = "<group>"; };
+		75213EDB1F776FA0003FA69D /* oxpc_uint64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_uint64.c; path = saigon/triple_fetch/liboxpc/oxpc_uint64.c; sourceTree = "<group>"; };
+		75213EDC1F776FA0003FA69D /* oxpc_uint64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_uint64.h; path = saigon/triple_fetch/liboxpc/oxpc_uint64.h; sourceTree = "<group>"; };
+		75213EDD1F776FA0003FA69D /* oxpc_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_utils.c; path = saigon/triple_fetch/liboxpc/oxpc_utils.c; sourceTree = "<group>"; };
+		75213EDE1F776FA0003FA69D /* oxpc_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_utils.h; path = saigon/triple_fetch/liboxpc/oxpc_utils.h; sourceTree = "<group>"; };
+		75213EDF1F776FA0003FA69D /* oxpc_uuid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = oxpc_uuid.c; path = saigon/triple_fetch/liboxpc/oxpc_uuid.c; sourceTree = "<group>"; };
+		75213EE01F776FA0003FA69D /* oxpc_uuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc_uuid.h; path = saigon/triple_fetch/liboxpc/oxpc_uuid.h; sourceTree = "<group>"; };
+		75213EE11F776FA0003FA69D /* oxpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oxpc.h; path = saigon/triple_fetch/liboxpc/oxpc.h; sourceTree = "<group>"; };
+		75213EEC1F777000003FA69D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = saigon/Info.plist; sourceTree = "<group>"; };
+		753A833F1F78046200CB38A9 /* IOKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKit.h; path = saigon/IOKit/IOKit.h; sourceTree = "<group>"; };
+		753A83401F78046200CB38A9 /* IOKitKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKitKeys.h; path = saigon/IOKit/IOKitKeys.h; sourceTree = "<group>"; };
+		753A83411F78046200CB38A9 /* IOKitLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOKitLib.h; path = saigon/IOKit/IOKitLib.h; sourceTree = "<group>"; };
+		753A83421F78046200CB38A9 /* IOMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOMessage.h; path = saigon/IOKit/IOMessage.h; sourceTree = "<group>"; };
+		753A83431F78046200CB38A9 /* IOReturn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOReturn.h; path = saigon/IOKit/IOReturn.h; sourceTree = "<group>"; };
+		753A83441F78046200CB38A9 /* IOTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IOTypes.h; path = saigon/IOKit/IOTypes.h; sourceTree = "<group>"; };
+		753A83451F78046200CB38A9 /* OSKext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSKext.h; path = saigon/IOKit/OSKext.h; sourceTree = "<group>"; };
+		753A83461F78046200CB38A9 /* OSMessageNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OSMessageNotification.h; path = saigon/IOKit/OSMessageNotification.h; sourceTree = "<group>"; };
+		75706FA71F89506E0009735B /* libjb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = libjb.h; path = saigon/extra_recipe/libjb.h; sourceTree = "<group>"; };
+		75CCC4261F85C52B00E46AE5 /* dropbear.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = dropbear.plist; path = saigon/dropbear.plist; sourceTree = "<group>"; };
+		75CCC4271F85C52B00E46AE5 /* bootstrap.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; name = bootstrap.tar; path = saigon/bootstrap.tar; sourceTree = "<group>"; };
+		75CCC4281F85C52C00E46AE5 /* launchctl */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = launchctl; path = saigon/launchctl; sourceTree = "<group>"; };
+		75CCC4291F85C52C00E46AE5 /* reload */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = reload; path = saigon/reload; sourceTree = "<group>"; };
+		75CCC42A1F85C52C00E46AE5 /* tar */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = tar; path = saigon/tar; sourceTree = "<group>"; };
+		75D8DCC81F77895200AC2763 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Saigon/Images.xcassets; sourceTree = "<group>"; };
+		EA9900E31E1E9F060056FEBD /* Saigon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Saigon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA9900E01E1E9F060056FEBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75213E6B1F776EED003FA69D /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		75213E691F776EEC003FA69D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75213E6A1F776EED003FA69D /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75213E6C1F776F00003FA69D /* saigon */ = {
+			isa = PBXGroup;
+			children = (
+				75CCC4251F85C50E00E46AE5 /* bundle */,
+				753A833E1F78045500CB38A9 /* IOKit */,
+				75213EA71F776F84003FA69D /* triple_fetch */,
+				75213E9A1F776F73003FA69D /* extra_recipe */,
+				75213E7B1F776F51003FA69D /* ziva */,
+				75213E6D1F776F3F003FA69D /* AlertViewController.swift */,
+				75213E6E1F776F3F003FA69D /* AppDelegate.swift */,
+				75213E701F776F3F003FA69D /* Main.storyboard */,
+				75213E711F776F3F003FA69D /* Saigon-Bridging-Header.h */,
+				75213E721F776F3F003FA69D /* SiagonViewController.swift */,
+				75213E731F776F3F003FA69D /* Utilities.h */,
+				75213E741F776F3F003FA69D /* Utilities.m */,
+				75213EEC1F777000003FA69D /* Info.plist */,
+			);
+			name = saigon;
+			sourceTree = "<group>";
+		};
+		75213E7B1F776F51003FA69D /* ziva */ = {
+			isa = PBXGroup;
+			children = (
+				75213E7C1F776F66003FA69D /* apple_ave_pwn.h */,
+				75213E7D1F776F66003FA69D /* apple_ave_pwn.m */,
+				75213E7E1F776F66003FA69D /* apple_ave_utils.h */,
+				75213E7F1F776F66003FA69D /* apple_ave_utils.m */,
+				75213E801F776F66003FA69D /* device_port.h */,
+				75213E811F776F66003FA69D /* device_types.h */,
+				75213E821F776F66003FA69D /* heap_spray.h */,
+				75213E831F776F66003FA69D /* heap_spray.m */,
+				75213E841F776F66003FA69D /* iosurface_utils.h */,
+				75213E851F776F66003FA69D /* iosurface_utils.m */,
+				75213E861F776F66003FA69D /* kernel_read.h */,
+				75213E871F776F66003FA69D /* kernel_read.m */,
+				75213E881F776F66003FA69D /* offsets.h */,
+				75213E891F776F66003FA69D /* offsets.m */,
+				75213E8A1F776F66003FA69D /* post_exploit_ziva.h */,
+				75213E8B1F776F66003FA69D /* post_exploit_ziva.m */,
+				75213E8C1F776F66003FA69D /* rwx.h */,
+				75213E8D1F776F66003FA69D /* rwx.m */,
+				75213E8E1F776F66003FA69D /* ziva_iokit.h */,
+				75213E8F1F776F66003FA69D /* ziva_main.h */,
+				75213E901F776F66003FA69D /* ziva_main.m */,
+			);
+			name = ziva;
+			sourceTree = "<group>";
+		};
+		75213E9A1F776F73003FA69D /* extra_recipe */ = {
+			isa = PBXGroup;
+			children = (
+				75213E9B1F776F7F003FA69D /* extra_offsets.h */,
+				75213E9C1F776F7F003FA69D /* extra_offsets.m */,
+				75213E9D1F776F7F003FA69D /* jailbreak.c */,
+				75213E9E1F776F7F003FA69D /* patchfinder64.c */,
+				75213E9F1F776F7F003FA69D /* patchfinder64.h */,
+				75213EA01F776F7F003FA69D /* pte_stuff.h */,
+				75213EA11F776F7F003FA69D /* unjail.h */,
+				75213EA21F776F7F003FA69D /* unjail.m */,
+				75706FA71F89506E0009735B /* libjb.h */,
+			);
+			name = extra_recipe;
+			sourceTree = "<group>";
+		};
+		75213EA71F776F84003FA69D /* triple_fetch */ = {
+			isa = PBXGroup;
+			children = (
+				75213ECC1F776F95003FA69D /* liboxpc */,
+				75213EA81F776F93003FA69D /* cdhash.c */,
+				75213EA91F776F93003FA69D /* cdhash.h */,
+				75213EAA1F776F93003FA69D /* drop_payload.c */,
+				75213EAB1F776F93003FA69D /* drop_payload.h */,
+				75213EAC1F776F93003FA69D /* minibplist16.c */,
+				75213EAD1F776F93003FA69D /* minibplist16.h */,
+				75213EAE1F776F93003FA69D /* patch_amfid.c */,
+				75213EAF1F776F93003FA69D /* patch_amfid.h */,
+				75213EB01F776F93003FA69D /* post_exploit.c */,
+				75213EB11F776F93003FA69D /* post_exploit.h */,
+				75213EB21F776F93003FA69D /* remote_call.c */,
+				75213EB31F776F93003FA69D /* remote_call.h */,
+				75213EB41F776F93003FA69D /* remote_file.c */,
+				75213EB51F776F93003FA69D /* remote_file.h */,
+				75213EB61F776F93003FA69D /* remote_memory.c */,
+				75213EB71F776F93003FA69D /* remote_memory.h */,
+				75213EB81F776F93003FA69D /* remote_ports.c */,
+				75213EB91F776F93003FA69D /* remote_ports.h */,
+				75213EBA1F776F93003FA69D /* sploit.c */,
+				75213EBB1F776F93003FA69D /* sploit.h */,
+				75213EBC1F776F93003FA69D /* task_ports.c */,
+				75213EBD1F776F93003FA69D /* task_ports.h */,
+				75213EBE1F776F93003FA69D /* xpc_handshake.c */,
+				75213EBF1F776F93003FA69D /* xpc_handshake.h */,
+			);
+			name = triple_fetch;
+			sourceTree = "<group>";
+		};
+		75213ECC1F776F95003FA69D /* liboxpc */ = {
+			isa = PBXGroup;
+			children = (
+				75213ECD1F776FA0003FA69D /* oxpc_array.c */,
+				75213ECE1F776FA0003FA69D /* oxpc_array.h */,
+				75213ECF1F776FA0003FA69D /* oxpc_data.c */,
+				75213ED01F776FA0003FA69D /* oxpc_data.h */,
+				75213ED11F776FA0003FA69D /* oxpc_dictionary.c */,
+				75213ED21F776FA0003FA69D /* oxpc_dictionary.h */,
+				75213ED31F776FA0003FA69D /* oxpc_mach_send.c */,
+				75213ED41F776FA0003FA69D /* oxpc_mach_send.h */,
+				75213ED51F776FA0003FA69D /* oxpc_object.c */,
+				75213ED61F776FA0003FA69D /* oxpc_object.h */,
+				75213ED71F776FA0003FA69D /* oxpc_ool_data.c */,
+				75213ED81F776FA0003FA69D /* oxpc_ool_data.h */,
+				75213ED91F776FA0003FA69D /* oxpc_string.c */,
+				75213EDA1F776FA0003FA69D /* oxpc_string.h */,
+				75213EDB1F776FA0003FA69D /* oxpc_uint64.c */,
+				75213EDC1F776FA0003FA69D /* oxpc_uint64.h */,
+				75213EDD1F776FA0003FA69D /* oxpc_utils.c */,
+				75213EDE1F776FA0003FA69D /* oxpc_utils.h */,
+				75213EDF1F776FA0003FA69D /* oxpc_uuid.c */,
+				75213EE01F776FA0003FA69D /* oxpc_uuid.h */,
+				75213EE11F776FA0003FA69D /* oxpc.h */,
+			);
+			name = liboxpc;
+			sourceTree = "<group>";
+		};
+		753A833E1F78045500CB38A9 /* IOKit */ = {
+			isa = PBXGroup;
+			children = (
+				753A833F1F78046200CB38A9 /* IOKit.h */,
+				753A83401F78046200CB38A9 /* IOKitKeys.h */,
+				753A83411F78046200CB38A9 /* IOKitLib.h */,
+				753A83421F78046200CB38A9 /* IOMessage.h */,
+				753A83431F78046200CB38A9 /* IOReturn.h */,
+				753A83441F78046200CB38A9 /* IOTypes.h */,
+				753A83451F78046200CB38A9 /* OSKext.h */,
+				753A83461F78046200CB38A9 /* OSMessageNotification.h */,
+			);
+			name = IOKit;
+			sourceTree = "<group>";
+		};
+		75CCC4251F85C50E00E46AE5 /* bundle */ = {
+			isa = PBXGroup;
+			children = (
+				75CCC4271F85C52B00E46AE5 /* bootstrap.tar */,
+				75CCC4261F85C52B00E46AE5 /* dropbear.plist */,
+				75CCC4281F85C52C00E46AE5 /* launchctl */,
+				75CCC4291F85C52C00E46AE5 /* reload */,
+				75CCC42A1F85C52C00E46AE5 /* tar */,
+			);
+			name = bundle;
+			sourceTree = "<group>";
+		};
+		EA9900DA1E1E9F060056FEBD = {
+			isa = PBXGroup;
+			children = (
+				75D8DCC81F77895200AC2763 /* Images.xcassets */,
+				75213E6C1F776F00003FA69D /* saigon */,
+				EA9900E41E1E9F060056FEBD /* Products */,
+				75213E691F776EEC003FA69D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EA9900E41E1E9F060056FEBD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA9900E31E1E9F060056FEBD /* Saigon.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA9900E21E1E9F060056FEBD /* Saigon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA9900FA1E1E9F060056FEBD /* Build configuration list for PBXNativeTarget "Saigon" */;
+			buildPhases = (
+				EA9900DF1E1E9F060056FEBD /* Sources */,
+				EA9900E01E1E9F060056FEBD /* Frameworks */,
+				EA9900E11E1E9F060056FEBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Saigon;
+			productName = Saigon;
+			productReference = EA9900E31E1E9F060056FEBD /* Saigon.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA9900DB1E1E9F060056FEBD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = cheesecakeufo;
+				TargetAttributes = {
+					EA9900E21E1E9F060056FEBD = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = D34X7XXW5V;
+						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = EA9900DE1E1E9F060056FEBD /* Build configuration list for PBXProject "Saigon" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA9900DA1E1E9F060056FEBD;
+			productRefGroup = EA9900E41E1E9F060056FEBD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA9900E21E1E9F060056FEBD /* Saigon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA9900E11E1E9F060056FEBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75D8DCC91F77895200AC2763 /* Images.xcassets in Resources */,
+				75213EED1F777000003FA69D /* Info.plist in Resources */,
+				75213E781F776F3F003FA69D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA9900DF1E1E9F060056FEBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75213EC91F776F93003FA69D /* sploit.c in Sources */,
+				75213E961F776F66003FA69D /* offsets.m in Sources */,
+				75213EC61F776F93003FA69D /* remote_file.c in Sources */,
+				75213E761F776F3F003FA69D /* AppDelegate.swift in Sources */,
+				75213EA51F776F7F003FA69D /* patchfinder64.c in Sources */,
+				75213EC51F776F93003FA69D /* remote_call.c in Sources */,
+				75213EE51F776FA0003FA69D /* oxpc_mach_send.c in Sources */,
+				75213E921F776F66003FA69D /* apple_ave_utils.m in Sources */,
+				75213EE21F776FA0003FA69D /* oxpc_array.c in Sources */,
+				75213ECB1F776F93003FA69D /* xpc_handshake.c in Sources */,
+				75213EA41F776F7F003FA69D /* jailbreak.c in Sources */,
+				75213E971F776F66003FA69D /* post_exploit_ziva.m in Sources */,
+				75213EE61F776FA0003FA69D /* oxpc_object.c in Sources */,
+				75213EC31F776F93003FA69D /* patch_amfid.c in Sources */,
+				75213EC41F776F93003FA69D /* post_exploit.c in Sources */,
+				75213ECA1F776F93003FA69D /* task_ports.c in Sources */,
+				75213E931F776F66003FA69D /* heap_spray.m in Sources */,
+				75213EEB1F776FA0003FA69D /* oxpc_uuid.c in Sources */,
+				75213E951F776F66003FA69D /* kernel_read.m in Sources */,
+				75213EE81F776FA0003FA69D /* oxpc_string.c in Sources */,
+				75213EC81F776F93003FA69D /* remote_ports.c in Sources */,
+				75213EE41F776FA0003FA69D /* oxpc_dictionary.c in Sources */,
+				75213EA61F776F7F003FA69D /* unjail.m in Sources */,
+				75213EC21F776F93003FA69D /* minibplist16.c in Sources */,
+				75213E791F776F3F003FA69D /* SiagonViewController.swift in Sources */,
+				75213EA31F776F7F003FA69D /* extra_offsets.m in Sources */,
+				75213EC71F776F93003FA69D /* remote_memory.c in Sources */,
+				75213EE91F776FA0003FA69D /* oxpc_uint64.c in Sources */,
+				75213EE31F776FA0003FA69D /* oxpc_data.c in Sources */,
+				75213EC11F776F93003FA69D /* drop_payload.c in Sources */,
+				75213E7A1F776F3F003FA69D /* Utilities.m in Sources */,
+				75213E941F776F66003FA69D /* iosurface_utils.m in Sources */,
+				75213E991F776F66003FA69D /* ziva_main.m in Sources */,
+				75213E981F776F66003FA69D /* rwx.m in Sources */,
+				75213E751F776F3F003FA69D /* AlertViewController.swift in Sources */,
+				75213EE71F776FA0003FA69D /* oxpc_ool_data.c in Sources */,
+				75213EEA1F776FA0003FA69D /* oxpc_utils.c in Sources */,
+				75213EC01F776F93003FA69D /* cdhash.c in Sources */,
+				75213E911F776F66003FA69D /* apple_ave_pwn.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EA9900F81E1E9F060056FEBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_NO_PIE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Saigon;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EA9900F91E1E9F060056FEBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_NO_PIE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Saigon;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA9900FB1E1E9F060056FEBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DEVELOPMENT_TEAM = D34X7XXW5V;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Headers";
+				INFOPLIST_FILE = saigon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/extra_recipe",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cheesecakeufo.saigon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "saigon/Saigon-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = arm64;
+			};
+			name = Debug;
+		};
+		EA9900FC1E1E9F060056FEBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DEVELOPMENT_TEAM = D34X7XXW5V;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Headers";
+				INFOPLIST_FILE = saigon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/extra_recipe",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cheesecakeufo.saigon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "saigon/Saigon-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = arm64;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA9900DE1E1E9F060056FEBD /* Build configuration list for PBXProject "Saigon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9900F81E1E9F060056FEBD /* Debug */,
+				EA9900F91E1E9F060056FEBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA9900FA1E1E9F060056FEBD /* Build configuration list for PBXNativeTarget "Saigon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9900FB1E1E9F060056FEBD /* Debug */,
+				EA9900FC1E1E9F060056FEBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA9900DB1E1E9F060056FEBD /* Project object */;
+}
