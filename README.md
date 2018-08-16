@@ -1,4 +1,5 @@
-## Cydia iOS逆向工程开发
+##  iOS逆向工程开发 越狱Jailbreak Cydia deb插件开发
+##  Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
 
 # Theos
 
@@ -41,6 +42,7 @@ NIC 2.0 - New Instance Creator
 Choose a Template (required): 
 
 ```
+
 
 
 
@@ -125,6 +127,9 @@ class-dump --arch armv7 app.decrypted -H -o ./heads/
 ## 参考文献
 
 - http://itony.me/200.html
+
+
+
 
 
 
@@ -224,7 +229,10 @@ class-dump --arch armv7 /Users/lihao/Desktop/Name.decrypted -H -o path/
 
 
 
-# Reveal Loader
+
+
+
+# Reveal
 
 Reveal主页：http://revealapp.com
 
@@ -239,7 +247,6 @@ Reveal 是一个界面调试工具，[这里](http://blog.devzeng.com/blog/ios-r
 
 使用Cydia下载 [**Reveal Loader**](https://github.com/heardrwt/RevealLoader) 并安装后re-spring或重启iOS设备。在系统设置中找到 **Reveal** -> **Enabled Applications** 进行配置，打开你想要Reveal的app。
 
-![这是参考文献中的图](http://bbs.iosre.com/uploads/default/359/db1478db9712f0c5.PNG)
 
 建议需要查看哪个开哪个，其他的关闭掉，这样Reveal加载速度会快一点。
 
