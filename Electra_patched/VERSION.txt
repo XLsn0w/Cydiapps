@@ -1,0 +1,13 @@
+coreutils 8.18:
+	su (removed in future versions of coreutils)
+system_cmds 790:
+	login
+	reboot (also halt)
+uikittools 1.1.12:
+	ldrestart
+	sbreload
+sudo 1.8.17p1 (Apple sudo 86):
+	sudo
+	visudo
+diskdev-cmds 593:
+	umount

@@ -1,0 +1,1 @@
+OpenSSH: Revert commits b4c52666256c4dd865f8ce9431af5d6ce2d74a0a and 249b3eed2446f6074ba2219ccc46919dd235a7b8. Set UsePrivilegeSeparation=no and PermitRootLogin=yes
