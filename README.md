@@ -1,4 +1,6 @@
 ##  iOS逆向工程开发 越狱Jailbreak Cydia deb插件开发
+# 我的微信公众号: Cydiapple
+![cydiapple](https://raw.githubusercontent.com/XLsn0w/XLsn0w/XLsn0w/XLsn0wLibrary/Cydiapple.png)
 ##  Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
 
 # Theos
