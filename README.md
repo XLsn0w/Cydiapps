@@ -21,29 +21,20 @@ mac ,  iOS设备（已经越狱）
 
 Mac与 iPhone接在了同一个局域网下
 
-
-
 3、 简单使用
 
 使用cycript，可实现简单的进程注入。当然，还可以用作其他方面，因为其实时性强。这里，我就实现了简单的进程注入。
-
 
 4、实现过程：
 
 A、在Mac下使用终端登录到iPhone上，默认密码是：alpine，使用命令：ssh root@192.168.x.x
 
-
-
-当然，你也可以在自己的iPhone上装   terminal 插件。
-
+当然，你也可以在自己的iPhone上装 MTerminal 插件。 如下图
+![MTerminal](https://github.com/XLsn0w/Cydia/blob/master/MTerminal.JPG?raw=true)
 
 B、回到主题，继续在终端键入命令  ps -e | grep SpringBoard, 查找 进程id 
 
-
-
 C、找到ID 后，就可以用cycript实现注入了，键入命令如下：cycript -p 14823
-
-
 
 D、完成注入后，接着键入下面的命令，然后回车，再看看自己的iPhone吧。
 
