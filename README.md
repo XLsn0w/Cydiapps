@@ -4,7 +4,56 @@
 ![SE](https://github.com/XLsn0w/Cydia/blob/master/iOS%209.3.2%20jailbreak.JPG?raw=true)
 # 我的微信公众号: Cydiapple
 ![cydiapple](https://raw.githubusercontent.com/XLsn0w/XLsn0w/XLsn0w/XLsn0wLibrary/Cydiapple.png)
-##  Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
+## Cycript / Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
+
+# Cycript
+
+官网：http://www.cycript.org/
+
+越狱的设备，在cydia中安装这个插件。
+
+
+2、设备环境
+
+mac ,  iOS设备（已经越狱）
+
+首先，在手机上安装openssh， 安装方式：cydia。当然，你也可是去官网下载包，然后在将其打包成.deb格式，再拷入iPhone中。
+
+Mac与 iPhone接在了同一个局域网下
+
+
+
+3、 简单使用
+
+使用cycript，可实现简单的进程注入。当然，还可以用作其他方面，因为其实时性强。这里，我就实现了简单的进程注入。
+
+
+4、实现过程：
+
+A、在Mac下使用终端登录到iPhone上，默认密码是：alpine，使用命令：ssh root@192.168.x.x
+
+
+
+当然，你也可以在自己的iPhone上装   terminal 插件。
+
+
+B、回到主题，继续在终端键入命令  ps -e | grep SpringBoard, 查找 进程id 
+
+
+
+C、找到ID 后，就可以用cycript实现注入了，键入命令如下：cycript -p 14823
+
+
+
+D、完成注入后，接着键入下面的命令，然后回车，再看看自己的iPhone吧。
+
+alertView = [[[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:il cancelButtonTitle:@"ok" otherButtonTitles:nil] show]
+
+
+我这里注入的进程是 SpringBoard 。 简单的进程注入，只是cycript功能的冰山一角中的一小点，它还有很多强大的功能，看看官网的文档吧。超详细
+
+文档传送门：http://www.cycript.org/manual/
+
 
 # Theos
 
