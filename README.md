@@ -6,6 +6,119 @@
 ![cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 ## Cycript / Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
 
+越狱开发常见的工具OpenSSH，Dumpdecrypted，class-dump、Theos、Reveal、IDA，Hopper，
+
+
+## OpenSSH
+
+
+这个工具是通过命令行工具访问苹果手机，执行命令行脚本。在Cydia中搜索openssh，安装。具体用法如下：
+1、打开mac下的terminal，输入命令ssh root@192.168.2.2（越狱设备ip地址）
+2、接下来会提示输入超级管理员账号密码，默认是alpine
+3、回车确认，即可root登录设备
+你也可以将你mac的公钥导入设备的/var/root/.ssh/authorized_keys文件，这样就可以免密登录root了。
+
+
+## Cycript
+
+
+Cycript是大神saurik开发的一个非常强大的工具，可以让开发者在命令行下和应用交互，在运行时查看和修改应用。它可以帮助你HOOK一个App。Cycript最为贴心和实用的功能是它可以帮助我们轻松测试函数效果，整个过程安全无副作用，效果十分显著，实乃业界良心！
+安装方式：在Cydia中搜索Cycript安装
+使用方法：
+1、root登录越狱设备
+2、cycript-p 你想要测试的进程名
+3、随便玩，完全兼容OC语法比如cy# [#0x235b4fb1 hidden]
+Cycript有几条非常有用的命令：
+choose：如果知道一个类对象存在于当前的进程中，却不知道它的地址，不能通过“#”操作符来获取它，此时可以使用choose命令获取到该类的所有对象的内存地址
+打印一个对象的所有属性 [obj _ivarDescription].toString()
+打印一个对象的所有方法[obj _methodDescription].toString()
+动态添加属性 objc_setAssociatedObject(obj,@”isAdd”, [NSNumbernumberWithBool:YES], 0);
+获取动态添加的属性 objc_getAssociatedObject(self, @”isAdd”)
+
+
+## Reveal
+
+
+Reveal是由ITTY BITTY出品的UI分析工具，可以直观地查看App的UI布局，我们可以用来研究别人的App界面是怎么做的，有哪些元素。更重要的是，可以直接找到你要HOOK的那个ViewController，贼方便不用瞎猫抓耗子一样到处去找是哪个ViewController了。
+安装方法：
+1、下载安装Mac版的Reveal
+2、iOS安装Reveal Loader，在Cydia中搜索并安装Reveal Loader
+在安装Reveal Loader的时候，它会自动从Reveal的官网下载一个必须的文件libReveal.dylib。如果网络状况不太好，不一定能够成功下载这个dylib文件，所以在下载完Reveal Loader后，检查iOS上的“/Library/RHRevealLoader/”目录下有没有一个名为“libReveal.dylib”的文件。如果没有就打开mac Reveal，在它标题栏的“Help”选项下，选中其中的“Show Reveal Library in Finder”，找到libReveal.dylib文件，使用scp拷贝到 iOS的/Library/RHRevealLoader/目录下。至此Reveal安装完毕！
+
+
+## Dumpdecrypted
+
+
+Dumpdecrypted就是著名的砸壳工具，所谓砸壳，就是对 ipa 文件进行解密。因为在上传到 AppStore 之后，AppStore自动给所有的 ipa 进行了加密处理。而对于加密后的文件，直接使用 class-dump 是得不到什么东西的，或者是空文件，或者是一堆加密后的方法/类名。
+使用步骤如下：
+1、设备中打开需要砸壳的APP。
+2、SSH连接到手机，找到ipa包的位置并记录下来。
+3、Cycript到该ipa的进程，找到App的Documents文件夹位置并记录下来。
+4、拷贝dumpdecrypted.dylib到App的Documents 的目录。
+5、执行砸壳后，并拷贝出砸壳后的二进制文件。
+具体执行命令：
+1、ssh root@192.168.2.2 （iP地址为越狱设备的iP地址）
+2、 ps -e （查看进程，把进程对应的二进制文件地址记下来）
+3、cycript -p 进程名
+4、 [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+inDomains:NSUserDomainMask][0] （找到程序的documents目录）
+5、scp ~/dumpdecrypted.dylib root@192.168.2.2:/var/mobile/Containers/Data/Application/XXXXXX/Documents
+6、DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /var/mobile/Containers/Bundle/
+Application/XXXXXX/xxx.app/xxx
+然后就会生成.decrypted的文件，这个就是砸壳后的文件。接下来各种工具都随便上了class-dump、IDA、Hopper Disassembler
+
+
+## class-dump
+
+
+class-dump就是用来dump二进制运行文件里面的class信息的工具。它利用Objective-C语言的runtime特性，将存储在Mach-O文件中的头文件信息提取出来，并生成对应的.h文件，这个工具非常有用，有了这个工具我们就像四维世界里面看三维物体，一切架构尽收眼底。
+class-dump用法：
+class-dump –arch armv7 -s -S -H 二进制文件路径 -o 头文件保存路径
+
+
+## IDA
+
+
+IDA是大名鼎鼎的反编译工具，它乃逆向工程中最负盛名的神器之一。支持Windows、Linux和Mac OS X的多平台反汇编器/调试器，它的功能非常强大。class-dump可以帮我们罗列出要分析的头文件，IDA能够深入各个函数的具体实现，无论的C，C++，OC的函数都可以反编译出来。不过反编译出来的是汇编代码，你需要有一定的汇编基础才能读的懂。
+IDA很吃机器性能（我的机器经常卡住不动），还有另外一个反编译工具Hopper，对机器性能要求没那么高，也很好用，杀人越货的利器。
+
+
+## LLDB
+
+
+LLDB是由苹果出品，内置于Xcode中的动态调试工具，可以调试C、C++、Objective-C，还全盘支持OSX、iOS，以及iOS模拟器。LLDB要配合debugserver来使用。常见的LLDB命令有：
+p命令：首先p是打印非对象的值。如果使用它打印对象的话，那么它会打印出对象的地址，如果打印非对象它一般会打印出基本变量类型的值。当然用它也可以申明一个变量譬如 p int a=10;（注lldb使用a = 10; （注lldb使用在变量前来声明为lldb内的命名空间的）
+po 命令：po 命令是我们最常用的命令因为在ios开发中，我们时刻面临着对象，所以我们在绝大部分时候都会使用po。首先po这个命令会打印出对象的description描述。
+bt [all] 打印调用堆栈，是thread backtrace的简写，加all可打印所有thread的堆栈。
+br l 是breakpoint list的简写，列出所有的断点
+image list -o -f 列出模块和ASLR偏移，以及偏移后的地址，可以通过偏移后的地址-ASLR偏移来得出模块的基地址。
+b NSLog给函数设置断点
+br s -a IDA中偏移前的地址+ASLR偏移量 给内存地址设置断点
+p (char *)$r1打印函数名称
+br dis、br en和br del表示禁用、启用和删除断点
+nexti（ni）跳过一行
+stepi（si）跳入函数
+c继续执行直到断点
+register write r0 1修改寄存器的值usbmuxd很多人都是通过WiFi连接使用SSH服务的，因为无线网络的不稳定性及传输速度的限制，在复制文件或用LLDB远程调试时，iOS的响应很慢，效率不高。iOS越狱社区的知名人士Nikias Bassen开发了一款可以把本地OSX/Windows端口转发到远程iOS端口的工具usbmuxd，使我们能够通过USB连接线ssh到iOS中，大大增加了ssh连接的速度，也方便了那些没有WiFi的朋友。使用usbmuxd能极大提升ssh的速度，用LLDB远程连接debugserver的时间被缩短至15秒以内，强烈建议大家把usbmuxd作为ssh连接的首选方案
+
+
+## Theos
+
+
+以上都是App的分析工具，而Theos是一个越狱开发工具包（具体写代码），由iOS越狱界知名人士Dustin Howett开发并分享到GitHub上。Theos与其他越狱开发工具相比，最大的特点就是简单：下载安装简单、Logos语法简单、编译发布简单，可以让使用者把精力都放在开发工作上去。就是让你省去了繁琐的原始代码编写，简化了编译和安装过程。同样有一款工具iOSOpenDev是整合在Xcode里的，可以直接在Xcode中配置开发、运行越狱程序，不过iOSOpenDev的安装，过程真的是让人要吐血（我有一台mac死活都装不上）。
+用法，theos有多种模板可以选择，最常用的就是tweak插件了：
+/opt/theos/bin/nic.plNIC 2.0 - New Instance Creator
+[1.] iphone/application
+[2.] iphone/library
+[3.] iphone/preference_bundle
+[4.] iphone/tool
+[5.] iphone/tweak
+打包编译安装，需要按照固定格式编写Makefile文件，然后执行命令
+make package install，自动编译打包安装到iOS设备。
+如果你用的是IOSOpenDev就更简单了，配置好iOS设备ip地址，直接执行product->Bulid for－>profiling，自动打包安装好
+
+![Cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
+
 # Cycript
 
 官网：http://www.cycript.org/
