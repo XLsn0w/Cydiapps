@@ -117,6 +117,53 @@ register write r0 1修改寄存器的值usbmuxd很多人都是通过WiFi连接�
 make package install，自动编译打包安装到iOS设备。
 如果你用的是IOSOpenDev就更简单了，配置好iOS设备ip地址，直接执行product->Bulid for－>profiling，自动打包安装好
 
+一、 安装theos
+
+1.打开终端(terminal)
+2.先安装Homebrew
+3.brew install ldid
+
+4.下载theos 建议最好使用命令行的方式进行下载安装，因为theos内含有一些依赖文件
+git clone --recursive https://github.com/theos/theos.git $THEOS
+pS：$THEOS为环境变量，theos下载的目录
+配置环境变量的方法如下->
+```
+$ ls -al /*找到bash_profile */
+$ vim .bash_profile /* 编辑文件 */
+$ export THEOS=~/theos /* 加入环境变量 */
+$ export PATH=~/theos/bin:$PATH /* 如果不加入这行，theos的命令会无效。 */ /** $PATH 千万不要忘记写或者写错，不然所有的命令都用不了了。如果真这样了请打开这个链接按步骤进行https://zhidao.baidu.com/question/1755826278714933228.html **/
+$ :wq  /* 保存退出 */
+$ source .bash_profile /* 使新添加的环境变量立即生效 */
+
+```
+新建项目
+```
+$ nic.pl
+
+NIC 2.0 - New Instance Creator
+------------------------------
+[1.] iphone/activator_event
+[2.] iphone/application_modern
+[3.] iphone/application_swift
+[4.] iphone/flipswitch_switch
+[5.] iphone/framework
+[6.] iphone/library
+[7.] iphone/preference_bundle_modern
+[8.] iphone/tool
+[9.] iphone/tool_swift
+[10.] iphone/tweak
+[11.] iphone/xpc_service
+Choose a Template (required): 10
+Project Name (required): XLsn0wtweak
+Package Name [com.yourcompany.xlsn0wtweak]: com.xlsn0w.xlsn0wtweak
+Author/Maintainer Name [Mac]: XLsn0w
+[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: 
+[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]: 
+Instantiating iphone/tweak in xlsn0wtweak/...
+Done.
+
+```
+
 ![Cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 
 # Cycript
