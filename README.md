@@ -8,6 +8,14 @@
 
 越狱开发常见的工具OpenSSH，Dumpdecrypted，class-dump、Theos、Reveal、IDA，Hopper，
 
+# 添加我的Github个人Cydia插件源: 
+```
+https://xlsn0w.github.io/CydiaRepo
+
+```
+
+![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
+![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.jpg?raw=true)
 
 ## OpenSSH
 
