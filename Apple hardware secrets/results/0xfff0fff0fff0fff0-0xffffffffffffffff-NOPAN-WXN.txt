@@ -1,0 +1,515 @@
+EL1R EL1W EL0R EL0W KRN/USR (HPD/HPD) APRR
+okok okok ---- ---- rwx/--x (rwx/rwx) rwx/---
+okok okok ---- ---- rwx/--- (rwx/rwx) rwx/---
+okok okok ---- ---- rw-/--x (rwx/rwx) rw-/--x
+okok okok ---- ---- rw-/--- (rwx/rwx) rw-/---
+okok okok ---- ---- rwx/rwx (rwx/rwx) rw-/---
+okok okok okok okok rwx/rw- (rwx/rwx) rw-/rw-
+okok okok okok okok rw-/rwx (rwx/rwx) rw-/rwx
+okok okok okok okok rw-/rw- (rwx/rwx) rw-/rw-
+okok ---- ---- ---- r-x/--x (rwx/rwx) r-x/---
+okok ---- ---- ---- r-x/--- (rwx/rwx) r-x/---
+okok ---- ---- ---- r--/--x (rwx/rwx) r--/--x
+okok ---- ---- ---- r--/--- (rwx/rwx) r--/---
+okok ---- ---- ---- r-x/r-x (rwx/rwx) r-x/---
+okok ---- okok ---- r-x/r-- (rwx/rwx) r-x/r--
+okok ---- okok ---- r--/r-x (rwx/rwx) r--/r-x
+okok ---- okok ---- r--/r-- (rwx/rwx) r--/r--
+okok okok ---- ---- rwx/--x (rwx/rw-) rwx/---
+okok okok ---- ---- rwx/--- (rwx/rw-) rwx/---
+okok okok ---- ---- rw-/--x (rwx/rw-) rw-/--x
+okok okok ---- ---- rw-/--- (rwx/rw-) rw-/---
+okok okok okok okok rwx/rwx (rwx/rw-) rw-/---
+okok okok okok okok rwx/rw- (rwx/rw-) rw-/rw-
+okok okok okok okok rw-/rwx (rwx/rw-) rw-/rwx
+okok okok okok okok rw-/rw- (rwx/rw-) rw-/rw-
+okok ---- ---- ---- r-x/--x (rwx/rw-) r-x/---
+okok ---- ---- ---- r-x/--- (rwx/rw-) r-x/---
+okok ---- ---- ---- r--/--x (rwx/rw-) r--/--x
+okok ---- ---- ---- r--/--- (rwx/rw-) r--/---
+okok ---- okok ---- r-x/r-x (rwx/rw-) r-x/---
+okok ---- okok ---- r-x/r-- (rwx/rw-) r-x/r--
+okok ---- okok ---- r--/r-x (rwx/rw-) r--/r-x
+okok ---- okok ---- r--/r-- (rwx/rw-) r--/r--
+okok okok ---- ---- rwx/--x (rw-/rwx) rwx/---
+okok okok ---- ---- rwx/--- (rw-/rwx) rwx/---
+okok okok ---- ---- rw-/--x (rw-/rwx) rw-/--x
+okok okok ---- ---- rw-/--- (rw-/rwx) rw-/---
+okok okok okok okok rwx/rwx (rw-/rwx) rw-/---
+okok okok okok okok rwx/rw- (rw-/rwx) rw-/rw-
+okok okok okok okok rw-/rwx (rw-/rwx) rw-/rwx
+okok okok okok okok rw-/rw- (rw-/rwx) rw-/rw-
+okok ---- ---- ---- r-x/--x (rw-/rwx) r-x/---
+okok ---- ---- ---- r-x/--- (rw-/rwx) r-x/---
+okok ---- ---- ---- r--/--x (rw-/rwx) r--/--x
+okok ---- ---- ---- r--/--- (rw-/rwx) r--/---
+okok ---- okok ---- r-x/r-x (rw-/rwx) r-x/---
+okok ---- okok ---- r-x/r-- (rw-/rwx) r-x/r--
+okok ---- okok ---- r--/r-x (rw-/rwx) r--/r-x
+okok ---- okok ---- r--/r-- (rw-/rwx) r--/r--
+okok okok ---- ---- rwx/--x (rw-/rw-) rwx/---
+okok okok ---- ---- rwx/--- (rw-/rw-) rwx/---
+okok okok ---- ---- rw-/--x (rw-/rw-) rw-/--x
+okok okok ---- ---- rw-/--- (rw-/rw-) rw-/---
+okok okok okok okok rwx/rwx (rw-/rw-) rw-/---
+okok okok okok okok rwx/rw- (rw-/rw-) rw-/rw-
+okok okok okok okok rw-/rwx (rw-/rw-) rw-/rwx
+okok okok okok okok rw-/rw- (rw-/rw-) rw-/rw-
+okok ---- ---- ---- r-x/--x (rw-/rw-) r-x/---
+okok ---- ---- ---- r-x/--- (rw-/rw-) r-x/---
+okok ---- ---- ---- r--/--x (rw-/rw-) r--/--x
+okok ---- ---- ---- r--/--- (rw-/rw-) r--/---
+okok ---- okok ---- r-x/r-x (rw-/rw-) r-x/---
+okok ---- okok ---- r-x/r-- (rw-/rw-) r-x/r--
+okok ---- okok ---- r--/r-x (rw-/rw-) r--/r-x
+okok ---- okok ---- r--/r-- (rw-/rw-) r--/r--
+okok okok ---- ---- rwx/--x (rwx/--x) rwx/---
+okok okok ---- ---- rwx/--- (rwx/--x) rwx/---
+okok okok ---- ---- rw-/--x (rwx/--x) rw-/--x
+okok okok ---- ---- rw-/--- (rwx/--x) rw-/---
+okok okok ---- ---- rwx/rwx (rwx/--x) rw-/---
+okok okok ---- ---- rwx/rw- (rwx/--x) rw-/rw-
+okok okok ---- ---- rw-/rwx (rwx/--x) rw-/rwx
+okok okok ---- ---- rw-/rw- (rwx/--x) rw-/rw-
+okok ---- ---- ---- r-x/--x (rwx/--x) r-x/---
+okok ---- ---- ---- r-x/--- (rwx/--x) r-x/---
+okok ---- ---- ---- r--/--x (rwx/--x) r--/--x
+okok ---- ---- ---- r--/--- (rwx/--x) r--/---
+okok ---- ---- ---- r-x/r-x (rwx/--x) r-x/---
+okok ---- ---- ---- r-x/r-- (rwx/--x) r-x/r--
+okok ---- ---- ---- r--/r-x (rwx/--x) r--/r-x
+okok ---- ---- ---- r--/r-- (rwx/--x) r--/r--
+okok okok ---- ---- rwx/--x (rwx/---) rwx/---
+okok okok ---- ---- rwx/--- (rwx/---) rwx/---
+okok okok ---- ---- rw-/--x (rwx/---) rw-/--x
+okok okok ---- ---- rw-/--- (rwx/---) rw-/---
+okok okok ---- ---- rwx/rwx (rwx/---) rw-/---
+okok okok ---- ---- rwx/rw- (rwx/---) rw-/rw-
+okok okok ---- ---- rw-/rwx (rwx/---) rw-/rwx
+okok okok ---- ---- rw-/rw- (rwx/---) rw-/rw-
+okok ---- ---- ---- r-x/--x (rwx/---) r-x/---
+okok ---- ---- ---- r-x/--- (rwx/---) r-x/---
+okok ---- ---- ---- r--/--x (rwx/---) r--/--x
+okok ---- ---- ---- r--/--- (rwx/---) r--/---
+okok ---- ---- ---- r-x/r-x (rwx/---) r-x/---
+okok ---- ---- ---- r-x/r-- (rwx/---) r-x/r--
+okok ---- ---- ---- r--/r-x (rwx/---) r--/r-x
+okok ---- ---- ---- r--/r-- (rwx/---) r--/r--
+okok okok ---- ---- rwx/--x (rw-/--x) rwx/---
+okok okok ---- ---- rwx/--- (rw-/--x) rwx/---
+okok okok ---- ---- rw-/--x (rw-/--x) rw-/--x
+okok okok ---- ---- rw-/--- (rw-/--x) rw-/---
+okok okok ---- ---- rwx/rwx (rw-/--x) rw-/---
+okok okok ---- ---- rwx/rw- (rw-/--x) rw-/rw-
+okok okok ---- ---- rw-/rwx (rw-/--x) rw-/rwx
+okok okok ---- ---- rw-/rw- (rw-/--x) rw-/rw-
+okok ---- ---- ---- r-x/--x (rw-/--x) r-x/---
+okok ---- ---- ---- r-x/--- (rw-/--x) r-x/---
+okok ---- ---- ---- r--/--x (rw-/--x) r--/--x
+okok ---- ---- ---- r--/--- (rw-/--x) r--/---
+okok ---- ---- ---- r-x/r-x (rw-/--x) r-x/---
+okok ---- ---- ---- r-x/r-- (rw-/--x) r-x/r--
+okok ---- ---- ---- r--/r-x (rw-/--x) r--/r-x
+okok ---- ---- ---- r--/r-- (rw-/--x) r--/r--
+okok okok ---- ---- rwx/--x (rw-/---) rwx/---
+okok okok ---- ---- rwx/--- (rw-/---) rwx/---
+okok okok ---- ---- rw-/--x (rw-/---) rw-/--x
+okok okok ---- ---- rw-/--- (rw-/---) rw-/---
+okok okok ---- ---- rwx/rwx (rw-/---) rw-/---
+okok okok ---- ---- rwx/rw- (rw-/---) rw-/rw-
+okok okok ---- ---- rw-/rwx (rw-/---) rw-/rwx
+okok okok ---- ---- rw-/rw- (rw-/---) rw-/rw-
+okok ---- ---- ---- r-x/--x (rw-/---) r-x/---
+okok ---- ---- ---- r-x/--- (rw-/---) r-x/---
+okok ---- ---- ---- r--/--x (rw-/---) r--/--x
+okok ---- ---- ---- r--/--- (rw-/---) r--/---
+okok ---- ---- ---- r-x/r-x (rw-/---) r-x/---
+okok ---- ---- ---- r-x/r-- (rw-/---) r-x/r--
+okok ---- ---- ---- r--/r-x (rw-/---) r--/r-x
+okok ---- ---- ---- r--/r-- (rw-/---) r--/r--
+okok ---- ---- ---- rwx/--x (r-x/r-x) rwx/---
+okok ---- ---- ---- rwx/--- (r-x/r-x) rwx/---
+okok ---- ---- ---- rw-/--x (r-x/r-x) rw-/--x
+okok ---- ---- ---- rw-/--- (r-x/r-x) rw-/---
+okok ---- ---- ---- rwx/rwx (r-x/r-x) rw-/---
+okok ---- okok ---- rwx/rw- (r-x/r-x) rw-/rw-
+okok ---- okok ---- rw-/rwx (r-x/r-x) rw-/rwx
+okok ---- okok ---- rw-/rw- (r-x/r-x) rw-/rw-
+okok ---- ---- ---- r-x/--x (r-x/r-x) r-x/---
+okok ---- ---- ---- r-x/--- (r-x/r-x) r-x/---
+okok ---- ---- ---- r--/--x (r-x/r-x) r--/--x
+okok ---- ---- ---- r--/--- (r-x/r-x) r--/---
+okok ---- ---- ---- r-x/r-x (r-x/r-x) r-x/---
+okok ---- okok ---- r-x/r-- (r-x/r-x) r-x/r--
+okok ---- okok ---- r--/r-x (r-x/r-x) r--/r-x
+okok ---- okok ---- r--/r-- (r-x/r-x) r--/r--
+okok ---- ---- ---- rwx/--x (r-x/r--) rwx/---
+okok ---- ---- ---- rwx/--- (r-x/r--) rwx/---
+okok ---- ---- ---- rw-/--x (r-x/r--) rw-/--x
+okok ---- ---- ---- rw-/--- (r-x/r--) rw-/---
+okok ---- okok ---- rwx/rwx (r-x/r--) rw-/---
+okok ---- okok ---- rwx/rw- (r-x/r--) rw-/rw-
+okok ---- okok ---- rw-/rwx (r-x/r--) rw-/rwx
+okok ---- okok ---- rw-/rw- (r-x/r--) rw-/rw-
+okok ---- ---- ---- r-x/--x (r-x/r--) r-x/---
+okok ---- ---- ---- r-x/--- (r-x/r--) r-x/---
+okok ---- ---- ---- r--/--x (r-x/r--) r--/--x
+okok ---- ---- ---- r--/--- (r-x/r--) r--/---
+okok ---- okok ---- r-x/r-x (r-x/r--) r-x/---
+okok ---- okok ---- r-x/r-- (r-x/r--) r-x/r--
+okok ---- okok ---- r--/r-x (r-x/r--) r--/r-x
+okok ---- okok ---- r--/r-- (r-x/r--) r--/r--
+okok ---- ---- ---- rwx/--x (r--/r-x) rwx/---
+okok ---- ---- ---- rwx/--- (r--/r-x) rwx/---
+okok ---- ---- ---- rw-/--x (r--/r-x) rw-/--x
+okok ---- ---- ---- rw-/--- (r--/r-x) rw-/---
+okok ---- okok ---- rwx/rwx (r--/r-x) rw-/---
+okok ---- okok ---- rwx/rw- (r--/r-x) rw-/rw-
+okok ---- okok ---- rw-/rwx (r--/r-x) rw-/rwx
+okok ---- okok ---- rw-/rw- (r--/r-x) rw-/rw-
+okok ---- ---- ---- r-x/--x (r--/r-x) r-x/---
+okok ---- ---- ---- r-x/--- (r--/r-x) r-x/---
+okok ---- ---- ---- r--/--x (r--/r-x) r--/--x
+okok ---- ---- ---- r--/--- (r--/r-x) r--/---
+okok ---- okok ---- r-x/r-x (r--/r-x) r-x/---
+okok ---- okok ---- r-x/r-- (r--/r-x) r-x/r--
+okok ---- okok ---- r--/r-x (r--/r-x) r--/r-x
+okok ---- okok ---- r--/r-- (r--/r-x) r--/r--
+okok ---- ---- ---- rwx/--x (r--/r--) rwx/---
+okok ---- ---- ---- rwx/--- (r--/r--) rwx/---
+okok ---- ---- ---- rw-/--x (r--/r--) rw-/--x
+okok ---- ---- ---- rw-/--- (r--/r--) rw-/---
+okok ---- okok ---- rwx/rwx (r--/r--) rw-/---
+okok ---- okok ---- rwx/rw- (r--/r--) rw-/rw-
+okok ---- okok ---- rw-/rwx (r--/r--) rw-/rwx
+okok ---- okok ---- rw-/rw- (r--/r--) rw-/rw-
+okok ---- ---- ---- r-x/--x (r--/r--) r-x/---
+okok ---- ---- ---- r-x/--- (r--/r--) r-x/---
+okok ---- ---- ---- r--/--x (r--/r--) r--/--x
+okok ---- ---- ---- r--/--- (r--/r--) r--/---
+okok ---- okok ---- r-x/r-x (r--/r--) r-x/---
+okok ---- okok ---- r-x/r-- (r--/r--) r-x/r--
+okok ---- okok ---- r--/r-x (r--/r--) r--/r-x
+okok ---- okok ---- r--/r-- (r--/r--) r--/r--
+okok ---- ---- ---- rwx/--x (r-x/--x) rwx/---
+okok ---- ---- ---- rwx/--- (r-x/--x) rwx/---
+okok ---- ---- ---- rw-/--x (r-x/--x) rw-/--x
+okok ---- ---- ---- rw-/--- (r-x/--x) rw-/---
+okok ---- ---- ---- rwx/rwx (r-x/--x) rw-/---
+okok ---- ---- ---- rwx/rw- (r-x/--x) rw-/rw-
+okok ---- ---- ---- rw-/rwx (r-x/--x) rw-/rwx
+okok ---- ---- ---- rw-/rw- (r-x/--x) rw-/rw-
+okok ---- ---- ---- r-x/--x (r-x/--x) r-x/---
+okok ---- ---- ---- r-x/--- (r-x/--x) r-x/---
+okok ---- ---- ---- r--/--x (r-x/--x) r--/--x
+okok ---- ---- ---- r--/--- (r-x/--x) r--/---
+okok ---- ---- ---- r-x/r-x (r-x/--x) r-x/---
+okok ---- ---- ---- r-x/r-- (r-x/--x) r-x/r--
+okok ---- ---- ---- r--/r-x (r-x/--x) r--/r-x
+okok ---- ---- ---- r--/r-- (r-x/--x) r--/r--
+okok ---- ---- ---- rwx/--x (r-x/---) rwx/---
+okok ---- ---- ---- rwx/--- (r-x/---) rwx/---
+okok ---- ---- ---- rw-/--x (r-x/---) rw-/--x
+okok ---- ---- ---- rw-/--- (r-x/---) rw-/---
+okok ---- ---- ---- rwx/rwx (r-x/---) rw-/---
+okok ---- ---- ---- rwx/rw- (r-x/---) rw-/rw-
+okok ---- ---- ---- rw-/rwx (r-x/---) rw-/rwx
+okok ---- ---- ---- rw-/rw- (r-x/---) rw-/rw-
+okok ---- ---- ---- r-x/--x (r-x/---) r-x/---
+okok ---- ---- ---- r-x/--- (r-x/---) r-x/---
+okok ---- ---- ---- r--/--x (r-x/---) r--/--x
+okok ---- ---- ---- r--/--- (r-x/---) r--/---
+okok ---- ---- ---- r-x/r-x (r-x/---) r-x/---
+okok ---- ---- ---- r-x/r-- (r-x/---) r-x/r--
+okok ---- ---- ---- r--/r-x (r-x/---) r--/r-x
+okok ---- ---- ---- r--/r-- (r-x/---) r--/r--
+okok ---- ---- ---- rwx/--x (r--/--x) rwx/---
+okok ---- ---- ---- rwx/--- (r--/--x) rwx/---
+okok ---- ---- ---- rw-/--x (r--/--x) rw-/--x
+okok ---- ---- ---- rw-/--- (r--/--x) rw-/---
+okok ---- ---- ---- rwx/rwx (r--/--x) rw-/---
+okok ---- ---- ---- rwx/rw- (r--/--x) rw-/rw-
+okok ---- ---- ---- rw-/rwx (r--/--x) rw-/rwx
+okok ---- ---- ---- rw-/rw- (r--/--x) rw-/rw-
+okok ---- ---- ---- r-x/--x (r--/--x) r-x/---
+okok ---- ---- ---- r-x/--- (r--/--x) r-x/---
+okok ---- ---- ---- r--/--x (r--/--x) r--/--x
+okok ---- ---- ---- r--/--- (r--/--x) r--/---
+okok ---- ---- ---- r-x/r-x (r--/--x) r-x/---
+okok ---- ---- ---- r-x/r-- (r--/--x) r-x/r--
+okok ---- ---- ---- r--/r-x (r--/--x) r--/r-x
+okok ---- ---- ---- r--/r-- (r--/--x) r--/r--
+okok ---- ---- ---- rwx/--x (r--/---) rwx/---
+okok ---- ---- ---- rwx/--- (r--/---) rwx/---
+okok ---- ---- ---- rw-/--x (r--/---) rw-/--x
+okok ---- ---- ---- rw-/--- (r--/---) rw-/---
+okok ---- ---- ---- rwx/rwx (r--/---) rw-/---
+okok ---- ---- ---- rwx/rw- (r--/---) rw-/rw-
+okok ---- ---- ---- rw-/rwx (r--/---) rw-/rwx
+okok ---- ---- ---- rw-/rw- (r--/---) rw-/rw-
+okok ---- ---- ---- r-x/--x (r--/---) r-x/---
+okok ---- ---- ---- r-x/--- (r--/---) r-x/---
+okok ---- ---- ---- r--/--x (r--/---) r--/--x
+okok ---- ---- ---- r--/--- (r--/---) r--/---
+okok ---- ---- ---- r-x/r-x (r--/---) r-x/---
+okok ---- ---- ---- r-x/r-- (r--/---) r-x/r--
+okok ---- ---- ---- r--/r-x (r--/---) r--/r-x
+okok ---- ---- ---- r--/r-- (r--/---) r--/r--
+
+[ACTUAL]  TTE     (HPD)     APRR
+[rw-/---] rwx/--x (rwx/rwx) rwx/---
+[rw-/---] rwx/--- (rwx/rwx) rwx/---
+[rw-/--x] rw-/--x (rwx/rwx) rw-/--x
+[rw-/---] rw-/--- (rwx/rwx) rw-/---
+[rw-/---] rwx/rwx (rwx/rwx) rw-/---
+[rw-/rw-] rwx/rw- (rwx/rwx) rw-/rw-
+[rw-/rw-] rw-/rwx (rwx/rwx) rw-/rwx
+[rw-/rw-] rw-/rw- (rwx/rwx) rw-/rw-
+[r-x/---] r-x/--x (rwx/rwx) r-x/---
+[r-x/---] r-x/--- (rwx/rwx) r-x/---
+[r--/--x] r--/--x (rwx/rwx) r--/--x
+[r--/---] r--/--- (rwx/rwx) r--/---
+[r-x/---] r-x/r-x (rwx/rwx) r-x/---
+[r-x/r--] r-x/r-- (rwx/rwx) r-x/r--
+[r--/r-x] r--/r-x (rwx/rwx) r--/r-x
+[r--/r--] r--/r-- (rwx/rwx) r--/r--
+[rw-/---] rwx/--x (rwx/rw-) rwx/---
+[rw-/---] rwx/--- (rwx/rw-) rwx/---
+[rw-/---] rw-/--x (rwx/rw-) rw-/--x
+[rw-/---] rw-/--- (rwx/rw-) rw-/---
+[rw-/rw-] rwx/rwx (rwx/rw-) rw-/---
+[rw-/rw-] rwx/rw- (rwx/rw-) rw-/rw-
+[rw-/rw-] rw-/rwx (rwx/rw-) rw-/rwx
+[rw-/rw-] rw-/rw- (rwx/rw-) rw-/rw-
+[r-x/---] r-x/--x (rwx/rw-) r-x/---
+[r-x/---] r-x/--- (rwx/rw-) r-x/---
+[r--/---] r--/--x (rwx/rw-) r--/--x
+[r--/---] r--/--- (rwx/rw-) r--/---
+[r-x/r--] r-x/r-x (rwx/rw-) r-x/---
+[r-x/r--] r-x/r-- (rwx/rw-) r-x/r--
+[r--/r--] r--/r-x (rwx/rw-) r--/r-x
+[r--/r--] r--/r-- (rwx/rw-) r--/r--
+[rw-/--x] rwx/--x (rw-/rwx) rwx/---
+[rw-/---] rwx/--- (rw-/rwx) rwx/---
+[rw-/--x] rw-/--x (rw-/rwx) rw-/--x
+[rw-/---] rw-/--- (rw-/rwx) rw-/---
+[rw-/rw-] rwx/rwx (rw-/rwx) rw-/---
+[rw-/rw-] rwx/rw- (rw-/rwx) rw-/rw-
+[rw-/rw-] rw-/rwx (rw-/rwx) rw-/rwx
+[rw-/rw-] rw-/rw- (rw-/rwx) rw-/rw-
+[r--/--x] r-x/--x (rw-/rwx) r-x/---
+[r--/---] r-x/--- (rw-/rwx) r-x/---
+[r--/--x] r--/--x (rw-/rwx) r--/--x
+[r--/---] r--/--- (rw-/rwx) r--/---
+[r--/r-x] r-x/r-x (rw-/rwx) r-x/---
+[r--/r--] r-x/r-- (rw-/rwx) r-x/r--
+[r--/r-x] r--/r-x (rw-/rwx) r--/r-x
+[r--/r--] r--/r-- (rw-/rwx) r--/r--
+[rw-/---] rwx/--x (rw-/rw-) rwx/---
+[rw-/---] rwx/--- (rw-/rw-) rwx/---
+[rw-/---] rw-/--x (rw-/rw-) rw-/--x
+[rw-/---] rw-/--- (rw-/rw-) rw-/---
+[rw-/rw-] rwx/rwx (rw-/rw-) rw-/---
+[rw-/rw-] rwx/rw- (rw-/rw-) rw-/rw-
+[rw-/rw-] rw-/rwx (rw-/rw-) rw-/rwx
+[rw-/rw-] rw-/rw- (rw-/rw-) rw-/rw-
+[r--/---] r-x/--x (rw-/rw-) r-x/---
+[r--/---] r-x/--- (rw-/rw-) r-x/---
+[r--/---] r--/--x (rw-/rw-) r--/--x
+[r--/---] r--/--- (rw-/rw-) r--/---
+[r--/r--] r-x/r-x (rw-/rw-) r-x/---
+[r--/r--] r-x/r-- (rw-/rw-) r-x/r--
+[r--/r--] r--/r-x (rw-/rw-) r--/r-x
+[r--/r--] r--/r-- (rw-/rw-) r--/r--
+[rw-/---] rwx/--x (rwx/--x) rwx/---
+[rw-/---] rwx/--- (rwx/--x) rwx/---
+[rw-/--x] rw-/--x (rwx/--x) rw-/--x
+[rw-/---] rw-/--- (rwx/--x) rw-/---
+[rw-/---] rwx/rwx (rwx/--x) rw-/---
+[rw-/---] rwx/rw- (rwx/--x) rw-/rw-
+[rw-/--x] rw-/rwx (rwx/--x) rw-/rwx
+[rw-/---] rw-/rw- (rwx/--x) rw-/rw-
+[r-x/---] r-x/--x (rwx/--x) r-x/---
+[r-x/---] r-x/--- (rwx/--x) r-x/---
+[r--/--x] r--/--x (rwx/--x) r--/--x
+[r--/---] r--/--- (rwx/--x) r--/---
+[r-x/---] r-x/r-x (rwx/--x) r-x/---
+[r-x/---] r-x/r-- (rwx/--x) r-x/r--
+[r--/--x] r--/r-x (rwx/--x) r--/r-x
+[r--/---] r--/r-- (rwx/--x) r--/r--
+[rw-/---] rwx/--x (rwx/---) rwx/---
+[rw-/---] rwx/--- (rwx/---) rwx/---
+[rw-/---] rw-/--x (rwx/---) rw-/--x
+[rw-/---] rw-/--- (rwx/---) rw-/---
+[rw-/---] rwx/rwx (rwx/---) rw-/---
+[rw-/---] rwx/rw- (rwx/---) rw-/rw-
+[rw-/---] rw-/rwx (rwx/---) rw-/rwx
+[rw-/---] rw-/rw- (rwx/---) rw-/rw-
+[r-x/---] r-x/--x (rwx/---) r-x/---
+[r-x/---] r-x/--- (rwx/---) r-x/---
+[r--/---] r--/--x (rwx/---) r--/--x
+[r--/---] r--/--- (rwx/---) r--/---
+[r-x/---] r-x/r-x (rwx/---) r-x/---
+[r-x/---] r-x/r-- (rwx/---) r-x/r--
+[r--/---] r--/r-x (rwx/---) r--/r-x
+[r--/---] r--/r-- (rwx/---) r--/r--
+[rw-/--x] rwx/--x (rw-/--x) rwx/---
+[rw-/---] rwx/--- (rw-/--x) rwx/---
+[rw-/--x] rw-/--x (rw-/--x) rw-/--x
+[rw-/---] rw-/--- (rw-/--x) rw-/---
+[rw-/--x] rwx/rwx (rw-/--x) rw-/---
+[rw-/---] rwx/rw- (rw-/--x) rw-/rw-
+[rw-/--x] rw-/rwx (rw-/--x) rw-/rwx
+[rw-/---] rw-/rw- (rw-/--x) rw-/rw-
+[r--/--x] r-x/--x (rw-/--x) r-x/---
+[r--/---] r-x/--- (rw-/--x) r-x/---
+[r--/--x] r--/--x (rw-/--x) r--/--x
+[r--/---] r--/--- (rw-/--x) r--/---
+[r--/--x] r-x/r-x (rw-/--x) r-x/---
+[r--/---] r-x/r-- (rw-/--x) r-x/r--
+[r--/--x] r--/r-x (rw-/--x) r--/r-x
+[r--/---] r--/r-- (rw-/--x) r--/r--
+[rw-/---] rwx/--x (rw-/---) rwx/---
+[rw-/---] rwx/--- (rw-/---) rwx/---
+[rw-/---] rw-/--x (rw-/---) rw-/--x
+[rw-/---] rw-/--- (rw-/---) rw-/---
+[rw-/---] rwx/rwx (rw-/---) rw-/---
+[rw-/---] rwx/rw- (rw-/---) rw-/rw-
+[rw-/---] rw-/rwx (rw-/---) rw-/rwx
+[rw-/---] rw-/rw- (rw-/---) rw-/rw-
+[r--/---] r-x/--x (rw-/---) r-x/---
+[r--/---] r-x/--- (rw-/---) r-x/---
+[r--/---] r--/--x (rw-/---) r--/--x
+[r--/---] r--/--- (rw-/---) r--/---
+[r--/---] r-x/r-x (rw-/---) r-x/---
+[r--/---] r-x/r-- (rw-/---) r-x/r--
+[r--/---] r--/r-x (rw-/---) r--/r-x
+[r--/---] r--/r-- (rw-/---) r--/r--
+[r-x/---] rwx/--x (r-x/r-x) rwx/---
+[r-x/---] rwx/--- (r-x/r-x) rwx/---
+[r--/--x] rw-/--x (r-x/r-x) rw-/--x
+[r--/---] rw-/--- (r-x/r-x) rw-/---
+[r-x/---] rwx/rwx (r-x/r-x) rw-/---
+[r-x/r--] rwx/rw- (r-x/r-x) rw-/rw-
+[r--/r-x] rw-/rwx (r-x/r-x) rw-/rwx
+[r--/r--] rw-/rw- (r-x/r-x) rw-/rw-
+[r-x/---] r-x/--x (r-x/r-x) r-x/---
+[r-x/---] r-x/--- (r-x/r-x) r-x/---
+[r--/--x] r--/--x (r-x/r-x) r--/--x
+[r--/---] r--/--- (r-x/r-x) r--/---
+[r-x/---] r-x/r-x (r-x/r-x) r-x/---
+[r-x/r--] r-x/r-- (r-x/r-x) r-x/r--
+[r--/r-x] r--/r-x (r-x/r-x) r--/r-x
+[r--/r--] r--/r-- (r-x/r-x) r--/r--
+[r-x/---] rwx/--x (r-x/r--) rwx/---
+[r-x/---] rwx/--- (r-x/r--) rwx/---
+[r--/---] rw-/--x (r-x/r--) rw-/--x
+[r--/---] rw-/--- (r-x/r--) rw-/---
+[r-x/r--] rwx/rwx (r-x/r--) rw-/---
+[r-x/r--] rwx/rw- (r-x/r--) rw-/rw-
+[r--/r--] rw-/rwx (r-x/r--) rw-/rwx
+[r--/r--] rw-/rw- (r-x/r--) rw-/rw-
+[r-x/---] r-x/--x (r-x/r--) r-x/---
+[r-x/---] r-x/--- (r-x/r--) r-x/---
+[r--/---] r--/--x (r-x/r--) r--/--x
+[r--/---] r--/--- (r-x/r--) r--/---
+[r-x/r--] r-x/r-x (r-x/r--) r-x/---
+[r-x/r--] r-x/r-- (r-x/r--) r-x/r--
+[r--/r--] r--/r-x (r-x/r--) r--/r-x
+[r--/r--] r--/r-- (r-x/r--) r--/r--
+[r--/--x] rwx/--x (r--/r-x) rwx/---
+[r--/---] rwx/--- (r--/r-x) rwx/---
+[r--/--x] rw-/--x (r--/r-x) rw-/--x
+[r--/---] rw-/--- (r--/r-x) rw-/---
+[r--/r-x] rwx/rwx (r--/r-x) rw-/---
+[r--/r--] rwx/rw- (r--/r-x) rw-/rw-
+[r--/r-x] rw-/rwx (r--/r-x) rw-/rwx
+[r--/r--] rw-/rw- (r--/r-x) rw-/rw-
+[r--/--x] r-x/--x (r--/r-x) r-x/---
+[r--/---] r-x/--- (r--/r-x) r-x/---
+[r--/--x] r--/--x (r--/r-x) r--/--x
+[r--/---] r--/--- (r--/r-x) r--/---
+[r--/r-x] r-x/r-x (r--/r-x) r-x/---
+[r--/r--] r-x/r-- (r--/r-x) r-x/r--
+[r--/r-x] r--/r-x (r--/r-x) r--/r-x
+[r--/r--] r--/r-- (r--/r-x) r--/r--
+[r--/---] rwx/--x (r--/r--) rwx/---
+[r--/---] rwx/--- (r--/r--) rwx/---
+[r--/---] rw-/--x (r--/r--) rw-/--x
+[r--/---] rw-/--- (r--/r--) rw-/---
+[r--/r--] rwx/rwx (r--/r--) rw-/---
+[r--/r--] rwx/rw- (r--/r--) rw-/rw-
+[r--/r--] rw-/rwx (r--/r--) rw-/rwx
+[r--/r--] rw-/rw- (r--/r--) rw-/rw-
+[r--/---] r-x/--x (r--/r--) r-x/---
+[r--/---] r-x/--- (r--/r--) r-x/---
+[r--/---] r--/--x (r--/r--) r--/--x
+[r--/---] r--/--- (r--/r--) r--/---
+[r--/r--] r-x/r-x (r--/r--) r-x/---
+[r--/r--] r-x/r-- (r--/r--) r-x/r--
+[r--/r--] r--/r-x (r--/r--) r--/r-x
+[r--/r--] r--/r-- (r--/r--) r--/r--
+[r-x/---] rwx/--x (r-x/--x) rwx/---
+[r-x/---] rwx/--- (r-x/--x) rwx/---
+[r--/--x] rw-/--x (r-x/--x) rw-/--x
+[r--/---] rw-/--- (r-x/--x) rw-/---
+[r-x/---] rwx/rwx (r-x/--x) rw-/---
+[r-x/---] rwx/rw- (r-x/--x) rw-/rw-
+[r--/--x] rw-/rwx (r-x/--x) rw-/rwx
+[r--/---] rw-/rw- (r-x/--x) rw-/rw-
+[r-x/---] r-x/--x (r-x/--x) r-x/---
+[r-x/---] r-x/--- (r-x/--x) r-x/---
+[r--/--x] r--/--x (r-x/--x) r--/--x
+[r--/---] r--/--- (r-x/--x) r--/---
+[r-x/---] r-x/r-x (r-x/--x) r-x/---
+[r-x/---] r-x/r-- (r-x/--x) r-x/r--
+[r--/--x] r--/r-x (r-x/--x) r--/r-x
+[r--/---] r--/r-- (r-x/--x) r--/r--
+[r-x/---] rwx/--x (r-x/---) rwx/---
+[r-x/---] rwx/--- (r-x/---) rwx/---
+[r--/---] rw-/--x (r-x/---) rw-/--x
+[r--/---] rw-/--- (r-x/---) rw-/---
+[r-x/---] rwx/rwx (r-x/---) rw-/---
+[r-x/---] rwx/rw- (r-x/---) rw-/rw-
+[r--/---] rw-/rwx (r-x/---) rw-/rwx
+[r--/---] rw-/rw- (r-x/---) rw-/rw-
+[r-x/---] r-x/--x (r-x/---) r-x/---
+[r-x/---] r-x/--- (r-x/---) r-x/---
+[r--/---] r--/--x (r-x/---) r--/--x
+[r--/---] r--/--- (r-x/---) r--/---
+[r-x/---] r-x/r-x (r-x/---) r-x/---
+[r-x/---] r-x/r-- (r-x/---) r-x/r--
+[r--/---] r--/r-x (r-x/---) r--/r-x
+[r--/---] r--/r-- (r-x/---) r--/r--
+[r--/--x] rwx/--x (r--/--x) rwx/---
+[r--/---] rwx/--- (r--/--x) rwx/---
+[r--/--x] rw-/--x (r--/--x) rw-/--x
+[r--/---] rw-/--- (r--/--x) rw-/---
+[r--/--x] rwx/rwx (r--/--x) rw-/---
+[r--/---] rwx/rw- (r--/--x) rw-/rw-
+[r--/--x] rw-/rwx (r--/--x) rw-/rwx
+[r--/---] rw-/rw- (r--/--x) rw-/rw-
+[r--/--x] r-x/--x (r--/--x) r-x/---
+[r--/---] r-x/--- (r--/--x) r-x/---
+[r--/--x] r--/--x (r--/--x) r--/--x
+[r--/---] r--/--- (r--/--x) r--/---
+[r--/--x] r-x/r-x (r--/--x) r-x/---
+[r--/---] r-x/r-- (r--/--x) r-x/r--
+[r--/--x] r--/r-x (r--/--x) r--/r-x
+[r--/---] r--/r-- (r--/--x) r--/r--
+[r--/---] rwx/--x (r--/---) rwx/---
+[r--/---] rwx/--- (r--/---) rwx/---
+[r--/---] rw-/--x (r--/---) rw-/--x
+[r--/---] rw-/--- (r--/---) rw-/---
+[r--/---] rwx/rwx (r--/---) rw-/---
+[r--/---] rwx/rw- (r--/---) rw-/rw-
+[r--/---] rw-/rwx (r--/---) rw-/rwx
+[r--/---] rw-/rw- (r--/---) rw-/rw-
+[r--/---] r-x/--x (r--/---) r-x/---
+[r--/---] r-x/--- (r--/---) r-x/---
+[r--/---] r--/--x (r--/---) r--/--x
+[r--/---] r--/--- (r--/---) r--/---
+[r--/---] r-x/r-x (r--/---) r-x/---
+[r--/---] r-x/r-- (r--/---) r-x/r--
+[r--/---] r--/r-x (r--/---) r--/r-x
+[r--/---] r--/r-- (r--/---) r--/r--
