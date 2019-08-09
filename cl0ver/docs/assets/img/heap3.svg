@@ -1,0 +1,582 @@
+<?xml version="1.0" ?>
+<svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
+    <style>
+    text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10px; }
+    text.title { font-size: 15px; }
+    line, rect { stroke: #000; }
+    line { stroke-width: 2; }
+    rect { width: 30px; height: 20px; }
+    rect, line.desc, line.dash { stroke-width: 1; }
+    rect.rogue, line.dash { stroke-dasharray: 2, 2; }
+    rect.bg { stroke-width: 0; fill: #FFF; width: 100%; height: 100%; }
+    g.free > rect { fill: #CCC; }
+    g.used > rect { fill: #6E6; }
+    g.heap > rect { fill: #6CF; }
+    g.data > rect { fill: #F80; }
+    g.text > rect { fill: #FF0; width: 10px; }
+    g.uaf  > rect { fill: #D6D !important; }
+    rect.free { fill: #CCC !important; }
+    rect.used { fill: #6E6 !important; }
+    rect.heap { fill: #6CF !important; }
+    rect.data { fill: #F80 !important; }
+    rect.text { fill: #FF0 !important; }
+    rect.uaf  { fill: #D6D !important; }
+    rect.rogue { fill: none !important; }
+    </style>
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L0,6 L9,3" fill="#000" />
+        </marker>
+    </defs>
+
+    <!-- background -->
+    <rect x="0" y="0" width="100%" height="100%" class="bg" />
+
+    <!-- title -->
+    <text x="50%" y="20" class="title" text-anchor="middle">Kernel heap over time</text>
+
+    <!-- legend -->
+    <g transform="translate(0 35)">
+        <text x="50"  y="14" text-anchor="end">32 bytes:</text>
+        <rect x="60"  y="0"  class="free" />
+        <text x="95"  y="14">free</text>
+        <rect x="130" y="0"  class="used" />
+        <text x="165" y="14">already in use</text>
+        <rect x="240" y="0"  class="heap" />
+        <text x="275" y="14">allocated by us</text>
+        <rect x="360" y="0"  class="uaf" />
+        <text x="395" y="14">free but referenced</text>
+    </g>
+
+    <!-- one -->
+    <text x="50%" y="75" text-anchor="middle">initially:</text>
+    <g transform="translate(10 80) scale(.5)">
+        <rect x="0"   y="0"  class="used" />
+        <rect x="30"  y="0"  class="used" />
+        <rect x="60"  y="0"  class="used" />
+        <rect x="90"  y="0"  class="free" />
+        <rect x="120" y="0"  class="used" />
+        <rect x="150" y="0"  class="used" />
+        <rect x="180" y="0"  class="free" />
+        <rect x="210" y="0"  class="free" />
+        <rect x="240" y="0"  class="free" />
+        <rect x="270" y="0"  class="used" />
+        <rect x="300" y="0"  class="free" />
+        <rect x="330" y="0"  class="used" />
+        <rect x="360" y="0"  class="free" />
+        <rect x="390" y="0"  class="used" />
+        <rect x="420" y="0"  class="used" />
+        <rect x="450" y="0"  class="free" />
+        <rect x="480" y="0"  class="free" />
+        <rect x="510" y="0"  class="used" />
+        <rect x="540" y="0"  class="used" />
+        <rect x="570" y="0"  class="used" />
+        <rect x="600" y="0"  class="used" />
+        <rect x="630" y="0"  class="free" />
+        <rect x="660" y="0"  class="used" />
+        <rect x="690" y="0"  class="used" />
+        <rect x="720" y="0"  class="used" />
+        <rect x="750" y="0"  class="free" />
+        <rect x="780" y="0"  class="free" />
+        <rect x="810" y="0"  class="used" />
+        <rect x="840" y="0"  class="used" />
+        <rect x="870" y="0"  class="used" />
+        <rect x="900" y="0"  class="used" />
+        <rect x="930" y="0"  class="free" />
+        <rect x="0"   y="20" class="free" />
+        <rect x="30"  y="20" class="free" />
+        <rect x="60"  y="20" class="free" />
+        <rect x="90"  y="20" class="free" />
+        <rect x="120" y="20" class="free" />
+        <rect x="150" y="20" class="free" />
+        <rect x="180" y="20" class="free" />
+        <rect x="210" y="20" class="free" />
+        <rect x="240" y="20" class="free" />
+        <rect x="270" y="20" class="free" />
+        <rect x="300" y="20" class="free" />
+        <rect x="330" y="20" class="free" />
+        <rect x="360" y="20" class="free" />
+        <rect x="390" y="20" class="free" />
+        <rect x="420" y="20" class="free" />
+        <rect x="450" y="20" class="free" />
+        <rect x="480" y="20" class="free" />
+        <rect x="510" y="20" class="free" />
+        <rect x="540" y="20" class="free" />
+        <rect x="570" y="20" class="free" />
+        <rect x="600" y="20" class="free" />
+        <rect x="630" y="20" class="free" />
+        <rect x="660" y="20" class="free" />
+        <rect x="690" y="20" class="free" />
+        <rect x="720" y="20" class="free" />
+        <rect x="750" y="20" class="free" />
+        <rect x="780" y="20" class="free" />
+        <rect x="810" y="20" class="free" />
+        <rect x="840" y="20" class="free" />
+        <rect x="870" y="20" class="free" />
+        <rect x="900" y="20" class="free" />
+        <rect x="930" y="20" class="free" />
+        <rect x="0"   y="40" class="free" />
+        <rect x="30"  y="40" class="free" />
+        <rect x="60"  y="40" class="free" />
+        <rect x="90"  y="40" class="free" />
+        <rect x="120" y="40" class="free" />
+        <rect x="150" y="40" class="free" />
+        <rect x="180" y="40" class="free" />
+        <rect x="210" y="40" class="free" />
+        <rect x="240" y="40" class="free" />
+        <rect x="270" y="40" class="free" />
+        <rect x="300" y="40" class="free" />
+        <rect x="330" y="40" class="free" />
+        <rect x="360" y="40" class="free" />
+        <rect x="390" y="40" class="free" />
+        <rect x="420" y="40" class="free" />
+        <rect x="450" y="40" class="free" />
+        <rect x="480" y="40" class="free" />
+        <rect x="510" y="40" class="free" />
+        <rect x="540" y="40" class="free" />
+        <rect x="570" y="40" class="free" />
+        <rect x="600" y="40" class="free" />
+        <rect x="630" y="40" class="free" />
+        <rect x="660" y="40" class="free" />
+        <rect x="690" y="40" class="free" />
+        <rect x="720" y="40" class="free" />
+        <rect x="750" y="40" class="free" />
+        <rect x="780" y="40" class="free" />
+        <rect x="810" y="40" class="free" />
+        <rect x="840" y="40" class="free" />
+        <rect x="870" y="40" class="free" />
+        <rect x="900" y="40" class="free" />
+        <rect x="930" y="40" class="free" />
+        <rect x="0"   y="60" class="free" />
+        <rect x="30"  y="60" class="free" />
+        <rect x="60"  y="60" class="free" />
+        <rect x="90"  y="60" class="free" />
+        <rect x="120" y="60" class="free" />
+        <rect x="150" y="60" class="free" />
+        <rect x="180" y="60" class="free" />
+        <rect x="210" y="60" class="free" />
+        <rect x="240" y="60" class="free" />
+        <rect x="270" y="60" class="free" />
+        <rect x="300" y="60" class="free" />
+        <rect x="330" y="60" class="free" />
+        <rect x="360" y="60" class="free" />
+        <rect x="390" y="60" class="free" />
+        <rect x="420" y="60" class="free" />
+        <rect x="450" y="60" class="free" />
+        <rect x="480" y="60" class="free" />
+        <rect x="510" y="60" class="free" />
+        <rect x="540" y="60" class="free" />
+        <rect x="570" y="60" class="free" />
+        <rect x="600" y="60" class="free" />
+        <rect x="630" y="60" class="free" />
+        <rect x="660" y="60" class="free" />
+        <rect x="690" y="60" class="free" />
+        <rect x="720" y="60" class="free" />
+        <rect x="750" y="60" class="free" />
+        <rect x="780" y="60" class="free" />
+        <rect x="810" y="60" class="free" />
+        <rect x="840" y="60" class="free" />
+        <rect x="870" y="60" class="free" />
+        <rect x="900" y="60" class="free" />
+        <rect x="930" y="60" class="free" />
+    </g>
+
+    <!-- two -->
+    <text x="50%" y="145" text-anchor="middle">allocating a lot of strings:</text>
+    <g transform="translate(10 150) scale(.5)">
+        <rect x="0"   y="0"  class="used" />
+        <rect x="30"  y="0"  class="used" />
+        <rect x="60"  y="0"  class="used" />
+        <rect x="90"  y="0"  class="heap" />
+        <rect x="120" y="0"  class="used" />
+        <rect x="150" y="0"  class="used" />
+        <rect x="180" y="0"  class="heap" />
+        <rect x="210" y="0"  class="heap" />
+        <rect x="240" y="0"  class="heap" />
+        <rect x="270" y="0"  class="used" />
+        <rect x="300" y="0"  class="heap" />
+        <rect x="330" y="0"  class="used" />
+        <rect x="360" y="0"  class="heap" />
+        <rect x="390" y="0"  class="used" />
+        <rect x="420" y="0"  class="used" />
+        <rect x="450" y="0"  class="heap" />
+        <rect x="480" y="0"  class="heap" />
+        <rect x="510" y="0"  class="used" />
+        <rect x="540" y="0"  class="used" />
+        <rect x="570" y="0"  class="used" />
+        <rect x="600" y="0"  class="used" />
+        <rect x="630" y="0"  class="heap" />
+        <rect x="660" y="0"  class="used" />
+        <rect x="690" y="0"  class="used" />
+        <rect x="720" y="0"  class="used" />
+        <rect x="750" y="0"  class="heap" />
+        <rect x="780" y="0"  class="heap" />
+        <rect x="810" y="0"  class="used" />
+        <rect x="840" y="0"  class="used" />
+        <rect x="870" y="0"  class="used" />
+        <rect x="900" y="0"  class="used" />
+        <rect x="930" y="0"  class="heap" />
+        <rect x="0"   y="20" class="heap" />
+        <rect x="30"  y="20" class="heap" />
+        <rect x="60"  y="20" class="heap" />
+        <rect x="90"  y="20" class="heap" />
+        <rect x="120" y="20" class="heap" />
+        <rect x="150" y="20" class="heap" />
+        <rect x="180" y="20" class="heap" />
+        <rect x="210" y="20" class="heap" />
+        <rect x="240" y="20" class="heap" />
+        <rect x="270" y="20" class="heap" />
+        <rect x="300" y="20" class="heap" />
+        <rect x="330" y="20" class="heap" />
+        <rect x="360" y="20" class="heap" />
+        <rect x="390" y="20" class="heap" />
+        <rect x="420" y="20" class="heap" />
+        <rect x="450" y="20" class="heap" />
+        <rect x="480" y="20" class="heap" />
+        <rect x="510" y="20" class="heap" />
+        <rect x="540" y="20" class="heap" />
+        <rect x="570" y="20" class="heap" />
+        <rect x="600" y="20" class="heap" />
+        <rect x="630" y="20" class="heap" />
+        <rect x="660" y="20" class="heap" />
+        <rect x="690" y="20" class="heap" />
+        <rect x="720" y="20" class="heap" />
+        <rect x="750" y="20" class="heap" />
+        <rect x="780" y="20" class="heap" />
+        <rect x="810" y="20" class="heap" />
+        <rect x="840" y="20" class="heap" />
+        <rect x="870" y="20" class="heap" />
+        <rect x="900" y="20" class="heap" />
+        <rect x="930" y="20" class="heap" />
+        <rect x="0"   y="40" class="heap" />
+        <rect x="30"  y="40" class="heap" />
+        <rect x="60"  y="40" class="heap" />
+        <rect x="90"  y="40" class="heap" />
+        <rect x="120" y="40" class="heap" />
+        <rect x="150" y="40" class="heap" />
+        <rect x="180" y="40" class="heap" />
+        <rect x="210" y="40" class="heap" />
+        <rect x="240" y="40" class="heap" />
+        <rect x="270" y="40" class="heap" />
+        <rect x="300" y="40" class="heap" />
+        <rect x="330" y="40" class="heap" />
+        <rect x="360" y="40" class="heap" />
+        <rect x="390" y="40" class="heap" />
+        <rect x="420" y="40" class="heap" />
+        <rect x="450" y="40" class="heap" />
+        <rect x="480" y="40" class="heap" />
+        <rect x="510" y="40" class="heap" />
+        <rect x="540" y="40" class="heap" />
+        <rect x="570" y="40" class="heap" />
+        <rect x="600" y="40" class="heap" />
+        <rect x="630" y="40" class="heap" />
+        <rect x="660" y="40" class="heap" />
+        <rect x="690" y="40" class="heap" />
+        <rect x="720" y="40" class="heap" />
+        <rect x="750" y="40" class="heap" />
+        <rect x="780" y="40" class="heap" />
+        <rect x="810" y="40" class="heap" />
+        <rect x="840" y="40" class="heap" />
+        <rect x="870" y="40" class="heap" />
+        <rect x="900" y="40" class="heap" />
+        <rect x="930" y="40" class="heap" />
+        <rect x="0"   y="60" class="heap" />
+        <rect x="30"  y="60" class="heap" />
+        <rect x="60"  y="60" class="heap" />
+        <rect x="90"  y="60" class="heap" />
+        <rect x="120" y="60" class="heap" />
+        <rect x="150" y="60" class="heap" />
+        <rect x="180" y="60" class="heap" />
+        <rect x="210" y="60" class="heap" />
+        <rect x="240" y="60" class="heap" />
+        <rect x="270" y="60" class="heap" />
+        <rect x="300" y="60" class="heap" />
+        <rect x="330" y="60" class="heap" />
+        <rect x="360" y="60" class="heap" />
+        <rect x="390" y="60" class="heap" />
+        <rect x="420" y="60" class="heap" />
+        <rect x="450" y="60" class="heap" />
+        <rect x="480" y="60" class="heap" />
+        <rect x="510" y="60" class="heap" />
+        <rect x="540" y="60" class="heap" />
+        <rect x="570" y="60" class="heap" />
+        <rect x="600" y="60" class="heap" />
+        <rect x="630" y="60" class="heap" />
+        <rect x="660" y="60" class="heap" />
+        <rect x="690" y="60" class="heap" />
+        <rect x="720" y="60" class="heap" />
+        <rect x="750" y="60" class="heap" />
+        <rect x="780" y="60" class="heap" />
+        <rect x="810" y="60" class="heap" />
+        <rect x="840" y="60" class="heap" />
+        <rect x="870" y="60" class="heap" />
+        <rect x="900" y="60" class="heap" />
+        <rect x="930" y="60" class="heap" />
+    </g>
+
+    <!-- three -->
+    <text x="50%" y="215" text-anchor="middle">punching a few holes:</text>
+    <g transform="translate(10 220) scale(.5)">
+        <rect x="0"   y="0"  class="used" />
+        <rect x="30"  y="0"  class="used" />
+        <rect x="60"  y="0"  class="used" />
+        <rect x="90"  y="0"  class="heap" />
+        <rect x="120" y="0"  class="used" />
+        <rect x="150" y="0"  class="used" />
+        <rect x="180" y="0"  class="heap" />
+        <rect x="210" y="0"  class="heap" />
+        <rect x="240" y="0"  class="heap" />
+        <rect x="270" y="0"  class="used" />
+        <rect x="300" y="0"  class="heap" />
+        <rect x="330" y="0"  class="used" />
+        <rect x="360" y="0"  class="heap" />
+        <rect x="390" y="0"  class="used" />
+        <rect x="420" y="0"  class="used" />
+        <rect x="450" y="0"  class="heap" />
+        <rect x="480" y="0"  class="heap" />
+        <rect x="510" y="0"  class="used" />
+        <rect x="540" y="0"  class="used" />
+        <rect x="570" y="0"  class="used" />
+        <rect x="600" y="0"  class="used" />
+        <rect x="630" y="0"  class="heap" />
+        <rect x="660" y="0"  class="used" />
+        <rect x="690" y="0"  class="used" />
+        <rect x="720" y="0"  class="used" />
+        <rect x="750" y="0"  class="heap" />
+        <rect x="780" y="0"  class="heap" />
+        <rect x="810" y="0"  class="used" />
+        <rect x="840" y="0"  class="used" />
+        <rect x="870" y="0"  class="used" />
+        <rect x="900" y="0"  class="used" />
+        <rect x="930" y="0"  class="heap" />
+        <rect x="0"   y="20" class="heap" />
+        <rect x="30"  y="20" class="heap" />
+        <rect x="60"  y="20" class="heap" />
+        <rect x="90"  y="20" class="heap" />
+        <rect x="120" y="20" class="heap" />
+        <rect x="150" y="20" class="heap" />
+        <rect x="180" y="20" class="heap" />
+        <rect x="210" y="20" class="heap" />
+        <rect x="240" y="20" class="heap" />
+        <rect x="270" y="20" class="heap" />
+        <rect x="300" y="20" class="heap" />
+        <rect x="330" y="20" class="heap" />
+        <rect x="360" y="20" class="heap" />
+        <rect x="390" y="20" class="heap" />
+        <rect x="420" y="20" class="heap" />
+        <rect x="450" y="20" class="free" />
+        <rect x="480" y="20" class="heap" />
+        <rect x="510" y="20" class="heap" />
+        <rect x="540" y="20" class="heap" />
+        <rect x="570" y="20" class="heap" />
+        <rect x="600" y="20" class="heap" />
+        <rect x="630" y="20" class="heap" />
+        <rect x="660" y="20" class="heap" />
+        <rect x="690" y="20" class="heap" />
+        <rect x="720" y="20" class="heap" />
+        <rect x="750" y="20" class="heap" />
+        <rect x="780" y="20" class="heap" />
+        <rect x="810" y="20" class="heap" />
+        <rect x="840" y="20" class="heap" />
+        <rect x="870" y="20" class="heap" />
+        <rect x="900" y="20" class="heap" />
+        <rect x="930" y="20" class="heap" />
+        <rect x="0"   y="40" class="heap" />
+        <rect x="30"  y="40" class="heap" />
+        <rect x="60"  y="40" class="heap" />
+        <rect x="90"  y="40" class="free" />
+        <rect x="120" y="40" class="heap" />
+        <rect x="150" y="40" class="heap" />
+        <rect x="180" y="40" class="heap" />
+        <rect x="210" y="40" class="heap" />
+        <rect x="240" y="40" class="heap" />
+        <rect x="270" y="40" class="heap" />
+        <rect x="300" y="40" class="heap" />
+        <rect x="330" y="40" class="heap" />
+        <rect x="360" y="40" class="heap" />
+        <rect x="390" y="40" class="heap" />
+        <rect x="420" y="40" class="heap" />
+        <rect x="450" y="40" class="heap" />
+        <rect x="480" y="40" class="heap" />
+        <rect x="510" y="40" class="heap" />
+        <rect x="540" y="40" class="heap" />
+        <rect x="570" y="40" class="heap" />
+        <rect x="600" y="40" class="heap" />
+        <rect x="630" y="40" class="heap" />
+        <rect x="660" y="40" class="heap" />
+        <rect x="690" y="40" class="heap" />
+        <rect x="720" y="40" class="heap" />
+        <rect x="750" y="40" class="heap" />
+        <rect x="780" y="40" class="heap" />
+        <rect x="810" y="40" class="heap" />
+        <rect x="840" y="40" class="heap" />
+        <rect x="870" y="40" class="heap" />
+        <rect x="900" y="40" class="free" />
+        <rect x="930" y="40" class="heap" />
+        <rect x="0"   y="60" class="heap" />
+        <rect x="30"  y="60" class="heap" />
+        <rect x="60"  y="60" class="heap" />
+        <rect x="90"  y="60" class="heap" />
+        <rect x="120" y="60" class="heap" />
+        <rect x="150" y="60" class="heap" />
+        <rect x="180" y="60" class="heap" />
+        <rect x="210" y="60" class="heap" />
+        <rect x="240" y="60" class="free" />
+        <rect x="270" y="60" class="heap" />
+        <rect x="300" y="60" class="heap" />
+        <rect x="330" y="60" class="heap" />
+        <rect x="360" y="60" class="heap" />
+        <rect x="390" y="60" class="heap" />
+        <rect x="420" y="60" class="heap" />
+        <rect x="450" y="60" class="heap" />
+        <rect x="480" y="60" class="heap" />
+        <rect x="510" y="60" class="heap" />
+        <rect x="540" y="60" class="heap" />
+        <rect x="570" y="60" class="heap" />
+        <rect x="600" y="60" class="heap" />
+        <rect x="630" y="60" class="heap" />
+        <rect x="660" y="60" class="heap" />
+        <rect x="690" y="60" class="heap" />
+        <rect x="720" y="60" class="heap" />
+        <rect x="750" y="60" class="heap" />
+        <rect x="780" y="60" class="free" />
+        <rect x="810" y="60" class="heap" />
+        <rect x="840" y="60" class="heap" />
+        <rect x="870" y="60" class="heap" />
+        <rect x="900" y="60" class="heap" />
+        <rect x="930" y="60" class="heap" />
+    </g>
+
+    <!-- four -->
+    <text x="50%" y="285" text-anchor="middle">parsing a dictionary with a string as key:</text>
+    <g transform="translate(10 290) scale(.5)">
+        <rect x="0"   y="0"  class="used" />
+        <rect x="30"  y="0"  class="used" />
+        <rect x="60"  y="0"  class="used" />
+        <rect x="90"  y="0"  class="heap" />
+        <rect x="120" y="0"  class="used" />
+        <rect x="150" y="0"  class="used" />
+        <rect x="180" y="0"  class="heap" />
+        <rect x="210" y="0"  class="heap" />
+        <rect x="240" y="0"  class="heap" />
+        <rect x="270" y="0"  class="used" />
+        <rect x="300" y="0"  class="heap" />
+        <rect x="330" y="0"  class="used" />
+        <rect x="360" y="0"  class="heap" />
+        <rect x="390" y="0"  class="used" />
+        <rect x="420" y="0"  class="used" />
+        <rect x="450" y="0"  class="heap" />
+        <rect x="480" y="0"  class="heap" />
+        <rect x="510" y="0"  class="used" />
+        <rect x="540" y="0"  class="used" />
+        <rect x="570" y="0"  class="used" />
+        <rect x="600" y="0"  class="used" />
+        <rect x="630" y="0"  class="heap" />
+        <rect x="660" y="0"  class="used" />
+        <rect x="690" y="0"  class="used" />
+        <rect x="720" y="0"  class="used" />
+        <rect x="750" y="0"  class="heap" />
+        <rect x="780" y="0"  class="heap" />
+        <rect x="810" y="0"  class="used" />
+        <rect x="840" y="0"  class="used" />
+        <rect x="870" y="0"  class="used" />
+        <rect x="900" y="0"  class="used" />
+        <rect x="930" y="0"  class="heap" />
+        <rect x="0"   y="20" class="heap" />
+        <rect x="30"  y="20" class="heap" />
+        <rect x="60"  y="20" class="heap" />
+        <rect x="90"  y="20" class="heap" />
+        <rect x="120" y="20" class="heap" />
+        <rect x="150" y="20" class="heap" />
+        <rect x="180" y="20" class="heap" />
+        <rect x="210" y="20" class="heap" />
+        <rect x="240" y="20" class="heap" />
+        <rect x="270" y="20" class="heap" />
+        <rect x="300" y="20" class="heap" />
+        <rect x="330" y="20" class="heap" />
+        <rect x="360" y="20" class="heap" />
+        <rect x="390" y="20" class="heap" />
+        <rect x="420" y="20" class="heap" />
+        <rect x="450" y="20" class="free" />
+        <rect x="480" y="20" class="heap" />
+        <rect x="510" y="20" class="heap" />
+        <rect x="540" y="20" class="heap" />
+        <rect x="570" y="20" class="heap" />
+        <rect x="600" y="20" class="heap" />
+        <rect x="630" y="20" class="heap" />
+        <rect x="660" y="20" class="heap" />
+        <rect x="690" y="20" class="heap" />
+        <rect x="720" y="20" class="heap" />
+        <rect x="750" y="20" class="heap" />
+        <rect x="780" y="20" class="heap" />
+        <rect x="810" y="20" class="heap" />
+        <rect x="840" y="20" class="heap" />
+        <rect x="870" y="20" class="heap" />
+        <rect x="900" y="20" class="heap" />
+        <rect x="930" y="20" class="heap" />
+        <rect x="0"   y="40" class="heap" />
+        <rect x="30"  y="40" class="heap" />
+        <rect x="60"  y="40" class="heap" />
+        <rect x="90"  y="40" class="free" />
+        <rect x="120" y="40" class="heap" />
+        <rect x="150" y="40" class="heap" />
+        <rect x="180" y="40" class="heap" />
+        <rect x="210" y="40" class="heap" />
+        <rect x="240" y="40" class="heap" />
+        <rect x="270" y="40" class="heap" />
+        <rect x="300" y="40" class="heap" />
+        <rect x="330" y="40" class="heap" />
+        <rect x="360" y="40" class="heap" />
+        <rect x="390" y="40" class="heap" />
+        <rect x="420" y="40" class="heap" />
+        <rect x="450" y="40" class="heap" />
+        <rect x="480" y="40" class="heap" />
+        <rect x="510" y="40" class="heap" />
+        <rect x="540" y="40" class="heap" />
+        <rect x="570" y="40" class="heap" />
+        <rect x="600" y="40" class="heap" />
+        <rect x="630" y="40" class="heap" />
+        <rect x="660" y="40" class="heap" />
+        <rect x="690" y="40" class="heap" />
+        <rect x="720" y="40" class="heap" />
+        <rect x="750" y="40" class="heap" />
+        <rect x="780" y="40" class="heap" />
+        <rect x="810" y="40" class="heap" />
+        <rect x="840" y="40" class="heap" />
+        <rect x="870" y="40" class="heap" />
+        <rect x="900" y="40" class="free" />
+        <rect x="930" y="40" class="heap" />
+        <rect x="0"   y="60" class="heap" />
+        <rect x="30"  y="60" class="heap" />
+        <rect x="60"  y="60" class="heap" />
+        <rect x="90"  y="60" class="heap" />
+        <rect x="120" y="60" class="heap" />
+        <rect x="150" y="60" class="heap" />
+        <rect x="180" y="60" class="heap" />
+        <rect x="210" y="60" class="heap" />
+        <rect x="240" y="60" class="uaf"  />
+        <rect x="270" y="60" class="heap" />
+        <rect x="300" y="60" class="heap" />
+        <rect x="330" y="60" class="heap" />
+        <rect x="360" y="60" class="heap" />
+        <rect x="390" y="60" class="heap" />
+        <rect x="420" y="60" class="heap" />
+        <rect x="450" y="60" class="heap" />
+        <rect x="480" y="60" class="heap" />
+        <rect x="510" y="60" class="heap" />
+        <rect x="540" y="60" class="heap" />
+        <rect x="570" y="60" class="heap" />
+        <rect x="600" y="60" class="heap" />
+        <rect x="630" y="60" class="heap" />
+        <rect x="660" y="60" class="heap" />
+        <rect x="690" y="60" class="heap" />
+        <rect x="720" y="60" class="heap" />
+        <rect x="750" y="60" class="heap" />
+        <rect x="780" y="60" class="free" />
+        <rect x="810" y="60" class="heap" />
+        <rect x="840" y="60" class="heap" />
+        <rect x="870" y="60" class="heap" />
+        <rect x="900" y="60" class="heap" />
+        <rect x="930" y="60" class="heap" />
+    </g>
+</svg>

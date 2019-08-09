@@ -1,0 +1,388 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		684DF4B51F44CF4300F47447 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 684DF4B41F44CF4300F47447 /* IOKit.framework */; };
+		877D1EE11F3E1FF500C60D67 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 877D1EE01F3E1FF500C60D67 /* main.m */; };
+		877D1EE41F3E1FF500C60D67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 877D1EE31F3E1FF500C60D67 /* AppDelegate.m */; };
+		877D1EEA1F3E1FF500C60D67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 877D1EE81F3E1FF500C60D67 /* Main.storyboard */; };
+		877D1EEC1F3E1FF500C60D67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 877D1EEB1F3E1FF500C60D67 /* Assets.xcassets */; };
+		877D1EEF1F3E1FF500C60D67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 877D1EED1F3E1FF500C60D67 /* LaunchScreen.storyboard */; };
+		877D1F171F3E242400C60D67 /* GeneratorSetterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 877D1F161F3E242400C60D67 /* GeneratorSetterVC.m */; };
+		87F42C381F44C196001F0724 /* exploit64.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F42C301F44C196001F0724 /* exploit64.m */; };
+		87F42C391F44C196001F0724 /* find.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F42C321F44C196001F0724 /* find.m */; };
+		87F42C3A1F44C196001F0724 /* nvpatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F42C351F44C196001F0724 /* nvpatch.m */; };
+		87F42C3B1F44C196001F0724 /* set.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F42C371F44C196001F0724 /* set.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		684DF4B41F44CF4300F47447 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = PhoenixNonce/IOKit.framework; sourceTree = "<group>"; };
+		877D1EDC1F3E1FF500C60D67 /* PhoenixNonce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoenixNonce.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		877D1EE01F3E1FF500C60D67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		877D1EE21F3E1FF500C60D67 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		877D1EE31F3E1FF500C60D67 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		877D1EE91F3E1FF500C60D67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		877D1EEB1F3E1FF500C60D67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		877D1EEE1F3E1FF500C60D67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		877D1EF01F3E1FF500C60D67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		877D1F151F3E242400C60D67 /* GeneratorSetterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneratorSetterVC.h; sourceTree = "<group>"; };
+		877D1F161F3E242400C60D67 /* GeneratorSetterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratorSetterVC.m; sourceTree = "<group>"; };
+		87F42C2F1F44C196001F0724 /* exploit64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exploit64.h; sourceTree = "<group>"; };
+		87F42C301F44C196001F0724 /* exploit64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = exploit64.m; sourceTree = "<group>"; };
+		87F42C311F44C196001F0724 /* find.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = find.h; sourceTree = "<group>"; };
+		87F42C321F44C196001F0724 /* find.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = find.m; sourceTree = "<group>"; };
+		87F42C331F44C196001F0724 /* mach-o.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mach-o.h"; sourceTree = "<group>"; };
+		87F42C341F44C196001F0724 /* nvpatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nvpatch.h; sourceTree = "<group>"; };
+		87F42C351F44C196001F0724 /* nvpatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nvpatch.m; sourceTree = "<group>"; };
+		87F42C361F44C196001F0724 /* set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = set.h; sourceTree = "<group>"; };
+		87F42C371F44C196001F0724 /* set.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = set.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		877D1ED91F3E1FF500C60D67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				684DF4B51F44CF4300F47447 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		685913011F44C73900C82CB0 /* Exploit */ = {
+			isa = PBXGroup;
+			children = (
+				87F42C2F1F44C196001F0724 /* exploit64.h */,
+				87F42C301F44C196001F0724 /* exploit64.m */,
+				87F42C311F44C196001F0724 /* find.h */,
+				87F42C321F44C196001F0724 /* find.m */,
+				87F42C331F44C196001F0724 /* mach-o.h */,
+				87F42C341F44C196001F0724 /* nvpatch.h */,
+				87F42C351F44C196001F0724 /* nvpatch.m */,
+				87F42C361F44C196001F0724 /* set.h */,
+				87F42C371F44C196001F0724 /* set.m */,
+			);
+			name = Exploit;
+			sourceTree = "<group>";
+		};
+		685913021F44C75000C82CB0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EE21F3E1FF500C60D67 /* AppDelegate.h */,
+				877D1EE31F3E1FF500C60D67 /* AppDelegate.m */,
+				877D1F151F3E242400C60D67 /* GeneratorSetterVC.h */,
+				877D1F161F3E242400C60D67 /* GeneratorSetterVC.m */,
+				877D1EE81F3E1FF500C60D67 /* Main.storyboard */,
+				877D1EED1F3E1FF500C60D67 /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		877D1ED31F3E1FF400C60D67 = {
+			isa = PBXGroup;
+			children = (
+				877D1EDE1F3E1FF500C60D67 /* PhoenixNonce */,
+				877D1EDD1F3E1FF500C60D67 /* Products */,
+				87F42C3C1F44C222001F0724 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		877D1EDD1F3E1FF500C60D67 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EDC1F3E1FF500C60D67 /* PhoenixNonce.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		877D1EDE1F3E1FF500C60D67 /* PhoenixNonce */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EEB1F3E1FF500C60D67 /* Assets.xcassets */,
+				685913021F44C75000C82CB0 /* UI */,
+				685913011F44C73900C82CB0 /* Exploit */,
+				877D1EDF1F3E1FF500C60D67 /* Supporting Files */,
+			);
+			path = PhoenixNonce;
+			sourceTree = "<group>";
+		};
+		877D1EDF1F3E1FF500C60D67 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EF01F3E1FF500C60D67 /* Info.plist */,
+				877D1EE01F3E1FF500C60D67 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87F42C3C1F44C222001F0724 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				684DF4B41F44CF4300F47447 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		877D1EDB1F3E1FF500C60D67 /* PhoenixNonce */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 877D1F091F3E1FF500C60D67 /* Build configuration list for PBXNativeTarget "PhoenixNonce" */;
+			buildPhases = (
+				877D1ED81F3E1FF500C60D67 /* Sources */,
+				877D1ED91F3E1FF500C60D67 /* Frameworks */,
+				877D1EDA1F3E1FF500C60D67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhoenixNonce;
+			productName = PhoenixNonce;
+			productReference = 877D1EDC1F3E1FF500C60D67 /* PhoenixNonce.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		877D1ED41F3E1FF400C60D67 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = tihmstar;
+				TargetAttributes = {
+					877D1EDB1F3E1FF500C60D67 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = XXXXXXXXXX;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 877D1ED71F3E1FF400C60D67 /* Build configuration list for PBXProject "PhoenixNonce" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 877D1ED31F3E1FF400C60D67;
+			productRefGroup = 877D1EDD1F3E1FF500C60D67 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				877D1EDB1F3E1FF500C60D67 /* PhoenixNonce */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		877D1EDA1F3E1FF500C60D67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				877D1EEF1F3E1FF500C60D67 /* LaunchScreen.storyboard in Resources */,
+				877D1EEC1F3E1FF500C60D67 /* Assets.xcassets in Resources */,
+				877D1EEA1F3E1FF500C60D67 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		877D1ED81F3E1FF500C60D67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87F42C3B1F44C196001F0724 /* set.m in Sources */,
+				87F42C3A1F44C196001F0724 /* nvpatch.m in Sources */,
+				87F42C391F44C196001F0724 /* find.m in Sources */,
+				877D1EE41F3E1FF500C60D67 /* AppDelegate.m in Sources */,
+				87F42C381F44C196001F0724 /* exploit64.m in Sources */,
+				877D1F171F3E242400C60D67 /* GeneratorSetterVC.m in Sources */,
+				877D1EE11F3E1FF500C60D67 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		877D1EE81F3E1FF500C60D67 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				877D1EE91F3E1FF500C60D67 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		877D1EED1F3E1FF500C60D67 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				877D1EEE1F3E1FF500C60D67 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		877D1F071F3E1FF500C60D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		877D1F081F3E1FF500C60D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		877D1F0A1F3E1FF500C60D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XXXXXXXXXX;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PhoenixNonce";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/PhoenixNonce/Headers";
+				INFOPLIST_FILE = PhoenixNonce/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.siguza.PhoenixNonce;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = arm64;
+			};
+			name = Debug;
+		};
+		877D1F0B1F3E1FF500C60D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XXXXXXXXXX;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/PhoenixNonce";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/PhoenixNonce/Headers";
+				INFOPLIST_FILE = PhoenixNonce/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.siguza.PhoenixNonce;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = arm64;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		877D1ED71F3E1FF400C60D67 /* Build configuration list for PBXProject "PhoenixNonce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				877D1F071F3E1FF500C60D67 /* Debug */,
+				877D1F081F3E1FF500C60D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		877D1F091F3E1FF500C60D67 /* Build configuration list for PBXNativeTarget "PhoenixNonce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				877D1F0A1F3E1FF500C60D67 /* Debug */,
+				877D1F0B1F3E1FF500C60D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 877D1ED41F3E1FF400C60D67 /* Project object */;
+}

@@ -1,0 +1,9 @@
+.DS_Store
+/build
+/data
+/include
+/cl0ver
+/cl0ver.tar.xz
+/cl0ver.zip
+/libcl0ver.a
+/scan/scan
