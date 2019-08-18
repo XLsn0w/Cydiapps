@@ -78,6 +78,11 @@ Application/XXXXXX/xxx.app/xxx
 
 ## class-dump
 
+dump demo
+```
+$ class-dump -H /Users/xlsn0w/Desktop/Payload/JYLIM.app -o /Users/xlsn0w/Desktop/Header
+
+```
 
 class-dump就是用来dump二进制运行文件里面的class信息的工具。它利用Objective-C语言的runtime特性，将存储在Mach-O文件中的头文件信息提取出来，并生成对应的.h文件，这个工具非常有用，有了这个工具我们就像四维世界里面看三维物体，一切架构尽收眼底。
 class-dump用法：
