@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8C0441D11FE54F3100DD366C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0441D01FE54F3100DD366C /* Foundation.framework */; };
+		8C0441D91FE54F3100DD366C /* dumpdecrypted.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C0441D81FE54F3100DD366C /* dumpdecrypted.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8C0441CD1FE54F3100DD366C /* dumpdecrypted.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = dumpdecrypted.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C0441D01FE54F3100DD366C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8C0441D51FE54F3100DD366C /* control */ = {isa = PBXFileReference; lastKnownFileType = text; name = control; path = Package/DEBIAN/control; sourceTree = "<group>"; };
+		8C0441D71FE54F3100DD366C /* dumpdecrypted-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dumpdecrypted-Prefix.pch"; sourceTree = "<group>"; };
+		8C0441D81FE54F3100DD366C /* dumpdecrypted.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dumpdecrypted.m; sourceTree = "<group>"; };
+		8C0441DD1FE54F3100DD366C /* dumpdecrypted.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = dumpdecrypted.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/dumpdecrypted.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C0441C91FE54F3100DD366C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C0441D11FE54F3100DD366C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8C0441C31FE54F3100DD366C = {
+			isa = PBXGroup;
+			children = (
+				8C0441D21FE54F3100DD366C /* dumpdecrypted */,
+				8C0441CF1FE54F3100DD366C /* Frameworks */,
+				8C0441CE1FE54F3100DD366C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8C0441CE1FE54F3100DD366C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441CD1FE54F3100DD366C /* dumpdecrypted.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C0441CF1FE54F3100DD366C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441D01FE54F3100DD366C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C0441D21FE54F3100DD366C /* dumpdecrypted */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441D81FE54F3100DD366C /* dumpdecrypted.m */,
+				8C0441D31FE54F3100DD366C /* Package */,
+				8C0441D61FE54F3100DD366C /* Supporting Files */,
+			);
+			path = dumpdecrypted;
+			sourceTree = "<group>";
+		};
+		8C0441D31FE54F3100DD366C /* Package */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441D41FE54F3100DD366C /* DEBIAN */,
+				8C0441DA1FE54F3100DD366C /* Library */,
+			);
+			name = Package;
+			sourceTree = "<group>";
+		};
+		8C0441D41FE54F3100DD366C /* DEBIAN */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441D51FE54F3100DD366C /* control */,
+			);
+			name = DEBIAN;
+			sourceTree = "<group>";
+		};
+		8C0441D61FE54F3100DD366C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441D71FE54F3100DD366C /* dumpdecrypted-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8C0441DA1FE54F3100DD366C /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441DB1FE54F3100DD366C /* MobileSubstrate */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		8C0441DB1FE54F3100DD366C /* MobileSubstrate */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441DC1FE54F3100DD366C /* DynamicLibraries */,
+			);
+			name = MobileSubstrate;
+			sourceTree = "<group>";
+		};
+		8C0441DC1FE54F3100DD366C /* DynamicLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				8C0441DD1FE54F3100DD366C /* dumpdecrypted.plist */,
+			);
+			name = DynamicLibraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8C0441CA1FE54F3100DD366C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8C0441CC1FE54F3100DD366C /* dumpdecrypted */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C0441E01FE54F3100DD366C /* Build configuration list for PBXNativeTarget "dumpdecrypted" */;
+			buildPhases = (
+				8C0441C81FE54F3100DD366C /* Sources */,
+				8C0441C91FE54F3100DD366C /* Frameworks */,
+				8C0441CA1FE54F3100DD366C /* Headers */,
+				8C0441CB1FE54F3100DD366C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dumpdecrypted;
+			productName = dumpdecrypted;
+			productReference = 8C0441CD1FE54F3100DD366C /* dumpdecrypted.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8C0441C41FE54F3100DD366C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				TargetAttributes = {
+					8C0441CC1FE54F3100DD366C = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 8C0441C71FE54F3100DD366C /* Build configuration list for PBXProject "dumpdecrypted" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8C0441C31FE54F3100DD366C;
+			productRefGroup = 8C0441CE1FE54F3100DD366C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C0441CC1FE54F3100DD366C /* dumpdecrypted */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8C0441CB1FE54F3100DD366C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C0441C81FE54F3100DD366C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C0441D91FE54F3100DD366C /* dumpdecrypted.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8C0441DE1FE54F3100DD366C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/frameworks/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/lib/**";
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				OTHER_CFLAGS = "-DTHEOS_INSTANCE_NAME=\"\\\"dumpdecrypted\\\"\"";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8C0441DF1FE54F3100DD366C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/frameworks/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/lib/**";
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				OTHER_CFLAGS = "-DTHEOS_INSTANCE_NAME=\"\\\"dumpdecrypted\\\"\"";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		8C0441E11FE54F3100DD366C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XQEPG2J2J;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dumpdecrypted/dumpdecrypted-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/include",
+					"$(MonkeyDevTheosPath)/vendor/include/**",
+				);
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				MonkeyDevBuildPackageOnAnyBuild = NO;
+				MonkeyDevClearUiCacheOnInstall = NO;
+				MonkeyDevCopyOnBuild = NO;
+				MonkeyDevDeviceIP = "";
+				MonkeyDevDevicePassword = "";
+				MonkeyDevDevicePort = "";
+				MonkeyDevInstallOnAnyBuild = YES;
+				MonkeyDevInstallOnProfiling = YES;
+				MonkeyDevkillProcessOnInstall = SpringBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8C0441E21FE54F3100DD366C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9XQEPG2J2J;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dumpdecrypted/dumpdecrypted-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/include",
+					"$(MonkeyDevTheosPath)/vendor/include/**",
+				);
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				MonkeyDevBuildPackageOnAnyBuild = NO;
+				MonkeyDevClearUiCacheOnInstall = NO;
+				MonkeyDevCopyOnBuild = NO;
+				MonkeyDevDeviceIP = "";
+				MonkeyDevDevicePassword = "";
+				MonkeyDevDevicePort = "";
+				MonkeyDevInstallOnAnyBuild = YES;
+				MonkeyDevInstallOnProfiling = YES;
+				MonkeyDevkillProcessOnInstall = SpringBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C0441C71FE54F3100DD366C /* Build configuration list for PBXProject "dumpdecrypted" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C0441DE1FE54F3100DD366C /* Release */,
+				8C0441DF1FE54F3100DD366C /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C0441E01FE54F3100DD366C /* Build configuration list for PBXNativeTarget "dumpdecrypted" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C0441E11FE54F3100DD366C /* Release */,
+				8C0441E21FE54F3100DD366C /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8C0441C41FE54F3100DD366C /* Project object */;
+}
