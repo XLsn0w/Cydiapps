@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2D08A4EB201DE08D000C227D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D08A4EA201DE08D000C227D /* Default-568h@2x.png */; };
+		2D373959201DA389006B6054 /* MJPrintTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D373958201DA389006B6054 /* MJPrintTools.m */; };
+		2DBBEB1D201C8C7000780B3C /* MJApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEAFB201C6F3800780B3C /* MJApp.m */; };
+		2DBBEB1E201C8C7000780B3C /* MJAppTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEAFD201C6F3800780B3C /* MJAppTools.m */; };
+		2DBBEB1F201C8C7000780B3C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEAE5201C6E9C00780B3C /* main.m */; };
+		2DBBEB23201C8EE900780B3C /* NSFileHandle+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEB21201C8EDD00780B3C /* NSFileHandle+Extension.m */; };
+		2DBBEB27201C8FA200780B3C /* MJMachO.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBBEB26201C8FA200780B3C /* MJMachO.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2D08A4EA201DE08D000C227D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2D373957201DA389006B6054 /* MJPrintTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJPrintTools.h; sourceTree = "<group>"; };
+		2D373958201DA389006B6054 /* MJPrintTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJPrintTools.m; sourceTree = "<group>"; };
+		2DBBEAE4201C6E9C00780B3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DBBEAE5201C6E9C00780B3C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DBBEAF6201C6F3800780B3C /* MJAppTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJAppTools.h; sourceTree = "<group>"; };
+		2DBBEAF8201C6F3800780B3C /* LSApplicationProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSApplicationProxy.h; sourceTree = "<group>"; };
+		2DBBEAF9201C6F3800780B3C /* LSApplicationWorkspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSApplicationWorkspace.h; sourceTree = "<group>"; };
+		2DBBEAFA201C6F3800780B3C /* FBApplicationInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBApplicationInfo.h; sourceTree = "<group>"; };
+		2DBBEAFB201C6F3800780B3C /* MJApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJApp.m; sourceTree = "<group>"; };
+		2DBBEAFC201C6F3800780B3C /* MJApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJApp.h; sourceTree = "<group>"; };
+		2DBBEAFD201C6F3800780B3C /* MJAppTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJAppTools.m; sourceTree = "<group>"; };
+		2DBBEB06201C8BB900780B3C /* MJAppTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MJAppTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DBBEB21201C8EDD00780B3C /* NSFileHandle+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+Extension.m"; sourceTree = "<group>"; };
+		2DBBEB22201C8EDD00780B3C /* NSFileHandle+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+Extension.h"; sourceTree = "<group>"; };
+		2DBBEB25201C8FA200780B3C /* MJMachO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MJMachO.h; sourceTree = "<group>"; };
+		2DBBEB26201C8FA200780B3C /* MJMachO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MJMachO.m; sourceTree = "<group>"; };
+		2DFA8508201ECF5700F3F555 /* FBBundleInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBBundleInfo.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2DBBEB03201C8BB900780B3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2D06C186201DF5CC00003BDD /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				2D373957201DA389006B6054 /* MJPrintTools.h */,
+				2D373958201DA389006B6054 /* MJPrintTools.m */,
+				2DBBEAF6201C6F3800780B3C /* MJAppTools.h */,
+				2DBBEAFD201C6F3800780B3C /* MJAppTools.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		2DBBEAAE201C6E7600780B3C = {
+			isa = PBXGroup;
+			children = (
+				2DBBEB07201C8BB900780B3C /* MJAppTools */,
+				2DBBEAB8201C6E7600780B3C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2DBBEAB8201C6E7600780B3C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DBBEB06201C8BB900780B3C /* MJAppTools.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2DBBEAF7201C6F3800780B3C /* SystemHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				2DBBEAF8201C6F3800780B3C /* LSApplicationProxy.h */,
+				2DBBEAF9201C6F3800780B3C /* LSApplicationWorkspace.h */,
+				2DBBEAFA201C6F3800780B3C /* FBApplicationInfo.h */,
+				2DFA8508201ECF5700F3F555 /* FBBundleInfo.h */,
+			);
+			path = SystemHeaders;
+			sourceTree = "<group>";
+		};
+		2DBBEB07201C8BB900780B3C /* MJAppTools */ = {
+			isa = PBXGroup;
+			children = (
+				2D06C186201DF5CC00003BDD /* Tools */,
+				2DBBEB24201C8F5600780B3C /* Models */,
+				2DBBEB20201C8ECC00780B3C /* Extensions */,
+				2DBBEAF7201C6F3800780B3C /* SystemHeaders */,
+				2DBBEAE5201C6E9C00780B3C /* main.m */,
+				2DBBEAE4201C6E9C00780B3C /* Info.plist */,
+				2D08A4EA201DE08D000C227D /* Default-568h@2x.png */,
+			);
+			path = MJAppTools;
+			sourceTree = "<group>";
+		};
+		2DBBEB20201C8ECC00780B3C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2DBBEB22201C8EDD00780B3C /* NSFileHandle+Extension.h */,
+				2DBBEB21201C8EDD00780B3C /* NSFileHandle+Extension.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2DBBEB24201C8F5600780B3C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2DBBEAFC201C6F3800780B3C /* MJApp.h */,
+				2DBBEAFB201C6F3800780B3C /* MJApp.m */,
+				2DBBEB25201C8FA200780B3C /* MJMachO.h */,
+				2DBBEB26201C8FA200780B3C /* MJMachO.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2DBBEB05201C8BB900780B3C /* MJAppTools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DBBEB19201C8BB900780B3C /* Build configuration list for PBXNativeTarget "MJAppTools" */;
+			buildPhases = (
+				2DBBEB02201C8BB900780B3C /* Sources */,
+				2DBBEB03201C8BB900780B3C /* Frameworks */,
+				2DBBEB04201C8BB900780B3C /* Resources */,
+				2DBBEB1C201C8BD200780B3C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MJAppTools;
+			productName = MJAppTools;
+			productReference = 2DBBEB06201C8BB900780B3C /* MJAppTools.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2DBBEAAF201C6E7600780B3C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "MJ Lee";
+				TargetAttributes = {
+					2DBBEB05201C8BB900780B3C = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2DBBEAB2201C6E7600780B3C /* Build configuration list for PBXProject "MJAppTools" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2DBBEAAE201C6E7600780B3C;
+			productRefGroup = 2DBBEAB8201C6E7600780B3C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2DBBEB05201C8BB900780B3C /* MJAppTools */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2DBBEB04201C8BB900780B3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D08A4EB201DE08D000C227D /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2DBBEB1C201C8BD200780B3C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = make;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2DBBEB02201C8BB900780B3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DBBEB23201C8EE900780B3C /* NSFileHandle+Extension.m in Sources */,
+				2DBBEB1D201C8C7000780B3C /* MJApp.m in Sources */,
+				2DBBEB1E201C8C7000780B3C /* MJAppTools.m in Sources */,
+				2DBBEB27201C8FA200780B3C /* MJMachO.m in Sources */,
+				2D373959201DA389006B6054 /* MJPrintTools.m in Sources */,
+				2DBBEB1F201C8C7000780B3C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2DBBEACB201C6E7700780B3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2DBBEACC201C6E7700780B3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2DBBEB1A201C8BB900780B3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = MJAppTools/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mj.mjapptools;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2DBBEB1B201C8BB900780B3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = MJAppTools/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mj.mjapptools;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DBBEAB2201C6E7600780B3C /* Build configuration list for PBXProject "MJAppTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DBBEACB201C6E7700780B3C /* Debug */,
+				2DBBEACC201C6E7700780B3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DBBEB19201C8BB900780B3C /* Build configuration list for PBXNativeTarget "MJAppTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DBBEB1A201C8BB900780B3C /* Debug */,
+				2DBBEB1B201C8BB900780B3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2DBBEAAF201C6E7600780B3C /* Project object */;
+}
