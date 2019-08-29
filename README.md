@@ -26,6 +26,7 @@ https://xlsn0w.github.io/CydiaRepo
 3、回车确认，即可root登录设备
 你也可以将你mac的公钥导入设备的/var/root/.ssh/authorized_keys文件，这样就可以免密登录root了。
 
+![Reverse](https://github.com/XLsn0w/Cydia/blob/master/iOS%20Reverse.png?raw=true)
 
 ## Cycript
 
