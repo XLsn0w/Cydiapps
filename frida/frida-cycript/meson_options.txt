@@ -1,0 +1,3 @@
+option('enable_engine', type: 'boolean', value: true)
+option('enable_console', type: 'boolean', value: true)
+option('with-python', type: 'string', description: 'Support python (pass the path to the desired Python interpreter)', value: 'python')

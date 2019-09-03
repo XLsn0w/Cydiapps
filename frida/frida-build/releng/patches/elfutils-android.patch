@@ -1,0 +1,64 @@
+diff --git a/configure.ac b/configure.ac
+index 8274ec79..f00877a3 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -485,7 +485,7 @@ if test "$libc_has_argp" = "false" ; then
+ 	AC_CHECK_LIB([argp], [argp_parse], [have_argp="true"], [have_argp="false"])
+ 
+ 	if test "$have_argp" = "false"; then
+-		AC_MSG_ERROR("no libargp found")
++		AC_MSG_WARN("no libargp found")
+ 	else
+ 		argp_LDADD="-largp"
+ 	fi
+diff --git a/lib/system.h b/lib/system.h
+index 292082bd..172456d2 100644
+--- a/lib/system.h
++++ b/lib/system.h
+@@ -33,6 +33,7 @@
+ #include <error.h>
+ #include <stddef.h>
+ #include <stdint.h>
++#include <string.h>
+ #include <sys/param.h>
+ #include <endian.h>
+ #include <byteswap.h>
+diff --git a/libelf/elf_update.c b/libelf/elf_update.c
+index 9b8867ce..afb3aa82 100644
+--- a/libelf/elf_update.c
++++ b/libelf/elf_update.c
+@@ -91,6 +91,7 @@ write_file (Elf *elf, int64_t size, int change_bo, size_t shnum)
+ 	 fallback case might fail (with unexpected errnos) in some cases.
+ 	 So we only report an error when the call fails and errno is
+ 	 ENOSPC. Otherwise we ignore the error and treat it as just hint.  */
++#if 0
+       if (elf->parent == NULL
+ 	  && (elf->maximum_size == ~((size_t) 0)
+ 	      || (size_t) size > elf->maximum_size))
+@@ -116,6 +117,7 @@ write_file (Elf *elf, int64_t size, int change_bo, size_t shnum)
+ 	    }
+ 
+ 	}
++#endif
+ 
+       /* The file is mmaped.  */
+       if ((class == ELFCLASS32
+diff --git a/libelf/libelfP.h b/libelf/libelfP.h
+index b55d5c48..5f13d947 100644
+--- a/libelf/libelfP.h
++++ b/libelf/libelfP.h
+@@ -40,7 +40,7 @@
+ #include <string.h>
+ 
+ /* gettext helper macros.  */
+-#define _(Str) dgettext ("elfutils", Str)
++#define _(Str) Str
+ 
+ 
+ /* Helper Macros to write 32 bit and 64 bit functions.  */
+diff --git a/libelf/libintl.h b/libelf/libintl.h
+index e69de29b..0a2b2b66 100644
+--- a/libelf/libintl.h
++++ b/libelf/libintl.h
+@@ -0,0 +1 @@
++/* Empty stub for Android. */ 

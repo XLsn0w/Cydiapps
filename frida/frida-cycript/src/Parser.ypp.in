@@ -1,0 +1,2806 @@
+/* Cycript - The Truly Universal Scripting Language
+ * Copyright (C) 2009-2016  Jay Freeman (saurik)
+*/
+
+/* GNU Affero General Public License, Version 3 {{{ */
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**/
+/* }}} */
+
+%code top {
+#define YYSTACKEXPANDABLE 1
+}
+
+%code requires {
+#include "Driver.hpp"
+#include "Parser.hpp"
+#include "Stack.hpp"
+#include "Syntax.hpp"
+#define CYNew new(driver.pool_)
+
+@begin ObjectiveC
+#include "ObjectiveC/Syntax.hpp"
+@end
+
+@begin E4X
+#include "E4X/Syntax.hpp"
+@end
+
+#include "Highlight.hpp"
+}
+
+%union { bool bool_; }
+
+%union { CYMember *access_; }
+%union { CYArgument *argument_; }
+%union { CYAssignment *assignment_; }
+%union { CYBinding *binding_; }
+%union { CYBindings *bindings_; }
+%union { CYBoolean *boolean_; }
+%union { CYBraced *braced_; }
+%union { CYClause *clause_; }
+%union { cy::Syntax::Catch *catch_; }
+%union { CYClassTail *classTail_; }
+%union { CYComprehension *comprehension_; }
+%union { CYElement *element_; }
+%union { CYEnumConstant *constant_; }
+%union { CYExpression *expression_; }
+%union { CYFalse *false_; }
+%union { CYVariable *variable_; }
+%union { CYFinally *finally_; }
+%union { CYForInitializer *for_; }
+%union { CYForInInitializer *forin_; }
+%union { CYFunctionParameter *functionParameter_; }
+%union { CYIdentifier *identifier_; }
+%union { CYImportSpecifier *import_; }
+%union { CYInfix *infix_; }
+%union { CYLiteral *literal_; }
+%union { CYMethod *method_; }
+%union { CYModule *module_; }
+%union { CYNull *null_; }
+%union { CYNumber *number_; }
+%union { CYParenthetical *parenthetical_; }
+%union { CYProperty *property_; }
+%union { CYPropertyName *propertyName_; }
+%union { CYTypeSigning signing_; }
+%union { CYSpan *span_; }
+%union { CYStatement *statement_; }
+%union { CYString *string_; }
+%union { CYTarget *target_; }
+%union { CYThis *this_; }
+%union { CYTrue *true_; }
+%union { CYWord *word_; }
+
+@begin C
+%union { CYTypeIntegral *integral_; }
+%union { CYTypeStructField *structField_; }
+%union { CYTypeModifier *modifier_; }
+%union { CYTypeSpecifier *specifier_; }
+%union { CYTypedFormal *typedFormal_; }
+%union { CYTypedLocation *typedLocation_; }
+%union { CYTypedName *typedName_; }
+%union { CYTypedParameter *typedParameter_; }
+%union { CYType *typedThing_; }
+@end
+
+@begin ObjectiveC
+%union { CYObjCKeyValue *keyValue_; }
+%union { CYImplementationField *implementationField_; }
+%union { CYMessage *message_; }
+%union { CYMessageParameter *messageParameter_; }
+%union { CYProtocol *protocol_; }
+%union { CYSelectorPart *selector_; }
+@end
+
+@begin E4X
+%union { CYAttribute *attribute_; }
+%union { CYPropertyIdentifier *propertyIdentifier_; }
+%union { CYSelector *selector_; }
+@end
+
+%code provides {
+
+struct YYSTYPE {
+    cy::parser::semantic_type semantic_;
+    hi::Value highlight_;
+};
+
+int cylex(YYSTYPE *, CYLocation *, void *);
+
+}
+
+%code {
+
+#undef yylex
+
+typedef cy::parser::token tk;
+
+_finline int cylex_(cy::parser::semantic_type *semantic, CYLocation *location, CYDriver &driver) {
+    driver.newline_ = false;
+  lex:
+    YYSTYPE data;
+    int token(cylex(&data, location, driver.scanner_));
+    *semantic = data.semantic_;
+
+    switch (token) {
+        case tk::OpenBrace:
+        case tk::OpenBracket:
+        case tk::OpenParen:
+            driver.in_.push(false);
+        break;
+
+        case tk::_in_:
+            if (driver.in_.top())
+                token = tk::_in__;
+        break;
+
+        case tk::CloseBrace:
+        case tk::CloseBracket:
+        case tk::CloseParen:
+            driver.in_.pop();
+        break;
+
+
+        case tk::_yield_:
+            if (driver.yield_.top())
+                token = tk::_yield__;
+        break;
+
+        case tk::NewLine:
+            driver.newline_ = true;
+            goto lex;
+        break;
+    }
+
+    return token;
+}
+
+static int cyswap(int &value, int new_value) {
+    int old_value = value;
+    value = new_value;
+    return old_value;
+}
+
+#define yylex_(semantic, location, driver) \
+    (driver.hold_ == cy::parser::empty_symbol) \
+        ? yytranslate_(cylex_(semantic, location, driver)) \
+        : cyswap(driver.hold_, cy::parser::empty_symbol)
+
+#define CYLEX() do if (yyla.empty()) { \
+    YYCDEBUG << "Mapping a token: "; \
+    yyla.type = yylex_(&yyla.value, &yyla.location, driver); \
+    YY_SYMBOL_PRINT("Next token is", yyla); \
+} while (false)
+
+#define CYMAP(to, from) do { \
+    CYLEX(); \
+    if (yyla.type == yytranslate_(token::from)) \
+        yyla.type = yytranslate_(token::to); \
+} while (false)
+
+#define CYHLD(location, token) do { \
+    if (driver.hold_ != empty_symbol) \
+        CYERR(location, "unexpected hold"); \
+    driver.hold_ = yyla.type; \
+    yyla.type = yytranslate_(token); \
+} while (false)
+
+#define CYERR(location, message) do { \
+    error(location, message); \
+    YYABORT; \
+} while (false)
+
+#define CYEOK() do { \
+    yyerrok; \
+    driver.errors_.pop_back(); \
+} while (false)
+
+#define CYNOT(location) \
+    CYERR(location, "unimplemented feature")
+
+#define CYMPT(location) do { \
+    if (!yyla.empty() && yyla.type_get() != yyeof_) \
+        CYERR(location, "unexpected lookahead"); \
+} while (false)
+
+}
+
+%name-prefix "cy"
+
+%language "C++"
+
+%initial-action {
+    @$.begin.filename = @$.end.filename = &driver.filename_;
+
+    switch (driver.mark_) {
+        case CYMarkScript:
+            driver.hold_ = yytranslate_(token::MarkScript);
+            break;
+        case CYMarkModule:
+            driver.hold_ = yytranslate_(token::MarkModule);
+            break;
+        case CYMarkExpression:
+            driver.hold_ = yytranslate_(token::MarkExpression);
+            break;
+    }
+};
+
+%locations
+%defines
+
+%define api.location.type { CYLocation }
+
+//%glr-parser
+//%expect 1
+
+%error-verbose
+
+%param { CYDriver &driver }
+
+/* Token Declarations {{{ */
+@begin E4X
+%token XMLCDATA
+%token XMLComment
+%token XMLPI
+
+%token XMLAttributeValue
+%token XMLName
+%token XMLTagCharacters
+%token XMLText
+%token XMLWhitespace
+@end
+
+@begin E4X
+%token LeftRight "<>"
+%token LeftSlashRight "</>"
+
+%token SlashRight "/>"
+%token LeftSlash "</"
+
+%token PeriodPeriod ".."
+@end
+
+@begin E4X ObjectiveC
+%token At "@"
+@end
+
+%token Ampersand "&"
+%token AmpersandAmpersand "&&"
+%token AmpersandEqual "&="
+%token Carrot "^"
+%token CarrotEqual "^="
+%token Equal "="
+%token EqualEqual "=="
+%token EqualEqualEqual "==="
+%token EqualRight "=>"
+%token Exclamation "!"
+%token ExclamationEqual "!="
+%token ExclamationEqualEqual "!=="
+%token Hyphen "-"
+%token HyphenEqual "-="
+%token HyphenHyphen "--"
+%token HyphenRight "->"
+%token Left "<"
+%token LeftEqual "<="
+%token LeftLeft "<<"
+%token LeftLeftEqual "<<="
+%token Percent "%"
+%token PercentEqual "%="
+%token Period "."
+%token PeriodPeriodPeriod "..."
+%token Pipe "|"
+%token PipeEqual "|="
+%token PipePipe "||"
+%token Plus "+"
+%token PlusEqual "+="
+%token PlusPlus "++"
+%token QuestionPeriod "?."
+%token Right ">"
+%token RightEqual ">="
+%token RightRight ">>"
+%token RightRightEqual ">>="
+%token RightRightRight ">>>"
+%token RightRightRightEqual ">>>="
+%token Slash "/"
+%token SlashEqual "/="
+%token Star "*"
+%token StarEqual "*="
+%token Tilde "~"
+
+%token Colon ":"
+%token ColonColon "::"
+%token Comma ","
+%token Question "?"
+%token SemiColon ";"
+%token Pound "#"
+%token NewLine "\n"
+%token __ ""
+
+%token Comment
+
+%token OpenParen "("
+%token CloseParen ")"
+
+%token OpenBrace "{"
+%token OpenBrace_ ";{"
+%token OpenBrace_let "let {"
+%token CloseBrace "}"
+
+%token OpenBracket "["
+%token OpenBracket_let "let ["
+%token CloseBracket "]"
+
+%token At_error_ "@error"
+
+@begin Java
+%token At_class_ "@class"
+@end
+
+@begin C
+%token _typedef_ "typedef"
+%token _unsigned_ "unsigned"
+%token _signed_ "signed"
+%token _struct_ "struct"
+%token _extern_ "extern"
+@end
+
+@begin C
+%token At_encode_ "@encode"
+@end
+
+@begin ObjectiveC
+%token At_implementation_ "@implementation"
+%token At_import_ "@import"
+%token At_end_ "@end"
+%token At_selector_ "@selector"
+%token At_null_ "@null"
+%token At_YES_ "@YES"
+%token At_NO_ "@NO"
+%token At_true_ "@true"
+%token At_false_ "@false"
+%token _YES_ "YES"
+%token _NO_ "NO"
+@end
+
+%token _false_ "false"
+%token _null_ "null"
+%token _true_ "true"
+
+%token _as_ "as"
+%token _break_ "break"
+%token _case_ "case"
+%token _catch_ "catch"
+%token _class_ "class"
+%token _class__ ";class"
+%token _const_ "const"
+%token _continue_ "continue"
+%token _debugger_ "debugger"
+%token _default_ "default"
+%token _delete_ "delete"
+%token _do_ "do"
+%token _else_ "else"
+%token _enum_ "enum"
+%token _export_ "export"
+%token _extends_ "extends"
+%token _finally_ "finally"
+%token _for_ "for"
+%token _function_ "function"
+%token _function__ ";function"
+%token _if_ "if"
+%token _import_ "import"
+%token _in_ "in"
+%token _in__ "!in"
+%token _Infinity_ "Infinity"
+%token _instanceof_ "instanceof"
+%token _new_ "new"
+%token _return_ "return"
+%token _super_ "super"
+%token _switch_ "switch"
+%token _target_ "target"
+%token _this_ "this"
+%token _throw_ "throw"
+%token _try_ "try"
+%token _typeof_ "typeof"
+%token _var_ "var"
+%token _void_ "void"
+%token _while_ "while"
+%token _with_ "with"
+
+%token _abstract_ "abstract"
+%token _await_ "await"
+%token _boolean_ "boolean"
+%token _byte_ "byte"
+%token _char_ "char"
+%token _constructor_ "constructor"
+%token _double_ "double"
+%token _eval_ "eval"
+%token _final_ "final"
+%token _float_ "float"
+%token _from_ "from"
+%token _get_ "get"
+%token _goto_ "goto"
+%token _implements_ "implements"
+%token _int_ "int"
+%token ___int128_ "__int128"
+%token _interface_ "interface"
+%token _let_ "let"
+%token _let__ "!let"
+%token _long_ "long"
+%token _native_ "native"
+%token _package_ "package"
+%token _private_ "private"
+%token _protected_ "protected"
+%token ___proto___ "__proto__"
+%token _prototype_ "prototype"
+%token _public_ "public"
+%token _set_ "set"
+%token _short_ "short"
+%token _static_ "static"
+%token _synchronized_ "synchronized"
+%token _throws_ "throws"
+%token _transient_ "transient"
+%token _typeid_ "typeid"
+%token _volatile_ "volatile"
+%token _yield_ "yield"
+%token _yield__ "!yield"
+
+%token _undefined_ "undefined"
+
+@begin ObjectiveC
+%token _bool_ "bool"
+%token _BOOL_ "BOOL"
+%token _id_ "id"
+%token _nil_ "nil"
+%token _NULL_ "NULL"
+%token _SEL_ "SEL"
+@end
+
+%token _each_ "each"
+%token _of_ "of"
+%token _of__ "!of"
+
+@begin E4X
+%token _namespace_ "namespace"
+%token _xml_ "xml"
+@end
+
+%token AutoComplete
+%token YieldStar "yield *"
+
+%token <identifier_> Identifier_
+%token <number_> NumericLiteral
+%token <string_> StringLiteral
+%token <literal_> RegularExpressionLiteral_
+
+%token <string_> NoSubstitutionTemplate
+%token <string_> TemplateHead
+%token <string_> TemplateMiddle
+%token <string_> TemplateTail
+
+%type <target_> AccessExpression
+%type <expression_> AdditiveExpression
+%type <argument_> ArgumentList_
+%type <argument_> ArgumentList
+%type <argument_> ArgumentListOpt
+%type <argument_> Arguments
+%type <target_> ArrayComprehension
+%type <element_> ArrayElement
+%type <literal_> ArrayLiteral
+%type <expression_> ArrowFunction
+%type <functionParameter_> ArrowParameters
+%type <expression_> AssignmentExpression
+%type <identifier_> BindingIdentifier
+%type <identifier_> BindingIdentifierOpt
+%type <bindings_> BindingList_
+%type <bindings_> BindingList
+%type <expression_> BitwiseANDExpression
+%type <statement_> Block
+%type <statement_> BlockStatement
+%type <boolean_> BooleanLiteral
+%type <binding_> BindingElement
+%type <expression_> BitwiseORExpression
+%type <expression_> BitwiseXORExpression
+%type <target_> BracedExpression_
+%type <target_> BracedExpression
+%type <statement_> BreakStatement
+%type <statement_> BreakableStatement
+%type <expression_> CallExpression_
+%type <target_> CallExpression
+%type <clause_> CaseBlock
+%type <clause_> CaseClause
+%type <clause_> CaseClausesOpt
+%type <catch_> Catch
+%type <identifier_> CatchParameter
+%type <statement_> ClassDeclaration
+%type <target_> ClassExpression
+%type <classTail_> ClassHeritage
+%type <classTail_> ClassHeritageOpt
+%type <classTail_> ClassTail
+%type <target_> Comprehension
+%type <comprehension_> ComprehensionFor
+%type <comprehension_> ComprehensionIf
+%type <comprehension_> ComprehensionTail
+%type <propertyName_> ComputedPropertyName
+%type <expression_> ConditionalExpression
+%type <statement_> ContinueStatement
+%type <statement_> ConciseBody
+%type <parenthetical_> CoverParenthesizedExpressionAndArrowParameterList
+%type <statement_> DebuggerStatement
+%type <statement_> Declaration_
+%type <statement_> Declaration
+%type <clause_> DefaultClause
+%type <element_> ElementList_
+%type <element_> ElementList
+%type <element_> ElementListOpt
+%type <statement_> ElseStatementOpt
+%type <for_> EmptyStatement
+%type <expression_> EqualityExpression
+%type <expression_> Expression
+%type <expression_> ExpressionOpt
+%type <for_> ExpressionStatement_
+%type <statement_> ExpressionStatement
+%type <statement_> ExternC
+%type <statement_> ExternCStatement
+%type <statement_> ExternCStatementListOpt
+%type <finally_> Finally
+%type <binding_> ForBinding
+%type <forin_> ForDeclaration
+%type <forin_> ForInStatementInitializer
+%type <for_> ForStatementInitializer
+%type <binding_> FormalParameter
+%type <functionParameter_> FormalParameterList_
+%type <functionParameter_> FormalParameterList
+%type <functionParameter_> FormalParameters
+%type <string_> FromClause
+%type <statement_> FunctionBody
+%type <statement_> FunctionDeclaration
+%type <target_> FunctionExpression
+%type <statement_> FunctionStatementList
+%type <statement_> GeneratorBody
+%type <statement_> GeneratorDeclaration
+%type <target_> GeneratorExpression
+%type <method_> GeneratorMethod
+%type <statement_> HoistableDeclaration
+%type <identifier_> Identifier
+%type <identifier_> IdentifierNoOf
+%type <identifier_> IdentifierType
+%type <identifier_> IdentifierTypeNoOf
+%type <identifier_> IdentifierTypeOpt
+%type <word_> IdentifierName
+%type <variable_> IdentifierReference
+%type <statement_> IfStatement
+%type <import_> ImportClause
+%type <statement_> ImportDeclaration
+%type <import_> ImportSpecifier
+%type <identifier_> ImportedBinding
+%type <import_> ImportedDefaultBinding
+%type <import_> ImportsList_
+%type <import_> ImportsList
+%type <import_> ImportsListOpt
+%type <target_> IndirectExpression
+%type <expression_> Initializer
+%type <expression_> InitializerOpt
+%type <statement_> IterationStatement
+%type <identifier_> LabelIdentifier
+%type <statement_> LabelledItem
+%type <statement_> LabelledStatement
+%type <assignment_> LeftHandSideAssignment
+%type <target_> LeftHandSideExpression
+%type <bool_> LetOrConst
+%type <binding_> LexicalBinding
+%type <for_> LexicalDeclaration_
+%type <statement_> LexicalDeclaration
+%type <literal_> Literal
+%type <propertyName_> LiteralPropertyName
+%type <expression_> LogicalANDExpression
+%type <expression_> LogicalORExpression
+%type <access_> MemberAccess
+%type <target_> MemberExpression
+%type <method_> MethodDefinition
+%type <statement_> ModuleBody
+%type <statement_> ModuleBodyOpt
+%type <statement_> ModuleItem
+%type <statement_> ModuleItemList
+%type <statement_> ModuleItemListOpt
+%type <module_> ModulePath
+%type <string_> ModuleSpecifier
+%type <expression_> MultiplicativeExpression
+%type <import_> NameSpaceImport
+%type <import_> NamedImports
+%type <target_> NewExpression
+%type <null_> NullLiteral
+%type <literal_> ObjectLiteral
+%type <expression_> PostfixExpression
+%type <target_> PrimaryExpression
+%type <propertyName_> PropertyName
+%type <property_> PropertyDefinition
+%type <property_> PropertyDefinitionList_
+%type <property_> PropertyDefinitionList
+%type <property_> PropertyDefinitionListOpt
+%type <functionParameter_> PropertySetParameterList
+%type <literal_> RegularExpressionLiteral
+%type <bool_> RegularExpressionSlash
+%type <expression_> RelationalExpression
+%type <statement_> ReturnStatement
+%type <braced_> BracedParameter
+%type <functionParameter_> RubyProcParameterList_
+%type <functionParameter_> RubyProcParameterList
+%type <functionParameter_> RubyProcParameters
+%type <functionParameter_> RubyProcParametersOpt
+%type <statement_> Script
+%type <statement_> ScriptBody
+%type <statement_> ScriptBodyOpt
+%type <expression_> ShiftExpression
+%type <binding_> SingleNameBinding
+%type <statement_> Statement__
+%type <statement_> Statement_
+%type <statement_> Statement
+%type <statement_> StatementList
+%type <statement_> StatementListOpt
+%type <statement_> StatementListItem
+%type <functionParameter_> StrictFormalParameters
+%type <target_> SuperCall
+%type <target_> SuperProperty
+%type <statement_> SwitchStatement
+%type <target_> TemplateLiteral
+%type <span_> TemplateSpans
+%type <statement_> ThrowStatement
+%type <statement_> TryStatement
+%type <statement_> TypeDefinition
+%type <expression_> UnaryExpression_
+%type <expression_> UnaryExpression
+%type <binding_> VariableDeclaration
+%type <bindings_> VariableDeclarationList_
+%type <bindings_> VariableDeclarationList
+%type <for_> VariableStatement_
+%type <statement_> VariableStatement
+%type <statement_> WithStatement
+%type <word_> Word
+%type <word_> WordNoUnary
+@begin ObjectiveC
+%type <word_> WordOpt
+@end
+%type <expression_> YieldExpression
+
+@begin C
+%type <constant_> EnumConstantListOpt_
+%type <constant_> EnumConstantListOpt
+%type <number_> IntegerNumber
+%type <integral_> IntegerType
+%type <integral_> IntegerTypeOpt
+%type <typedName_> PrefixedType
+%type <specifier_> PrimitiveReference
+%type <specifier_> PrimitiveType
+%type <structField_> StructFieldListOpt
+%type <typedName_> SuffixedType
+%type <typedName_> SuffixedTypeOpt
+%type <typedName_> TypeSignifier
+%type <typedName_> TypeSignifierNone
+%type <typedName_> TypeSignifierOpt
+%type <signing_> TypeSigning
+%type <modifier_> ParameterTail
+%type <modifier_> TypeQualifierLeft
+%type <modifier_> TypeQualifierLeftOpt
+%type <typedName_> TypeQualifierRight
+%type <typedName_> TypeQualifierRightOpt
+%type <typedName_> TypedIdentifierDefinition
+%type <typedThing_> TypedIdentifierEncoding
+%type <typedName_> TypedIdentifierField
+%type <typedName_> TypedIdentifierMaybe
+%type <typedLocation_> TypedIdentifierNo
+%type <typedName_> TypedIdentifierTagged
+%type <typedName_> TypedIdentifierYes
+%type <typedFormal_> TypedParameterList_
+%type <typedFormal_> TypedParameterList
+%type <typedFormal_> TypedParameterListOpt
+%type <typedParameter_> TypedParameters
+@end
+
+@begin ObjectiveC
+%type <expression_> AssignmentExpressionClassic
+%type <expression_> BoxableExpression
+%type <statement_> CategoryStatement
+%type <expression_> ClassSuperOpt
+%type <expression_> ConditionalExpressionClassic
+%type <message_> ClassMessageDeclaration
+%type <message_> ClassMessageDeclarationListOpt
+%type <protocol_> ClassProtocolListOpt
+%type <protocol_> ClassProtocols
+%type <protocol_> ClassProtocolsOpt
+%type <implementationField_> ImplementationFieldListOpt
+%type <statement_> ImplementationStatement
+%type <keyValue_> KeyValuePairList_
+%type <keyValue_> KeyValuePairList
+%type <keyValue_> KeyValuePairListOpt
+%type <target_> MessageExpression
+%type <messageParameter_> MessageParameter
+%type <messageParameter_> MessageParameters
+%type <messageParameter_> MessageParameterList
+%type <messageParameter_> MessageParameterListOpt
+%type <bool_> MessageScope
+%type <argument_> SelectorCall_
+%type <argument_> SelectorCall
+%type <selector_> SelectorExpression_
+%type <selector_> SelectorExpression
+%type <selector_> SelectorExpressionOpt
+%type <argument_> SelectorList
+%type <word_> SelectorWordOpt
+%type <typedThing_> TypeOpt
+%type <argument_> VariadicCall
+@end
+
+@begin E4X
+%type <propertyIdentifier_> PropertyIdentifier_
+%type <selector_> PropertySelector_
+%type <selector_> PropertySelector
+%type <identifier_> QualifiedIdentifier_
+%type <identifier_> QualifiedIdentifier
+%type <identifier_> WildcardIdentifier
+%type <identifier_> XMLComment
+%type <identifier_> XMLCDATA
+%type <identifier_> XMLElement
+%type <identifier_> XMLElementContent
+%type <identifier_> XMLMarkup
+%type <identifier_> XMLPI
+
+%type <attribute_> AttributeIdentifier
+/* XXX: %type <statement_> DefaultXMLNamespaceStatement */
+%type <expression_> PropertyIdentifier
+%type <expression_> XMLListInitilizer
+%type <expression_> XMLInitilizer
+@end
+/* }}} */
+/* Token Priorities {{{ */
+%nonassoc "if"
+%nonassoc "else"
+
+%nonassoc ":"
+%nonassoc "!yield"
+/* }}} */
+
+%start Program
+%token MarkModule
+%token MarkScript
+%token MarkExpression
+
+%%
+
+Program
+    : MarkScript Script
+    | MarkModule Module
+    | MarkExpression Expression[expression] { driver.context_ = $expression; }
+    ;
+
+/* Lexer State {{{ */
+LexPushInOn: { driver.in_.push(true); };
+LexPushInOff: { driver.in_.push(false); };
+LexPopIn: { driver.in_.pop(); };
+
+LexPushReturnOn: { driver.return_.push(true); };
+LexPopReturn: { driver.return_.pop(); };
+Return: "return"[return] { if (!driver.return_.top()) CYERR(@return, "invalid return"); };
+
+LexPushSuperOn: { driver.super_.push(true); };
+LexPushSuperOff: { driver.super_.push(false); };
+LexPopSuper: { driver.super_.pop(); };
+Super: "super"[super] { if (!driver.super_.top()) CYERR(@super, "invalid super"); };
+
+LexPushYieldOn: { driver.yield_.push(true); };
+LexPushYieldOff: { driver.yield_.push(false); };
+LexPopYield: { driver.yield_.pop(); };
+
+LexNewLineOrOpt
+    : { CYLEX(); if (driver.newline_) { CYHLD(@$, tk::NewLine); } }
+    ;
+
+LexNewLineOrNot
+    : { CYLEX(); CYHLD(@$, driver.newline_ ? tk::NewLine : tk::__); }
+    ;
+
+LexNoStar
+    : { CYMAP(YieldStar, Star); }
+    ;
+
+LexNoBrace
+    : { CYMAP(OpenBrace_, OpenBrace); }
+    ;
+
+LexNoClass
+    : { CYMAP(_class__, _class_); }
+    ;
+
+LexNoFunction
+    : { CYMAP(_function__, _function_); }
+    ;
+
+LexSetStatement
+    : LexNoBrace LexNoClass LexNoFunction
+    ;
+/* }}} */
+/* Virtual Tokens {{{ */
+Var_
+    : "var"
+    ;
+/* }}} */
+
+/* 11.6 Names and Keywords {{{ */
+IdentifierName
+    : Word[pass] { $$ = $pass; }
+    | "for" { $$ = CYNew CYWord("for"); }
+    | "in" { $$ = CYNew CYWord("in"); }
+    | "instanceof" { $$ = CYNew CYWord("instanceof"); }
+    ;
+
+WordNoUnary
+    : IdentifierNoOf[pass] { $$ = $pass; }
+    | "break" { $$ = CYNew CYWord("break"); }
+    | "case" { $$ = CYNew CYWord("case"); }
+    | "catch" { $$ = CYNew CYWord("catch"); }
+    | "class" LexOf { $$ = CYNew CYWord("class"); }
+    | ";class" { $$ = CYNew CYWord("class"); }
+    | "const" { $$ = CYNew CYWord("const"); }
+    | "continue" { $$ = CYNew CYWord("continue"); }
+    | "debugger" { $$ = CYNew CYWord("debugger"); }
+    | "default" { $$ = CYNew CYWord("default"); }
+    | "do" { $$ = CYNew CYWord("do"); }
+    | "else" { $$ = CYNew CYWord("else"); }
+    | "enum" { $$ = CYNew CYWord("enum"); }
+    | "export" { $$ = CYNew CYWord("export"); }
+    | "extends" { $$ = CYNew CYWord("extends"); }
+    | "false" { $$ = CYNew CYWord("false"); }
+    | "finally" { $$ = CYNew CYWord("finally"); }
+    | "function" LexOf { $$ = CYNew CYWord("function"); }
+    | "if" { $$ = CYNew CYWord("if"); }
+    | "import" { $$ = CYNew CYWord("import"); }
+    | "!in" { $$ = CYNew CYWord("in"); }
+    | "!of" { $$ = CYNew CYWord("of"); }
+    | "null" { $$ = CYNew CYWord("null"); }
+    | "return" { $$ = CYNew CYWord("return"); }
+    | "super" { $$ = CYNew CYWord("super"); }
+    | "switch" { $$ = CYNew CYWord("switch"); }
+    | "this" { $$ = CYNew CYWord("this"); }
+    | "throw" { $$ = CYNew CYWord("throw"); }
+    | "true" { $$ = CYNew CYWord("true"); }
+    | "try" { $$ = CYNew CYWord("try"); }
+    | "var" { $$ = CYNew CYWord("var"); }
+    | "while" { $$ = CYNew CYWord("while"); }
+    | "with" { $$ = CYNew CYWord("with"); }
+    ;
+
+Word
+    : WordNoUnary[pass] { $$ = $pass; }
+    | "delete" { $$ = CYNew CYWord("delete"); }
+    | "typeof" { $$ = CYNew CYWord("typeof"); }
+    | "void" { $$ = CYNew CYWord("void"); }
+    | "yield" { $$ = CYNew CYIdentifier("yield"); }
+    ;
+
+@begin ObjectiveC
+WordOpt
+    : Word[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+@end
+/* }}} */
+/* 11.8.1 Null Literals {{{ */
+NullLiteral
+    : "null" { $$ = CYNew CYNull(); }
+    ;
+/* }}} */
+/* 11.8.2 Boolean Literals {{{ */
+BooleanLiteral
+    : "true" { $$ = CYNew CYTrue(); }
+    | "false" { $$ = CYNew CYFalse(); }
+    ;
+/* }}} */
+/* 11.8.5 Regular Expression Literals {{{ */
+RegularExpressionSlash
+    : "/" { $$ = false; }
+    | "/=" { $$ = true; }
+    ;
+
+RegularExpressionLiteral
+    : RegularExpressionSlash[equals] { CYMPT(@$); driver.SetRegEx($equals); } RegularExpressionLiteral_[pass] { $$ = $pass; }
+    ;
+/* }}} */
+
+/* 11.9 Automatic Semicolon Insertion {{{ */
+StrictSemi
+    : { driver.Warning(@$, "warning, automatic semi-colon insertion required"); }
+    ;
+
+NewLineNot
+    : LexNewLineOrNot ""
+    ;
+
+NewLineOpt
+    : LexNewLineOrNot "\n"
+    | NewLineNot
+    ;
+
+TerminatorSoft
+    : LexNewLineOrNot "\n" StrictSemi
+    | NewLineNot LexOf Terminator
+    ;
+
+TerminatorHard
+    : ";"
+    | error { if (yyla.type_get() != yyeof_) CYERR(@error, "required semi-colon"); else CYEOK(); } StrictSemi
+    ;
+
+Terminator
+    : ";"
+    | error { if (yyla.type_get() != yyeof_ && yyla.type != yytranslate_(token::CloseBrace) && !driver.newline_) CYERR(@error, "required semi-colon"); else CYEOK(); } StrictSemi
+    ;
+
+TerminatorOpt
+    : ";"
+    | error { yyerrok; driver.errors_.pop_back(); } StrictSemi
+    ;
+/* }}} */
+
+/* 12.1 Identifiers {{{ */
+IdentifierReference
+    : Identifier[pass] { $$ = CYNew CYVariable($pass); }
+    | "yield" { $$ = CYNew CYVariable(CYNew CYIdentifier("yield")); }
+    ;
+
+BindingIdentifier
+    : LexOf IdentifierNoOf[pass] { $$ = $pass; }
+    | LexOf "!of" { $$ = CYNew CYIdentifier("of"); }
+    | LexOf "yield" { $$ = CYNew CYIdentifier("yield"); }
+    ;
+
+BindingIdentifierOpt
+    : BindingIdentifier[pass] { $$ = $pass; }
+    | LexOf { $$ = NULL; }
+    ;
+
+LabelIdentifier
+    : Identifier[pass] { $$ = $pass; }
+    | "yield" { $$ = CYNew CYIdentifier("yield"); }
+    ;
+
+IdentifierTypeNoOf
+    : Identifier_[pass] { $$ = $pass; }
+    | "abstract" { $$ = CYNew CYIdentifier("abstract"); }
+    | "as" { $$ = CYNew CYIdentifier("as"); }
+    | "await" { $$ = CYNew CYIdentifier("await"); }
+    | "boolean" { $$ = CYNew CYIdentifier("boolean"); }
+    | "byte" { $$ = CYNew CYIdentifier("byte"); }
+    | "constructor" { $$ = CYNew CYIdentifier("constructor"); }
+    | "each" { $$ = CYNew CYIdentifier("each"); }
+    | "eval" { $$ = CYNew CYIdentifier("eval"); }
+    | "final" { $$ = CYNew CYIdentifier("final"); }
+    | "from" { $$ = CYNew CYIdentifier("from"); }
+    | "get" { $$ = CYNew CYIdentifier("get"); }
+    | "goto" { $$ = CYNew CYIdentifier("goto"); }
+    | "implements" { $$ = CYNew CYIdentifier("implements"); }
+    | "Infinity" { $$ = CYNew CYIdentifier("Infinity"); }
+    | "interface" { $$ = CYNew CYIdentifier("interface"); }
+    | "let" { $$ = CYNew CYIdentifier("let"); }
+    | "!let" LexBind LexOf { $$ = CYNew CYIdentifier("let"); }
+    | "native" { $$ = CYNew CYIdentifier("native"); }
+    | "package" { $$ = CYNew CYIdentifier("package"); }
+    | "private" { $$ = CYNew CYIdentifier("private"); }
+    | "protected" { $$ = CYNew CYIdentifier("protected"); }
+    | "__proto__" { $$ = CYNew CYIdentifier("__proto__"); }
+    | "prototype" { $$ = CYNew CYIdentifier("prototype"); }
+    | "public" { $$ = CYNew CYIdentifier("public"); }
+    | "set" { $$ = CYNew CYIdentifier("set"); }
+    | "synchronized" { $$ = CYNew CYIdentifier("synchronized"); }
+    | "target" { $$ = CYNew CYIdentifier("target"); }
+    | "throws" { $$ = CYNew CYIdentifier("throws"); }
+    | "transient" { $$ = CYNew CYIdentifier("transient"); }
+    | "typeid" { $$ = CYNew CYIdentifier("typeid"); }
+    | "undefined" { $$ = CYNew CYIdentifier("undefined"); }
+@begin ObjectiveC
+    | "bool" { $$ = CYNew CYIdentifier("bool"); }
+    | "BOOL" { $$ = CYNew CYIdentifier("BOOL"); }
+    | "id" { $$ = CYNew CYIdentifier("id"); }
+    | "SEL" { $$ = CYNew CYIdentifier("SEL"); }
+@end
+    ;
+
+IdentifierType
+    : IdentifierTypeNoOf[pass] { $$ = $pass; }
+    | "of" { $$ = CYNew CYIdentifier("of"); }
+    ;
+
+IdentifierTypeOpt
+    : IdentifierType[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+
+IdentifierNoOf
+    : IdentifierTypeNoOf
+    | "char" { $$ = CYNew CYIdentifier("char"); }
+    | "double" { $$ = CYNew CYIdentifier("double"); }
+    | "float" { $$ = CYNew CYIdentifier("float"); }
+    | "int" { $$ = CYNew CYIdentifier("int"); }
+    | "__int128" { $$ = CYNew CYIdentifier("__int128"); }
+    | "long" { $$ = CYNew CYIdentifier("long"); }
+    | "short" { $$ = CYNew CYIdentifier("short"); }
+    | "static" { $$ = CYNew CYIdentifier("static"); }
+    | "volatile" { $$ = CYNew CYIdentifier("volatile"); }
+@begin C
+    | "signed" { $$ = CYNew CYIdentifier("signed"); }
+    | "unsigned" { $$ = CYNew CYIdentifier("unsigned"); }
+@end
+@begin ObjectiveC
+    | "nil" { $$ = CYNew CYIdentifier("nil"); }
+    | "NO" { $$ = CYNew CYIdentifier("NO"); }
+    | "NULL" { $$ = CYNew CYIdentifier("NULL"); }
+    | "YES" { $$ = CYNew CYIdentifier("YES"); }
+@end
+    ;
+
+Identifier
+    : IdentifierNoOf[pass] { $$ = $pass; }
+    | "of" { $$ = CYNew CYIdentifier("of"); }
+    | "!of" { $$ = CYNew CYIdentifier("of"); }
+    ;
+/* }}} */
+/* 12.2 Primary Expression {{{ */
+PrimaryExpression
+    : "this" { $$ = CYNew CYThis(); }
+    | IdentifierReference[pass] { $$ = $pass; }
+    | Literal[pass] { $$ = $pass; }
+    | ArrayLiteral[pass] { $$ = $pass; }
+    | ObjectLiteral[pass] { $$ = $pass; }
+    | FunctionExpression[pass] { $$ = $pass; }
+    | ClassExpression[pass] { $$ = $pass; }
+    | GeneratorExpression[pass] { $$ = $pass; }
+    | RegularExpressionLiteral[pass] { $$ = $pass; }
+    | TemplateLiteral[pass] { $$ = $pass; }
+    | CoverParenthesizedExpressionAndArrowParameterList[cover] { if ($cover == NULL) CYERR(@cover, "invalid parenthetical"); $$ = $cover; }
+    | AutoComplete { driver.mode_ = CYDriver::AutoPrimary; YYACCEPT; }
+    ;
+
+CoverParenthesizedExpressionAndArrowParameterList
+    : "(" Expression[expression] ")" { $$ = CYNew CYParenthetical($expression); }
+    | "(" LexOf ")" { $$ = NULL; }
+    | "(" LexOf "..." BindingIdentifier ")" { CYNOT(@$); }
+    | "(" Expression "," LexOf "..." BindingIdentifier ")" { CYNOT(@$); }
+    ;
+/* }}} */
+/* 12.2.4 Literals {{{ */
+Literal
+    : NullLiteral[pass] { $$ = $pass; }
+    | BooleanLiteral[pass] { $$ = $pass; }
+    | NumericLiteral[pass] { $$ = $pass; }
+    | StringLiteral[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 12.2.5 Array Initializer {{{ */
+ArrayLiteral
+    : "[" ElementListOpt[elements] "]" { $$ = CYNew CYArray($elements); }
+    ;
+
+ArrayElement
+    : AssignmentExpression[value] { $$ = CYNew CYElementValue($value); }
+    | LexOf "..." AssignmentExpression[values] { $$ = CYNew CYElementSpread($values); }
+    ;
+
+ElementList_
+    : "," ElementListOpt[elements] { $$ = $elements; } 
+    | { $$ = NULL; }
+    ;
+
+ElementList
+    : ArrayElement[element] ElementList_[next] { $$ = $element; $$->SetNext($next); }
+    | LexOf "," ElementListOpt[next] { $$ = CYNew CYElementValue(NULL, $next); }
+    ;
+
+ElementListOpt
+    : ElementList[pass] { $$ = $pass; }
+    | LexOf { $$ = NULL; }
+    ;
+/* }}} */
+/* 12.2.6 Object Initializer {{{ */
+ObjectLiteral
+    : "{" PropertyDefinitionListOpt[properties] "}" { $$ = CYNew CYObject($properties); }
+    ;
+
+PropertyDefinitionList_
+    : "," PropertyDefinitionListOpt[properties] { $$ = $properties; }
+    | { $$ = NULL; }
+    ;
+
+PropertyDefinitionList
+    : PropertyDefinition[property] PropertyDefinitionList_[next] { $property->SetNext($next); $$ = $property; }
+    ;
+
+PropertyDefinitionListOpt
+    : PropertyDefinitionList[properties] { $$ = $properties; }
+    | { $$ = NULL; }
+    ;
+
+PropertyDefinition
+    : IdentifierReference[value] { $$ = CYNew CYPropertyValue($value->name_, $value); }
+    | CoverInitializedName[name] { CYNOT(@$); }
+    | PropertyName[name] ":" AssignmentExpression[value] { $$ = CYNew CYPropertyValue($name, $value); }
+    | MethodDefinition[pass] { $$ = $pass; }
+    ;
+
+PropertyName
+    : LiteralPropertyName[pass] { $$ = $pass; }
+    | ComputedPropertyName[pass] { $$ = $pass; }
+    ;
+
+LiteralPropertyName
+    : IdentifierName[pass] { $$ = $pass; }
+    | StringLiteral[pass] { $$ = $pass; }
+    | NumericLiteral[pass] { $$ = $pass; }
+    ;
+
+ComputedPropertyName
+    : "[" AssignmentExpression[expression] "]" { $$ = CYNew CYComputed($expression); }
+    ;
+
+CoverInitializedName
+    : IdentifierReference Initializer
+    ;
+
+Initializer
+    : "=" AssignmentExpression[initializer] { $$ = $initializer; }
+    ;
+
+InitializerOpt
+    : Initializer[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+/* }}} */
+/* 12.2.9 Template Literals {{{ */
+TemplateLiteral
+    : NoSubstitutionTemplate[string] { $$ = CYNew CYTemplate($string, NULL); }
+    | TemplateHead[string] LexPushInOff TemplateSpans[spans] { $$ = CYNew CYTemplate($string, $spans); }
+    ;
+
+TemplateSpans
+    : Expression[value] TemplateMiddle[string] TemplateSpans[spans] { $$ = CYNew CYSpan($value, $string, $spans); }
+    | Expression[value] TemplateTail[string] LexPopIn { $$ = CYNew CYSpan($value, $string, NULL); }
+    ;
+/* }}} */
+
+/* 12.3 Left-Hand-Side Expressions {{{ */
+MemberAccess
+    : "[" Expression[property] "]" { $$ = CYNew CYDirectMember(NULL, $property); }
+    | "." IdentifierName[property] { $$ = CYNew CYDirectMember(NULL, CYNew CYString($property)); }
+    | "." AutoComplete { driver.mode_ = CYDriver::AutoDirect; YYACCEPT; }
+    | TemplateLiteral { CYNOT(@$); }
+    ;
+
+MemberExpression
+    : PrimaryExpression[pass] { $$ = $pass; }
+    | MemberExpression[object] { driver.context_ = $object; } MemberAccess[member] { $member->SetLeft($object); $$ = $member; }
+    | SuperProperty[pass] { $$ = $pass; }
+    | MetaProperty { CYNOT(@$); }
+    | "new" MemberExpression[constructor] Arguments[arguments] { $$ = CYNew cy::Syntax::New($constructor, $arguments); }
+    ;
+
+SuperProperty
+    : Super "[" Expression[property] "]" { $$ = CYNew CYSuperAccess($property); }
+    | Super "." IdentifierName[property] { $$ = CYNew CYSuperAccess(CYNew CYString($property)); }
+    ;
+
+MetaProperty
+    : NewTarget
+    ;
+
+NewTarget
+    : "new" "." "target"
+    ;
+
+NewExpression
+    : MemberExpression[pass] { $$ = $pass; }
+    | "new" NewExpression[expression] { $$ = CYNew cy::Syntax::New($expression, NULL); }
+    ;
+
+CallExpression_
+    : MemberExpression[pass] { $$ = $pass; }
+    | CallExpression[pass] { $$ = $pass; }
+    ;
+
+CallExpression
+    : CallExpression_[function] Arguments[arguments] { if (!$function->Eval()) $$ = CYNew CYCall($function, $arguments); else $$ = CYNew CYEval($arguments); }
+    | SuperCall[pass] { $$ = $pass; }
+    | CallExpression[object] { driver.context_ = $object; } MemberAccess[member] { $member->SetLeft($object); $$ = $member; }
+    ;
+
+SuperCall
+    : Super Arguments[arguments] { $$ = CYNew CYSuperCall($arguments); }
+    ;
+
+Arguments
+    : "(" ArgumentListOpt[arguments] ")" { $$ = $arguments; }
+    ;
+
+ArgumentList_
+    : "," ArgumentList[arguments] { $$ = $arguments; }
+    | { $$ = NULL; }
+    ;
+
+ArgumentList
+    : AssignmentExpression[value] ArgumentList_[next] { $$ = CYNew CYArgument(NULL, $value, $next); }
+    | LexOf "..." AssignmentExpression { CYNOT(@$); }
+    ;
+
+ArgumentListOpt
+    : ArgumentList[pass] { $$ = $pass; }
+    | LexOf { $$ = NULL; }
+    ;
+
+AccessExpression
+    : NewExpression[pass] { $$ = $pass; }
+    | CallExpression[pass] { $$ = $pass; }
+    ;
+
+LeftHandSideExpression
+    : BracedExpression[pass] { $$ = $pass; }
+    | IndirectExpression[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 12.4 Postfix Expressions {{{ */
+PostfixExpression
+    : BracedExpression[pass] { $$ = $pass; }
+    | AccessExpression[lhs] LexNewLineOrOpt "++" { $$ = CYNew CYPostIncrement($lhs); }
+    | AccessExpression[lhs] LexNewLineOrOpt "--" { $$ = CYNew CYPostDecrement($lhs); }
+    ;
+/* }}} */
+/* 12.5 Unary Operators {{{ */
+UnaryExpression_
+    : "delete" UnaryExpression[rhs] { $$ = CYNew CYDelete($rhs); }
+    | "void" UnaryExpression[rhs] { $$ = CYNew CYVoid($rhs); }
+    | "typeof" UnaryExpression[rhs] { $$ = CYNew CYTypeOf($rhs); }
+    | "++" UnaryExpression[rhs] { $$ = CYNew CYPreIncrement($rhs); }
+    | "--" UnaryExpression[rhs] { $$ = CYNew CYPreDecrement($rhs); }
+    | "+" UnaryExpression[rhs] { $$ = CYNew CYAffirm($rhs); }
+    | "-" UnaryExpression[rhs] { $$ = CYNew CYNegate($rhs); }
+    | "~" UnaryExpression[rhs] { $$ = CYNew CYBitwiseNot($rhs); }
+    | "!" UnaryExpression[rhs] { $$ = CYNew CYLogicalNot($rhs); }
+    ;
+
+UnaryExpression
+    : PostfixExpression[expression] { $$ = $expression; }
+    | UnaryExpression_[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 12.6 Multiplicative Operators {{{ */
+MultiplicativeExpression
+    : UnaryExpression[pass] { $$ = $pass; }
+    | MultiplicativeExpression[lhs] "*" UnaryExpression[rhs] { $$ = CYNew CYMultiply($lhs, $rhs); }
+    | MultiplicativeExpression[lhs] "/" UnaryExpression[rhs] { $$ = CYNew CYDivide($lhs, $rhs); }
+    | MultiplicativeExpression[lhs] "%" UnaryExpression[rhs] { $$ = CYNew CYModulus($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.7 Additive Operators {{{ */
+AdditiveExpression
+    : MultiplicativeExpression[pass] { $$ = $pass; }
+    | AdditiveExpression[lhs] "+" MultiplicativeExpression[rhs] { $$ = CYNew CYAdd($lhs, $rhs); }
+    | AdditiveExpression[lhs] "-" MultiplicativeExpression[rhs] { $$ = CYNew CYSubtract($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.8 Bitwise Shift Operators {{{ */
+ShiftExpression
+    : AdditiveExpression[pass] { $$ = $pass; }
+    | ShiftExpression[lhs] "<<" AdditiveExpression[rhs] { $$ = CYNew CYShiftLeft($lhs, $rhs); }
+    | ShiftExpression[lhs] ">>" AdditiveExpression[rhs] { $$ = CYNew CYShiftRightSigned($lhs, $rhs); }
+    | ShiftExpression[lhs] ">>>" AdditiveExpression[rhs] { $$ = CYNew CYShiftRightUnsigned($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.9 Relational Operators {{{ */
+RelationalExpression
+    : ShiftExpression[pass] { $$ = $pass; }
+    | RelationalExpression[lhs] "<" ShiftExpression[rhs] { $$ = CYNew CYLess($lhs, $rhs); }
+    | RelationalExpression[lhs] ">" ShiftExpression[rhs] { $$ = CYNew CYGreater($lhs, $rhs); }
+    | RelationalExpression[lhs] "<=" ShiftExpression[rhs] { $$ = CYNew CYLessOrEqual($lhs, $rhs); }
+    | RelationalExpression[lhs] ">=" ShiftExpression[rhs] { $$ = CYNew CYGreaterOrEqual($lhs, $rhs); }
+    | RelationalExpression[lhs] "instanceof" ShiftExpression[rhs] { $$ = CYNew CYInstanceOf($lhs, $rhs); }
+    | RelationalExpression[lhs] "in" ShiftExpression[rhs] { $$ = CYNew CYIn($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.10 Equality Operators {{{ */
+EqualityExpression
+    : RelationalExpression[pass] { $$ = $pass; }
+    | EqualityExpression[lhs] "==" RelationalExpression[rhs] { $$ = CYNew CYEqual($lhs, $rhs); }
+    | EqualityExpression[lhs] "!=" RelationalExpression[rhs] { $$ = CYNew CYNotEqual($lhs, $rhs); }
+    | EqualityExpression[lhs] "===" RelationalExpression[rhs] { $$ = CYNew CYIdentical($lhs, $rhs); }
+    | EqualityExpression[lhs] "!==" RelationalExpression[rhs] { $$ = CYNew CYNotIdentical($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.11 Binary Bitwise Operators {{{ */
+BitwiseANDExpression
+    : EqualityExpression[pass] { $$ = $pass; }
+    | BitwiseANDExpression[lhs] "&" EqualityExpression[rhs] { $$ = CYNew CYBitwiseAnd($lhs, $rhs); }
+    ;
+
+BitwiseXORExpression
+    : BitwiseANDExpression[pass] { $$ = $pass; }
+    | BitwiseXORExpression[lhs] "^" BitwiseANDExpression[rhs] { $$ = CYNew CYBitwiseXOr($lhs, $rhs); }
+    ;
+
+BitwiseORExpression
+    : BitwiseXORExpression[pass] { $$ = $pass; }
+    | BitwiseORExpression[lhs] "|" BitwiseXORExpression[rhs] { $$ = CYNew CYBitwiseOr($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.12 Binary Logical Operators {{{ */
+LogicalANDExpression
+    : BitwiseORExpression[pass] { $$ = $pass; }
+    | LogicalANDExpression[lhs] "&&" BitwiseORExpression[rhs] { $$ = CYNew CYLogicalAnd($lhs, $rhs); }
+    ;
+
+LogicalORExpression
+    : LogicalANDExpression[pass] { $$ = $pass; }
+    | LogicalORExpression[lhs] "||" LogicalANDExpression[rhs] { $$ = CYNew CYLogicalOr($lhs, $rhs); }
+    ;
+/* }}} */
+/* 12.13 Conditional Operator ( ? : ) {{{ */
+@begin ObjectiveC
+ConditionalExpressionClassic
+    : LogicalORExpression[pass] { $$ = $pass; }
+    | LogicalORExpression[test] "?" LexPushInOff AssignmentExpression[true] ":" LexPopIn AssignmentExpressionClassic[false] { $$ = CYNew CYCondition($test, $true, $false); }
+    ;
+@end
+
+ConditionalExpression
+    : LogicalORExpression[pass] { $$ = $pass; }
+    | LogicalORExpression[test] "?" LexPushInOff AssignmentExpression[true] ":" LexPopIn AssignmentExpression[false] { $$ = CYNew CYCondition($test, $true, $false); }
+    ;
+/* }}} */
+/* 12.14 Assignment Operators {{{ */
+LeftHandSideAssignment
+    : LeftHandSideExpression[lhs] "=" { $$ = CYNew CYAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "*=" { $$ = CYNew CYMultiplyAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "/=" { $$ = CYNew CYDivideAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "%=" { $$ = CYNew CYModulusAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "+=" { $$ = CYNew CYAddAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "-=" { $$ = CYNew CYSubtractAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "<<=" { $$ = CYNew CYShiftLeftAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] ">>=" { $$ = CYNew CYShiftRightSignedAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] ">>>=" { $$ = CYNew CYShiftRightUnsignedAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "&=" { $$ = CYNew CYBitwiseAndAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "^=" { $$ = CYNew CYBitwiseXOrAssign($lhs, NULL); }
+    | LeftHandSideExpression[lhs] "|=" { $$ = CYNew CYBitwiseOrAssign($lhs, NULL); }
+    ;
+
+@begin ObjectiveC
+AssignmentExpressionClassic
+    : LexOf ConditionalExpressionClassic[pass] { $$ = $pass; }
+    | LexOf LeftHandSideAssignment[assignment] AssignmentExpressionClassic[rhs] { $assignment->SetRight($rhs); $$ = $assignment; }
+    ;
+@end
+
+AssignmentExpression
+    : LexOf ConditionalExpression[pass] { $$ = $pass; }
+    | LexOf YieldExpression[pass] { $$ = $pass; }
+    | ArrowFunction[pass] { $$ = $pass; }
+    | LexOf LeftHandSideAssignment[assignment] AssignmentExpression[rhs] { $assignment->SetRight($rhs); $$ = $assignment; }
+    ;
+/* }}} */
+/* 12.15 Comma Operator ( , ) {{{ */
+Expression
+    : AssignmentExpression[pass] { $$ = $pass; }
+    | Expression[expression] "," AssignmentExpression[next] { $$ = CYNew CYCompound($expression, $next); }
+    ;
+
+ExpressionOpt
+    : Expression[pass] { $$ = $pass; }
+    | LexOf { $$ = NULL; }
+    ;
+/* }}} */
+
+/* 13 Statements and Declarations {{{ */
+Statement__
+    : BlockStatement[pass] { $$ = $pass; }
+    | VariableStatement[pass] { $$ = $pass; }
+    | EmptyStatement[pass] { $$ = $pass; }
+    | IfStatement[pass] { $$ = $pass; }
+    | BreakableStatement[pass] { $$ = $pass; }
+    | ContinueStatement[pass] { $$ = $pass; }
+    | BreakStatement[pass] { $$ = $pass; }
+    | ReturnStatement[pass] { $$ = $pass; }
+    | WithStatement[pass] { $$ = $pass; }
+    | LabelledStatement[pass] { $$ = $pass; }
+    | ThrowStatement[pass] { $$ = $pass; }
+    | TryStatement[pass] { $$ = $pass; }
+    | DebuggerStatement[pass] { $$ = $pass; }
+    ;
+
+Statement_
+    : LexOf Statement__[pass] { $$ = $pass; }
+    | ExpressionStatement[pass] { $$ = $pass; }
+    ;
+
+Statement
+    : LexSetStatement LexLet Statement_[pass] { $$ = $pass; }
+    ;
+
+Declaration_
+    : HoistableDeclaration[pass] { $$ = $pass; }
+    | ClassDeclaration[pass] { $$ = $pass; }
+    ;
+
+Declaration
+    : LexSetStatement LexLet LexOf Declaration_[pass] { $$ = $pass; }
+    | LexSetStatement LexicalDeclaration[pass] { $$ = $pass; }
+    ;
+
+HoistableDeclaration
+    : FunctionDeclaration[pass] { $$ = $pass; }
+    | GeneratorDeclaration[pass] { $$ = $pass; }
+    ;
+
+BreakableStatement
+    : IterationStatement[pass] { $$ = $pass; }
+    | SwitchStatement[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 13.2 Block {{{ */
+BlockStatement
+    : ";{" StatementListOpt[code] "}" { $$ = CYNew CYBlock($code); }
+    ;
+
+Block
+    : "{" StatementListOpt[code] "}" { $$ = $code; }
+    ;
+
+StatementList
+    : StatementListItem[statement] StatementListOpt[next] { $$ = $statement; CYSetLast($$) = $next; }
+    ;
+
+StatementListOpt
+    : StatementList[pass] { $$ = $pass; }
+    | LexSetStatement LexLet LexOf { $$ = NULL; }
+    ;
+
+StatementListItem
+    : Statement[pass] { $$ = $pass; }
+    | Declaration[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 13.3 Let and Const Declarations {{{ */
+LexicalDeclaration_
+    : LetOrConst[constant] BindingList[bindings] { $$ = CYNew CYLexical($constant, $bindings); }
+    ;
+
+LexicalDeclaration
+    : LexicalDeclaration_[statement] Terminator { $$ = $statement; }
+    ;
+
+LexLet
+    : { CYMAP(_let__, _let_); }
+    ;
+
+LexOf
+    : { CYMAP(_of__, _of_); }
+    ;
+
+LexBind
+    : { CYMAP(OpenBrace_let, OpenBrace); CYMAP(OpenBracket_let, OpenBracket); }
+    ;
+
+LetOrConst
+    : LexLet LexOf "!let" LexBind LexOf { $$ = false; }
+    | LexLet LexOf "const" { $$ = true; }
+    ;
+
+BindingList_
+    : "," LexBind BindingList[bindings] { $$ = $bindings; }
+    | { $$ = NULL; }
+    ;
+
+BindingList
+    : LexicalBinding[binding] BindingList_[next] { $$ = CYNew CYBindings($binding, $next); }
+    ;
+
+LexicalBinding
+    : BindingIdentifier[identifier] InitializerOpt[initializer] { $$ = CYNew CYBinding($identifier, $initializer); }
+    | LexOf BindingPattern Initializer { CYNOT(@$); }
+    ;
+/* }}} */
+/* 13.3.2 Variable Statement {{{ */
+VariableStatement_
+    : Var_ VariableDeclarationList[bindings] { $$ = CYNew CYVar($bindings); }
+    ;
+
+VariableStatement
+    : VariableStatement_[statement] Terminator { $$ = $statement; }
+    ;
+
+VariableDeclarationList_
+    : "," VariableDeclarationList[bindings] { $$ = $bindings; }
+    | { $$ = NULL; }
+    ;
+
+VariableDeclarationList
+    : LexBind VariableDeclaration[binding] VariableDeclarationList_[next] { $$ = CYNew CYBindings($binding, $next); }
+    ;
+
+VariableDeclaration
+    : BindingIdentifier[identifier] InitializerOpt[initializer] { $$ = CYNew CYBinding($identifier, $initializer); }
+    | LexOf BindingPattern Initializer { CYNOT(@$); }
+    ;
+/* }}} */
+/* 13.3.3 Destructuring Binding Patterns {{{ */
+BindingPattern
+    : ObjectBindingPattern
+    | ArrayBindingPattern
+    ;
+
+ObjectBindingPattern
+    : "let {" BindingPropertyListOpt "}"
+    ;
+
+ArrayBindingPattern
+    : "let [" BindingElementListOpt "]"
+    ;
+
+BindingPropertyList_
+    : "," BindingPropertyListOpt
+    |
+    ;
+
+BindingPropertyList
+    : BindingProperty BindingPropertyList_
+    ;
+
+BindingPropertyListOpt
+    : BindingPropertyList
+    | LexOf
+    ;
+
+BindingElementList
+    : BindingElementOpt[element] "," BindingElementListOpt[next]
+    | BindingRestElement[element]
+    | BindingElement[element]
+    ;
+
+BindingElementListOpt
+    : BindingElementList[pass]
+    | LexBind LexOf
+    ;
+
+BindingProperty
+    : SingleNameBinding
+    | LexOf PropertyName ":" BindingElement
+    ;
+
+BindingElement
+    : LexBind SingleNameBinding[pass] { $$ = $pass; }
+    | LexBind LexOf BindingPattern InitializerOpt[initializer] { CYNOT(@$); }
+    ;
+
+BindingElementOpt
+    : BindingElement[pass]
+    | LexBind LexOf
+    ;
+
+SingleNameBinding
+    : BindingIdentifier[identifier] InitializerOpt[initializer] { $$ = CYNew CYBinding($identifier, $initializer); }
+    ;
+
+BindingRestElement
+    : LexBind LexOf "..." BindingIdentifier
+    ;
+/* }}} */
+/* 13.4 Empty Statement {{{ */
+EmptyStatement
+    : ";" { $$ = CYNew CYEmpty(); }
+    ;
+/* }}} */
+/* 13.5 Expression Statement {{{ */
+ExpressionStatement_
+    : Expression[expression] { $$ = CYNew CYExpress($[expression]); }
+
+ExpressionStatement
+    : ExpressionStatement_[statement] Terminator { $$ = $statement; }
+    ;
+/* }}} */
+/* 13.6 The if Statement {{{ */
+ElseStatementOpt
+    : "else" Statement[false] { $$ = $false; }
+    | %prec "if" { $$ = NULL; }
+    ;
+
+IfStatement
+    : "if" "(" Expression[test] ")" Statement[true] ElseStatementOpt[false] { $$ = CYNew CYIf($test, $true, $false); }
+    ;
+/* }}} */
+/* 13.7 Iteration Statements {{{ */
+IterationStatement
+    : "do" Statement[code] "while" "(" Expression[test] ")" TerminatorOpt { $$ = CYNew CYDoWhile($test, $code); }
+    | "while" "(" Expression[test] ")" Statement[code] { $$ = CYNew CYWhile($test, $code); }
+    | "for" "(" LexPushInOn ForStatementInitializer[initializer] LexPopIn ExpressionOpt[test] ";" ExpressionOpt[increment] ")" Statement[code] { $$ = CYNew CYFor($initializer, $test, $increment, $code); }
+    | "for" "(" LexPushInOn LexLet LexOf Var_ LexBind BindingIdentifier[identifier] Initializer[initializer] "!in" LexPopIn Expression[iterable] ")" Statement[code] { $$ = CYNew CYForInitialized(CYNew CYBinding($identifier, $initializer), $iterable, $code); }
+    | "for" "(" LexPushInOn ForInStatementInitializer[initializer] "!in" LexPopIn Expression[iterable] ")" Statement[code] { $$ = CYNew CYForIn($initializer, $iterable, $code); }
+    | "for" "(" LexPushInOn ForInStatementInitializer[initializer] "of" LexPopIn AssignmentExpression[iterable] ")" Statement[code] { $$ = CYNew CYForOf($initializer, $iterable, $code); }
+    ;
+
+ForStatementInitializer
+    : LexLet LexOf EmptyStatement[pass] { $$ = $pass; }
+    | LexLet ExpressionStatement_[initializer] ";" { $$ = $initializer; }
+    | LexLet LexOf VariableStatement_[initializer] ";" { $$ = $initializer; }
+    | LexicalDeclaration_[initializer] ";" { $$ = $initializer; }
+    ;
+
+ForInStatementInitializer
+    : LexLet LexOf BracedExpression[pass] { $$ = $pass; }
+    | LexLet LexOf IndirectExpression[pass] { $$ = $pass; }
+    | LexLet LexOf Var_ LexBind ForBinding[binding] { $$ = CYNew CYForVariable($binding); }
+    | ForDeclaration[pass] { $$ = $pass; }
+    ;
+
+ForDeclaration
+    : LetOrConst[constant] ForBinding[binding] { $$ = CYNew CYForLexical($constant, $binding); }
+    ;
+
+ForBinding
+    : BindingIdentifier[identifier] { $$ = CYNew CYBinding($identifier, NULL); }
+    | LexOf BindingPattern { CYNOT(@$); }
+    ;
+/* }}} */
+/* 13.8 The continue Statement {{{ */
+ContinueStatement
+    : "continue" TerminatorSoft { $$ = CYNew CYContinue(NULL); }
+    | "continue" NewLineNot LexOf Identifier[label] Terminator { $$ = CYNew CYContinue($label); }
+    ;
+/* }}} */
+/* 13.9 The break Statement {{{ */
+BreakStatement
+    : "break" TerminatorSoft { $$ = CYNew CYBreak(NULL); }
+    | "break" NewLineNot LexOf Identifier[label] Terminator { $$ = CYNew CYBreak($label); }
+    ;
+/* }}} */
+/* 13.10 The return Statement {{{ */
+ReturnStatement
+    : Return TerminatorSoft { $$ = CYNew CYReturn(NULL); }
+    | Return NewLineNot Expression[value] Terminator { $$ = CYNew CYReturn($value); }
+    ;
+/* }}} */
+/* 13.11 The with Statement {{{ */
+WithStatement
+    : "with" "(" Expression[scope] ")" Statement[code] { $$ = CYNew CYWith($scope, $code); }
+    ;
+/* }}} */
+/* 13.12 The switch Statement {{{ */
+SwitchStatement
+    : "switch" "(" Expression[value] ")" CaseBlock[clauses] { $$ = CYNew CYSwitch($value, $clauses); }
+    ;
+
+CaseBlock
+    : "{" CaseClausesOpt[clauses] "}" { $$ = $clauses; }
+    ;
+
+CaseClause
+    : "case" Expression[value] ":" StatementListOpt[code] { $$ = CYNew CYClause($value, $code); }
+    ;
+
+CaseClausesOpt
+    : CaseClause[clause] CaseClausesOpt[next] { $clause->SetNext($next); $$ = $clause; }
+    | DefaultClause[clause] CaseClausesOpt[next] { $clause->SetNext($next); $$ = $clause; }
+    | { $$ = NULL; }
+    ;
+
+// XXX: the standard makes certain you can only have one of these
+DefaultClause
+    : "default" ":" StatementListOpt[code] { $$ = CYNew CYClause(NULL, $code); }
+    ;
+/* }}} */
+/* 13.13 Labelled Statements {{{ */
+LabelledStatement
+    : LabelIdentifier[name] ":" LabelledItem[statement] { $$ = CYNew CYLabel($name, $statement); }
+    ;
+
+LabelledItem
+    : Statement[pass] { $$ = $pass; }
+    | LexSetStatement LexLet LexOf FunctionDeclaration[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 13.14 The throw Statement {{{ */
+ThrowStatement
+    : "throw"[throw] TerminatorSoft { CYERR(@throw, "throw without exception"); }
+    | "throw" NewLineNot Expression[value] Terminator { $$ = CYNew cy::Syntax::Throw($value); }
+    ;
+/* }}} */
+/* 13.15 The try Statement {{{ */
+TryStatement
+    : "try" Block[code] Catch[catch] { $$ = CYNew cy::Syntax::Try($code, $catch, NULL); }
+    | "try" Block[code] Finally[finally] { $$ = CYNew cy::Syntax::Try($code, NULL, $finally); }
+    | "try" Block[code] Catch[catch] Finally[finally] { $$ = CYNew cy::Syntax::Try($code, $catch, $finally); }
+    ;
+
+Catch
+    : "catch" "(" LexBind CatchParameter[name] ")" Block[code] { $$ = CYNew cy::Syntax::Catch($name, $code); }
+    ;
+
+Finally
+    : "finally" Block[code] { $$ = CYNew CYFinally($code); }
+    ;
+
+CatchParameter
+    : BindingIdentifier[pass] { $$ = $pass; }
+    | LexOf BindingPattern { CYNOT(@$); }
+    ;
+/* }}} */
+/* 13.16 The debugger Statement {{{ */
+DebuggerStatement
+    : "debugger" Terminator { $$ = CYNew CYDebugger(); }
+    ;
+/* }}} */
+
+/* 14.1 Function Definitions {{{ */
+FunctionDeclaration
+    : ";function" BindingIdentifier[name] "(" FormalParameters[parameters] ")" "{" LexPushSuperOff FunctionBody[code] "}" LexPopSuper { $$ = CYNew CYFunctionStatement($name, $parameters, $code); }
+    ;
+
+FunctionExpression
+    : "function" BindingIdentifierOpt[name] "(" FormalParameters[parameters] ")" "{" LexPushSuperOff FunctionBody[code] "}" LexPopSuper { $$ = CYNew CYFunctionExpression($name, $parameters, $code); }
+    ;
+
+StrictFormalParameters
+    : FormalParameters[pass] { $$ = $pass; }
+    ;
+
+FormalParameters
+    : LexBind LexOf { $$ = NULL; }
+    | FormalParameterList
+    ;
+
+FormalParameterList_
+    : "," FormalParameterList[parameters] { $$ = $parameters; }
+    | { $$ = NULL; }
+    ;
+
+FormalParameterList
+    : FunctionRestParameter { CYNOT(@$); }
+    | FormalParameter[binding] FormalParameterList_[next] { $$ = CYNew CYFunctionParameter($binding, $next); }
+    ;
+
+FunctionRestParameter
+    : BindingRestElement
+    ;
+
+FormalParameter
+    : BindingElement[pass] { $$ = $pass; }
+    ;
+
+FunctionBody
+    : LexPushYieldOff FunctionStatementList[code] LexPopYield { $$ = $code; }
+    ;
+
+FunctionStatementList
+    : LexPushReturnOn StatementListOpt[code] LexPopReturn { $$ = $code; }
+    ;
+/* }}} */
+/* 14.2 Arrow Function Definitions {{{ */
+ArrowFunction
+    : ArrowParameters[parameters] LexNewLineOrOpt "=>" LexNoBrace ConciseBody[code] { $$ = CYNew CYFatArrow($parameters, $code); }
+    ;
+
+ArrowParameters
+    : BindingIdentifier[identifier] { $$ = CYNew CYFunctionParameter(CYNew CYBinding($identifier)); }
+    | LexOf CoverParenthesizedExpressionAndArrowParameterList[cover] { if ($cover == NULL) $$ = NULL; else { $$ = $cover->expression_->Parameter(); if ($$ == NULL) CYERR(@cover, "invalid parameter list"); } }
+    ;
+
+ConciseBody
+    : AssignmentExpression[expression] { $$ = CYNew CYReturn($expression); }
+    | LexOf ";{" FunctionBody[code] "}" { $$ = $code; }
+    ;
+/* }}} */
+/* 14.3 Method Definitions {{{ */
+MethodDefinition
+    : PropertyName[name] "(" StrictFormalParameters[parameters] ")" "{" FunctionBody[code] "}" { $$ = CYNew CYPropertyMethod($name, $parameters, $code); }
+    | GeneratorMethod[pass] { $$ = $pass; }
+    | "get" PropertyName[name] "(" ")" "{" FunctionBody[code] "}" { $$ = CYNew CYPropertyGetter($name, $code); }
+    | "set" PropertyName[name] "(" PropertySetParameterList[parameter] ")" "{" FunctionBody[code] "}" { $$ = CYNew CYPropertySetter($name, $parameter, $code); }
+    ;
+
+PropertySetParameterList
+    : FormalParameter[binding] { $$ = CYNew CYFunctionParameter($binding); }
+    ;
+/* }}} */
+/* 14.4 Generator Function Definitions {{{ */
+GeneratorMethod
+    : "*" PropertyName[name] "(" StrictFormalParameters[parameters] ")" "{" GeneratorBody[code] "}" { CYNOT(@$); /* $$ = CYNew CYGeneratorMethod($name, $parameters, $code); */ }
+    ;
+
+GeneratorDeclaration
+    : ";function" LexOf "*" BindingIdentifier[name] "(" FormalParameters[code] ")" "{" GeneratorBody[code] "}" { CYNOT(@$); /* $$ = CYNew CYGeneratorStatement($name, $parameters, $code); */ }
+    ;
+
+GeneratorExpression
+    : "function" LexOf "*" BindingIdentifierOpt[name] "(" FormalParameters[parameters] ")" "{" GeneratorBody[code] "}" { CYNOT(@$); /* $$ = CYNew CYGeneratorExpression($name, $parameters, $code); */ }
+    ;
+
+GeneratorBody
+    : LexPushYieldOn FunctionStatementList[code] LexPopYield { $$ = $code; }
+    ;
+
+YieldExpression
+    : "!yield" LexNewLineOrNot "\n" LexOf { CYNOT(@$); /* $$ = CYNew CYYieldValue(NULL); */ }
+    | "!yield" LexNewLineOrNot "" LexNoStar LexOf { CYNOT(@$); /* $$ = CYNew CYYieldValue(NULL); */ } %prec "!yield"
+    | "!yield" LexNewLineOrNot "" LexNoStar AssignmentExpression[value] { CYNOT(@$); /* $$ = CYNew CYYieldValue($value); */ }
+    | "!yield" LexNewLineOrNot "" LexNoStar LexOf "yield *" AssignmentExpression[generator] { CYNOT(@$); /* $$ = CYNew CYYieldGenerator($generator); */ }
+    ;
+/* }}} */
+/* 14.5 Class Definitions {{{ */
+ClassDeclaration
+    : ";class" BindingIdentifier[name] ClassTail[tail] { $$ = CYNew CYClassStatement($name, $tail); }
+    ;
+
+ClassExpression
+    : "class" BindingIdentifierOpt[name] ClassTail[tail] { $$ = CYNew CYClassExpression($name, $tail); }
+    ;
+
+ClassTail
+    : ClassHeritageOpt[tail] { driver.class_.push($tail); } "{" LexPushSuperOn ClassBodyOpt "}" LexPopSuper { driver.class_.pop(); $$ = $tail; }
+    ;
+
+ClassHeritage
+    : "extends" AccessExpression[extends] { $$ = CYNew CYClassTail($extends); }
+    ;
+
+ClassHeritageOpt
+    : ClassHeritage[pass] { $$ = $pass; }
+    | { $$ = CYNew CYClassTail(NULL); }
+    ;
+
+ClassBody
+    : ClassElementList
+    ;
+
+ClassBodyOpt
+    : ClassBody
+    |
+    ;
+
+ClassElementList
+    : ClassElementListOpt ClassElement
+    ;
+
+ClassElementListOpt
+    : ClassElementList
+    |
+    ;
+
+ClassElement
+    : MethodDefinition[method] { if (CYFunctionExpression *constructor = $method->Constructor()) driver.class_.top()->constructor_ = constructor; else driver.class_.top()->instance_->*$method; }
+    | "static" MethodDefinition[method] { driver.class_.top()->static_->*$method; }
+    | ";"
+    ;
+/* }}} */
+
+/* 15.1 Scripts {{{ */
+Script
+    : ScriptBodyOpt[code] { driver.script_ = CYNew CYScript($code); }
+    ;
+
+ScriptBody
+    : StatementList[pass] { $$ = $pass; }
+    ;
+
+ScriptBodyOpt
+    : ScriptBody[pass] { $$ = $pass; }
+    | LexSetStatement LexLet LexOf { $$ = NULL; }
+    ;
+/* }}} */
+/* 15.2 Modules {{{ */
+Module
+    : ModuleBodyOpt[code] { driver.script_ = CYNew CYScript($code); }
+    ;
+
+ModuleBody
+    : ModuleItemList[pass] { $$ = $pass; }
+    ;
+
+ModuleBodyOpt
+    : ModuleBody[pass] { $$ = $pass; }
+    | LexSetStatement LexLet LexOf { $$ = NULL; }
+    ;
+
+ModuleItemList
+    : ModuleItem[statement] ModuleItemListOpt[next] { $$ = $statement; CYSetLast($$) = $next; }
+    ;
+
+ModuleItemListOpt
+    : ModuleItemList[pass] { $$ = $pass; }
+    | LexSetStatement LexLet LexOf { $$ = NULL; }
+    ;
+
+ModuleItem
+    : LexSetStatement LexLet LexOf ImportDeclaration[pass] { $$ = $pass; }
+    | LexSetStatement LexLet LexOf ExportDeclaration { CYNOT(@$); }
+    | StatementListItem[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 15.2.2 Imports {{{ */
+ImportDeclaration
+    : "import" ImportClause[specifiers] FromClause[module] Terminator { $$ = CYNew CYImportDeclaration($specifiers, $module); }
+    | "import" LexOf ModuleSpecifier[module] Terminator { $$ = CYNew CYImportDeclaration(NULL, $module); }
+    ;
+
+ImportClause
+    : ImportedDefaultBinding[default] { $$ = $default; }
+    | LexOf NameSpaceImport[pass] { $$ = $pass; }
+    | LexOf NamedImports[pass] { $$ = $pass; }
+    | ImportedDefaultBinding[default] "," NameSpaceImport[next] { $$ = $default; CYSetLast($$) = $next; }
+    | ImportedDefaultBinding[default] "," NamedImports[next] { $$ = $default; CYSetLast($$) = $next; }
+    ;
+
+ImportedDefaultBinding
+    : ImportedBinding[binding] { $$ = CYNew CYImportSpecifier(CYNew CYIdentifier("default"), $binding); }
+    ;
+
+NameSpaceImport
+    : "*" "as" ImportedBinding[binding] { $$ = CYNew CYImportSpecifier(NULL, $binding); }
+    ;
+
+NamedImports
+    : "{" ImportsListOpt[pass] "}" { $$ = $pass; }
+    ;
+
+FromClause
+    : "from" ModuleSpecifier[pass] { $$ = $pass; }
+    ;
+
+ImportsList_
+    : "," ImportsListOpt[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+
+ImportsList
+    : ImportSpecifier[import] ImportsList_[next] { $$ = $import; CYSetLast($$) = $next; }
+    ;
+
+ImportsListOpt
+    : ImportsList[pass] { $$ = $pass; }
+    | LexOf { $$ = NULL; }
+    ;
+
+ImportSpecifier
+    : ImportedBinding[binding] { $$ = CYNew CYImportSpecifier($binding, $binding); }
+    | LexOf IdentifierName[name] "as" ImportedBinding[binding] { $$ = CYNew CYImportSpecifier($name, $binding); }
+    ;
+
+ModuleSpecifier
+    : StringLiteral[pass] { $$ = $pass; }
+    ;
+
+ImportedBinding
+    : BindingIdentifier[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* 15.2.3 Exports {{{ */
+ExportDeclaration_
+    : "*" FromClause Terminator
+    | ExportClause FromClause Terminator
+    | ExportClause Terminator
+    | VariableStatement
+    | "default" LexSetStatement LexOf HoistableDeclaration
+    | "default" LexSetStatement LexOf ClassDeclaration
+    | "default" LexSetStatement AssignmentExpression Terminator
+    ;
+
+ExportDeclaration
+    : "export" LexSetStatement LexLet LexOf ExportDeclaration_
+    | "export" Declaration
+    ;
+
+ExportClause
+    : ";{" ExportsListOpt "}"
+    ;
+
+ExportsList_
+    : "," ExportsListOpt
+    |
+    ;
+
+ExportsList
+    : ExportSpecifier ExportsList_
+    ;
+
+ExportsListOpt
+    : ExportsList
+    |
+    ;
+
+ExportSpecifier
+    : IdentifierName
+    | IdentifierName "as" IdentifierName
+    ;
+/* }}} */
+
+@begin C
+/* Cycript (C): Type Encoding {{{ */
+TypeSignifier
+    : IdentifierType[name] { $$ = CYNew CYTypedName(@name, $name); }
+    | StringLiteral[name] { $$ = CYNew CYTypedName(@name, $name); }
+    | NumericLiteral[name] { $$ = CYNew CYTypedName(@name, $name); }
+    | "(" "*" TypeQualifierRightOpt[typed] ")" { $$ = $typed; $$->modifier_ = CYNew CYTypePointerTo($$->modifier_); }
+    ;
+
+TypeSignifierNone
+    : { $$ = CYNew CYTypedName(@$); }
+    ;
+
+TypeSignifierOpt
+    : TypeSignifier[pass] { $$ = $pass; }
+    | TypeSignifierNone[pass] { $$ = $pass; }
+    ;
+
+ParameterTail
+    : TypedParameterListOpt[formal] ")" { $$ = CYNew CYTypeFunctionWith($formal->variadic_, $formal->parameters_); }
+    ;
+
+SuffixedType
+    : SuffixedTypeOpt[typed] "[" AssignmentExpression[size] "]" { $$ = $typed; $$->modifier_ = CYNew CYTypeArrayOf($size, $$->modifier_); }
+    | "(" "^" TypeQualifierRightOpt[typed] ")" "(" TypedParameters[parameters] ")" { $$ = $typed; $$->modifier_ = CYNew CYTypeBlockWith($parameters, $$->modifier_); }
+    | TypeSignifier[typed] "(" ParameterTail[modifier] { $$ = $typed; CYSetLast($modifier) = $$->modifier_; $$->modifier_ = $modifier; }
+    | "("[parenthesis] ParameterTail[modifier] { $$ = CYNew CYTypedName(@parenthesis); CYSetLast($modifier) = $$->modifier_; $$->modifier_ = $modifier; }
+    ;
+
+SuffixedTypeOpt
+    : SuffixedType[pass] { $$ = $pass; }
+    | TypeSignifierOpt[pass] { $$ = $pass; }
+    ;
+
+PrefixedType
+    : "*" TypeQualifierRightOpt[typed] { $$ = $typed; $$->modifier_ = CYNew CYTypePointerTo($$->modifier_); }
+    ;
+
+TypeQualifierLeft
+    : "const" TypeQualifierLeftOpt[modifier] { $$ = $modifier; CYSetLast($$) = CYNew CYTypeConstant(); }
+    | "volatile" TypeQualifierLeftOpt[modifier] { $$ = $modifier; CYSetLast($$) = CYNew CYTypeVolatile(); }
+    ;
+
+TypeQualifierLeftOpt
+    : TypeQualifierLeft[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+
+TypeQualifierRight
+    : SuffixedType[pass] { $$ = $pass; }
+    | PrefixedType[pass] { $$ = $pass; }
+    | "const" TypeQualifierRightOpt[typed] { $$ = $typed; $$->modifier_ = CYNew CYTypeConstant($$->modifier_); }
+    | "volatile" TypeQualifierRightOpt[typed] { $$ = $typed; $$->modifier_ = CYNew CYTypeVolatile($$->modifier_); }
+    ;
+
+TypeQualifierRightOpt
+    : TypeQualifierRight[pass] { $$ = $pass; }
+    | TypeSignifierOpt[pass] { $$ = $pass; }
+    ;
+
+IntegerType
+    : "int" { $$ = CYNew CYTypeIntegral(CYTypeNeutral); }
+    | "unsigned" IntegerTypeOpt[integral] { $$ = $integral->Unsigned(); if ($$ == NULL) CYERR(@1, "incompatible unsigned"); }
+    | "signed" IntegerTypeOpt[integral] { $$ = $integral->Signed(); if ($$ == NULL) CYERR(@1, "incompatible signed"); }
+    | "long" IntegerTypeOpt[integral] { $$ = $integral->Long(); if ($$ == NULL) CYERR(@1, "incompatible long"); }
+    | "short" IntegerTypeOpt[integral] { $$ = $integral->Short(); if ($$ == NULL) CYERR(@1, "incompatible short"); }
+    ;
+
+IntegerTypeOpt
+    : IntegerType[pass] { $$ = $pass; }
+    | { $$ = CYNew CYTypeIntegral(CYTypeNeutral); }
+    ;
+
+StructFieldListOpt
+    : TypedIdentifierField[typed] ";" StructFieldListOpt[next] { $$ = CYNew CYTypeStructField($typed, $typed->name_, $next); }
+    | { $$ = NULL; }
+    ;
+
+IntegerNumber
+    : NumericLiteral[pass] { $$ = $pass; }
+    | "-" NumericLiteral[positive] { $$ = $positive; $$->value_ = -$$->value_; }
+    ;
+
+EnumConstantListOpt_
+    : "," EnumConstantListOpt[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+
+EnumConstantListOpt
+    : IdentifierType[name] "=" IntegerNumber[value] EnumConstantListOpt_[next] { $$ = CYNew CYEnumConstant($name, $value, $next); }
+    | { $$ = NULL; }
+    ;
+
+TypeSigning
+    : { $$ = CYTypeNeutral; }
+    | "signed" { $$ = CYTypeSigned; }
+    | "unsigned" { $$ = CYTypeUnsigned; }
+    ;
+
+PrimitiveType
+    : IdentifierType[name] { $$ = CYNew CYTypeVariable($name); }
+    | IntegerType[pass] { $$ = $pass; }
+    | TypeSigning[signing] "char" { $$ = CYNew CYTypeCharacter($signing); }
+    | TypeSigning[signing] "__int128" { $$ = CYNew CYTypeInt128($signing); }
+    | "float" { $$ = CYNew CYTypeFloating(0); }
+    | "double" { $$ = CYNew CYTypeFloating(1); }
+    | "long" "double" { $$ = CYNew CYTypeFloating(2); }
+    | "void" { $$ = CYNew CYTypeVoid(); }
+    ;
+
+PrimitiveReference
+    : PrimitiveType[pass] { $$ = $pass; }
+    | "struct" IdentifierType[name] { $$ = CYNew CYTypeReference(CYTypeReferenceStruct, $name); }
+    | "enum" IdentifierType[name] { $$ = CYNew CYTypeReference(CYTypeReferenceEnum, $name); }
+    | "struct" AutoComplete { driver.mode_ = CYDriver::AutoStruct; YYACCEPT; }
+    | "enum" AutoComplete { driver.mode_ = CYDriver::AutoEnum; YYACCEPT; }
+    ;
+
+TypedIdentifierMaybe
+    : TypeQualifierLeftOpt[modifier] PrimitiveReference[specifier] TypeQualifierRightOpt[typed] { $$ = $typed; $$->specifier_ = $specifier; CYSetLast($modifier) = $$->modifier_; $$->modifier_ = $modifier; }
+    ;
+
+TypedIdentifierYes
+    : TypedIdentifierMaybe[typed] { if ($typed->name_ == NULL) CYERR($typed->location_, "expected identifier"); $$ = $typed; }
+    ;
+
+TypedIdentifierNo
+    : TypedIdentifierMaybe[typed] { if ($typed->name_ != NULL) CYERR($typed->location_, "unexpected identifier"); $$ = $typed; }
+    ;
+
+TypedIdentifierTagged
+    : TypeQualifierLeftOpt[modifier] "struct" "{" StructFieldListOpt[fields] "}" TypeQualifierRightOpt[typed] { $$ = $typed; $$->specifier_ = CYNew CYTypeStruct(NULL, CYNew CYStructTail($fields)); CYSetLast($modifier) = $$->modifier_; $$->modifier_ = $modifier; }
+    | TypeQualifierLeftOpt[modifier] "enum" ":" PrimitiveType[specifier] "{" EnumConstantListOpt[constants] "}" TypeQualifierRightOpt[typed] { $$ = $typed; $$->specifier_ = CYNew CYTypeEnum(NULL, $specifier, $constants); CYSetLast($modifier) = $$->modifier_; $$->modifier_ = $modifier; }
+    ;
+
+TypedIdentifierField
+    : TypedIdentifierYes[pass] { $$ = $pass; }
+    | TypedIdentifierTagged[typed] { if ($typed->name_ == NULL) CYERR($typed->location_, "expected identifier"); $$ = $typed; }
+    ;
+
+TypedIdentifierEncoding
+    : TypedIdentifierNo[pass] { $$ = $pass; }
+    | TypedIdentifierTagged[typed] { if ($typed->name_ != NULL) CYERR($typed->location_, "unexpected identifier"); $$ = $typed; }
+    ;
+
+TypedIdentifierDefinition
+    : TypedIdentifierYes[pass] { $$ = $pass; }
+    | TypeQualifierLeftOpt[modifier] "struct" IdentifierTypeOpt[name] "{" StructFieldListOpt[fields] "}" TypeQualifierRightOpt[typed] { if ($typed->name_ == NULL) CYERR($typed->location_, "expected identifier"); $$ = $typed; $$->specifier_ = CYNew CYTypeStruct($name, CYNew CYStructTail($fields)); CYSetLast($modifier) = $$->modifier_; $$->modifier_ = $modifier; }
+    ;
+
+PrimaryExpression
+    : "@encode" "(" TypedIdentifierEncoding[typed] ")" { $$ = CYNew CYEncodedType($typed); }
+    ;
+/* }}} */
+@end
+
+@begin ObjectiveC
+/* Cycript (Objective-C): @class Declaration {{{ */
+ClassSuperOpt
+    /* XXX: why the hell did I choose MemberExpression? */
+    : ":" MemberExpression[extends] { $$ = $extends; }
+    | { $$ = NULL; }
+    ;
+
+ImplementationFieldListOpt
+    : TypedIdentifierField[typed] ";" ImplementationFieldListOpt[next] { $$ = CYNew CYImplementationField($typed, $typed->name_, $next); }
+    | { $$ = NULL; }
+    ;
+
+MessageScope
+    : "+" { $$ = false; }
+    | "-" { $$ = true; }
+    ;
+
+TypeOpt
+    : "(" TypedIdentifierNo[type] ")" { $$ = $type; }
+    | { $$ = CYNew CYType(CYNew CYTypeVariable("id")); }
+    ;
+
+MessageParameter
+    : Word[tag] ":" TypeOpt[type] BindingIdentifier[identifier] { $$ = CYNew CYMessageParameter($tag, $type, $identifier); }
+    ;
+
+MessageParameterList
+    : MessageParameter[parameter] MessageParameterListOpt[next] { $parameter->SetNext($next); $$ = $parameter; }
+    ;
+
+MessageParameterListOpt
+    : MessageParameterList[pass] { $$ = $pass; }
+    | TypedParameterList_[formal] { if ($formal->variadic_) CYERR(@$, "unsupported variadic"); /*XXX*/ if ($formal->parameters_ != NULL) CYERR(@$, "temporarily unsupported"); $$ = NULL; }
+    ;
+
+MessageParameters
+    : MessageParameterList[pass] { $$ = $pass; }
+    | Word[tag] { $$ = CYNew CYMessageParameter($tag); }
+    ;
+
+ClassMessageDeclaration
+    : MessageScope[instance] TypeOpt[type] MessageParameters[parameters] "{" LexPushSuperOn FunctionBody[code] "}" LexPopSuper { $$ = CYNew CYMessage($instance, $type, $parameters, $code); }
+    ;
+
+ClassMessageDeclarationListOpt
+    : ClassMessageDeclarationListOpt[next] ClassMessageDeclaration[message] { $message->SetNext($next); $$ = $message; }
+    | { $$ = NULL; }
+    ;
+
+// XXX: this should be AssignmentExpressionNoRight
+ClassProtocols
+    : ShiftExpression[name] ClassProtocolsOpt[next] { $$ = CYNew CYProtocol($name, $next); }
+    ;
+
+ClassProtocolsOpt
+    : "," ClassProtocols[protocols] { $$ = $protocols; }
+    | { $$ = NULL; }
+    ;
+
+ClassProtocolListOpt
+    : "<" ClassProtocols[protocols] ">" { $$ = $protocols; }
+    | { $$ = NULL; }
+    ;
+
+ImplementationStatement
+    : "@implementation" Identifier[name] ClassSuperOpt[extends] ClassProtocolListOpt[protocols] "{" ImplementationFieldListOpt[fields] "}" ClassMessageDeclarationListOpt[messages] "@end" { $$ = CYNew CYImplementation($name, $extends, $protocols, $fields, $messages); }
+    ;
+
+CategoryName
+    : "(" WordOpt ")"
+    ;
+
+CategoryStatement
+    : "@implementation" Identifier[name] CategoryName ClassMessageDeclarationListOpt[messages] "@end" { $$ = CYNew CYCategory($name, $messages); }
+    ;
+
+Statement__
+    : ImplementationStatement[pass] { $$ = $pass; }
+    | CategoryStatement[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* Cycript (Objective-C): Send Message {{{ */
+VariadicCall
+    : "," AssignmentExpressionClassic[value] VariadicCall[next] { $$ = CYNew CYArgument(NULL, $value, $next); }
+    | { $$ = NULL; }
+    ;
+
+SelectorWordOpt
+    : WordOpt[name] { driver.contexts_.back().words_.push_back($name); } { $$ = $name; }
+    | AutoComplete { driver.mode_ = CYDriver::AutoMessage; YYACCEPT; }
+    ;
+
+SelectorCall_
+    : SelectorCall[pass] { $$ = $pass; }
+    | VariadicCall[pass] { $$ = $pass; }
+    ;
+
+SelectorCall
+    : SelectorWordOpt[name] ":" AssignmentExpressionClassic[value] SelectorCall_[next] { $$ = CYNew CYArgument($name ? $name : CYNew CYWord(""), $value, $next); }
+    ;
+
+SelectorList
+    : SelectorCall[pass] { $$ = $pass; }
+    | Word[name] { $$ = CYNew CYArgument($name, NULL); }
+    ;
+
+MessageExpression
+    : "[" AssignmentExpressionClassic[self] { driver.contexts_.push_back($self); } SelectorList[arguments] "]" { driver.contexts_.pop_back(); } { $$ = CYNew CYSendDirect($self, $arguments); }
+    | "[" LexOf "super" { driver.context_ = NULL; } SelectorList[arguments] "]" { $$ = CYNew CYSendSuper($arguments); }
+    ;
+
+SelectorExpression_
+    : WordOpt[name] ":" SelectorExpressionOpt[next] { $$ = CYNew CYSelectorPart($name, true, $next); }
+    ;
+
+SelectorExpression
+    : SelectorExpression_[pass] { $$ = $pass; }
+    | Word[name] { $$ = CYNew CYSelectorPart($name, false, NULL); }
+    ;
+
+SelectorExpressionOpt
+    : SelectorExpression_[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+
+PrimaryExpression
+    : MessageExpression[pass] { $$ = $pass; }
+    | "@selector" "(" SelectorExpression[parts] ")" { $$ = CYNew CYSelector($parts); }
+    ;
+/* }}} */
+@end
+
+/* Cycript: @import Directive {{{ */
+ModulePath
+    : ModulePath[next] "." Word[part] { $$ = CYNew CYModule($part, $next); }
+    | Word[part] { $$ = CYNew CYModule($part); }
+    ;
+
+Declaration_
+    : "@import" ModulePath[path] { $$ = CYNew CYImport($path); }
+    ;
+/* }}} */
+
+@begin ObjectiveC
+/* Cycript (Objective-C): Boxed Expressions {{{ */
+BoxableExpression
+    : NullLiteral[pass] { $$ = $pass; }
+    | BooleanLiteral[pass] { $$ = $pass; }
+    | NumericLiteral[pass] { $$ = $pass; }
+    | StringLiteral[pass] { $$ = $pass; }
+    | CoverParenthesizedExpressionAndArrowParameterList[pass] { $$ = $pass; }
+    | "YES" { $$ = CYNew CYTrue(); }
+    | "NO" { $$ = CYNew CYFalse(); }
+    ;
+
+KeyValuePairList_
+    : "," KeyValuePairListOpt[next] { $$ = $next; }
+    | { $$ = NULL; }
+
+KeyValuePairList
+    : AssignmentExpression[key] ":" AssignmentExpression[value] KeyValuePairList_[next] { $$ = CYNew CYObjCKeyValue($key, $value, $next); }
+    ;
+
+KeyValuePairListOpt
+    : KeyValuePairList[pass] { $$ = $pass; }
+    | LexOf { $$ = NULL; }
+    ;
+
+PrimaryExpression
+    : "@" BoxableExpression[expression] { $$ = CYNew CYBox($expression); }
+    | "@" "[" ElementListOpt[elements] "]" { $$ = CYNew CYObjCArray($elements); }
+    | "@" "{" KeyValuePairListOpt[pairs] "}" { $$ = CYNew CYObjCDictionary($pairs); }
+
+    | "@YES" { $$ = CYNew CYBox(CYNew CYTrue()); }
+    | "@NO" { $$ = CYNew CYBox(CYNew CYFalse()); }
+    | "@true" { $$ = CYNew CYBox(CYNew CYTrue()); }
+    | "@false" { $$ = CYNew CYBox(CYNew CYFalse()); }
+    | "@null" { $$ = CYNew CYBox(CYNew CYNull()); }
+    ;
+/* }}} */
+/* Cycript (Objective-C): Block Expressions {{{ */
+PrimaryExpression
+    : "^" TypedIdentifierNo[type] "{" FunctionBody[code] "}" { if (CYTypeFunctionWith *function = $type->Function()) $$ = CYNew CYObjCBlock($type, function->parameters_, $code); else CYERR($type->location_, "expected parameters"); }
+    ;
+/* }}} */
+/* Cycript (Objective-C): Instance Literals {{{ */
+PrimaryExpression
+    : "#" NumericLiteral[address] { $$ = CYNew CYInstanceLiteral($address); }
+    ;
+/* }}} */
+@end
+
+@begin C
+/* Cycript (C): Pointer Indirection/Addressing {{{ */
+UnaryExpression_
+    : IndirectExpression[pass] { $$ = $pass; }
+    ;
+
+IndirectExpression
+    : "*" UnaryExpression[rhs] { $$ = CYNew CYIndirect($rhs); }
+    ;
+
+UnaryExpression_
+    : "&" UnaryExpression[rhs] { $$ = CYNew CYAddressOf($rhs); }
+    ;
+
+MemberAccess
+    : "->" "[" Expression[property] "]" { $$ = CYNew CYIndirectMember(NULL, $property); }
+    | "->" IdentifierName[property] { $$ = CYNew CYIndirectMember(NULL, CYNew CYString($property)); }
+    | "->" AutoComplete { driver.mode_ = CYDriver::AutoIndirect; YYACCEPT; }
+    ;
+/* }}} */
+/* Cycript (C): Lambda Expressions {{{ */
+TypedParameterList_
+    : "," TypedParameterList[parameters] { $$ = $parameters; }
+    | { $$ = CYNew CYTypedFormal(false); }
+    ;
+
+TypedParameterList
+    : TypedIdentifierMaybe[typed] TypedParameterList_[formal] { CYIdentifier *identifier; if ($typed->name_ == NULL) identifier = NULL; else { identifier = $typed->name_->Identifier(); if (identifier == NULL) CYERR($typed->location_, "invalid identifier"); } $$ = $formal; $$->parameters_ = CYNew CYTypedParameter($typed, identifier, $$->parameters_); }
+    | "..." { $$ = CYNew CYTypedFormal(true); }
+    ;
+
+TypedParameterListOpt
+    : TypedParameterList[pass] { $$ = $pass; }
+    | { $$ = CYNew CYTypedFormal(false); }
+    ;
+
+TypedParameters
+    : TypedParameterListOpt[formal] { if ($formal->variadic_) CYERR(@$, "unsupported variadic"); $$ = $formal->parameters_; }
+    ;
+
+PrimaryExpression
+    : "[" LexOf "&" "]" "(" TypedParameters[parameters] ")" "->" TypedIdentifierNo[type] "{" FunctionBody[code] "}" { $$ = CYNew CYLambda($type, $parameters, $code); }
+    ;
+/* }}} */
+/* Cycript (C): Structure Definitions {{{ */
+IdentifierNoOf
+    : "struct" NewLineOpt { $$ = CYNew CYIdentifier("struct"); }
+    ;
+
+Statement__
+    : "struct" NewLineNot IdentifierType[name] "{" StructFieldListOpt[fields] "}" { $$ = CYNew CYStructDefinition($name, CYNew CYStructTail($fields)); }
+    ;
+
+PrimaryExpression
+    : "(" LexOf "struct" NewLineOpt IdentifierType[name] TypeQualifierRightOpt[typed] ")" { $typed->specifier_ = CYNew CYTypeReference(CYTypeReferenceStruct, $name); $$ = CYNew CYTypeExpression($typed); }
+    | "(" LexOf "struct" NewLineOpt AutoComplete { driver.mode_ = CYDriver::AutoStruct; YYACCEPT; }
+    ;
+/* }}} */
+/* Cycript (C): Type Definitions {{{ */
+IdentifierNoOf
+    : "typedef" NewLineOpt { $$ = CYNew CYIdentifier("typedef"); }
+    ;
+
+TypeDefinition
+    : "typedef" NewLineNot TypedIdentifierDefinition[typed] TerminatorHard { CYIdentifier *identifier; if ($typed->name_ == NULL) identifier = NULL; else { identifier = $typed->name_->Identifier(); if (identifier == NULL) CYERR($typed->location_, "invalid identifier"); } $$ = CYNew CYTypeDefinition($typed, identifier); }
+    ;
+
+Statement__
+    : TypeDefinition[pass] { $$ = $pass; }
+    ;
+
+PrimaryExpression
+    : "(" LexOf "typedef" NewLineOpt TypedIdentifierEncoding[typed] ")" { $$ = CYNew CYTypeExpression($typed); }
+    ;
+/* }}} */
+/* Cycript (C): extern "C" {{{ */
+IdentifierNoOf
+    : "extern" NewLineOpt { $$ = CYNew CYIdentifier("extern"); }
+    ;
+
+ExternCStatement
+    : TypedIdentifierField[typed] TerminatorHard { CYIdentifier *identifier; if ($typed->name_ == NULL) identifier = NULL; else { identifier = $typed->name_->Identifier(); if (identifier == NULL) CYERR($typed->location_, "invalid identifier"); } $$ = CYNew CYExternalDefinition(CYNew CYString("C"), $typed, identifier); }
+    | TypeDefinition[pass] { $$ = $pass; }
+    ;
+
+ExternCStatementListOpt
+    : ExternCStatement[statement] ExternCStatementListOpt[next] { $$ = $statement; CYSetLast($$) = $next; }
+    | { $$ = NULL; }
+    ;
+
+ExternC
+    : "{" ExternCStatementListOpt[pass] "}" { $$ = $pass; }
+    | ExternCStatement[pass] { $$ = $pass; }
+    ;
+
+ABI
+    : StringLiteral[abi] { if (strcmp($abi->Value(), "C") != 0) CYERR(@abi, "unknown extern binding"); }
+    ;
+
+Statement__
+    : "extern" NewLineNot ABI[abi] ExternC[pass] { $$ = $pass; }
+    ;
+
+PrimaryExpression
+    : "(" LexOf "extern" NewLineOpt ABI[abi] TypedIdentifierField[typed] ")" { $$ = CYNew CYExternalExpression(CYNew CYString("C"), $typed, $typed->name_); }
+    ;
+/* }}} */
+@end
+
+@begin E4X
+/* Lexer State {{{ */
+LexPushRegExp
+    : { driver.PushCondition(CYDriver::RegExpCondition); }
+    ;
+
+LexPushXMLContent
+    : { driver.PushCondition(CYDriver::XMLContentCondition); }
+    ;
+
+LexPushXMLTag
+    : { driver.PushCondition(CYDriver::XMLTagCondition); }
+    ;
+
+LexPop
+    : { driver.PopCondition(); }
+    ;
+
+LexSetXMLContent
+    : { driver.SetCondition(CYDriver::XMLContentCondition); }
+    ;
+
+LexSetXMLTag
+    : { driver.SetCondition(CYDriver::XMLTagCondition); }
+    ;
+/* }}} */
+/* Virtual Tokens {{{ */
+XMLWhitespaceOpt
+    : XMLWhitespace
+    |
+    ;
+/* }}} */
+
+/* 8.1 Context Keywords {{{ */
+Identifier
+    : "namespace" { $$ = CYNew CYIdentifier("namespace"); }
+    | "xml" { $$ = CYNew CYIdentifier("xml"); }
+    ;
+/* }}} */
+/* 8.3 XML Initializer Input Elements {{{ */
+XMLMarkup
+    : XMLComment { $$ = $1; }
+    | XMLCDATA { $$ = $1; }
+    | XMLPI { $$ = $1; }
+    ;
+/* }}} */
+
+/* 11.1 Primary Expressions {{{ */
+PrimaryExpression
+    : PropertyIdentifier { $$ = CYNew CYPropertyVariable($1); }
+    | XMLInitilizer { $$ = $1; }
+    | XMLListInitilizer { $$ = $1; }
+    ;
+
+PropertyIdentifier
+    : AttributeIdentifier { $$ = $1; }
+    | QualifiedIdentifier { $$ = $1; }
+    | WildcardIdentifier { $$ = $1; }
+    ;
+/* }}} */
+/* 11.1.1 Attribute Identifiers {{{ */
+AttributeIdentifier
+    : "@" QualifiedIdentifier_ { $$ = CYNew CYAttribute($2); }
+    ;
+
+PropertySelector_
+    : PropertySelector { $$ = $1; }
+    | "[" Expression "]" { $$ = CYNew CYSelector($2); }
+    ;
+
+PropertySelector
+    : Identifier { $$ = CYNew CYSelector($1); }
+    | WildcardIdentifier { $$ = $1; }
+    ;
+/* }}} */
+/* 11.1.2 Qualified Identifiers {{{ */
+QualifiedIdentifier_
+    : PropertySelector_ { $$ = CYNew CYQualified(NULL, $1); }
+    | QualifiedIdentifier { $$ = $1; }
+    ;
+
+QualifiedIdentifier
+    : PropertySelector "::" PropertySelector_ { $$ = CYNew CYQualified($1, $3); }
+    ;
+/* }}} */
+/* 11.1.3 Wildcard Identifiers {{{ */
+WildcardIdentifier
+    : "*" { $$ = CYNew CYWildcard(); }
+    ;
+/* }}} */
+/* 11.1.4 XML Initializer {{{ */
+XMLInitilizer
+    : XMLMarkup { $$ = $1; }
+    | XMLElement { $$ = $1; }
+    ;
+
+XMLElement
+    : "<" LexPushInOff XMLTagContent LexPop "/>" LexPopIn
+    | "<" LexPushInOff XMLTagContent ">" LexSetXMLContent XMLElementContentOpt "</" LexSetXMLTag XMLTagName XMLWhitespaceOpt LexPop ">" LexPopIn
+    ;
+
+XMLTagContent
+    : LexPushXMLTag XMLTagName XMLAttributes
+    ;
+
+XMLExpression
+    : "{" LexPushRegExp Expression LexPop "}"
+    ;
+
+XMLTagName
+    : XMLExpression
+    | XMLName
+    ;
+
+XMLAttributes_
+    : XMLAttributes_ XMLAttribute
+    |
+    ;
+
+XMLAttributes
+    : XMLAttributes_ XMLWhitespace XMLExpression XMLWhitespaceOpt
+    | XMLAttributes_ XMLWhitespaceOpt
+    ;
+
+XMLAttributeValue_
+    : XMLExpression
+    | XMLAttributeValue
+    ;
+
+XMLAttribute
+    : XMLWhitespace XMLName XMLWhitespaceOpt "=" XMLWhitespaceOpt XMLAttributeValue_
+    ;
+
+XMLElementContent
+    : XMLExpression XMLElementContentOpt
+    | XMLMarkup XMLElementContentOpt
+    | XMLText XMLElementContentOpt
+    | XMLElement XMLElementContentOpt
+    ;
+
+XMLElementContentOpt
+    : XMLElementContent
+    |
+    ;
+/* }}} */
+/* 11.1.5 XMLList Initializer {{{ */
+XMLListInitilizer
+    : "<>" LexPushInOff LexPushXMLContent XMLElementContent LexPop "</>" LexPopIn { $$ = CYNew CYXMLList($4); }
+    ;
+/* }}} */
+
+/* 11.2 Left-Hand-Side Expressions {{{ */
+PropertyIdentifier_
+    : Identifier { $$ = $1; }
+    | PropertyIdentifier { $$ = $1; }
+    ;
+
+MemberAccess
+    : "." PropertyIdentifier { $$ = CYNew CYPropertyMember(NULL, $2); }
+    | ".." PropertyIdentifier_ { $$ = CYNew CYDescendantMember(NULL, $2); }
+    | "." "(" Expression ")" { $$ = CYNew CYFilteringPredicate(NULL, $3); }
+    ;
+/* }}} */
+/* 12.1 The default xml namespace Statement {{{ */
+/* XXX: DefaultXMLNamespaceStatement
+    : "default" "xml" "namespace" "=" Expression Terminator { $$ = CYNew CYDefaultXMLNamespace($5); }
+    ;
+
+Statement__
+    : DefaultXMLNamespaceStatement { $$ = $1; }
+    ; */
+/* }}} */
+@end
+
+/* JavaScript FTL: Array Comprehensions {{{ */
+Comprehension
+    : AssignmentExpression[expression] ComprehensionFor[comprehension] ComprehensionTail[next] { $comprehension->SetNext($next); $$ = CYNew CYArrayComprehension($expression, $comprehension); }
+    ;
+
+ComprehensionFor
+    : "for" "each" "(" LexPushInOn LexBind ForBinding[binding] "!in" LexPopIn Expression[iterable] ")" { $$ = CYNew CYForOfComprehension($binding, $iterable); }
+    ;
+/* }}} */
+/* JavaScript FTL: for each {{{ */
+IterationStatement
+    : "for" "each" "(" LexPushInOn ForInStatementInitializer[initializer] "!in" LexPopIn Expression[iterable] ")" Statement[code] { $$ = CYNew CYForOf($initializer, $iterable, $code); }
+    ;
+/* }}} */
+
+/* JavaScript FTW: Array Comprehensions {{{ */
+PrimaryExpression
+    : ArrayComprehension
+    ;
+
+ArrayComprehension
+    : "[" Comprehension[comprehension] "]" { $$ = $comprehension; }
+    ;
+
+Comprehension
+    : LexOf ComprehensionFor[comprehension] ComprehensionTail[next] AssignmentExpression[expression] { $comprehension->SetNext($next); $$ = CYNew CYArrayComprehension($expression, $comprehension); }
+    ;
+
+ComprehensionTail
+    : { $$ = NULL; }
+    | ComprehensionFor[comprehension] ComprehensionTail[next] { $comprehension->SetNext($next); $$ = $comprehension; }
+    | ComprehensionIf[comprehension] ComprehensionTail[next] { $comprehension->SetNext($next); $$ = $comprehension; }
+    ;
+
+ComprehensionFor
+    : "for" "(" LexPushInOn LexBind ForBinding[binding] "!in" LexPopIn Expression[iterable] ")" { $$ = CYNew CYForInComprehension($binding, $iterable); }
+    | "for" "(" LexPushInOn LexBind ForBinding[binding] "of" LexPopIn Expression[iterable] ")" { $$ = CYNew CYForOfComprehension($binding, $iterable); }
+    ;
+
+ComprehensionIf
+    : "if" "(" AssignmentExpression[test] ")" { $$ = CYNew CYIfComprehension($test); }
+    ;
+/* }}} */
+/* JavaScript FTW: Named Arguments {{{ */
+ArgumentList
+    : LexOf WordNoUnary[tag] ":" AssignmentExpression[value] ArgumentList_[next] { $$ = CYNew CYArgument($tag, $value, $next); }
+    ;
+/* }}} */
+/* JavaScript FTW: Subscript Access {{{ */
+MemberAccess
+    : "." "[" AssignmentExpression[property] "]" { $$ = CYNew CYSubscriptMember(NULL, $property); }
+    ;
+/* }}} */
+/* JavaScript FTW: Undefined Monad {{{ */
+MemberAccess
+    : "?." IdentifierName[property] { $$ = CYNew CYAttemptMember(NULL, CYNew CYString($property)); }
+    | "?." AutoComplete { driver.mode_ = CYDriver::AutoDirect; YYACCEPT; }
+    ;
+/* }}} */
+
+/* JavaScript FTW: Java "Anonymous Inner Classes" {{{ */
+BracedParameter
+    : "{" PropertyDefinitionListOpt[properties] "}" { $$ = CYNew CYExtend(NULL, $properties); }
+    ;
+/* }}} */
+
+/* JavaScript FTW: Ruby Blocks {{{ */
+RubyProcParameterList_
+    : "," RubyProcParameterList[parameters] { $$ = $parameters; }
+    | { $$ = NULL; }
+    ;
+
+RubyProcParameterList
+    : BindingIdentifier[identifier] RubyProcParameterList_[next] { $$ = CYNew CYFunctionParameter(CYNew CYBinding($identifier), $next); }
+    | LexOf { $$ = NULL; }
+    ;
+
+RubyProcParameters
+    : "|" RubyProcParameterList[parameters] "|" { $$ = $parameters; }
+    | "||" { $$ = NULL; }
+    ;
+
+RubyProcParametersOpt
+    : RubyProcParameters[pass] { $$ = $pass; }
+    | { $$ = NULL; }
+    ;
+
+BracedParameter
+    : ";{" RubyProcParametersOpt[parameters] StatementListOpt[code] "}" { $$ = CYNew CYRubyBlock(NULL, CYNew CYRubyProc($parameters, $code)); }
+    ;
+
+PrimaryExpression
+    : "{" RubyProcParameters[parameters] StatementListOpt[code] "}" { $$ = CYNew CYRubyProc($parameters, $code); }
+    ;
+
+BracedExpression_
+    : AccessExpression[pass] LexNewLineOrOpt { $$ = $pass; }
+    | BracedExpression_[lhs] { if (!$lhs->IsNew()) CYMAP(OpenBrace_, OpenBrace); } BracedParameter[rhs] LexNewLineOrOpt { $rhs->SetLeft($lhs); $$ = $rhs; }
+    ;
+
+BracedExpression
+    : BracedExpression_[pass] "\n" { $$ = $pass; }
+    | BracedExpression_[pass] { $$ = $pass; }
+    ;
+/* }}} */
+/* JavaScript FTW: Ruby Scopes {{{ */
+MemberAccess
+    : "::" "[" Expression[property] "]" { $$ = CYNew CYResolveMember(NULL, $property); }
+    | "::" IdentifierName[property] { $$ = CYNew CYResolveMember(NULL, CYNew CYString($property)); }
+    | "::" AutoComplete { driver.mode_ = CYDriver::AutoResolve; YYACCEPT; }
+    ;
+/* }}} */
+/* JavaScript FTW: Ruby Symbols {{{ */
+PrimaryExpression
+    : ":" Word[name] { $$ = CYNew CYSymbol($name->Word()); }
+    ;
+/* }}} */
+
+%%
+
+bool CYDriver::Parse(CYMark mark) {
+    mark_ = mark;
+    CYLocal<CYPool> local(&pool_);
+    cy::parser parser(*this);
+#if YYDEBUG
+    parser.set_debug_level(debug_);
+#endif
+    return parser.parse() != 0;
+}
+
+void CYDriver::Warning(const cy::parser::location_type &location, const char *message) {
+    if (!strict_)
+        return;
+
+    CYDriver::Error error;
+    error.warning_ = true;
+    error.location_ = location;
+    error.message_ = message;
+    errors_.push_back(error);
+}
+
+void cy::parser::error(const cy::parser::location_type &location, const std::string &message) {
+    CYDriver::Error error;
+    error.warning_ = false;
+    error.location_ = location;
+    error.message_ = message;
+    driver.errors_.push_back(error);
+}

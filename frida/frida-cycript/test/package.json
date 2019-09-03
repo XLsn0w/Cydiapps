@@ -1,0 +1,21 @@
+{
+  "name": "cycript-test",
+  "version": "1.0.0",
+  "description": "Test harness used internally by Cycript",
+  "private": true,
+  "main": "types.js",
+  "scripts": {
+    "test": "DYLD_LIBRARY_PATH=$(pwd)/../build/src node node_modules/mocha/bin/_mocha ."
+  },
+  "binary": {
+    "napi_versions": [
+      3
+    ]
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "bindings": "^1.5.0",
+    "mocha": "^6.2.0",
+    "should": "^13.2.3"
+  }
+}

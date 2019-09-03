@@ -1,0 +1,164 @@
+# config.site for configure
+
+frida_host_platform=@frida_host_platform@
+frida_host_arch=@frida_host_arch@
+frida_host_platform_arch=@frida_host_platform_arch@
+frida_libc=@frida_libc@
+frida_prefix=@frida_prefix@
+
+test "$prefix" = NONE && prefix="$frida_prefix"
+
+enable_nls=no
+enable_silent_rules=yes
+
+frida_warning_flags="-Wall"
+
+case "$PACKAGE_TARNAME" in
+  capstone)
+    # Takes ages to compile with debug information
+    frida_flags="@frida_optimization_flags@ -pipe"
+    ;;
+  *)
+    frida_flags="@frida_optimization_flags@ -pipe @frida_debug_flags@"
+    ;;
+esac
+
+case $frida_host_platform_arch in
+  linux-arm)
+    host_alias="arm-linux-gnueabi"
+    cross_compiling=yes
+    ;;
+  linux-armhf)
+    host_alias="arm-linux-gnueabihf"
+    cross_compiling=yes
+    ;;
+  linux-arm64)
+    host_alias="aarch64-linux-gnu"
+    cross_compiling=yes
+    ;;
+  linux-mips)
+    host_alias="mips-linux-$frida_libc"
+    cross_compiling=yes
+    ;;
+  linux-mipsel)
+    host_alias="mipsel-linux-$frida_libc"
+    cross_compiling=yes
+    ;;
+  linux-mips64)
+    host_alias="mips64-linux-$frida_libc"
+    cross_compiling=yes
+    ;;
+  linux-x86)
+    host_alias="i686-linux-gnu"
+    cross_compiling=yes
+    ;;
+  linux-x86_64)
+    host_alias="x86_64-linux-gnu"
+    cross_compiling=no
+    ;;
+  qnx-x86)
+    host_alias="i486-pc-nto-qnx6.6.0"
+    cross_compiling=yes
+    ;;
+  qnx-armeabi)
+    host_alias="arm-unknown-nto-qnx6.5.0eabi"
+    cross_compiling=yes
+    ;;
+  qnx-arm)
+    host_alias="arm-unknown-nto-qnx6.5.0"
+    cross_compiling=yes
+    ;;
+  android-x86)
+    host_alias="i686-none-linux-android"
+    cross_compiling=yes
+    ;;
+  android-x86_64)
+    host_alias="x86_64-none-linux-android"
+    cross_compiling=yes
+    ;;
+  android-arm)
+    host_alias="armv7-none-linux-androideabi"
+    cross_compiling=yes
+
+    frida_flags="$frida_flags -mthumb"
+    ;;
+  android-arm64)
+    host_alias="aarch64-none-linux-android"
+    cross_compiling=yes
+    ;;
+  macos-x86|ios-x86)
+    host_alias="i686-apple-darwin"
+    cross_compiling=yes
+    ;;
+  ios-x86_64)
+    host_alias="x86_64-apple-darwin"
+    cross_compiling=yes
+    ;;
+  ios-arm)
+    host_alias="arm-apple-darwin"
+    cross_compiling=yes
+
+    frida_flags="$frida_flags -mthumb"
+    ;;
+  ios-arm64)
+    host_alias="aarch64-apple-darwin"
+    cross_compiling=yes
+    ;;
+esac
+
+case $frida_host_platform_arch in
+  android-*)
+    ac_cv_sys_file_offset_bits=no
+    ;;
+esac
+
+# Work around a bug in stdint generation m4, where CFLAGS is overwritten,
+# causing this check to conclude that there's no stdint.h support...
+ac_cv_header_stdint_t=yes
+
+if [ -x /usr/bin/install ]; then
+  ac_cv_path_install="/usr/bin/install -p"
+fi
+
+case "$PACKAGE_TARNAME" in
+  gettext*)
+    enable_shared=no
+    enable_static=yes
+    ;;
+  xz)
+    enable_shared=no
+    enable_static=yes
+    ;;
+  libunwind)
+    enable_shared=no
+    enable_static=yes
+    enable_coredump=no
+    enable_ptrace=no
+    enable_setjmp=no
+    enable_debug=no
+    enable_msabi_support=no
+    enable_minidebuginfo=yes
+
+    CFLAGS="$CFLAGS -I$frida_prefix/include"
+    LDFLAGS="$LDFLAGS -L$frida_prefix/lib"
+    ;;
+  elfutils)
+    case $frida_host_platform_arch in
+      android-x86|android-arm)
+        ac_cv_have_decl_mempcpy=no
+        ;;
+    esac
+    ;;
+  capstone)
+    enable_shared=no
+    enable_static=yes
+    frida_flags="$frida_warning_flags $frida_flags"
+    ;;
+  *)
+    frida_flags="$frida_warning_flags $frida_flags"
+    ;;
+esac
+
+CFLAGS="$CFLAGS $frida_flags"
+CXXFLAGS="$CXXFLAGS $frida_flags"
+OBJCFLAGS="$OBJCFLAGS $frida_flags"

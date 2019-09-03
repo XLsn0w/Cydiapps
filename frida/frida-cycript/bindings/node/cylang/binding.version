@@ -1,0 +1,4 @@
+CYLANG_BINDING {
+  local:
+    *;
+};

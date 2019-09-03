@@ -1,0 +1,738 @@
+/* Cycript - The Truly Universal Scripting Language
+ * Copyright (C) 2009-2016  Jay Freeman (saurik)
+*/
+
+/* GNU Affero General Public License, Version 3 {{{ */
+/*
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+**/
+/* }}} */
+
+%top{
+#ifndef _MSC_VER
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-register"
+#pragma clang diagnostic ignored "-Wunused-function"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#else
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#pragma GCC diagnostic ignored "-Wunused-function"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
+#endif
+}
+
+%{
+
+#define YYLTYPE CYLocation
+#include "Parser.hpp"
+typedef cy::parser::token tk;
+
+#include "Highlight.hpp"
+
+#include "IdentifierStart.h"
+#include "IdentifierContinue.h"
+
+#include <iterator>
+
+#define YY_EXTRA_TYPE CYDriver *
+
+#define F(value, highlight) do { \
+    BEGIN(yyextra->template_.top() ? DivOrTemplateTail : Div); \
+    yylval->highlight_ = highlight; \
+    return value; \
+} while (false)
+
+#define S(stack) do { \
+    if (yyextra->stack.size() == 1) \
+        E("invalid brace") \
+    yyextra->stack.pop(); \
+} while (false)
+
+#define P yyextra->pool_
+#define A new(P)
+#define Y P.strmemdup(yytext, yyleng)
+
+#define I(type, Type, value, highlight) do { \
+    yylval->semantic_.type ## _ = A CY ## Type; \
+    yylval->semantic_.type ## _->location_ = *yylloc; \
+    F(value, highlight); \
+} while (false)
+
+#define N \
+    if (yyextra->last_) { \
+        yyextra->last_ = false; \
+        F(tk::NewLine, hi::Nothing); \
+    }
+
+#define V(more) { \
+    if (const char *nl = reinterpret_cast<const char *>(memchr(yytext, '\n', yyleng))) { \
+        unsigned lines(0); \
+        size_t left; \
+        do { \
+            ++lines; \
+            left = yyleng - (nl - yytext) - 1; \
+            nl = reinterpret_cast<const char *>(memchr(nl + 1, '\n', left)); \
+        } while (nl != NULL); \
+        yylloc->step(); \
+        yylloc->end.Lines(lines); \
+        yylloc->end.Columns(left); \
+        more \
+    } else L \
+}
+
+#define R yylloc->end.Columns(yyleng);
+#define L yylloc->step(); R
+
+#define H(value, highlight) do { \
+    if (yyextra->highlight_) \
+        F(value, highlight); \
+} while (false)
+
+#define M \
+    H(tk::Comment, hi::Comment);
+
+#define E(message) { \
+    CYDriver::Error error; \
+    error.location_ = *yylloc; \
+    error.message_ = "syntax error, " message; \
+    yyextra->errors_.push_back(error); \
+    yyterminate(); \
+}
+
+int X(char c) {
+    if (c >= '0' && c <= '9')
+        return c - '0';
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F')
+        return c - 'A' + 10;
+    return -1;
+}
+
+template <typename Type_>
+static void U(Type_ &local, unsigned point) {
+    if (false) {
+    } else if (point < 0x000080) {
+        *local++ = point;
+    } else if (point < 0x000800) {
+        *local++ = 0xc0 | point >> 0x06 & 0x1f;
+        goto one;
+    } else if (point < 0x010000) {
+        *local++ = 0xe0 | point >> 0x0c & 0x0f;
+        goto two;
+    } else if (point < 0x110000) {
+        *local++ = 0xf0 | point >> 0x12 & 0x07;
+        *local++ = 0x80 | point >> 0x0c & 0x3f;
+      two:
+        *local++ = 0x80 | point >> 0x06 & 0x3f;
+      one:
+        *local++ = 0x80 | point >> 0x00 & 0x3f;
+    } else _assert(false);
+}
+
+static unsigned U(char *&local, const char *text, yy_size_t &i) {
+    unsigned point;
+
+    char next(text[++i]);
+    if (next != '{') {
+        point = X(text[i + 0]) << 12 | X(text[i + 1]) << 8 | X(text[i + 2]) << 4 | X(text[i + 3]);
+        i += 3;
+    } else {
+        point = 0;
+        for (;;) {
+            next = text[++i];
+            if (next == '}')
+                break;
+            point = (point << 4) | X(next);
+        }
+    }
+
+    U(local, point);
+    return point;
+}
+
+#define CYLexBufferPoint(point) do { \
+    std::back_insert_iterator<std::vector<char> > inserter(yyextra->buffer_); \
+    U(inserter, point); \
+} while (false)
+
+#define CYLexBufferUnit(value) do { \
+    yyextra->buffer_.push_back(value); \
+} while (false)
+
+#define CYLexBufferUnits(data, size) do { \
+    yyextra->buffer_.insert(yyextra->buffer_.end(), data, data + size); \
+} while (false)
+
+#define CYLexBufferStart(condition) do { \
+    yyextra->buffer_.clear(); \
+    yy_push_state(condition, yyscanner); \
+} while (false)
+
+#define CYLexBufferEnd(type, Type, value, highlight) do { \
+    yy_pop_state(yyscanner); \
+    I(type, Type(P.strmemdup(yyextra->buffer_.data(), yyextra->buffer_.size()), yyextra->buffer_.size()), value, highlight); \
+} while (false)
+
+#define YY_INPUT(data, value, size) do { \
+    auto v(yyextra->data_.sgetn(data, size)); \
+    value = v ? v : YY_NULL; \
+} while (false)
+
+%}
+
+%option prefix="cy"
+%option bison-bridge
+%option bison-locations
+%option nodefault
+%option noyywrap
+%option noyylineno
+%option nounput
+%option nounistd
+%option 8bit
+%option backup
+%option batch
+%option never-interactive
+%option pointer
+%option reentrant
+%option stack
+
+U1 [\x00-\x7f]
+U0 [\x80-\xbf]
+U2 [\xc2-\xdf]
+U3 [\xe0-\xef]
+U4 [\xf0-\xf4]
+UN [\xc0-\xc1\xf5-\xff]
+UE {U1}|{U2}|{U3}|{U4}|{UN}
+
+HexDigit [0-9a-fA-F]
+LineTerminatorSequence \r?\n|\r|\xe2\x80[\xa8\xa9]
+WhiteSpace [\x09\x0b\x0c\x20]|\xc2\xa0|\xef\xbb\xbf
+UnicodeEscape \\u({HexDigit}{4}|\{{HexDigit}+\})
+
+@include NotLineTerminator.l
+NoneTerminatorCharacter [^\r\n\x80-\xff]|{NotLineTerminator}
+RegExCharacter [^/[\\]{-}[\r\n\x80-\xff]|{NotLineTerminator}
+RegClsCharacter [^]\\]{-}[\r\n\x80-\xff]|{NotLineTerminator}
+CommentCharacter [^*/]{-}[\r\n\x80-\xff]|{NotLineTerminator}
+SingleCharacter [^'\\]{-}[\r\n\x80-\xff]|{NotLineTerminator}
+DoubleCharacter [^"\\]{-}[\r\n\x80-\xff]|{NotLineTerminator}
+PlateCharacter [^$`\\]{-}[\r\n\x80-\xff]|{NotLineTerminator}
+
+@include UnicodeIDStart.l
+@include UnicodeIDContinue.l
+IdentifierMore [$_]
+
+UnicodeStart {IdentifierMore}|{UnicodeIDStart}
+UnicodePart {IdentifierMore}|\xe2\x80[\x8c\x8d]|{UnicodeIDContinue}
+UnicodeScrap {U2}|{U3}{U0}{0,1}|{U4}{U0}{0,2}|{UN}|{U0}
+UnicodeError ({U2}|{U3}{U0}{0,1}|{U4}{U0}{0,2}){UE}|{UN}|{U0}
+
+IdentifierStart {UnicodeStart}|{UnicodeEscape}
+IdentifierPart {UnicodePart}|{UnicodeEscape}
+IdentifierFail {UnicodeError}|\\(u({HexDigit}{0,3}|\{{HexDigit}*))?
+IdentifierScrap {IdentifierPart}*{IdentifierFail}?
+
+RegularExpressionBackslashSequence \\{NoneTerminatorCharacter}
+RegularExpressionClassChars ({RegClsCharacter}|{RegularExpressionBackslashSequence})*
+
+@begin E4X
+XMLNameStart [a-zA-Z_:]
+XMLNamePart [a-zA-Z0-9.-_:]
+XMLName {XMLNameStart}{XMLNamePart}*
+@end
+
+%x RegularExpression
+%x MultiLine
+
+%x LegacySingleString
+%x LegacyDoubleString
+
+%x StrictSingleString
+%x StrictDoubleString
+%x StrictAccentString
+
+%s Div
+%s DivOrTemplateTail
+
+@begin E4X
+%x XMLContent
+%x XMLTag
+@end
+
+%%
+
+    /* RegEx {{{ */
+<RegularExpression>{
+    \/{UnicodePart}* R CYLexBufferUnits(yytext, yyleng); CYLexBufferEnd(literal, RegEx, tk::RegularExpressionLiteral_, hi::Constant);
+    \/{UnicodePart}*{UnicodeError} R E("invalid character");
+
+    {RegExCharacter}+ R CYLexBufferUnits(yytext, yyleng);
+
+    {RegularExpressionBackslashSequence} R CYLexBufferUnits(yytext, yyleng);
+    \\ R E("invalid escape")
+
+    (\\|{RegExCharacter}+)?{LineTerminatorSequence} R E("invalid newline");
+    (\\|{RegExCharacter}+)?{UnicodeScrap} R E("invalid character");
+
+    "["{RegularExpressionClassChars}"]" R CYLexBufferUnits(yytext, yyleng);
+    "["{RegularExpressionClassChars}\\? R E("invalid class");
+
+    "["{RegularExpressionClassChars}\\?{LineTerminatorSequence} R E("invalid newline");
+    "["{RegularExpressionClassChars}\\?{UnicodeScrap} R E("invalid character");
+
+    <<EOF>> R E("unterminated regex")
+}
+    /* }}} */
+    /* Comment {{{ */
+    /* XXX: maybe fold LineTerminatorSequence into these definitions */
+#!{NoneTerminatorCharacter}* L M
+\/\/{NoneTerminatorCharacter}* L M
+(#!|\/\/){NoneTerminatorCharacter}*{UnicodeError} L E("invalid character");
+
+\/\* L yy_push_state(MultiLine, yyscanner);
+
+<MultiLine>{
+    \**\*\/ R yy_pop_state(yyscanner); M N
+    \**{LineTerminatorSequence} yylloc->end.Lines(); yyextra->last_ = true;
+    \**{CommentCharacter}|\/ R
+
+    \**{UnicodeScrap} R E("invalid character");
+    \**\* R E("invalid comment");
+
+    <<EOF>> R E("invalid comment")
+}
+    /* }}} */
+    /* Element {{{ */
+@begin E4X
+<RegExp>"<>"      L F(tk::LeftRight, hi::Structure);
+<XMLContent>"</>" L F(tk::LeftSlashRight, hi::Structure);
+
+<RegExp,XMLContent>\<!\[CDATA\[(\n|[^[]|\[[^[]|\[\[[^>])*]]> V() F(tk::XMLCDATA, hi::Constant);
+<RegExp,XMLContent>\<!--(\n|[^-]|-[^-])*--> V() F(tk::XMLComment, hi::Comment);
+<RegExp,XMLContent>\<?(\n|[^?]|\?[^>])*?> V() F(tk::XMLPI, hi::Meta);
+
+<XMLTag>"="  L F(tk::Equal, hi::Structure);
+<XMLTag>">"  L F(tk::Right, hi::Structure);
+<XMLTag>"/>" L F(tk::SlashRight, hi::Structure);
+<XMLTag>"{"  L F(tk::OpenBrace, hi::Structure);
+
+<XMLTag>\"(\n|[^"])*\"|'(\n|[^'])*' V() F(tk::XMLAttributeValue, hi::Constant);
+<XMLTag>{XMLName} L F(tk::XMLName, hi::Identifier);
+<XMLTag>[ \t\r\n] V() F(tk::XMLWhitespace, hi::Nothing);
+
+<XMLContent>"{"  L F(tk::OpenBrace, hi::Structure);
+<XMLContent>"<"  L F(tk::Left, hi::Structure);
+<XMLContent>"</" L F(tk::LeftSlash, hi::Structure);
+@end
+    /* }}} */
+    /* Operator {{{ */
+"..."  L F(tk::PeriodPeriodPeriod, hi::Meta);
+".."   L E("invalid operator")
+
+@begin E4X
+".."   L F(tk::PeriodPeriod, hi::Operator);
+@end
+
+@begin E4X ObjectiveC
+"@"    L F(tk::At, hi::Operator);
+@end
+
+"&"    L F(tk::Ampersand, hi::Operator);
+"&&"   L F(tk::AmpersandAmpersand, hi::Operator);
+"&="   L F(tk::AmpersandEqual, hi::Operator);
+"^"    L F(tk::Carrot, hi::Operator);
+"^="   L F(tk::CarrotEqual, hi::Operator);
+"="    L F(tk::Equal, hi::Operator);
+"=="   L F(tk::EqualEqual, hi::Operator);
+"==="  L F(tk::EqualEqualEqual, hi::Operator);
+"=>"   L F(tk::EqualRight, hi::Operator);
+"!"    L F(tk::Exclamation, hi::Operator);
+"!="   L F(tk::ExclamationEqual, hi::Operator);
+"!=="  L F(tk::ExclamationEqualEqual, hi::Operator);
+"-"    L F(tk::Hyphen, hi::Operator);
+"-="   L F(tk::HyphenEqual, hi::Operator);
+"--"   L F(tk::HyphenHyphen, hi::Operator);
+"->"   L F(tk::HyphenRight, hi::Operator);
+"<"    L F(tk::Left, hi::Operator);
+"<="   L F(tk::LeftEqual, hi::Operator);
+"<<"   L F(tk::LeftLeft, hi::Operator);
+"<<="  L F(tk::LeftLeftEqual, hi::Operator);
+"%"    L F(tk::Percent, hi::Operator);
+"%="   L F(tk::PercentEqual, hi::Operator);
+"."    L F(tk::Period, hi::Operator);
+"?."   L F(tk::QuestionPeriod, hi::Operator);
+"|"    L F(tk::Pipe, hi::Operator);
+"|="   L F(tk::PipeEqual, hi::Operator);
+"||"   L F(tk::PipePipe, hi::Operator);
+"+"    L F(tk::Plus, hi::Operator);
+"+="   L F(tk::PlusEqual, hi::Operator);
+"++"   L F(tk::PlusPlus, hi::Operator);
+">"    L F(tk::Right, hi::Operator);
+">="   L F(tk::RightEqual, hi::Operator);
+">>"   L F(tk::RightRight, hi::Operator);
+">>="  L F(tk::RightRightEqual, hi::Operator);
+">>>"  L F(tk::RightRightRight, hi::Operator);
+">>>=" L F(tk::RightRightRightEqual, hi::Operator);
+"*"    L F(tk::Star, hi::Operator);
+"*="   L F(tk::StarEqual, hi::Operator);
+"~"    L F(tk::Tilde, hi::Operator);
+
+"/"  L F(tk::Slash, hi::Operator);
+"/=" L F(tk::SlashEqual, hi::Operator);
+
+":"    L F(tk::Colon, hi::Structure);
+"::"   L F(tk::ColonColon, hi::Structure);
+","    L F(tk::Comma, hi::Structure);
+"?"    L F(tk::Question, hi::Structure);
+";"    L F(tk::SemiColon, hi::Structure);
+"#"    L F(tk::Pound, hi::Operator);
+
+"("    L F(tk::OpenParen, hi::Structure);
+")"    L F(tk::CloseParen, hi::Structure);
+
+"{"    L yyextra->template_.push(false); F(tk::OpenBrace, hi::Structure);
+<Div>"}" L S(template_); F(tk::CloseBrace, hi::Structure);
+
+"["    L F(tk::OpenBracket, hi::Structure);
+"]"    L F(tk::CloseBracket, hi::Structure);
+    /* }}} */
+    /* Keyword {{{ */
+"@error"          L F(tk::At_error_, hi::Error);
+
+@begin Java
+"@class"          L F(tk::At_class_, hi::Meta);
+@end
+
+@begin C
+"@encode"         L F(tk::At_encode_, hi::Meta);
+@end
+
+@begin ObjectiveC
+"@end"            L F(tk::At_end_, hi::Meta);
+"@false"          L F(tk::At_false_, hi::Constant);
+"@implementation" L F(tk::At_implementation_, hi::Meta);
+"@import"         L F(tk::At_import_, hi::Special);
+"@NO"             L F(tk::At_NO_, hi::Constant);
+"@null"           L F(tk::At_null_, hi::Constant);
+"@selector"       L F(tk::At_selector_, hi::Meta);
+"@true"           L F(tk::At_true_, hi::Constant);
+"@YES"            L F(tk::At_YES_, hi::Constant);
+@end
+
+@({UnicodeStart}{UnicodePart}*{UnicodeError}?|{UnicodeError}) L E("invalid keyword")
+    /* }}} */
+    /* Highlight {{{ */
+"undefined"       L F(tk::_undefined_, hi::Operator);
+
+@begin ObjectiveC
+"bool"            L F(tk::_bool_, hi::Type);
+"BOOL"            L F(tk::_BOOL_, hi::Type);
+"id"              L F(tk::_id_, hi::Type);
+"nil"             L F(tk::_nil_, hi::Constant);
+"NULL"            L F(tk::_NULL_, hi::Constant);
+"SEL"             L F(tk::_SEL_, hi::Type);
+@end
+    /* }}} */
+    /* Reserved {{{ */
+"abstract"        L /*FII*/ F(tk::_abstract_, hi::Meta);
+"as"              L /*III*/ F(tk::_as_, hi::Meta);
+"await"           L /*II?*/ F(tk::_await_, hi::Meta);
+"boolean"         L /*FII*/ F(tk::_boolean_, hi::Type);
+"break"           L /*KKK*/ F(tk::_break_, hi::Control);
+"byte"            L /*FII*/ F(tk::_byte_, hi::Type);
+"case"            L /*KKK*/ F(tk::_case_, hi::Control);
+"catch"           L /*KKK*/ F(tk::_catch_, hi::Control);
+"char"            L /*FII*/ F(tk::_char_, hi::Type);
+"class"           L /*FFK*/ F(tk::_class_, hi::Meta);
+"const"           L /*FFK*/ F(tk::_const_, hi::Meta);
+"constructor"     L /*III*/ F(tk::_constructor_, hi::Special);
+"continue"        L /*KKK*/ F(tk::_continue_, hi::Control);
+"debugger"        L /*FKK*/ F(tk::_debugger_, hi::Meta);
+"default"         L /*KKK*/ F(tk::_default_, hi::Control);
+"delete"          L /*KKK*/ F(tk::_delete_, hi::Operator);
+"do"              L /*KKK*/ F(tk::_do_, hi::Control);
+"double"          L /*FII*/ F(tk::_double_, hi::Type);
+"else"            L /*KKK*/ F(tk::_else_, hi::Control);
+"enum"            L /*FFF*/ F(tk::_enum_, hi::Meta);
+"export"          L /*FFK*/ F(tk::_export_, hi::Meta);
+"extends"         L /*FFK*/ F(tk::_extends_, hi::Meta);
+"eval"            L /*III*/ F(tk::_eval_, hi::Special);
+"false"           L /*LLL*/ F(tk::_false_, hi::Constant);
+"final"           L /*FII*/ F(tk::_final_, hi::Meta);
+"finally"         L /*KKK*/ F(tk::_finally_, hi::Control);
+"float"           L /*FII*/ F(tk::_float_, hi::Type);
+"for"             L /*KKK*/ F(tk::_for_, hi::Control);
+"from"            L /*III*/ F(tk::_from_, hi::Meta);
+"function"        L /*KKK*/ F(tk::_function_, hi::Meta);
+"goto"            L /*FII*/ F(tk::_goto_, hi::Control);
+"get"             L /*III*/ F(tk::_get_, hi::Meta);
+"if"              L /*KKK*/ F(tk::_if_, hi::Control);
+"implements"      L /*FSS*/ F(tk::_implements_, hi::Meta);
+"import"          L /*FFK*/ F(tk::_import_, hi::Meta);
+"in"              L /*KKK*/ F(tk::_in_, hi::Operator);
+"Infinity"        L /*III*/ F(tk::_Infinity_, hi::Constant);
+"instanceof"      L /*KKK*/ F(tk::_instanceof_, hi::Operator);
+"int"             L /*FII*/ F(tk::_int_, hi::Type);
+"__int128"        L /*III*/ F(tk::___int128_, hi::Type);
+"interface"       L /*FSS*/ F(tk::_interface_, hi::Meta);
+"let"             L /*IS?*/ F(tk::_let_, hi::Meta);
+"long"            L /*FII*/ F(tk::_long_, hi::Type);
+"native"          L /*FII*/ F(tk::_native_, hi::Meta);
+"new"             L /*KKK*/ F(tk::_new_, hi::Operator);
+"null"            L /*LLL*/ F(tk::_null_, hi::Constant);
+"package"         L /*FSS*/ F(tk::_package_, hi::Meta);
+"private"         L /*FSS*/ F(tk::_private_, hi::Meta);
+"protected"       L /*FSS*/ F(tk::_protected_, hi::Meta);
+"__proto__"       L /*III*/ F(tk::___proto___, hi::Special);
+"prototype"       L /*III*/ F(tk::_prototype_, hi::Special);
+"public"          L /*FSS*/ F(tk::_public_, hi::Meta);
+"return"          L /*KKK*/ F(tk::_return_, hi::Control);
+"set"             L /*III*/ F(tk::_set_, hi::Meta);
+"short"           L /*FII*/ F(tk::_short_, hi::Type);
+"static"          L /*FS?*/ F(tk::_static_, hi::Meta);
+"super"           L /*FFK*/ F(tk::_super_, hi::Constant);
+"switch"          L /*KKK*/ F(tk::_switch_, hi::Control);
+"synchronized"    L /*FII*/ F(tk::_synchronized_, hi::Meta);
+"target"          L /*III*/ F(tk::_target_, hi::Identifier);
+"this"            L /*KKK*/ F(tk::_this_, hi::Constant);
+"throw"           L /*KKK*/ F(tk::_throw_, hi::Control);
+"throws"          L /*FII*/ F(tk::_throws_, hi::Meta);
+"transient"       L /*FII*/ F(tk::_transient_, hi::Meta);
+"true"            L /*LLL*/ F(tk::_true_, hi::Constant);
+"try"             L /*KKK*/ F(tk::_try_, hi::Control);
+"typeid"          L /*III*/ F(tk::_typeid_, hi::Operator);
+"typeof"          L /*KKK*/ F(tk::_typeof_, hi::Operator);
+"var"             L /*KKK*/ F(tk::_var_, hi::Meta);
+"void"            L /*KKK*/ F(tk::_void_, hi::Operator);
+"volatile"        L /*FII*/ F(tk::_volatile_, hi::Meta);
+"while"           L /*KKK*/ F(tk::_while_, hi::Control);
+"with"            L /*KKK*/ F(tk::_with_, hi::Control);
+"yield"           L /*IS?*/ F(tk::_yield_, hi::Control);
+
+"each"            L F(tk::_each_, hi::Control);
+"of"              L F(tk::_of_, hi::Operator);
+
+@begin C
+"extern"          L F(tk::_extern_, hi::Type);
+"signed"          L F(tk::_signed_, hi::Type);
+"struct"          L F(tk::_struct_, hi::Meta);
+"typedef"         L F(tk::_typedef_, hi::Meta);
+"unsigned"        L F(tk::_unsigned_, hi::Type);
+@end
+
+@begin ObjectiveC
+"NO"              L F(tk::_NO_, hi::Constant);
+"YES"             L F(tk::_YES_, hi::Constant);
+@end
+
+@begin E4X
+"namespace"       L F(tk::_namespace_, hi::Meta);
+"xml"             L F(tk::_xml_, hi::Meta);
+@end
+    /* }}} */
+    /* Identifier {{{ */
+{UnicodeStart}{UnicodePart}* L I(identifier, Identifier(Y), tk::Identifier_, hi::Identifier);
+
+{IdentifierStart}{IdentifierPart}* L {
+    char *value(A char[yyleng + 1]);
+    char *local(value);
+
+    for (yy_size_t i(0), e(yyleng); i != e; ++i) {
+        char next(yytext[i]);
+        if (next != '\\')
+            *local++ = next;
+        else {
+            bool (*is)(unsigned) = (i == 0 ? &IsIdentifierStart : &IsIdentifierContinue);
+            unsigned point(U(local, yytext, ++i));
+            if (!is(point))
+                E("invalid character");
+        }
+    }
+
+    *local = '\0';
+    I(identifier, Identifier(value), tk::Identifier_, hi::Identifier);
+}
+
+({IdentifierStart}{IdentifierPart}*)?{IdentifierFail} L E("invalid identifier")
+    /* }}} */
+    /* Number {{{ */
+0[0-7]+ L I(number, Number(strtoull(yytext + 1, NULL, 8)), tk::NumericLiteral, hi::Constant);
+0[0-9]+ L I(number, Number(strtoull(yytext + 1, NULL, 10)), tk::NumericLiteral, hi::Constant);
+
+0[xX][0-9a-fA-F]+ L I(number, Number(strtoull(yytext + 2, NULL, 16)), tk::NumericLiteral, hi::Constant);
+0[oO][0-7]+ L I(number, Number(strtoull(yytext + 2, NULL, 8)), tk::NumericLiteral, hi::Constant);
+0[bB][0-1]+ L I(number, Number(strtoull(yytext + 2, NULL, 2)), tk::NumericLiteral, hi::Constant);
+
+(\.[0-9]+|(0|[1-9][0-9]*)(\.[0-9]*)?)([eE][+-]?[0-9]+)? L I(number, Number(strtod(yytext, NULL)), tk::NumericLiteral, hi::Constant);
+(\.[0-9]+|(0|[1-9][0-9]*)(\.[0-9]*)?)[eE][+-]?{IdentifierScrap} L E("invalid exponent")
+(\.?[0-9]|(0|[1-9][0-9]*)\.){IdentifierScrap} L E("invalid number")
+    /* }}} */
+    /* String {{{ */
+\' L CYLexBufferStart(LegacySingleString);
+<LegacySingleString,StrictSingleString>{
+    \' R CYLexBufferEnd(string, String, tk::StringLiteral, hi::Constant);
+    {SingleCharacter}+ R CYLexBufferUnits(yytext, yyleng);
+    {SingleCharacter}*{LineTerminatorSequence} R E("invalid newline");
+    {SingleCharacter}*{UnicodeScrap} R E("invalid character");
+}
+
+\" L CYLexBufferStart(LegacyDoubleString);
+<LegacyDoubleString,StrictDoubleString>{
+    \" R CYLexBufferEnd(string, String, tk::StringLiteral, hi::Constant);
+    {DoubleCharacter}+ R CYLexBufferUnits(yytext, yyleng);
+    {DoubleCharacter}*{LineTerminatorSequence} R E("invalid newline");
+    {DoubleCharacter}*{UnicodeScrap} R E("invalid character");
+}
+    /* }}} */
+    /* Template {{{ */
+"`" L yyextra->tail_ = false; CYLexBufferStart(StrictAccentString);
+<DivOrTemplateTail>"}" L yyextra->tail_ = true; S(template_); CYLexBufferStart(StrictAccentString);
+
+<StrictAccentString>{
+    "`" R CYLexBufferEnd(string, String, yyextra->tail_ ? tk::TemplateTail : tk::NoSubstitutionTemplate, hi::Constant);
+    "${" R yyextra->template_.push(true); CYLexBufferEnd(string, String, yyextra->tail_ ? tk::TemplateMiddle : tk::TemplateHead, hi::Constant);
+
+    "$" R CYLexBufferUnit('$');
+
+    {PlateCharacter}+ R CYLexBufferUnits(yytext, yyleng);
+    {PlateCharacter}*{UnicodeScrap} R E("invalid character");
+
+    {PlateCharacter}*{LineTerminatorSequence} yylloc->end.Lines(); CYLexBufferUnits(yytext, yyleng);
+    \\{LineTerminatorSequence} yylloc->end.Lines();
+}
+    /* }}} */
+    /* Escapes {{{ */
+<LegacySingleString,LegacyDoubleString>{
+    \\[0-3][0-7][0-7] R CYLexBufferPoint(X(yytext[1]) << 6 | X(yytext[2]) << 3 | X(yytext[3]));
+    \\[0-7][0-7] R CYLexBufferUnit(X(yytext[1]) << 3 | X(yytext[2]));
+    \\[0-7] R CYLexBufferUnit(X(yytext[1]));
+}
+
+<StrictSingleString,StrictDoubleString,StrictAccentString>{
+    \\0[0-7] R E("legacy escape");
+    \\0 R CYLexBufferUnit('\0');
+}
+
+<LegacySingleString,LegacyDoubleString,StrictSingleString,StrictDoubleString,StrictAccentString>{
+    \\b R CYLexBufferUnit('\b');
+    \\f R CYLexBufferUnit('\f');
+    \\n R CYLexBufferUnit('\n');
+    \\r R CYLexBufferUnit('\r');
+    \\t R CYLexBufferUnit('\t');
+    \\v R CYLexBufferUnit('\v');
+
+    \\x{HexDigit}{2} R CYLexBufferPoint(X(yytext[2]) << 4 | X(yytext[3]));
+
+    \\u{HexDigit}{4} R CYLexBufferPoint(X(yytext[2]) << 12 | X(yytext[3]) << 8 | X(yytext[4]) << 4 | X(yytext[5]));
+
+    \\u\{{HexDigit}+\} R {
+        unsigned point(0);
+        for (yy_size_t i(3); i != yyleng - 1; ++i)
+            point = point << 4 | X(yytext[i]);
+        CYLexBufferPoint(point);
+    }
+
+    \\{LineTerminatorSequence} yylloc->end.Lines();
+    \\{NoneTerminatorCharacter} R CYLexBufferUnits(yytext + 1, yyleng - 1);
+    \\{UnicodeScrap} R E("invalid character");
+
+    \\(x{HexDigit}{0,1}|u({HexDigit}{0,3}|\{{HexDigit}*))? R E("invalid escape");
+    <<EOF>> R E("invalid string");
+}
+    /* }}} */
+
+{LineTerminatorSequence} yylloc->step(); yylloc->end.Lines(); yyextra->last_ = true; N
+{WhiteSpace} L
+{U1}|{UnicodeScrap} L E("invalid character");
+
+<<EOF>> if (yyextra->auto_) { yyextra->auto_ = false; F(tk::AutoComplete, hi::Nothing); } L yyterminate();
+
+%%
+
+#undef yyextra
+#define yyextra this
+#define yyscanner scanner_
+
+void CYDriver::ScannerInit() {
+    cylex_init(&scanner_);
+    cyset_extra(this, scanner_);
+}
+
+void CYDriver::ScannerDestroy() {
+    cylex_destroy(scanner_);
+}
+
+void CYDriver::SetRegEx(bool equal) {
+    CYLexBufferStart(RegularExpression);
+    CYLexBufferUnit('/');
+    if (equal)
+        CYLexBufferUnit('=');
+}
+
+void CYDriver::SetCondition(Condition condition) {
+    struct yyguts_t *yyg(reinterpret_cast<struct yyguts_t *>(scanner_));
+
+    switch (condition) {
+@begin E4X
+        case XMLContentCondition:
+            BEGIN(XMLContent);
+            break;
+        case XMLTagCondition:
+            BEGIN(XMLTag);
+            break;
+@end
+        default:
+            _assert(false);
+    }
+}
+
+void CYDriver::PushCondition(Condition condition) {
+    switch (condition) {
+@begin E4X
+        case XMLContentCondition:
+            yy_push_state(XMLContent, scanner_);
+            break;
+        case XMLTagCondition:
+            yy_push_state(XMLTag, scanner_);
+            break;
+@end
+        default:
+            _assert(false);
+    }
+}
+
+void CYDriver::PopCondition() {
+    yy_pop_state(scanner_);
+}
+
+bool CYLexerHighlight(hi::Value &highlight, CYLocation &location, void *scanner) {
+    YYSTYPE value;
+    if (cylex(&value, &location, scanner) == 0)
+        return false;
+    highlight = value.highlight_;
+    return true;
+}
+
+#ifndef _MSC_VER
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#else
+// must not pop -Wunused-function
+//#pragma GCC diagnostic pop
+#endif
+#endif

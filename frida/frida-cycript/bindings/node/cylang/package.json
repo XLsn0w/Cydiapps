@@ -1,0 +1,52 @@
+{
+  "name": "cylang",
+  "version": "2.0.5",
+  "description": "Cycript compiler",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "install": "prebuild-install -r napi",
+    "rebuild": "node-gyp rebuild",
+    "prebuild": "prebuild -t 3 -r napi --verbose --strip",
+    "test": "mocha"
+  },
+  "binary": {
+    "host": "https://github.com",
+    "remote_path": "nowsecure/frida-cycript/releases/download/v{version}",
+    "napi_versions": [
+      3
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nowsecure/frida-cycript.git"
+  },
+  "author": {
+    "name": "Ole André Vadla Ravnås",
+    "email": "oleavr@nowsecure.com",
+    "url": "https://twitter.com/oleavr"
+  },
+  "maintainers": [
+    {
+      "name": "Ole André Vadla Ravnås",
+      "email": "oleavr@nowsecure.com",
+      "url": "https://twitter.com/oleavr"
+    }
+  ],
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nowsecure/frida-cycript/issues"
+  },
+  "homepage": "https://github.com/nowsecure/frida-cycript#readme",
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "prebuild-install": "^5.3.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "prebuild": "^9.0.1",
+    "should": "^13.2.3"
+  }
+}

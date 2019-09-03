@@ -1,0 +1,4 @@
+CYTEST_BINDING {
+  local:
+    *;
+};

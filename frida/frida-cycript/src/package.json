@@ -1,0 +1,16 @@
+{
+  "name": "cycript-agent",
+  "version": "1.0.0",
+  "description": "Frida agent used internally by Cycript",
+  "private": true,
+  "main": "Agent/index.js",
+  "scripts": {
+    "build": "frida-compile Agent -o libcycript.js",
+    "watch": "frida-compile Agent -o libcycript.js -w"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "frida-compile": "^9.0.8",
+    "mjolner": "^4.0.2"
+  }
+}
