@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>com.monkey.monkeydev.commandLineTool</string>
+	<key>Concrete</key>
+	<true/>
+	<key>Description</key>
+	<string>This template builds a command-line tool.</string>
+	<key>Ancestors</key>
+	<array>
+		<string>com.monkey.monkeydev.base</string>
+	</array>
+	<key>Targets</key>
+	<array>
+		<dict>
+			<key>SharedSettings</key>
+			<dict>
+				<key>CODE_SIGN_ENTITLEMENTS</key>
+				<string>___PACKAGENAME___/monkeydev.entitlements</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>MonkeyDevkillProcessOnInstall</key>
+				<string></string>
+				<key>CODE_SIGN_IDENTITY</key>
+				<string>iPhone Developer</string>
+				<key>INSTALL_PATH</key>
+				<string>/usr/bin</string>
+			</dict>
+			<key>ProductType</key>
+			<string>com.apple.product-type.tool</string>
+			<key>BuildPhases</key>
+			<array>
+				<dict>
+					<key>Class</key>
+					<string>Sources</string>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>Frameworks</string>
+				</dict>
+				<dict>
+					<key>ShellScript</key>
+					<string>/opt/MonkeyDev/bin/md --xcbp</string>
+					<key>ShellPath</key>
+					<string>/bin/sh</string>
+					<key>RunOnlyForDeploymentPostprocessing</key>
+					<false/>
+					<key>Class</key>
+					<string>ShellScript</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>SortOrder</key>
+			<integer>1</integer>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Identifier</key>
+			<string>commandLineType</string>
+			<key>Name</key>
+			<string>Type</string>
+			<key>Description</key>
+			<string>The type of command-line tool to create.</string>
+			<key>Default</key>
+			<string>C</string>
+			<key>Type</key>
+			<string>popup</string>
+			<key>Units</key>
+			<dict>
+				<key>C</key>
+				<dict>
+					<key>Nodes</key>
+					<array>
+						<string>main.c:comments</string>
+						<string>main.c:include</string>
+						<string>main.c:main:content</string>
+					</array>
+					<key>Definitions</key>
+					<dict>
+						<key>main.c:include</key>
+						<string>#include &lt;stdio.h&gt;
+</string>
+						<key>main.c:main:content</key>
+						<string>// insert code here...
+printf(&quot;Hello, World!\n&quot;);
+</string>
+					</dict>
+				</dict>
+				<key>C++</key>
+				<dict>
+					<key>Nodes</key>
+					<array>
+						<string>main.cpp:comments</string>
+						<string>main.cpp:include</string>
+						<string>main.cpp:main:content</string>
+					</array>
+					<key>Definitions</key>
+					<dict>
+						<key>main.cpp:include</key>
+						<string>#include &lt;iostream&gt;
+</string>
+						<key>main.cpp:main:content</key>
+						<string>// insert code here...
+std::cout &lt;&lt; &quot;Hello, World!\n&quot;;
+</string>
+					</dict>
+				</dict>
+				<key>Core Data</key>
+				<dict>
+					<key>Project</key>
+					<dict>
+						<key>SharedSettings</key>
+						<dict>
+							<key>GCC_ENABLE_OBJC_GC</key>
+							<string>required</string>
+						</dict>
+					</dict>
+					<key>Targets</key>
+					<array>
+						<dict>
+							<key>SharedSettings</key>
+							<dict>
+								<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+								<string>YES</string>
+								<key>GCC_PREFIX_HEADER</key>
+								<string>___PACKAGENAME___/___PACKAGENAME___-Prefix.pch</string>
+							</dict>
+							<key>Frameworks</key>
+							<array>
+								<string>CoreData</string>
+								<string>Foundation</string>
+							</array>
+						</dict>
+					</array>
+					<key>Nodes</key>
+					<array>
+						<string>main.m:comments</string>
+						<string>main.m:include</string>
+						<string>main.m:main:content</string>
+						<string>main.m:coreData</string>
+						<string>___PACKAGENAME___-Prefix.pch:objC:importFoundation</string>
+						<string>___PACKAGENAME___-Prefix.pch:objC:importCoreData</string>
+						<string>___PACKAGENAMEASIDENTIFIER___.xcdatamodeld</string>
+					</array>
+					<key>Definitions</key>
+					<dict>
+						<key>main.m:include</key>
+						<string>NSManagedObjectModel *managedObjectModel(void);
+NSManagedObjectContext *managedObjectContext(void);
+</string>
+						<key>main.m:main:content</key>
+						<string>	@autoreleasepool
+	{
+		// Create the managed object context
+		NSManagedObjectContext *context = managedObjectContext();
+
+		// Custom code here...
+		// Save the managed object context
+		NSError *error = nil;	
+		if (![context save:&amp;error]) {
+			NSLog(@&quot;Error while saving %@&quot;, ([error localizedDescription] != nil) ? [error localizedDescription] : @&quot;Unknown Error&quot;);
+			exit(1);
+		}
+	}
+</string>
+						<key>main.m:coreData</key>
+						<string>NSManagedObjectModel *managedObjectModel() {
+
+	static NSManagedObjectModel *model = nil;
+
+	if (model != nil) {
+		return model;
+	}
+
+	NSString *path = [[[NSProcessInfo processInfo] arguments] objectAtIndex:0];
+	path = [path stringByDeletingPathExtension];
+	NSURL *modelURL = [NSURL fileURLWithPath:[path stringByAppendingPathExtension:@&quot;momd&quot;]];
+	model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+
+	return model;
+}
+
+NSManagedObjectContext *managedObjectContext() {
+
+	static NSManagedObjectContext *context = nil;
+	if (context != nil) {
+		return context;
+	}
+
+	@autoreleasepool
+	{
+		context = [[NSManagedObjectContext alloc] init];
+
+		NSPersistentStoreCoordinator *coordinator = ___RP___[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel()]___AR___;
+		[context setPersistentStoreCoordinator:coordinator];
+
+		NSString *STORE_TYPE = NSSQLiteStoreType;
+
+		NSString *path = [[[NSProcessInfo processInfo] arguments] objectAtIndex:0];
+		path = [path stringByDeletingPathExtension];
+		NSURL *url = [NSURL fileURLWithPath:[path stringByAppendingPathExtension:@&quot;sqlite&quot;]];
+
+		NSError *error;
+		NSPersistentStore *newStore = [coordinator addPersistentStoreWithType:STORE_TYPE configuration:nil URL:url options:nil error:&amp;error];
+
+		if (newStore == nil) {
+			NSLog(@&quot;Store Configuration Failure %@&quot;, ([error localizedDescription] != nil) ? [error localizedDescription] : @&quot;Unknown Error&quot;);
+		}
+	}
+	return context;
+}
+</string>
+						<key>___PACKAGENAME___-Prefix.pch:objC:importCoreData</key>
+						<string>#import &lt;CoreData/CoreData.h&gt;</string>
+						<key>___PACKAGENAMEASIDENTIFIER___.xcdatamodeld</key>
+						<dict>
+							<key>Path</key>
+							<string>___PACKAGENAMEASIDENTIFIER___.xcdatamodeld</string>
+						</dict>
+					</dict>
+				</dict>
+				<key>Core Foundation</key>
+				<dict>
+					<key>Targets</key>
+					<array>
+						<dict>
+							<key>Frameworks</key>
+							<array>
+								<string>CoreFoundation</string>
+							</array>
+						</dict>
+					</array>
+					<key>Nodes</key>
+					<array>
+						<string>main.c:comments</string>
+						<string>main.c:include</string>
+						<string>main.c:main:content</string>
+					</array>
+					<key>Definitions</key>
+					<dict>
+						<key>main.c:include</key>
+						<string>#include &lt;CoreFoundation/CoreFoundation.h&gt;
+</string>
+						<key>main.c:main:content</key>
+						<string>// insert code here...
+CFShow(CFSTR(&quot;Hello, World!\n&quot;));
+</string>
+					</dict>
+				</dict>
+				<key>Core Services</key>
+				<dict>
+					<key>Targets</key>
+					<array>
+						<dict>
+							<key>Frameworks</key>
+							<array>
+								<string>CoreServices</string>
+							</array>
+						</dict>
+					</array>
+					<key>Nodes</key>
+					<array>
+						<string>main.c:comments</string>
+						<string>main.c:include</string>
+						<string>main.c:main:content</string>
+					</array>
+					<key>Definitions</key>
+					<dict>
+						<key>main.c:include</key>
+						<string>#include &lt;CoreServices/CoreServices.h&gt;
+</string>
+						<key>main.c:main:content</key>
+						<string>// insert code here...
+printf(&quot;Hello, World!\n&quot;);
+</string>
+					</dict>
+				</dict>
+				<key>Foundation</key>
+				<dict>
+					<key>Targets</key>
+					<array>
+						<dict>
+							<key>SharedSettings</key>
+							<dict>
+								<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+								<string>YES</string>
+								<key>GCC_PREFIX_HEADER</key>
+								<string>___PACKAGENAME___/___PACKAGENAME___-Prefix.pch</string>
+							</dict>
+							<key>Frameworks</key>
+							<array>
+								<string>Foundation</string>
+							</array>
+						</dict>
+					</array>
+					<key>Nodes</key>
+					<array>
+						<string>main.m:comments</string>
+						<string>main.m:include</string>
+						<string>main.m:main:content</string>
+						<string>___PACKAGENAME___-Prefix.pch:objC:importFoundation</string>
+					</array>
+					<key>Definitions</key>
+					<dict>
+						<key>main.m:include</key>
+						<string>#import &lt;Foundation/Foundation.h&gt;
+</string>
+						<key>main.m:main:content</key>
+						<string>@autoreleasepool
+{	
+	// insert code here...
+	NSLog(@&quot;Hello, World!&quot;);	
+}
+</string>
+					</dict>
+				</dict>
+			</dict>
+		</dict>
+	</array>
+	<key>Nodes</key>
+	<array>
+		<string>monkeydev.entitlements</string>
+		<string>Package/DEBIAN/control:debianControl:section</string>
+		<string>Package/DEBIAN/control:debianControl:depends</string>
+		<string>Package/usr/bin/0xdeadfa11</string>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>monkeydev.entitlements</key>
+		<dict>
+			<key>Path</key>
+			<string>monkeydev.entitlements</string>
+		</dict>
+		<key>Package/usr/bin/0xdeadfa11</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>usr</string>
+				<string>bin</string>
+			</array>
+			<key>Beginning</key>
+			<string>
+This file was created only to help build the project&apos;s group structure, and it can now be deleted.
+
+Why 0xdeadfa11? See http://developer.apple.com/library/ios/#technotes/tn2151/_index.html.</string>
+		</dict>
+		<key>*:debianControl:section</key>
+		<string>Section: System</string>
+		<key>*:debianControl:depends</key>
+		<string>Depends: firmware (&gt;= 5.0)</string>
+		<key>*:main</key>
+		<dict>
+			<key>Beginning</key>
+			<string>int main (int argc, const char * argv[])
+{
+</string>
+			<key>End</key>
+			<string>	return 0;
+}
+</string>
+			<key>Indent</key>
+			<integer>1</integer>
+		</dict>
+		<key>*:*:importFoundation</key>
+		<string>#import &lt;Foundation/Foundation.h&gt;
+</string>
+	</dict>
+</dict>
+</plist>

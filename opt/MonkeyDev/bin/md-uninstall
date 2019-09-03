@@ -1,0 +1,127 @@
+#!/bin/bash
+
+export setCmd="set -eo pipefail"
+$setCmd
+
+export PATH=/opt/MonkeyDev/bin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
+
+export scriptName="${0##*/}"
+export scriptVer="2.0"
+
+export MonkeyDevPath="/opt/MonkeyDev"
+export backupFileExt=".MonkeyDev"
+
+export userName="${SUDO_USER-$USER}"
+export userGroup=`id -g $userName`
+export userHome=`eval echo ~$userName`
+export bashProfileFiles=("$userHome/.zshrc" "$userHome/.bash_profile" "$userHome/.bashrc" "$userHome/.bash_login" "$userHome/.profile")
+
+export tempDirsFile="`mktemp -d -t $scriptName`/tempdirs"
+touch "$tempDirsFile"
+
+unset LANG
+
+function cleanup()
+{
+	local exitCode=$?
+	set +e
+	trap - $signals
+	removeTempData
+	exit $exitCode
+}
+function panic()
+{
+	local exitCode=$1
+	set +e
+	shift
+	[[ "$@" == "" ]] || echo "$@" >&2
+	exit $exitCode
+}
+export signals="0 1 2 3 15"
+trap cleanup $signals
+
+function removeTempData()
+{
+	local tempDirs
+	if [[ -f "$tempDirsFile" ]]; then
+		tempDirs=(`cat "$tempDirsFile"`)
+		for td in "${tempDirs[@]}"; do
+			rm -rf "$td" || true
+		done
+		rm -rf "`dirname $tempDirsFile`" || true
+	fi
+}
+
+function copyFile()
+{
+	cp -f "$1" "$2" || \
+		panic $? "Failed to copy file $1 to $2"
+}
+
+#还原文件
+function restoreFile()
+{
+	local filePath="$1"
+	local backedUpFilePath="${filePath}${backupFileExt}"
+	
+	if [[ -f "$backedUpFilePath" ]]; then
+		copyFile "$backedUpFilePath" "$filePath"	
+		rm -f "$backedUpFilePath"
+	fi
+}
+
+#获取SDK信息
+function getSdkProperty()
+{
+	$setCmd
+
+	local sdk="$1"
+	local propertyName="$2"
+
+	propertyValue=`xcodebuild -version -sdk $sdk $propertyName` || \
+		panic $? "Failed to get $sdk SDK property $propertyName"
+
+	[[ $propertyValue != "" ]] || \
+		panic 1 "Value of $sdk SDK property $propertyName cannot be empty"
+
+	# return #
+	echo "$propertyValue"
+}
+
+echo "Uninstalling MonkeyDev base, Xcode templates and framework header files..."
+	
+#删除文件夹
+rm -rf "$MonkeyDevPath" || \
+	panic $? "Failed to remove directory: $MonkeyDevPath"
+
+#移除模块符号链接
+userDevDir="$userHome/Library/Developer"
+userTemplatesDir="$userDevDir/Xcode/Templates"
+symlinkPath="$userTemplatesDir/MonkeyDev"
+
+rm -f "$symlinkPath" || \
+	panic $? "Failed to remove file: $symlinkPath"
+		
+#移除profile环境变量
+for f in "${bashProfileFiles[@]}"; do
+	if [[ -f "$f" ]]; then
+		userBashProfileFile="$f"
+		break
+	fi
+done
+	
+if [[ $userBashProfileFile != "" ]]; then
+	sed -i "" "s/^export MonkeyDevPath=.*$//g" "$userBashProfileFile"
+	sed -i "" "s/^export MonkeyDevDeviceIP=.*$//g" "$userBashProfileFile"
+	sed -i "" "s/^export PATH=.*${MonkeyDevPath//\//\\/}\\/bin:.*$//g" "$userBashProfileFile"
+	sed -i "" "s/^export PATH=.*\$MonkeyDevPath\\/bin:.*$//g" "$userBashProfileFile"
+fi
+
+iosSdkPlatformPath=`getSdkProperty iphoneos PlatformPath`
+
+specificationFile=$(cd $iosSdkPlatformPath/../../.. && pwd)/PlugIns/IDEiOSSupportCore.ideplugin/Contents/Resources/Embedded-Device.xcspec
+
+#还原文件
+restoreFile "$specificationFile"
+
+exit 0

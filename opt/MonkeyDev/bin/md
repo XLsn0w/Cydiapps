@@ -1,0 +1,967 @@
+#!/bin/bash
+
+export setCmd="set -eo pipefail"
+$setCmd
+
+export PATH=/opt/MonkeyDev/bin:$MonkeyDevTheosPath/bin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH
+
+export scriptName="${0##*/}"
+export scriptVer="4.4"
+export originalArguments=("$@")
+export activeActionArg
+
+export MonkeyDevPath="/opt/MonkeyDev"
+#默认设备ip
+export DefaultDeviceIP="localhost"
+#默认端口号
+export DefaultDevicePort="22"
+
+export userName="${SUDO_USER-$USER}"
+export userGroup=`id -g $userName`
+export userHome=`eval echo ~$userName`
+export bashProfileFiles=("$userHome/.zshrc" "$userHome/.bash_profile" "$userHome/.bashrc" "$userHome/.bash_login" "$userHome/.profile")
+
+export tempDirsFile="`mktemp -d -t $scriptName`/tempdirs"
+touch "$tempDirsFile"
+
+unset LANG
+
+export ActionNames=("XcodeBuildPhase" "XcodeBuildPhaseLogos" "Help")
+export ActionProperty_ShortArg=0
+export ActionProperty_ShortUsage=1
+export ActionProperty_Options=2
+export ActionProperty_MinArgs=3
+export ActionProperty_MaxArgs=4
+export ActionProperty_Function=5
+export ActionProperty_RequireSudo=6
+export ActionProperty_LongUsage=7
+
+export Action_XcodeBuildPhaseLogos=("--xcbp-logos" "" "" 0 0 xcodeBuildPhase_Logos false \
+"        DO NOT USE. For use by Xcode as a Build Phase for projects created from
+        MonkeyDev templates only.")
+
+export Action_XcodeBuildPhase=("--xcbp" "" "" 0 0 xcodeBuildPhase false \
+"        DO NOT USE. For use by Xcode as a Build Phase for projects created from
+        MonkeyDev templates only.")
+
+export Action_Help=("--help" "" "" 0 0 "" false \
+"        Show this help.")
+
+function cleanup() # no args
+{
+	local exitCode=$?
+	set +e
+	trap - $signals
+	
+	removeTempData
+
+	exit $exitCode
+}
+export signals="0 1 2 3 15"
+trap cleanup $signals
+
+function panic() # args: exitCode, message...
+{
+	local exitCode=$1
+	set +e
+	
+	shift
+	[[ "$@" == "" ]] || \
+		echo "$@" >&2
+
+	exit $exitCode
+}
+
+function determineBashProfileFile()
+{
+	$setCmd
+
+	local f
+	local filePath
+	
+	for f in "${bashProfileFiles[@]}"; do
+		if [[ -f "$f" ]]; then
+            if [[ -n `perl -ne 'print $1 if /^(?:export)? *'"MonkeyDevPath"'=(.*)$/' "$f"` ]]; then
+    			filePath="$f"
+    			break
+            fi
+		fi
+	done
+	
+	if [[ $filePath == "" ]]; then
+
+		filePath="$bashProfileFiles" # use first array item
+		
+		touch "$filePath" || \
+			panic $? "Failed to touch $filePath"
+			
+		changeOwn "$userName:$userGroup" "$filePath"
+		changeMode 0600 "$filePath"
+	fi
+	
+	# return #
+	echo "$filePath"
+}
+
+function removeTempData() # no args
+{
+	local tempDirs
+	
+	if [[ -f "$tempDirsFile" ]]; then
+		tempDirs=(`cat "$tempDirsFile"`)
+		
+		for td in "${tempDirs[@]}"; do
+			rm -rf "$td" || true # forget abou' it.
+		done
+		
+		rm -rf "`dirname \"$tempDirsFile\"`" || true # forget abou' it.
+	fi
+}
+
+function requireDir() # args: dirPath [, makeDirIfNotFound]
+{
+	local dirPath="$1"
+	local makeDirIfNotFound="$2"
+				
+	if [[ ! -d "$dirPath" ]]; then
+		if [[ $makeDirIfNotFound == "true" ]]; then
+
+			mkdir -p "$dirPath" || \
+				panic $? "Failed to create directory $dirPath"
+				
+		else
+			panic 1 "Directory $dirPath not found"
+		fi
+	fi
+}
+
+function copyFile() # args: sourceFile, targetDirOrFile
+{
+	local sourceFile="$1"
+	local targetDirOrFile="$2"
+	
+	cp -fR "$sourceFile" "$targetDirOrFile" || \
+		panic $? "Failed to copy file $sourceFile to $targetDirOrFile"
+}
+
+function changeMode() # args: mode, target
+{
+	local mode="$1"
+	local target="$2"
+	
+	if [[ -e "$target" ]]; then
+	
+		chmod $mode "$target" || \
+			panic $? "Failed to change mode to $mode on $target"
+	fi
+}
+
+function changeOwn() # args: ownerAndOrGroup, target
+{
+	local ownerAndOrGroup="$1"
+	local target="$2"
+	
+	if [[ -e "$target" ]]; then
+	
+		chown "$ownerAndOrGroup" "$target" || \
+			panic $? "Failed to change ownership to $ownerAndOrGroup on $target"
+	fi
+}
+
+function requireFile() # args: filePath [, touchFileIfNotFound]
+{
+	local filePath="$1"
+	local touchFileIfNotFound="$2"
+	
+	if [[ ! -f "$filePath" ]]; then
+		if [[ $touchFileIfNotFound == "true" ]]; then
+
+			touch "$filePath" || \
+				panic $? "Failed to touch $filePath"
+				
+		else
+			panic 1 "File $filePath not found"
+		fi
+	fi
+}
+
+function requireExportedVariable() # args: envVarName[, message]
+{
+	local envVarName="$1"
+	local message="$2"
+	local value
+	
+	if [[ ${!envVarName} == "" ]]; then
+		value=`getBashProfileEnvVarValue "$envVarName"`
+	
+		[[ $value != "" ]] || \
+			panic 1 "Environment variable $envVarName is not set or is empty"
+
+		eval $envVarName='$value'
+		export $envVarName
+	fi
+}
+
+function createSymlink() # args: sourcePath, linkPath
+{
+	local sourcePath="$1"
+	local linkPath="$2"
+	
+	ln -fhs "$sourcePath" "$linkPath" || \
+		panic $? "Failed to create symbolic link $linkPath -> $sourcePath"
+}
+ 
+function runCmdOnDevice() # args: command message
+{
+	local command="$1"
+	local message="$1"
+	local final="$1"
+
+	if [[ "$MonkeyDevDevicePassword" != "" ]]; then
+		final="sshpass -p $MonkeyDevDevicePassword $command"
+	fi
+
+	eval "$final" || \
+		panic $? "$message"
+}
+
+#拷贝文件到设备
+function copyFileToDevice() # args: sourceFile, targetDir, hostAddress, hostPort
+{
+	local sourceFile="$1"
+	local targetDir="$2"
+	local hostAddress="$3"
+	local hostPort="$4"
+	local targetFilePath
+
+	runCmdOnDevice "ssh -p$hostPort root@$hostAddress mkdir -p \"$targetDir\"" "Failed to create directory $targetDir on device $hostAddress"
+	
+	targetFilePath="$targetDir/`basename \"$sourceFile\"`" || \
+		panic $? "Failed to build target file path"
+		
+	runCmdOnDevice "ssh -p$hostPort root@$hostAddress rm -f \"$targetFilePath\"" "Failed to remove existing file $targetFilePath on device $hostAddress"
+	
+	runCmdOnDevice "scp -P$hostPort \"$sourceFile\" root@$hostAddress:\"$targetFilePath\"" "Failed to copy file $sourceFile to device $hostAddress at directory $targetDir"
+}
+
+function getBashProfileEnvVarValue() # args: envVarName
+{
+	$setCmd
+
+	local envVarName="$1"
+	local perlValue
+	local bashProfileFile
+	
+	bashProfileFile=`determineBashProfileFile`
+	
+	perlValue=`perl -ne 'print $1 if /^(?:export)? *'"$envVarName"'=(.*)$/' "$bashProfileFile"` || \
+		panic $? "Failed to perl"
+	
+	# return #
+	echo "$perlValue"
+}
+
+function getTempDir() # no args
+{
+	$setCmd
+	
+	local tempDir
+	
+	tempDir=`mktemp -d -t $scriptName` || \
+		panic $? "Failed to create temporary directory"
+
+	# remember the temp dir path; in cleanup() these are rm'd #
+	
+	echo "$tempDir" >> "$tempDirsFile" || \
+		panic $? "Failed to echo into temporary file $tempDirsFile"
+
+	# return #
+	echo "$tempDir"
+}
+
+#签名
+function signCode() # args: executableToSign, identityToSignWith
+{
+	local executableToSign="$1"
+	local identityToSignWith="$2"
+	local cmdBin
+	local cmdArg
+	local codesignAllocatePath
+	local entitlements="$CODE_SIGN_ENTITLEMENTS"
+
+	# process arguments #
+	
+	requireFile "$executableToSign" false
+		
+	if [[ "$identityToSignWith" == "" || "$identityToSignWith" == "-" ]]; then
+
+		# use ldid #
+		cmdBin="ldid"
+		
+		if [[ "$entitlements" == "" ]]; then
+			cmdArg=("-S")
+		else
+			cmdArg=("-S${PROJECT_DIR}/${entitlements}")
+		fi
+
+	else
+		# use codesign #
+		codesignAllocatePath=`xcodebuild -sdk iphoneos -find codesign_allocate` || \
+			panic $? "Failed to get codesign_allocate path"
+
+		export CODESIGN_ALLOCATE="$codesignAllocatePath"
+
+		cmdBin=`xcodebuild -sdk iphoneos -find codesign` || \
+			panic $? "Failed to get codesign path"
+
+		if [[ "$entitlements" == "" ]]; then
+			cmdArg=("-fs" "$identityToSignWith")
+		else
+			cmdArg=("-fs" "$identityToSignWith" "--entitlements" "${PROJECT_DIR}/${entitlements}")
+		fi		
+	fi
+
+	echo -n "Signing $executableToSign with `basename \"$cmdBin\"`... "
+	
+	"$cmdBin" "${cmdArg[@]}" "$executableToSign" || \
+		panic $? "Failed."
+
+	# success #
+	echo "Done."
+}
+
+
+#从plist读取
+function readDefaultsValue() # args: plistPath, propertyName
+{
+	$setCmd
+	
+	local plistPath="$1"
+	local propertyName="$2"
+	local value
+	
+	value=`defaults read "${plistPath%.*}" "$propertyName"` || \
+		panic $? "Failed to read defaults property $propertyName from $plistPath"
+
+	# return #
+	echo "$value"
+}
+
+#获取control文件信息
+function getControlFieldValue() # args: controlFile, fieldName [, isRequired]
+{
+	$setCmd
+	
+	local controlFile="$1"
+	local fieldName="$2"
+	local isRequired="$3"
+	local perlValue
+		
+	perlValue=`perl -ne 'print $1 if /^'"$fieldName"': *(.*) *$/' "$controlFile"` || \
+		panic $? "Failed perl command using $controlFile"
+
+	if [[ "$perlValue" == "" ]] && [[ "$isRequired" == "true" ]]; then
+		panic 1 "Missing control field: $fieldName"
+	fi
+	
+	# return #
+	echo "$perlValue"
+}
+
+#获取pkg信息
+function getPackageFileNameUsingControlFile() # args: controlFile
+{
+	$setCmd
+	
+	local controlFile="$1"
+	local pkgId
+	local pkgVer
+	local pkgArch
+		
+	pkgId=`getControlFieldValue "$controlFile" Package true`
+	pkgVer=`getControlFieldValue "$controlFile" Version true`
+	pkgArch=`getControlFieldValue "$controlFile" Architecture true`
+
+	# return #
+	echo "${pkgId}_${pkgVer}_${pkgArch}"
+}
+
+#打包
+function buildPackage() # args: packageDir, outputDir [, useZOption]
+{
+	local packageDir="$1"
+	local outputDir="$2"
+	local useZOption="$3"
+	local subFilesToRemove=(".DS_Store" "0xdeadfa11")
+	local packageFileName
+	local packageName
+	local zipFileName
+	
+	echo "Preparing to build package..."
+	
+	# verify arguments #
+	requireDir "$packageDir"
+
+	requireDir "$outputDir" true
+
+	for f in "${subFilesToRemove[@]}"; do
+		find "$packageDir" -type f -name "$f" -exec rm -f '{}' \; || \
+			panic $? "Failed to remove file $f"
+	done
+
+	#循环去除掉文件的@属性
+	xattr -crs "$packageDir" || true # forget abou' it (does not work on 10.6)
+
+	changeMode 0644 "$packageDir/DEBIAN/control"
+	changeMode 0755 "$packageDir/DEBIAN/preinst"
+	changeMode 0755 "$packageDir/DEBIAN/postinst"
+	changeMode 0755 "$packageDir/DEBIAN/prerm"
+	changeMode 0755 "$packageDir/DEBIAN/postrm"
+	
+	# determine package name #
+	packageName=`getPackageFileNameUsingControlFile "$packageDir/DEBIAN/control"`
+		
+	# create package #
+	createDebianPackage "$packageDir" "$packageName" "$outputDir"
+	
+	# create zip #
+	if [[ $useZOption == "true" ]]; then
+
+		zipFileName="$outputDir/${packageName}.zip"
+
+		echo -n "Creating zip $zipFileName... "
+		
+		rm -f "$zipFileName" || \
+			panic $? "Failed to remove $zipFileName"
+		
+		pushd "$packageDir" 1> /dev/null
+		
+		zip -qrX "$zipFileName" * || \
+			panic $? "Failed."
+
+		popd 1> /dev/null
+		
+		echo "Done."
+	fi
+}
+
+#创建deb
+function createDebianPackage() # args: sourceDir, packageName [, outputDir]
+{
+	$setCmd
+	
+	local sourceDir="$1"
+	local packageName="$2"
+	local outputDir="$3"
+	
+	local packageFile="${outputDir:-.}/$packageName.deb"
+	
+	echo -n "Building package $packageFileName... "
+
+	local tempDir="`getTempDir`"
+	
+	createTarForDebianPackage "$sourceDir/DEBIAN" "$tempDir" "control" "-n"
+	createTarForDebianPackage "$sourceDir" "$tempDir" "data" "--exclude" "DEBIAN/*" "--exclude" "DEBIAN"
+	
+	echo "2.0" > "$tempDir/debian-binary" || \
+		panic $? "Failed to create debian-binary file"
+	
+	ar -rc "$packageFile" "$tempDir/debian-binary" "$tempDir/control.tar.gz" "$tempDir/data.tar.gz" || \
+		panic $? "Failed to create Debian archive"
+
+	echo "Done."
+}
+
+#创建tar.gz
+function createTarForDebianPackage() # args: sourceDir, outputDir, tarName [, options]
+{
+	$setCmd
+	
+	local sourceDir="$1"
+	local outputDir="$2"
+	local tarName="$3"
+	shift 3
+	
+	pushd "$sourceDir" 1> /dev/null
+
+	tar -cLpz --disable-copyfile --exclude ".*" "$@" -f "$outputDir/$tarName.tar.gz" * || \
+		panic $? "Failed to create $tarName archive"
+
+	popd 1> /dev/null
+}
+
+#deb包管理 
+function managePackageOnDevice() # args: manageAction, packageFileOrName, hostAddress, hostPort
+{
+	local manageAction="$1"
+	local packageFileOrName="$2"
+	local hostAddress="$3"
+	local hostPort="$4"
+	local doingWhat
+	local direction
+	local didWhat
+	local cmdBin="dpkg"
+	local cmdArg
+	local devicePackagesDir
+	
+	if [[ "$manageAction" == "install" ]]; then
+		doingWhat="Installing"
+		direction="on"
+		didWhat="installed"
+		cmdArg="--install"
+	elif [[ "$manageAction" == "remove" ]]; then
+		doingWhat="Removing"
+		direction="from"
+		didWhat="removed"
+		cmdArg="--remove"
+	elif [[ "$manageAction" == "purge" ]]; then
+		doingWhat="Purging"
+		direction="from"
+		didWhat="purged"
+		cmdArg="--purge"
+	else
+		panic 1 "Invalid manage action: $manageAction"
+	fi
+	
+	if [[ $hostAddress == "" ]]; then
+	
+		requireExportedVariable "MonkeyDevDeviceIP"
+		
+		hostAddress="$MonkeyDevDeviceIP"
+		
+		[[ $hostAddress != "" ]] || \
+			hostAddress="$DefaultDeviceIP" && echo "Host address not provided and environment variable MonkeyDevDeviceIP is not set or is empty, use default $DefaultDeviceIP"
+	fi
+
+	if [[ $hostPort == "" ]]; then
+
+		hostPort="$MonkeyDevDevicePort"
+
+		[[ $hostPort != "" ]] || hostPort="$MonkeyDevDevicePort"
+
+	fi
+
+	# if installing, copy package to device #
+	if [[ $manageAction == "install" ]]; then
+	
+		requireFile "$packageFileOrName" false
+
+		devicePackagesDir="/var/root/MonkeyDevPackages"
+
+		copyFileToDevice "$packageFileOrName" "$devicePackagesDir" "$hostAddress" "$hostPort"
+
+		packageFileOrName="$devicePackagesDir/`basename \"$packageFileOrName\"`"
+	fi
+	
+	# install, remove or purge package #
+	echo "$doingWhat package `basename \"$packageFileOrName\"` $direction device $hostAddress... "
+
+	runCmdOnDevice "ssh -p$hostPort root@$hostAddress $cmdBin $cmdArg $packageFileOrName" "Failed."
+	
+	# success #
+	echo "Done."
+}
+
+#在设备执行方法
+function runFuncOnDevice() # args: function, hostAddress, hostPort
+{
+	local func="$1"
+	local hostAddress="$2"
+	local hostPort="$3"
+	local cmd
+
+	if [[ $hostAddress == "" ]]; then
+	
+		requireExportedVariable "MonkeyDevDeviceIP"
+		
+		hostAddress="$MonkeyDevDeviceIP"
+		
+		[[ $hostAddress != "" ]] || \
+			hostAddress="$DefaultDeviceIP" && echo "Host address not provided and environment variable MonkeyDevDeviceIP is not set or is empty, use default $DefaultDeviceIP"
+	fi
+
+	if [[ $hostPort == "" ]]; then
+
+		hostPort="$MonkeyDevDevicePort"
+
+		[[ $hostPort != "" ]] || \
+			hostPort="$DefaultDevicePort"
+
+	fi
+	
+	case "$func" in
+	reboot)
+		cmd="reboot"
+	;;
+	respring)
+		cmd="killall -9 SpringBoard"
+	;;
+	uicache)
+		cmd="su mobile -c uicache"
+	;;
+	*)
+		# panic $? "Invalid function: $func"
+		cmd="$func"
+	;;
+	esac
+
+	runCmdOnDevice "ssh -p$hostPort root@$hostAddress $cmd" "Failed to perform function $func on device $hostAddress"
+}
+
+#sudo
+function requireSudo() # args: ...
+{
+	if [[ $EUID != 0 ]]; then
+	
+		removeTempData
+		
+		exec sudo "$0" "$@" || \
+			panic $? "Failed to re-execute as root"
+	fi
+}
+
+#从文件匹配内容
+function doesFileContain() # args: filePath, pattern
+{
+	$setCmd
+	
+	local filePath="$1"
+	local pattern="$2"
+	local perlValue
+	local funcReturn
+	
+	perlValue=`perl -ne 'if (/'"$pattern"'/) { print "true"; exit; }' "$filePath"` || \
+		panic $? "Failed to perl"
+
+	if [[ $perlValue == "true" ]]; then
+		funcReturn="true"
+	else
+		funcReturn="false"
+	fi
+	
+	# return #
+	echo $funcReturn
+}
+
+#预处理xm、x文件
+function Processor()
+{
+	local logosProcessor="$1"
+	local currentDirectory="$2"
+
+	if [[ $currentDirectory =~ "Build/Products" ]] || [[ $currentDirectory =~ "Build/Intermediates" ]] || [[ $currentDirectory =~ "Index/DataStore" ]] || [[ $currentDirectory =~ "/LatestBuild/" ]]; then
+		return
+	fi
+	
+	for file in `ls "$currentDirectory"`;
+    do
+		extension="${file#*.}"
+	  	filename="${file##*/}"
+	  	if [[ -d "$currentDirectory/$file" ]]; then
+	  		Processor "$logosProcessor" "$currentDirectory/$file"
+	  	elif [[ "$extension" == "xm" ]]; then
+			if [[ ! -f "$currentDirectory/${file%.*}.mm" ]] || [[ `ls -l "$currentDirectory/${file%.*}.mm" | awk '{ print $5 }'` < 10 ]] || [[ `stat -f %c "$currentDirectory/$file"` > `stat -f %c "$currentDirectory/${file%.*}.mm"` ]]; then
+	  			echo "Logos Processor: $filename -> ${filename%.*}.mm..."
+	  			logosStdErr=$(("$logosProcessor" "$currentDirectory/$file" > "$currentDirectory/${file%.*}.mm") 2>&1) || \
+					panic $? "Failed Logos Processor: $logosStdErr"
+			fi
+
+	  	elif [[ "$extension" == "x" ]]; then
+			if [[ ! -f "$currentDirectory/${file%.*}.m" ]] || [[ `ls -l "$currentDirectory/${file%.*}.m" | awk '{ print $5 }'` < 10 ]] || [[ `stat -f %c "$currentDirectory/$file"` > `stat -f %c "$currentDirectory/${file%.*}.m"` ]]; then
+		  		echo "Logos Processor: $filename -> ${filename%.*}.m..."
+		  		logosStdErr=$(("$logosProcessor" "$currentDirectory/$file" > "$currentDirectory/${file%.*}.m") 2>&1) || \
+					panic $? "Failed Logos Processor: $logosStdErr"
+			fi
+			
+	  	fi
+    done
+}
+
+# 	--xcbp-logos
+function xcodeBuildPhase_Logos() # no args
+{
+	[[ "$ACTION" == "build" ]] || \
+		panic 1 "For Xcode Build Phase use only, Not support Archive, Please use LatestBuild/createIPA.command to generate ipa."
+	
+	echo "Preparing to run Xcode Build Phase for Logos Processor..."
+
+	local pbxProjectFilePath="$PROJECT_FILE_PATH/project.pbxproj"
+	local logosProcessor
+	local projectFileModified=false
+	local projectContainsXmFiles
+	local projectContainsXFiles
+	local lastKnownXmFileTypeNotObjCpp
+	local lastKnownXFileTypeNotObjC
+	local xmFileLangSpecNotObjCpp
+	local xFileLangSpecNotObjC
+	local projectXmFiles
+	local projectXFiles
+	local logosStdErr
+	local logosErr=0
+	
+	[[ -f "$pbxProjectFilePath" ]] || \
+		panic 1 "Xcode project file not found: $pbxProjectFilePath"
+	
+	#没有安装Theos？
+	logosProcessor=`which logos.pl` || \
+		panic $? "Failed to locate Logos Processor. Is Theos installed? If not, see https://github.com/theos/theos/wiki/Installation."
+
+	# for each *.xm project file, use Logos Processor to generate *.mm file
+
+	Processor "$logosProcessor" "$PROJECT_DIR"
+
+	echo "Note: If any *.xm or *.x file generated above by the Logos Processor (${projectXmFiles[@]}) is not being compiled below, then you must add it to the Xcode project to be compiled."
+
+	echo "Xcode Build Phase for Logos Processor complete."
+}
+
+#  --xcbp
+function xcodeBuildPhase() # no args
+{
+	[[ "$ACTION" == "build" ]] || \
+		panic 1 "For Xcode Build Phase use only"
+	
+	echo "Preparing to run Xcode Build Phase..."
+	
+	#编译可执行文件路径
+	local builtExecutable="$TARGET_BUILD_DIR/$EXECUTABLE_PATH"
+	#deb打包文件夹目录
+	local packageDirectory="$PROJECT_DIR/$TARGET_NAME/Package"
+	#安装的目录
+	local packageInstallPath="$packageDirectory$INSTALL_PATH"
+	#存放所有deb目录
+	local allPackagesDir="$PROJECT_DIR/Packages"
+	#编译产品输出目录
+	local builtProductsDir="$BUILT_PRODUCTS_DIR"
+	#最新的编译版本
+	local latestBuildSymlink="$PROJECT_DIR/LatestBuild"
+	local stripBin
+	local stripOption
+	local packageFileName
+	
+	#目标文件路径
+	local packageInstallSource
+	if [[ $SHALLOW_BUNDLE != "YES" ]]; then
+		packageInstallSource="$TARGET_BUILD_DIR/$EXECUTABLE_PATH"
+	else
+		packageInstallSource="$TARGET_BUILD_DIR/$EXECUTABLE_FOLDER_PATH"
+	fi
+
+	#如果编译设置里面MonkeyDevDeviceIP为空的话，就从用户的profile里面去拿，否则使用默认值
+	[[ $MonkeyDevDeviceIP != "" ]] || \
+		MonkeyDevDeviceIP=`getBashProfileEnvVarValue "MonkeyDevDeviceIP"`
+	[[ $MonkeyDevDeviceIP != "" ]] || \
+		MonkeyDevDeviceIP="$DefaultDeviceIP" && echo "use default $DefaultDeviceIP"
+
+	#如果编译设置里面MonkeyDevDevicePort为空的话，就从用户的profile里面去拿，否则使用默认值
+	[[ $MonkeyDevDevicePort != "" ]] || \
+		MonkeyDevDevicePort=`getBashProfileEnvVarValue "MonkeyDevDevicePort"`
+
+	[[ $MonkeyDevDevicePort != "" ]] || \
+		MonkeyDevDevicePort="$DefaultDevicePort"
+
+	#验证必要文件的存在
+	requireFile "$builtExecutable" false
+	
+	#创建最后一个编译的符号链接
+	createSymlink "$builtProductsDir" "$latestBuildSymlink"
+
+	#如果是Profile，strip可执行文件
+	if [[ "$CONFIGURATION" == "Release" && "$VALIDATE_PRODUCT" == "YES" ]]; then
+		if [[ "$STRIP_INSTALLED_PRODUCT" == "YES" ]]; then
+
+			stripBin=`xcodebuild -sdk iphoneos -find strip` || \
+				panic $? "Failed to get strip path"
+
+			echo "$stripBin"
+
+			[[ "$STRIP_STYLE" != "debugging" ]] || stripOption="-S"
+
+			echo "Stripping $builtExecutable..."
+
+			"$stripBin" $stripOption "$builtExecutable" || \
+				panic $? "Failed to strip $builtExecutable"
+		fi
+	fi
+
+	#静态库跳过签名
+	if [[ "$MACH_O_TYPE" == "staticlib" && "$CODE_SIGN_IDENTITY" == "" ]]; then
+		echo "Skipping signing (since ldid would be used and it fails on static libraries)"
+	elif [[ "$PLATFORM_NAME" != "iphoneos" ]]; then
+		echo "Skipping signing (since platform is not iphoneos)"
+	else
+		signCode "$builtExecutable" "$EXPANDED_CODE_SIGN_IDENTITY"
+	fi
+
+	changeMode "$INSTALL_MODE_FLAG" "$builtExecutable"
+
+	if [[ "$MonkeyDevDevicePassword" != "" ]]; then
+		sshpassProcessor=`which sshpass` || \
+		panic $? "Failed to locate sshpass. Is sshpass installed? If not, brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb"
+	fi
+
+	#是否需要拷贝到设备
+	if [[ "$MonkeyDevCopyOnBuild" == "YES" ]]; then
+	
+		#拷贝到设备的/var/root/MonkeyDevBuilds/
+		if [[ "$MonkeyDevDeviceIP" != "" ]]; then
+			copyFileToDevice "$builtExecutable" "/var/root/MonkeyDevBuilds/$PROJECT_NAME" "$MonkeyDevDeviceIP" "$MonkeyDevDevicePort"
+		else
+			# build setting MonkeyDevDeviceIP is empty #
+			panic 1 "Unable to copy executable to device since build setting MonkeyDevDeviceIP is not set or is empty and it is not exported in your Bash personal initialization file"
+		fi
+	
+	fi
+
+	#如果是profie或者用户设置了每次build都install或package，生成deb
+	if [[ "$CONFIGURATION" == "Release" && "$VALIDATE_PRODUCT" == "YES" ]] || [[ "$MonkeyDevInstallOnAnyBuild" == "YES" ]] || [[ "$MonkeyDevBuildPackageOnAnyBuild" == "YES" ]]; then
+		requireDir "$packageDirectory"
+		#准备打包
+		echo "Copying $packageInstallSource to package directory at $packageInstallPath..."
+		
+		requireDir "$packageInstallPath" true
+		
+		#拷贝目标文件到/Package/Library/MobileSubstrate/DynamicLibraries
+		copyFile "$packageInstallSource" "$packageInstallPath"
+
+		buildPackage "$packageDirectory" "$allPackagesDir" true
+		
+		#profile或者用户设置了build安装
+		if [[ "$CONFIGURATION" == "Release" && "$VALIDATE_PRODUCT" == "YES" ]] || [[ "$MonkeyDevInstallOnAnyBuild" == "YES" ]]; then
+		
+			if [[ "$DEPLOYMENT_POSTPROCESSING" == "NO" || "$MonkeyDevInstallOnAnyBuild" == "YES" ]]; then
+			
+				# if build setting MonkeyDevInstallOnProfiling is enabled, installation of package is enabled...
+				if [[ "$MonkeyDevInstallOnProfiling" == "YES"  || "$MonkeyDevInstallOnAnyBuild" == "YES" ]]; then
+				
+					# if MonkeyDevDeviceIP has a value, install package on device...
+					if [[ "$MonkeyDevDeviceIP" != "" ]]; then
+	
+						# get package file name #
+						packageFileName="`getPackageFileNameUsingControlFile \"$packageDirectory/DEBIAN/control\"`.deb"
+							
+						# install package on device #					
+						managePackageOnDevice "install" "$allPackagesDir/$packageFileName" "$MonkeyDevDeviceIP" "$MonkeyDevDevicePort"
+						
+						if [[ "$MonkeyDevkillProcessOnInstall" != "" ]]; then
+							if [[ "$MonkeyDevkillProcessOnInstall" == "SpringBoard" ]]; then
+								echo "respring device..."
+								runFuncOnDevice "respring" "$MonkeyDevDeviceIP" "$MonkeyDevDevicePort" 
+							else
+								echo "killall -9 $MonkeyDevkillProcessOnInstall"
+								runFuncOnDevice "killall -9 $MonkeyDevkillProcessOnInstall  || echo skip" "$MonkeyDevDeviceIP" "$MonkeyDevDevicePort"
+							fi
+						fi
+
+						if [[ "$MonkeyDevClearUiCacheOnInstall" == "YES" ]]; then
+ 							echo "Clearing uicache device..."
+ 							runFuncOnDevice "uicache" "$MonkeyDevDeviceIP" "$MonkeyDevDevicePort"
+						fi
+					else
+						# build setting MonkeyDevDeviceIP is empty #
+						panic 1 "Unable to install package on device since build setting MonkeyDevDeviceIP is not set or is empty and it is not exported in your Bash personal initialization file"
+					fi
+				else
+					# build setting MonkeyDevInstallOnProfiling is disabled #
+					echo "Installation of package on device is disabled. To enable, set build setting MonkeyDevInstallOnProfiling to YES."
+				fi
+			fi
+		fi
+	fi
+
+	echo "Xcode Build Phase complete."
+}
+
+#用法
+function showUsageAndExit() # args: showEverything
+{
+	local showEverything="$1"
+	local n
+	
+	echo "$scriptName (v$scriptVer) -- MonkeyDev Command-line Tool"
+	echo "Usages:"
+	
+	for n in "${ActionNames[@]}"; do
+		eval echo "\"    $scriptName \${Action_$n[$ActionProperty_ShortArg]} \${Action_$n[$ActionProperty_ShortUsage]}\""
+	done
+	
+	if [[ $showEverything == "true" ]]; then
+		echo
+		echo "Actions:"
+		
+		for n in "${ActionNames[@]}"; do
+			eval echo "\"    \${Action_$n[$ActionProperty_ShortArg]} \${Action_$n[$ActionProperty_ShortUsage]}\""
+			eval echo "\"\${Action_$n[$ActionProperty_LongUsage]}\""
+			echo
+		done
+	fi
+
+	panic 1
+}
+
+function showSingleUsageAndExit()
+{
+	panic 1 "Usage: $scriptName ${activeActionArg[$ActionProperty_ShortArg]} ${activeActionArg[$ActionProperty_ShortUsage]}
+
+${activeActionArg[$ActionProperty_LongUsage]}
+"
+		
+}
+
+#脚本开始
+[[ $1 != "" ]] || showUsageAndExit false
+[[ $1 != "--help" ]] || showUsageAndExit true
+
+#寻找有没有对应的参数
+for n in "${ActionNames[@]}"; do
+	foundArg=false
+	eval [[ "\$1" != "\${Action_$n[$ActionProperty_ShortArg]}" ]] || \
+		foundArg=true
+
+	if [[ $foundArg == true ]]; then
+		eval activeActionArg=("\"\${Action_$n[@]}\"")
+		break;
+	fi
+done
+
+[[ $foundArg == true ]] || \
+	panic 1 "Invalid argument: $1"
+
+[[ "$#" != 1 || ${activeActionArg[$ActionProperty_MinArgs]} == 0 ]] || \
+	showSingleUsageAndExit
+
+shift 1
+
+while getopts ":${activeActionArg[$ActionProperty_Options]}" opt; do
+	case "$opt" in
+	\?)
+		panic 1 "Invalid option: -$OPTARG"
+	;;
+	*)
+		[[ $opt != ":" ]] || \
+			panic 1 "Option missing value: -$OPTARG"
+
+		eval Opt_$opt="\"${OPTARG-true}\""  #可选参数赋值
+	;;
+	esac
+done
+
+shift $(($OPTIND - 1)) # shift out options
+
+(( "$#" >= ${activeActionArg[$ActionProperty_MinArgs]} && "$#" <= ${activeActionArg[$ActionProperty_MaxArgs]} )) || \
+	showSingleUsageAndExit
+
+#执行Action
+[[ ${activeActionArg[$ActionProperty_RequireSudo]} == false ]] || \
+	requireSudo "${originalArguments[@]}"
+
+case "${activeActionArg[$ActionProperty_ShortArg]}" in
+	${Action_XcodeBuildPhase[$ActionProperty_ShortArg]})
+		"${activeActionArg[$ActionProperty_Function]}"
+	;;
+	${Action_XcodeBuildPhaseLogos[$ActionProperty_ShortArg]})
+		"${activeActionArg[$ActionProperty_Function]}"
+	;;
+esac
+
+exit 0
