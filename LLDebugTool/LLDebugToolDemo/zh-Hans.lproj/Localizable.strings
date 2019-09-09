@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  LLDebugToolDemo
+
+  Created by Li on 2018/5/8.
+  Copyright © 2018年 li. All rights reserved.
+*/
+
+"initial.log" = "这是一条初始化的log";
+"normal.log.info" = "这是一条普通级别的log,可用于埋点或信息打印";
+"error.log.info" = "这是一条错误级别的log,可用于记录错误";
+"call" = "打电话";
+"call.log.info" = "这是一条关于\"打电话\"事件的log,用于针对某个问题的分析或记录";
+
+"normal.network" = "普通网络请求(AFHTTPSessionManager/Json Response)";
+"normal.session.network" = "普通网络请求(AFURLSessionManager/Json Response)";
+"image.network" = "图片网络请求(NSURLConnection/Image Response)";
+"HTML.network" = "HTML网络请求(NSURLSession/HTML Response)";
+
+"insert.log" = "插入一条Log";
+"insert.error.log" = "插入一条Error级别的Log";
+"insert.call.log" = "插入一条\"打电话\"事件的log";
+
+"try.array.crash" = "触发\"数组越界\"Crash";
+"try.pointer.crash" = "触发\"指针错误\"Crash";
+"try.signal" = "触发 \"SIGTRAP\" signal";
+"crash.info" = "崩溃后请重新运行项目,再查看信息";
+"signal.info" = "你必须先添加一个Symbolic breakpoint";
+
+"app.info" = "展示app信息";
+
+"sandbox.info" = "展示沙盒信息";
+
+"hierarchy.info" = "展示结构功能";
+
+"color.style" = "使用ColorStyle颜色颜色";
+"color.custom" = "使用自定义颜色配置";
+"color.none" = "不使用颜色配置";
+
+"test.network.request" = "展示网络功能";
+"test.log" = "展示日志功能";
+"test.crash" = "展示崩溃收集功能";
+"test.color.style" = "展示ColorStyle配置";
+"test.window.style" = "展示WindowStyle配置";
+"test.hierarchy" = "展示视图层级功能";
+
+"new.version" = "有新版本Demo可用";
+"crash.tip" = "如果你的项目/Demo在XCode运行下中包含Exception Breakpoint，你需要在程序崩溃后，继续点击XCode上的`Continue program execution`(Tip 1)，直到程序完全结束(Tip 2)。这个功能在非XCode运行时可以正常使用，在XCode下运行时Exception Breakpoint会优先于LLDebugTool拦截崩溃。";

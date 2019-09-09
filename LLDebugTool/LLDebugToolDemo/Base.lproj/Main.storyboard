@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rL6-Hc-MTa">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DRb-hR-hoL"/>
+                        <viewControllerLayoutGuide type="bottom" id="inD-Kp-94a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CiZ-Dr-i00">
+                                <rect key="frame" x="0.0" y="20" width="375" height="220"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="220" id="2pH-3G-e4B"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Pc-k4-OeO">
+                                <rect key="frame" x="0.0" y="240" width="375" height="427"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="oLg-uB-F0D"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="SYf-AQ-3BT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CiZ-Dr-i00" firstAttribute="top" secondItem="DRb-hR-hoL" secondAttribute="bottom" id="47g-Zu-gxR"/>
+                            <constraint firstItem="inD-Kp-94a" firstAttribute="top" secondItem="4Pc-k4-OeO" secondAttribute="bottom" id="8MW-SB-HTJ"/>
+                            <constraint firstItem="4Pc-k4-OeO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JY7-d5-U3F"/>
+                            <constraint firstItem="CiZ-Dr-i00" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PR3-6t-4e8"/>
+                            <constraint firstItem="4Pc-k4-OeO" firstAttribute="top" secondItem="CiZ-Dr-i00" secondAttribute="bottom" id="b9a-Q8-yww"/>
+                            <constraint firstAttribute="trailing" secondItem="4Pc-k4-OeO" secondAttribute="trailing" id="crB-Wi-NpX"/>
+                            <constraint firstAttribute="trailing" secondItem="CiZ-Dr-i00" secondAttribute="trailing" id="l0h-Uv-vFU"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="OAl-5H-hHX"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="imgView" destination="CiZ-Dr-i00" id="5ud-7c-n2b"/>
+                        <outlet property="tableView" destination="4Pc-k4-OeO" id="zvr-aq-wkD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1056.8" y="90.404797601199405"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a0v-br-qK9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rL6-Hc-MTa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IRA-kk-a9j">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="8Lf-sB-3ql"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="akf-dN-7oO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="90.404797601199405"/>
+        </scene>
+    </scenes>
+</document>

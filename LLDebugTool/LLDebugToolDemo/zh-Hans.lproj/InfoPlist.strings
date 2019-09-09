@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  LLDebugToolDemo
+
+  Created by Li on 2018/6/6.
+  Copyright © 2018年 li. All rights reserved.
+*/
+
+NSPhotoLibraryUsageDescription = "仅用于demo展示，如果你的项目中申请了相册权限，截屏时会同时储存到相册。";
+NSPhotoLibraryAddUsageDescription = "仅用于demo展示，如果你的项目中申请了相册权限，截屏时会同时储存到相册";

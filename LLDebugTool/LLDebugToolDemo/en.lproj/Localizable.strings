@@ -1,0 +1,49 @@
+/* 
+  Localizable.strings
+  LLDebugToolDemo
+
+  Created by Li on 2018/5/8.
+  Copyright © 2018年 li. All rights reserved.
+*/
+
+"initial.log" = "This is an initialization log";
+"normal.log.info" = "This is a common level log that can be used for burial or information printing";
+"error.log.info" = "This is an error level log that can be used to record errors.";
+"call" = "call somebody";
+"call.log.info" = "This is a log on event \"call somebody\", can be used to analysis or record for a problem";
+
+"normal.network" = "Normal(AFHTTPSessionManager/Json Response)";
+"normal.session.network" = "Normal(AFURLSessionManager/Json Response)";
+"image.network" = "Image(NSURLConnection/Image Response)";
+"HTML.network" = "HTML(NSURLSession/HTML Response)";
+
+"insert.log" = "Insert a log";
+"insert.error.log" = "Insert a log with error level";
+"insert.call.log" = "Insert a log on event \"call somebody\"";
+
+"try.array.crash" = "Try crash with out of range in array";
+"try.pointer.crash" = "Try crash with pointer error";
+"try.signal" = "Try receive a SIGTRAP signal";
+"crash.info" = "Please rerun the project after the crash and check the information";
+"signal.info" = "You must insert a Symbolic breakpoint first";
+
+"app.info" = "Show app info";
+
+"sandbox.info" = "Show sandbox info";
+
+"hierarchy.info" = "Hierarchy info";
+
+"color.style" = "Use \"colorStyle\" to config color";
+"color.custom" = "Use custom color config";
+"color.none" = "Don't use color config";
+
+"test.network.request" = "Show network request function";
+"test.log" = "Show log function";
+"test.crash" = "Show crash catch function";
+"test.color.style" = "Show colorStyle configuration";
+"test.window.style" = "Show entryWindowStyle configuration";
+"test.hierarchy" = "Show view hierarchy function";
+
+"new.version" = "A new version demo is available";
+"crash.tip" = "If your project/Demo under run XCode contains Exception Breakpoint, you need to after the program crashes, Continue to click on the XCode ` Continue program execution `(Tip 1), until the end of the program completely(Tip 2). This function can be used normally when non-xcode runs, and when run under XCode, Exception Breakpoint takes precedence over LLDebugTool intercept crash.";
+

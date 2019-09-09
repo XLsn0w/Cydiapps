@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="114" id="KGk-i7-Jjw" customClass="LLLogCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="114"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="113.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="File" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZLi-dU-POK">
+                        <rect key="frame" x="8" y="8" width="21.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Func" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLn-iM-HW1">
+                        <rect key="frame" x="8" y="29" width="30" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Date" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxb-xi-r9v">
+                        <rect key="frame" x="8" y="50" width="29" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dav-qA-0QV">
+                        <rect key="frame" x="8" y="71" width="304" height="34.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PLn-iM-HW1" firstAttribute="top" secondItem="ZLi-dU-POK" secondAttribute="bottom" constant="5" id="3fN-Jg-ULG"/>
+                    <constraint firstItem="Dav-qA-0QV" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" priority="750" id="Cxh-TF-VkA"/>
+                    <constraint firstItem="ZLi-dU-POK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Kmr-wR-fiC"/>
+                    <constraint firstItem="Oxb-xi-r9v" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="QOC-XB-Pq1"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PLn-iM-HW1" secondAttribute="trailing" id="S8j-Oy-Sla"/>
+                    <constraint firstItem="Dav-qA-0QV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Tx5-Uz-Fjq"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Dav-qA-0QV" secondAttribute="trailing" id="UFC-Yc-pka"/>
+                    <constraint firstItem="PLn-iM-HW1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="YKt-FX-9ak"/>
+                    <constraint firstItem="ZLi-dU-POK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="r1r-nw-obo"/>
+                    <constraint firstItem="Dav-qA-0QV" firstAttribute="top" secondItem="Oxb-xi-r9v" secondAttribute="bottom" constant="5" id="x0K-6M-MRk"/>
+                    <constraint firstItem="Oxb-xi-r9v" firstAttribute="top" secondItem="PLn-iM-HW1" secondAttribute="bottom" constant="5" id="xOm-zR-dpa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="Oxb-xi-r9v" id="wf4-hp-nGd"/>
+                <outlet property="fileLabel" destination="ZLi-dU-POK" id="lAm-wl-GSw"/>
+                <outlet property="funcLabel" destination="PLn-iM-HW1" id="0Ts-v2-QzN"/>
+                <outlet property="messageLabel" destination="Dav-qA-0QV" id="BAA-7s-t5G"/>
+            </connections>
+            <point key="canvasLocation" x="32" y="148"/>
+        </tableViewCell>
+    </objects>
+</document>
