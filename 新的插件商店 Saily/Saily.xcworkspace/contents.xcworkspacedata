@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:Saily.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LocalizedFinder/LocalizedFinder.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:ideaTest/ideaTest.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:DaemonTest/DaemonTest.xcodeproj">
+   </FileRef>
+   <Group
+      location = "group:IO"
+      name = "IO">
+      <FileRef
+         location = "group:Saily-ND.json">
+      </FileRef>
+      <FileRef
+         location = "group:FileMovedToOtherGit">
+      </FileRef>
+   </Group>
+</Workspace>

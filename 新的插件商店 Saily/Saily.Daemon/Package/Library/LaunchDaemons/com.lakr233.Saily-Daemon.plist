@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KeepAlive</key>
+	<true/>
+	<key>Label</key>
+	<string>com.lakr233.Saily-Daemon</string>
+	<key>Program</key>
+	<string>/usr/bin/Saily.Daemon</string>
+	<key>ProgramArguments</key>
+	<array/>
+	<key>Item 0</key>
+	<string>-rl</string>
+	<key>RunAtLoad</key>
+	<true/>
+</dict>
+</plist>

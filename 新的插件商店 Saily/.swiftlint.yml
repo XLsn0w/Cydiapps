@@ -1,0 +1,25 @@
+# Swift Lint Fucking Stuff
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+- Pods
+- ../Pods
+- ./Pods
+- /Pods
+- Project/R.generated.swift
+- Project/Pods
+
+disabled_rules: # rule identifiers to exclude from running
+- file_length
+- type_name
+- trailing_whitespace
+- line_length
+- vertical_whitespace
+- trailing_newline
+- identifier_name
+- cyclomatic_complexity
+- function_body_length
+- comma
+- opening_brace
+- function_parameter_count
+- colon
+

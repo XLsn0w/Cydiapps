@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  Saily
+
+  Created by mac on 2019/6/7.
+  Copyright © 2019 Lakr Aream. All rights reserved.
+*/
+
+{
+    "NSCameraUsageDescription" = "我们需要使用相机来拍摄您请求的照片。";
+    "NSPhotoLibraryUsageDescription" = "我们需要访问照片图库来获取您请求的照片。";
+}

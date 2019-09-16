@@ -1,0 +1,4 @@
+{
+    "NSCameraUsageDescription"="Vi trenger denne tillatelsen for å få tilgang til delt QR-kode.";
+    "NSPhotoLibraryUsageDescription"="Vi trenger denne tillatelsen for å få tilgang til bildene dine.";
+}

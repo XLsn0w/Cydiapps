@@ -1,0 +1,78 @@
+# Base file contains your repo contents with default language.
+
+# This is an example of news repo card major content.
+# Please strictly follow the example.
+
+# enum card_type: Int {
+
+#   case photo_full                             = 0x101
+#   case photo_full_with_banner_down_dark       = 0x102
+#   case photo_half_with_banner_down_light      = 0x111
+#   case river_view_animate                     = 0x201
+#   case river_view_static                      = 0x202
+
+# }
+
+# Every value here is optional.
+# "|" After/In content means "\n"
+
+--> Begin Card
+
+# RECOMMEND LINES
+LKCD-TYPE|                                      |photo_full
+LKCD-TITLE|                                     |在这里，重新定义。
+LKCD-SUBTITLE|                                  |欢迎来到全新的 Tweak Store
+LKCD-DESSTR|                                    |欢迎来到全新的 Tweak Store|在这里，修改系统，安装应用，无所不能。
+LKCD-PHOTO|                                     |./Resource/welcome.png
+
+# OPRION LINES
+# Optional property will implement later and may not effective in nearly versions.
+LKCD-TITLE-COLOR|                               |0xFFFFFF
+LKCD-SUBTITLE-COLOR|                            |0xFFFFFF
+LKCD-DESSTR-COLOR|                              |0xFFFFFF
+LKCD-CONTENTS|                                  |./Contents/0x01
+
+---> End Card
+
+--> Begin Card
+
+LKCD-TYPE|                                      |photo_full
+LKCD-TITLE|                                     |Dark Night - 黑暗模式
+LKCD-SUBTITLE|                                  |自定义的生活
+LKCD-PHOTO|                                     |./Resource/night.png
+
+LKCD-TITLE-COLOR|                               |0xFFFFFF
+LKCD-SUBTITLE-COLOR|                            |0xFFFFFF
+LKCD-CONTENTS|                                  |./Contents/0x02
+
+---> End Card
+
+--> Begin Card
+
+LKCD-TYPE|                                      |photo_half_with_banner_down_light
+LKCD-TITLE|                                     |OpenSSH 密码与安全|掌握你的设备。
+LKCD-SUBTITLE|                                  |出来乍到必备教学
+LKCD-DESSTR|                                    |Written By Lakr Aream
+LKCD-PHOTO|                                     |./Resource/ssh.png
+
+LKCD-TITLE-COLOR|                               |0x000000
+LKCD-SUBTITLE-COLOR|                            |0x999999
+LKCD-DESSTR-COLOR|                              |0x999999
+LKCD-CONTENTS|                                  |./Contents/0x03
+
+---> End Card
+
+--> Begin Card
+
+LKCD-TYPE|                                      |photo_half_with_banner_down_light
+LKCD-TITLE|                                     |Renet - 连个锤子|应用无法联网一键修复
+LKCD-SUBTITLE|                                  |专为🇨🇳的iPhone和iPad设计
+LKCD-DESSTR|                                    |Written By Lakr Aream
+LKCD-PHOTO|                                     |./Resource/renet.png
+
+LKCD-TITLE-COLOR|                               |0x000000
+LKCD-SUBTITLE-COLOR|                            |0x0AAADD
+LKCD-DESSTR-COLOR|                              |0x999999
+LKCD-CONTENTS|                                  |./Contents/0x04
+
+---> End Card

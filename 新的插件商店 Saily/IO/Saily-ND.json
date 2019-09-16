@@ -1,0 +1,86 @@
+{
+    "tintColor": "#0657bb",
+    "tabs": [
+        {
+            "class": "DepictionStackView",
+            "views": [
+                {
+                    "class": "DepictionSubheaderView",
+                    "useBoldText": true,
+                    "title": "SailyStore",
+                    "useBottomMargin": false
+                },
+                {
+                    "useSpacing": true,
+                    "class": "DepictionMarkdownView",
+                    "markdown": "The most magic package manager forever."
+                },
+                {
+                    "spacing": 8,
+                    "class": "DepictionSpacerView"
+                },
+                {
+                    "screenshots": [
+                        {
+                            "accessibilityText": "Screenshot0",
+                            "url": "https://github.com/Co2333/Saily-Store/raw/master/IO/Preview01.PNG"
+                        },
+                        {
+                            "accessibilityText": "Screenshot1",
+                            "url": "https://github.com/Co2333/Saily-Store/raw/master/IO/Preview02.PNG"
+                        },
+                        {
+                            "accessibilityText": "Screenshot2",
+                            "url": "https://github.com/Co2333/Saily-Store/raw/master/IO/Preview03.PNG"
+                        }
+                    ],
+                    "itemSize": "{225, 487.2}",
+                    "class": "DepictionScreenshotsView",
+                    "itemCornerRadius": 6
+                },
+                {
+                    "class": "DepictionMarkdownView",
+                    "markdown": "The source code is hosted at https://github.com/Co2333/Saily-Store\r\nThe home page sample is at https://github.com/Co2333/Saily-Store/tree/master/IO\r\nIf you want to set up your home page, follow the instructions there. It's in English.",
+                    "useBoldText": true,
+                    "title": "markdown-description",
+                    "useBottomMargin": false
+                },
+                {
+                    "class": "DepictionSeparatorView"
+                },
+                {
+                    "text": "0.6-b1063",
+                    "class": "DepictionTableTextView",
+                    "title": "Version"
+                },
+                {
+                    "text": "07-29-2019",
+                    "class": "DepictionTableTextView",
+                    "title": "Released"
+                },
+                {
+                    "text": "Free",
+                    "class": "DepictionTableTextView",
+                    "title": "Price"
+                },
+                {
+                    "spacing": 8,
+                    "class": "DepictionSpacerView"
+                },
+                {
+                    "text": "Lakr Aream",
+                    "class": "DepictionTableTextView",
+                    "title": "Developer"
+                },
+                {
+                    "spacing": 8,
+                    "class": "DepictionSpacerView"
+                }
+            ],
+            "tabname": "Details"
+        }
+    ],
+    "class": "DepictionTabView",
+    "minVersion": "0.1",
+    "headerImage": "https://github.com/LakrAream/LakrAream.github.io/raw/master/Saily/Resource/welcome.png"
+}
