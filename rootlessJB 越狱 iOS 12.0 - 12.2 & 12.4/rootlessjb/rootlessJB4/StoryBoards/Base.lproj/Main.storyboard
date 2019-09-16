@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RcO-co-8Fb">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="u1W-SU-L3I">
+            <objects>
+                <viewController id="RcO-co-8Fb" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dmp-cU-YZs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="DVT-st-8TF">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rootlessJB4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4vA-54-usy">
+                                <rect key="frame" x="104.5" y="132" width="205" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="205" id="beO-8g-UT2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1c-vE-AZc">
+                                <rect key="frame" x="126" y="422" width="162" height="52"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="16i-gd-VDh"/>
+                                    <constraint firstAttribute="width" constant="162" id="rWD-6W-rXe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                <state key="normal" title="Uninstall">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="uninstall:" destination="RcO-co-8Fb" eventType="touchUpInside" id="lSt-7z-vc3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 12.0 -12.2 &amp; 12.4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSs-FX-0U3">
+                                <rect key="frame" x="100" y="184" width="214" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TYn-UV-dFr">
+                                <rect key="frame" x="326" y="753" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load Tweaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a0e-D6-ZuL">
+                                <rect key="frame" x="37" y="756" width="105" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Install Filza" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHa-0D-Kpk">
+                                <rect key="frame" x="37" y="795" width="89" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FdE-Ym-udx">
+                                <rect key="frame" x="326" y="792" width="51" height="31"/>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ne6-ii-HNj">
+                                <rect key="frame" x="326" y="831" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Install iSuperSU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxU-33-JKa">
+                                <rect key="frame" x="37" y="833.5" width="128" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-HA-LOL">
+                                <rect key="frame" x="126" y="362" width="162" height="52"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="eUy-9v-KZM"/>
+                                    <constraint firstAttribute="width" constant="162" id="z8h-4t-96A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                <state key="normal" title="Jailbreak">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="jailbreak:" destination="RcO-co-8Fb" eventType="touchUpInside" id="zpL-4s-14j"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfq-S4-oBn">
+                                <rect key="frame" x="126" y="516" width="162" height="52"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="MId-4q-Tuo"/>
+                                    <constraint firstAttribute="width" constant="162" id="cM0-bM-FFP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="17"/>
+                                <state key="normal" title="Credits">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="credits:" destination="RcO-co-8Fb" eventType="touchUpInside" id="TBz-Gi-CdM"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Install Saily" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgA-Nr-2dN">
+                                <rect key="frame" x="37" y="720" width="90" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWb-Cy-AWL">
+                                <rect key="frame" x="326" y="715" width="51" height="31"/>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0dx-sn-p1o" firstAttribute="trailing" secondItem="FdE-Ym-udx" secondAttribute="trailing" constant="39" id="1R8-8X-zIH"/>
+                            <constraint firstItem="a0e-D6-ZuL" firstAttribute="top" secondItem="qgA-Nr-2dN" secondAttribute="bottom" constant="14.5" id="51Q-82-mH5"/>
+                            <constraint firstAttribute="bottom" secondItem="DVT-st-8TF" secondAttribute="bottom" id="5sF-oC-hXK"/>
+                            <constraint firstItem="C1c-vE-AZc" firstAttribute="top" secondItem="4hb-HA-LOL" secondAttribute="bottom" constant="8" id="8Le-CQ-olA"/>
+                            <constraint firstItem="DVT-st-8TF" firstAttribute="trailing" secondItem="0dx-sn-p1o" secondAttribute="trailing" id="9qu-iS-a7a"/>
+                            <constraint firstItem="4hb-HA-LOL" firstAttribute="centerX" secondItem="dmp-cU-YZs" secondAttribute="centerX" id="AFb-Qx-mER"/>
+                            <constraint firstItem="0dx-sn-p1o" firstAttribute="bottom" secondItem="qxU-33-JKa" secondAttribute="bottom" constant="7" id="Ag2-rY-1fk"/>
+                            <constraint firstItem="ne6-ii-HNj" firstAttribute="top" secondItem="FdE-Ym-udx" secondAttribute="bottom" constant="8" id="FFe-IP-upJ"/>
+                            <constraint firstItem="0dx-sn-p1o" firstAttribute="trailing" secondItem="ne6-ii-HNj" secondAttribute="trailing" constant="39" id="HYV-ZP-5T5"/>
+                            <constraint firstItem="FdE-Ym-udx" firstAttribute="top" secondItem="TYn-UV-dFr" secondAttribute="bottom" constant="8" id="IWF-up-wtE"/>
+                            <constraint firstItem="4vA-54-usy" firstAttribute="centerX" secondItem="dmp-cU-YZs" secondAttribute="centerX" id="K78-eO-Wbi"/>
+                            <constraint firstItem="C1c-vE-AZc" firstAttribute="centerX" secondItem="dmp-cU-YZs" secondAttribute="centerX" id="MWa-aq-BPN"/>
+                            <constraint firstItem="DVT-st-8TF" firstAttribute="top" secondItem="dmp-cU-YZs" secondAttribute="top" id="Mns-kw-8Nc"/>
+                            <constraint firstItem="eSs-FX-0U3" firstAttribute="centerX" secondItem="dmp-cU-YZs" secondAttribute="centerX" id="OZ4-io-63d"/>
+                            <constraint firstItem="ne6-ii-HNj" firstAttribute="bottom" secondItem="0dx-sn-p1o" secondAttribute="bottom" id="P4l-08-gM2"/>
+                            <constraint firstItem="qxU-33-JKa" firstAttribute="top" secondItem="hHa-0D-Kpk" secondAttribute="bottom" constant="17.5" id="RPe-ZJ-GSX"/>
+                            <constraint firstItem="a0e-D6-ZuL" firstAttribute="leading" secondItem="0dx-sn-p1o" secondAttribute="leading" constant="37" id="UdK-th-jn7"/>
+                            <constraint firstItem="TYn-UV-dFr" firstAttribute="top" secondItem="EWb-Cy-AWL" secondAttribute="bottom" constant="7" id="Wda-Wa-gTu"/>
+                            <constraint firstItem="DVT-st-8TF" firstAttribute="leading" secondItem="0dx-sn-p1o" secondAttribute="leading" id="ZDi-ac-iFp"/>
+                            <constraint firstItem="0dx-sn-p1o" firstAttribute="trailing" secondItem="EWb-Cy-AWL" secondAttribute="trailing" constant="39" id="a55-3i-pWY"/>
+                            <constraint firstItem="zfq-S4-oBn" firstAttribute="top" secondItem="C1c-vE-AZc" secondAttribute="bottom" constant="42" id="b08-u6-Ubt"/>
+                            <constraint firstItem="0dx-sn-p1o" firstAttribute="trailing" secondItem="TYn-UV-dFr" secondAttribute="trailing" constant="39" id="ewu-ug-K56"/>
+                            <constraint firstItem="hHa-0D-Kpk" firstAttribute="top" secondItem="a0e-D6-ZuL" secondAttribute="bottom" constant="17.5" id="f17-gz-28c"/>
+                            <constraint firstItem="qxU-33-JKa" firstAttribute="leading" secondItem="0dx-sn-p1o" secondAttribute="leading" constant="37" id="gNi-hd-Ml1"/>
+                            <constraint firstItem="hHa-0D-Kpk" firstAttribute="leading" secondItem="0dx-sn-p1o" secondAttribute="leading" constant="37" id="mzX-mZ-1os"/>
+                            <constraint firstItem="qgA-Nr-2dN" firstAttribute="leading" secondItem="0dx-sn-p1o" secondAttribute="leading" constant="37" id="npf-Is-nZk"/>
+                            <constraint firstItem="4vA-54-usy" firstAttribute="top" secondItem="0dx-sn-p1o" secondAttribute="top" constant="88" id="p4c-B0-wQW"/>
+                            <constraint firstItem="zfq-S4-oBn" firstAttribute="centerX" secondItem="dmp-cU-YZs" secondAttribute="centerX" id="pvV-xD-FMf"/>
+                            <constraint firstItem="C1c-vE-AZc" firstAttribute="centerY" secondItem="dmp-cU-YZs" secondAttribute="centerY" id="wIt-hQ-pAR"/>
+                            <constraint firstItem="eSs-FX-0U3" firstAttribute="top" secondItem="4vA-54-usy" secondAttribute="bottom" constant="8" id="yTV-af-Gw7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0dx-sn-p1o"/>
+                    </view>
+                    <connections>
+                        <outlet property="filza" destination="FdE-Ym-udx" id="tc6-Dp-RPX"/>
+                        <outlet property="isupersu" destination="ne6-ii-HNj" id="q6E-2d-pna"/>
+                        <outlet property="jbtext" destination="4hb-HA-LOL" id="bMk-LA-J8X"/>
+                        <outlet property="saily" destination="EWb-Cy-AWL" id="NaT-tq-mPD"/>
+                        <outlet property="tweaks" destination="TYn-UV-dFr" id="fbb-pi-Jiz"/>
+                        <outlet property="unjbtext" destination="C1c-vE-AZc" id="amN-ld-Sa4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6wW-UV-HiX" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="253.62318840579712" y="-161.38392857142856"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background" width="736" height="1472"/>
+    </resources>
+</document>
