@@ -11,18 +11,21 @@
 # 添加我的Github个人Cydia插件源: 
 ```
 https://xlsn0w.github.io/CydiaRepo
+https://xlsn0w.github.io/ipas
 
 ```
 
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
 
-MachOView源码地址：https://github.com/gdbinit/MachOView
+# MachOView
+
+源码地址：https://github.com/gdbinit/MachOView
 
 Mach-O格式全称为Mach Object文件格式的缩写，是mac上可执行文件的格式，类似于windows上的PE格式 (Portable Executable ), linux上的elf格式 (Executable and Linking Format)。
 
 mach-o文件类型分为：
-
+```
 1、Executable：应用的主要二进制
 
 2、Dylib Library：动态链接库（又称DSO或DLL）
@@ -32,15 +35,15 @@ mach-o文件类型分为：
 4、Bundle：不能被链接的Dylib，只能在运行时使用dlopen( )加载，可当做macOS的插件
 
 5、Relocatable Object File ：可重定向文件类型
-
-那什么又是FatFile/FatBinary？
+```
+## 那什么又是FatFile/FatBinary？
 
 简单来说，就是一个由不同的编译架构后的Mach-O产物所合成的集合体。一个架构的mach-O只能在相同架构的机器或者模拟器上用，为了支持不同架构需要一个集合体。
 
 一、使用方式
 1、MachOView工具概述
-MachOView工具可Mac平台中可查看MachO文件格式信息，IOS系统中可执行程序属于Mach-O文件格式，有必要介绍如何利用工具快速查看Mach-O文件格式。MachOView工具属于免费开源项目，源代码可在https://github.com/gdbinit/MachOView下载，MachOView安装之后文件布局如下图所示：
 
+MachOView工具可Mac平台中可查看MachO文件格式信息，IOS系统中可执行程序属于Mach-O文件格式，有必要介绍如何利用工具快速查看Mach-O文件格式。
 
 点击“MachOView”之后，便在Mac系统左上角出现MachOView工具的操作菜单
 
