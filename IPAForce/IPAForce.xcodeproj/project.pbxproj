@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB03055222211F6500754B75 /* unsign in Resources */ = {isa = PBXBuildFile; fileRef = AB03055122211F6500754B75 /* unsign */; };
+		AB0DFA8021628B7C00E80F3D /* LakrBootstrap.tar in Resources */ = {isa = PBXBuildFile; fileRef = AB0DFA7F21628B7B00E80F3D /* LakrBootstrap.tar */; };
+		AB0DFA822162BEE800E80F3D /* runiProxy.command in Resources */ = {isa = PBXBuildFile; fileRef = AB0DFA812162BEE500E80F3D /* runiProxy.command */; };
+		AB49E247215A3C8E00C2F277 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49E246215A3C8E00C2F277 /* AppDelegate.m */; };
+		AB49E24A215A3C8E00C2F277 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49E249215A3C8E00C2F277 /* ViewController.m */; };
+		AB49E24F215A3C9300C2F277 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB49E24E215A3C9300C2F277 /* Assets.xcassets */; };
+		AB49E252215A3C9300C2F277 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB49E250215A3C9300C2F277 /* Main.storyboard */; };
+		AB49E255215A3C9300C2F277 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49E254215A3C9300C2F277 /* main.m */; };
+		AB49E27C215AA61F00C2F277 /* Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49E27B215AA61F00C2F277 /* Extension.m */; };
+		AB61E6D92162527900EAC11B /* checkServerAvailable.sh in Resources */ = {isa = PBXBuildFile; fileRef = AB61E6D82162527900EAC11B /* checkServerAvailable.sh */; };
+		ABD896D02167827C00D2EFFE /* RevealRes.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABD896CF2167827C00D2EFFE /* RevealRes.zip */; };
+		ABDCC098215BD8F60071B264 /* macIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDCC092215BD8F50071B264 /* macIcon.png */; };
+		ABDCC099215BD8F60071B264 /* BuildIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDCC093215BD8F60071B264 /* BuildIcon.png */; };
+		ABDCC09A215BD8F60071B264 /* iPhoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDCC094215BD8F60071B264 /* iPhoneIcon.png */; };
+		ABDCC09B215BD8F60071B264 /* ICON.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDCC095215BD8F60071B264 /* ICON.png */; };
+		ABDCC09C215BD8F60071B264 /* XcodeProjectIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDCC096215BD8F60071B264 /* XcodeProjectIcon.png */; };
+		ABDCC09D215BD8F60071B264 /* IPAForceProjectIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = ABDCC097215BD8F60071B264 /* IPAForceProjectIcon.png */; };
+		D1F90994C090B7413B31C717 /* Pods_IPAForce.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC01B6E26DCB7C428F8FBB /* Pods_IPAForce.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AB0EFF872161E960004A27D2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchServices;
+			dstSubfolderSpec = 1;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0C04AEC537065F7E7E2AC6DE /* Pods-IPAForce.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IPAForce.release.xcconfig"; path = "Pods/Target Support Files/Pods-IPAForce/Pods-IPAForce.release.xcconfig"; sourceTree = "<group>"; };
+		8CF3B6C6E3B47495DDAB2EEB /* Pods-IPAForce.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IPAForce.debug.xcconfig"; path = "Pods/Target Support Files/Pods-IPAForce/Pods-IPAForce.debug.xcconfig"; sourceTree = "<group>"; };
+		91BC01B6E26DCB7C428F8FBB /* Pods_IPAForce.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IPAForce.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB03055122211F6500754B75 /* unsign */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = unsign; sourceTree = "<group>"; };
+		AB0DFA7F21628B7B00E80F3D /* LakrBootstrap.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = LakrBootstrap.tar; sourceTree = "<group>"; };
+		AB0DFA812162BEE500E80F3D /* runiProxy.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = runiProxy.command; sourceTree = "<group>"; };
+		AB0EFF742161E8E4004A27D2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AB0EFF762161E8EC004A27D2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AB0EFF782161E8F8004A27D2 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		AB3633B72161302700676BA9 /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
+		AB49E242215A3C8E00C2F277 /* IPAForce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPAForce.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB49E245215A3C8E00C2F277 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AB49E246215A3C8E00C2F277 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AB49E248215A3C8E00C2F277 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AB49E249215A3C8E00C2F277 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		AB49E24E215A3C9300C2F277 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB49E251215A3C9300C2F277 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AB49E253215A3C9300C2F277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB49E254215A3C9300C2F277 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AB49E27B215AA61F00C2F277 /* Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Extension.m; sourceTree = "<group>"; };
+		AB49E27D215AA62E00C2F277 /* Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Extension.h; sourceTree = "<group>"; };
+		AB61E6D82162527900EAC11B /* checkServerAvailable.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = checkServerAvailable.sh; sourceTree = "<group>"; };
+		ABD896CF2167827C00D2EFFE /* RevealRes.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = RevealRes.zip; sourceTree = "<group>"; };
+		ABDCC092215BD8F50071B264 /* macIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = macIcon.png; sourceTree = "<group>"; };
+		ABDCC093215BD8F60071B264 /* BuildIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuildIcon.png; sourceTree = "<group>"; };
+		ABDCC094215BD8F60071B264 /* iPhoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIcon.png; sourceTree = "<group>"; };
+		ABDCC095215BD8F60071B264 /* ICON.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ICON.png; sourceTree = "<group>"; };
+		ABDCC096215BD8F60071B264 /* XcodeProjectIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XcodeProjectIcon.png; sourceTree = "<group>"; };
+		ABDCC097215BD8F60071B264 /* IPAForceProjectIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IPAForceProjectIcon.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB49E23F215A3C8D00C2F277 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1F90994C090B7413B31C717 /* Pods_IPAForce.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB0EFF732161E8E4004A27D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB0EFF782161E8F8004A27D2 /* ServiceManagement.framework */,
+				AB0EFF762161E8EC004A27D2 /* Security.framework */,
+				AB0EFF742161E8E4004A27D2 /* Cocoa.framework */,
+				91BC01B6E26DCB7C428F8FBB /* Pods_IPAForce.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB49E239215A3C8D00C2F277 = {
+			isa = PBXGroup;
+			children = (
+				AB03055122211F6500754B75 /* unsign */,
+				AB49E244215A3C8E00C2F277 /* IPAForce */,
+				AB49E243215A3C8E00C2F277 /* Products */,
+				AB0EFF732161E8E4004A27D2 /* Frameworks */,
+				DB9C624E3B7909F3200F7F6A /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		AB49E243215A3C8E00C2F277 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB49E242215A3C8E00C2F277 /* IPAForce.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB49E244215A3C8E00C2F277 /* IPAForce */ = {
+			isa = PBXGroup;
+			children = (
+				AB61E6D72162523100EAC11B /* Utils */,
+				ABDCC09E215BD8FB0071B264 /* Ress */,
+				AB49E266215A7BF700C2F277 /* Codes */,
+				AB49E250215A3C9300C2F277 /* Main.storyboard */,
+				AB49E24E215A3C9300C2F277 /* Assets.xcassets */,
+				AB3633B72161302700676BA9 /* Notes.txt */,
+				AB49E253215A3C9300C2F277 /* Info.plist */,
+			);
+			path = IPAForce;
+			sourceTree = "<group>";
+		};
+		AB49E266215A7BF700C2F277 /* Codes */ = {
+			isa = PBXGroup;
+			children = (
+				AB49E254215A3C9300C2F277 /* main.m */,
+				AB49E245215A3C8E00C2F277 /* AppDelegate.h */,
+				AB49E246215A3C8E00C2F277 /* AppDelegate.m */,
+				AB49E248215A3C8E00C2F277 /* ViewController.h */,
+				AB49E249215A3C8E00C2F277 /* ViewController.m */,
+				AB49E27D215AA62E00C2F277 /* Extension.h */,
+				AB49E27B215AA61F00C2F277 /* Extension.m */,
+			);
+			path = Codes;
+			sourceTree = "<group>";
+		};
+		AB61E6D72162523100EAC11B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AB61E6D82162527900EAC11B /* checkServerAvailable.sh */,
+			);
+			name = Utils;
+			path = Ress/Utils;
+			sourceTree = "<group>";
+		};
+		ABDCC09E215BD8FB0071B264 /* Ress */ = {
+			isa = PBXGroup;
+			children = (
+				ABD896CF2167827C00D2EFFE /* RevealRes.zip */,
+				AB0DFA7F21628B7B00E80F3D /* LakrBootstrap.tar */,
+				AB0DFA812162BEE500E80F3D /* runiProxy.command */,
+				ABDCC095215BD8F60071B264 /* ICON.png */,
+				ABDCC092215BD8F50071B264 /* macIcon.png */,
+				ABDCC093215BD8F60071B264 /* BuildIcon.png */,
+				ABDCC094215BD8F60071B264 /* iPhoneIcon.png */,
+				ABDCC096215BD8F60071B264 /* XcodeProjectIcon.png */,
+				ABDCC097215BD8F60071B264 /* IPAForceProjectIcon.png */,
+			);
+			path = Ress;
+			sourceTree = "<group>";
+		};
+		DB9C624E3B7909F3200F7F6A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8CF3B6C6E3B47495DDAB2EEB /* Pods-IPAForce.debug.xcconfig */,
+				0C04AEC537065F7E7E2AC6DE /* Pods-IPAForce.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB49E241215A3C8D00C2F277 /* IPAForce */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB49E259215A3C9300C2F277 /* Build configuration list for PBXNativeTarget "IPAForce" */;
+			buildPhases = (
+				67FC764087D3E2009FE65150 /* [CP] Check Pods Manifest.lock */,
+				AB49E23E215A3C8D00C2F277 /* Sources */,
+				AB49E23F215A3C8D00C2F277 /* Frameworks */,
+				AB49E240215A3C8D00C2F277 /* Resources */,
+				AB49E262215A3DFF00C2F277 /* ShellScript */,
+				AB0EFF872161E960004A27D2 /* CopyFiles */,
+				9800B411650CC0567EF54845 /* [CP] Embed Pods Frameworks */,
+				AB03055322211F7500754B75 /* Run Script - Unsign Code - Run this after build. */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IPAForce;
+			productName = IPAForce;
+			productReference = AB49E242215A3C8E00C2F277 /* IPAForce.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB49E23A215A3C8D00C2F277 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = "Lakr Sakura";
+				TargetAttributes = {
+					AB49E241215A3C8D00C2F277 = {
+						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = AB49E23D215A3C8D00C2F277 /* Build configuration list for PBXProject "IPAForce" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AB49E239215A3C8D00C2F277;
+			productRefGroup = AB49E243215A3C8E00C2F277 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB49E241215A3C8D00C2F277 /* IPAForce */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB49E240215A3C8D00C2F277 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB03055222211F6500754B75 /* unsign in Resources */,
+				ABDCC098215BD8F60071B264 /* macIcon.png in Resources */,
+				AB49E24F215A3C9300C2F277 /* Assets.xcassets in Resources */,
+				ABDCC09C215BD8F60071B264 /* XcodeProjectIcon.png in Resources */,
+				ABD896D02167827C00D2EFFE /* RevealRes.zip in Resources */,
+				AB49E252215A3C9300C2F277 /* Main.storyboard in Resources */,
+				AB0DFA8021628B7C00E80F3D /* LakrBootstrap.tar in Resources */,
+				ABDCC099215BD8F60071B264 /* BuildIcon.png in Resources */,
+				ABDCC09A215BD8F60071B264 /* iPhoneIcon.png in Resources */,
+				AB0DFA822162BEE800E80F3D /* runiProxy.command in Resources */,
+				ABDCC09D215BD8F60071B264 /* IPAForceProjectIcon.png in Resources */,
+				AB61E6D92162527900EAC11B /* checkServerAvailable.sh in Resources */,
+				ABDCC09B215BD8F60071B264 /* ICON.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		67FC764087D3E2009FE65150 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IPAForce-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9800B411650CC0567EF54845 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-IPAForce/Pods-IPAForce-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NMSSH/NMSSH.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NMSSH.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-IPAForce/Pods-IPAForce-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB03055322211F7500754B75 /* Run Script - Unsign Code - Run this after build. */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script - Unsign Code - Run this after build.";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nexit 0;\n\n# 强制移除代码签名\n$LOCROOT/unsign $BUILD_ROOT/Debug/IPAForce.app/Contents/MacOS/IPAForce;\n";
+		};
+		AB49E262215A3DFF00C2F277 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#!/bin/bash\necho \"[*] Running first shell\"\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\");\nbuildNumber=$(($buildNumber + 1));\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\";\n\n# Copy files to GitHub\nrm -rf ~/Documents/GitHub/IPAForce/*;\nrm -rf $SRCROOT/Build/;\nscp -r $SOURCE_ROOT/* ~/Documents/GitHub/IPAForce;\n\n# Deploy .app to /Applications\n# rm -rf /Applications/$PRODUCT_NAME.app;\n# ln -s /Applications/$PRODUCT_NAME.app $BUILD_DIR/Debug⁩/$PRODUCT_NAME.app;\n# macOS⁩ ▸ ⁨Users⁩ ▸ ⁨lakr⁩ ▸ ⁨Library⁩ ▸ ⁨Developer⁩ ▸ ⁨Xcode⁩ ▸ ⁨DerivedData⁩ ▸ ⁨IPAForce-fwsmflhtjerzfhcjgtaizvbzhxst⁩ ▸ ⁨Build⁩ ▸ ⁨Products⁩ ▸ ⁨Debug⁩\n\necho \"[*] Running second shell\";\n\nmkdir $SRCROOT/Build;\n\n# 拷贝一份 build 来备份\n# rm -rf $SRCROOT/Builds/LasetSuccessBuild\n# cp -r $BUILD_DIR $SRCROOT/Builds/LasetSuccessBuild\n\n# 创建生成的 App 软连接到 Builds 文件夹\n# echo \"$BUILD_DIR/Products\"\n# echo \"$SRCROOT/Build/Products\"\nln -s $BUILD_DIR $SRCROOT/Build/Products;\n\n# 检查一下签名\n# cd $SRCROOT/rootHandler;\n# chmod +x ./checkMyAss.sh;\n# ./checkMyAss.sh;\n\n# 操他妈强制成功 Build 日你*\n# exit 0;\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB49E23E215A3C8D00C2F277 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB49E24A215A3C8E00C2F277 /* ViewController.m in Sources */,
+				AB49E255215A3C9300C2F277 /* main.m in Sources */,
+				AB49E247215A3C8E00C2F277 /* AppDelegate.m in Sources */,
+				AB49E27C215AA61F00C2F277 /* Extension.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AB49E250215A3C9300C2F277 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB49E251215A3C9300C2F277 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AB49E257215A3C9300C2F277 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Don't Code Sign";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AB49E258215A3C9300C2F277 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Don't Code Sign";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AB49E25A215A3C9300C2F277 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CF3B6C6E3B47495DDAB2EEB /* Pods-IPAForce.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = JMP4343QW7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IPAForce/Ress",
+				);
+				INFOPLIST_FILE = IPAForce/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IPAForce/Ress",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lakr.IPAForce;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IPAForce/Codes/IPAForce-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		AB49E25B215A3C9300C2F277 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0C04AEC537065F7E7E2AC6DE /* Pods-IPAForce.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = JMP4343QW7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IPAForce/Ress",
+				);
+				INFOPLIST_FILE = IPAForce/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/IPAForce/Ress",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lakr.IPAForce;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "IPAForce/Codes/IPAForce-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB49E23D215A3C8D00C2F277 /* Build configuration list for PBXProject "IPAForce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB49E257215A3C9300C2F277 /* Debug */,
+				AB49E258215A3C9300C2F277 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB49E259215A3C9300C2F277 /* Build configuration list for PBXNativeTarget "IPAForce" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB49E25A215A3C9300C2F277 /* Debug */,
+				AB49E25B215A3C9300C2F277 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB49E23A215A3C8D00C2F277 /* Project object */;
+}

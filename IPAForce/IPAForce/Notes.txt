@@ -1,0 +1,36 @@
+
+IPAForce by lazy man: Lakr Sakura
+Project begin at 2018.9.25, may be finished by the time that you say RIP to me. :..( :)
+
+Icon illust or some recourse is from:
+https://pixabay.com/en/carpenter-tool-woodworker-148473/
+
+macOS setup script is form:
+https://github.com/Co2333/coreBase/blob/master/OneMonkey.sh
+    (That's my git, follow watch star fork clone....+)
+
+Thanks to following developers that come with code-level supports and inspired ideas:
+MonkeyDev and frida-dump: AloneMonkey
+Code-level Support: 墨夜, Lucifer, Zie
+Code-level Teach Websites:
+https://objccn.io/issue-14-2/
+Inspired Ideas: Lakr Sakura
+
+This is my first OC project so I have read a lot. Here is some of the links:
+Read from terminal:https://gist.github.com/xaviervia/6087296
+Read from plist:https://stackoverflow.com/questions/7631261/reading-a-plist-file-in-cocoa
+Run shit as root:https://www.stevestreeting.com/2011/11/25/escalating-privileges-on-mac-os-x-securely-and-without-using-deprecated-methods/
+Ping only once:https://stackoverflow.com/questions/25107406/how-to-ping-a-server-only-once-from-within-a-batch-file
+Check if it is a iP address:https://stackoverflow.com/questions/1679152/how-to-validate-an-ip-address-with-regular-expression-in-objective-c
+
+Used framework form:
+https://bitbucket.org/sinbad/privilegedhelperexample
+http://thebsdbox.co.uk/cocoa-libssh2-wrapper/
+
+iOS Tweaks list:
+    frida-server, IPAPatcher, bfdecrypt, Filza, NewTerm 2, App Sync, AFC2
+Depends---
+    mobilesubstrate com.rpetrich.rocketbootstrap preferenceloader
+    zip unzip gzip unrar p7zip ldid
+    grep jp.ashikase.libcrashreport jp.ashikase.libpackageinfo jp.ashikase.techsupport
+    com.modmyi.libswift4 ws.hbang.common ncurses com.linusyang.localeutf8
