@@ -16,6 +16,63 @@ https://xlsn0w.github.io/CydiaRepo
 
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
+
+MachOView源码地址：https://github.com/gdbinit/MachOView
+
+Mach-O格式全称为Mach Object文件格式的缩写，是mac上可执行文件的格式，类似于windows上的PE格式 (Portable Executable ), linux上的elf格式 (Executable and Linking Format)。
+
+mach-o文件类型分为：
+
+1、Executable：应用的主要二进制
+
+2、Dylib Library：动态链接库（又称DSO或DLL）
+
+3、Static Library：静态链接库
+
+4、Bundle：不能被链接的Dylib，只能在运行时使用dlopen( )加载，可当做macOS的插件
+
+5、Relocatable Object File ：可重定向文件类型
+
+那什么又是FatFile/FatBinary？
+
+简单来说，就是一个由不同的编译架构后的Mach-O产物所合成的集合体。一个架构的mach-O只能在相同架构的机器或者模拟器上用，为了支持不同架构需要一个集合体。
+
+一、使用方式
+1、MachOView工具概述
+MachOView工具可Mac平台中可查看MachO文件格式信息，IOS系统中可执行程序属于Mach-O文件格式，有必要介绍如何利用工具快速查看Mach-O文件格式。MachOView工具属于免费开源项目，源代码可在https://github.com/gdbinit/MachOView下载，MachOView安装之后文件布局如下图所示：
+
+
+点击“MachOView”之后，便在Mac系统左上角出现MachOView工具的操作菜单
+
+将“MachOView”拖到Application文件夹，就可以像其他程序一样启动了
+
+下面介绍MachOView文件功能使用。
+
+2、加载Mach-O文件
+点击MachOView工具的主菜单“File”中的“Open”选项便可加载IOS平台可执行文件，对应功能接入如下所示：
+
+例如加载文件名为“libLDCPCircle.a”的静态库文件，
+
+3、文件头信息
+MachOView工具成功加载Mach-O文件之后，每个.o文件对应一个类编译后的文件
+
+在左边窗口点击“Mach Header”选项，可以看到每个类的cpu架构信息、load commands数量 、load commandssize 、file type等信息。
+
+4、查看Fat文件
+我们打开一个Fat文件可以看到：
+
+可以看到，fat文件只是对各种架构文件的组装，点开 “Fat Header”可以看到支持的架构，显示的支持ARM_V7  、ARM_V7S  、ARM_64 、i386 、 X86_64。
+
+
+点开每一个Static Library 可以看到，和每一个单独的Static Library的信息一样。
+
+命令：
+```
+lipo LoginSDK.a -thin armv7 -output arm/LoginSDK.a  将fat文件拆分得到armv7类型
+
+lipo  -create    ibSyncSDKA.i386.a    libSyncSDK.arm7.a  -output  libSyncSDK.a  合成一个i386和armV7架构的fat文件
+```
+
 ## OpenSSH
 
 
