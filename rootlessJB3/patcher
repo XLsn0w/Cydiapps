@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+
+export LANG=C
+export LC_CTYPE=C
+export LC_ALL=C
+
+# This variable is used as a command. Set it to either true or false. It's case-sensitive.
+debug=false
+
+iOS12_usrlib=(
+  "libDHCPServer.dylib" "libMatch.dylib" "libSystem.B_asan.dylib"
+  "libSystem.dylib" "libSystem_asan.dylib" "libarchive.dylib"
+  "libbsm.dylib" "libbz2.1.0.5.dylib"
+  "libbz2.dylib" "libc++.dylib" "libc.dylib"
+  "libcharset.dylib" "libcurses.dylib" "libdbm.dylib"
+  "libdl.dylib" "libeasyperf.dylib" "libedit.2.dylib"
+  "libedit.3.0.dylib" "libedit.dylib" "libexslt.dylib"
+  "libextension.dylib" "libform.dylib" "libiconv.2.4.0.dylib"
+  "libiconv.dylib" "libicucore.dylib" "libinfo.dylib"
+  "libipsec.dylib" "liblzma.dylib" "libm.dylib"
+  "libmecab.dylib" "libncurses.5.dylib" "libncurses.dylib"
+  "libobjc-trampolines.dylib" "libobjc.dylib" "libpcap.dylib"
+  "libpmsample.dylib" "libpoll.dylib" "libproc.dylib"
+  "libpthread.dylib" "libresolv.dylib" "librpcsvc.dylib"
+  "libsandbox.dylib" "libsqlite3.0.dylib" "libstdc++.6.0.9.dylib"
+  "libstdc++.dylib" "libtidy.dylib" "libutil1.0.dylib"
+  "libxml2.dylib" "libxslt.dylib" "libz.1.1.3.dylib"
+  "libz.1.2.11.dylib" "libz.1.2.5.dylib" "libz.1.2.8.dylib"
+  "libz.dylib" "log" "system"
+  "updaters" "xpc" "libz.1.dylib"
+  "libxslt.1.dylib" "libxml2.2.dylib" "libutil.dylib"
+  "libtidy.A.dylib" "libstdc++.6.dylib" "libsqlite3.dylib"
+  "libsandbox.1.dylib" "libresolv.9.dylib" "libpcap.A.dylib"
+  "libobjc.A.dylib" "libncurses.5.4.dylib" "libmecab_em.dylib"
+  "liblzma.5.dylib" "libipsec.A.dylib" "libicucore.A.dylib"
+  "libiconv.2.dylib" "libform.5.4.dylib" "libexslt.0.dylib"
+  "libedit.3.dylib" "libperfcheck.dylib" "libcharset.1.0.0.dylib"
+  "libcharset.1.dylib" "libc++.1.dylib" "libbz2.1.0.dylib"
+  "libbsm.0.dylib" "libarchive.2.dylib" "libSystem.B.dylib"
+  "libMatch.1.dylib" "libDHCPServer.A.dylib" "libCRFSuite.dylib"
+  "FDRSealingMap.plist" "bbmasks" "dyld"
+  "libCRFSuite0.12.dylib"
+)
+
+dylib_folders=(
+  "/Library/MobileSubstrate/DynamicLibraries"
+  "/usr/lib"
+)
+
+sed_stdout() {
+  printf "$2" | sed -e "$1"
+}
+
+sed_file() {
+  sed -i "" "$1" "$2" 2&> /dev/null
+  printf "$2"
+}
+
+patch_strings() {
+  [ $# -lt 2 ] && return 1
+  sed=""
+  result="$2"
+  if [ "$1" == "-r" ]; then
+    sed="sed_stdout"
+  elif [ "$1" == "-f" ]; then
+    sed="sed_file"
+  else return 1; fi
+  result="$(${sed} 's/\/Library\//\/var\/LIB\//g' "${result}")"
+  result="$(${sed} 's/\/System\/var\/LIB\//\/System\/Library\//g' "${result}")"
+  result="$(${sed} 's/%@\/var\/LIB\//%@\/Library\//g' "${result}")"
+  result="$(${sed} 's/mobile\/var\/LIB\//mobile\/Library\//g' "${result}")"
+
+  # The trick:
+  # 1. Replace every "/usr/lib" with "/var/lib"
+  # 2. Iterate over iOS12_usrlib and revert the system libraries
+  # This way, we only need to hardcode the system libraries which will never change. We won't need to hardcode the libraries that are for jailbroken devices.
+  result="$(${sed} 's/\/usr\/lib\//\/var\/ulb\//g' "${result}")"
+  if [ $? -eq 0 ]; then
+    for usr_lib_system_file in "${iOS12_usrlib[@]}"; do
+      escaped_dot='\.'
+      escaped_file="${usr_lib_system_file//./${escaped_dot}}"
+      expression='s/\/var\/ulb\/'"${escaped_file}"'/\/usr\/lib\/'"${escaped_file}"'/g'
+      result="$(${sed} "${expression}" "${result}")"
+    done
+  fi
+  [ "$1" == "-r" ] && printf "${result}"
+  return 0;
+}
+
+patch_file() {
+  [ ! -z "$1" ] || [ -e "$1" ] || return
+  file="$1"
+  if [ -h "${file}" ]; then
+    link="$(readlink -n "${file}")"
+    [ -z "${link}" ] && return 1
+    echo "[*] Patching symbolic link: \"${file}\""
+    echo "[i] Old target: ${link}"
+    link="$(patch_strings -r ${link})"
+    echo "[i] New target: ${link}"
+    rm "${file}"
+    ln -s "${link}" "${file}"
+  elif [ -x "${file}" ]; then
+    # When link identity editor fails, it usually means the file is not a valid binary.
+    ldid -S "${file}" 2> /dev/null || return 1
+    echo "[*] Patching executable: \"${file}\""
+    patch_strings -f "${file}" || {
+      echo "[-] Failed to patch executable"
+      return 1
+    }
+    # Sign the binary again, just in case
+    ldid -S "${file}"
+  elif ${debug}; then
+    echo "[D] Nothing to patch."
+  fi
+}
+
+#### Main script ####
+
+if [ $# -lt 2 ]; then
+  cat <<'EOF'
+Patch a deb: patcher <deb> <output folder> [output deb]
+Patch files: patcher --patch <files>
+Set "output deb" to "-" in order to create a deb at the same place as the output folder.
+EOF
+  exit 127
+fi
+
+if [ "$1" == "--patch" ]; then
+  for (( i=2; i<=$#; i++ )); do
+    file="${@:$i:1}"
+    ${debug} && echo "${file}"
+    [ ! -z "${file}" ] && [ ! -d "${file}" ] && patch_file "${file}" 
+  done
+  exit 0
+fi
+
+echo "[*] Extracting deb"
+dpkg-deb -R "$1" "$2" || exit $?
+[ ! -d "$2" ] && {
+  echo "[-] Could not find the extracted directory"
+  exit 2
+}
+
+find "$2" -exec "$0" "--patch" "{}" \;
+
+<<'NOT_TESTED'
+
+for i in $2/Applications/*.app
+do
+	ldid -e $i > /tmp/_ENTS.plist 2> /dev/null
+	if [ $(cat /tmp/_ENTS.plist) == "" ]; then
+		printf '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>platform-application</key><true/><key>com.apple.private.security.no-container</key><true/><key>com.apple.private.security.container-required</key><false/></dict></plist>' > /tmp/_ENTS.plist
+		ldid -S/tmp/_ENTS.plist $2 2> /dev/null
+	elif [[ ! $(cat /tmp/_ENTS.plist) == "*com.apple.private.security.container-required*" ]]; then
+		sed -i ':a;N;$!ba;s/<\/dict>\n<\/plist>/<key>com.apple.private.security.container-required<\/key><false\/><\/dict>\n<\/plist>/g' /tmp/_ENTS.plist
+		ldid -S/tmp/_ENTS.plist $2 2> /dev/null
+	fi
+done
+
+NOT_TESTED
+
+if [ ! -z "$3" ]; then
+  type -p dpkg-deb 2&> /dev/null || {
+    echo "[-] Not creating a patched deb. Install DPKG from Homebrew and try again."
+	exit 1
+  }
+  echo "[*] Creating a patched deb..."
+  file="$3"
+  [ "$3" == "-" ] && file="$2.deb"
+  dpkg-deb -Znone -b "$2" "${file}"
+  exit $?
+fi
+
+exit 0

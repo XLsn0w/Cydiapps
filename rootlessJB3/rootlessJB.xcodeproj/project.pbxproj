@@ -1,0 +1,729 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8207AE152154343700ABA466 /* apps in Resources */ = {isa = PBXBuildFile; fileRef = 8207AE142154343700ABA466 /* apps */; };
+		820FA9FE213589AF004E38D8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 820FA9FD213589AF004E38D8 /* AppDelegate.m */; };
+		820FAA01213589AF004E38D8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 820FAA00213589AF004E38D8 /* ViewController.m */; };
+		820FAA04213589AF004E38D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 820FAA02213589AF004E38D8 /* Main.storyboard */; };
+		820FAA06213589AF004E38D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 820FAA05213589AF004E38D8 /* Assets.xcassets */; };
+		820FAA09213589AF004E38D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 820FAA07213589AF004E38D8 /* LaunchScreen.storyboard */; };
+		820FAA0C213589AF004E38D8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 820FAA0B213589AF004E38D8 /* main.m */; };
+		820FAA16213589AF004E38D8 /* rootlessJBTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 820FAA15213589AF004E38D8 /* rootlessJBTests.m */; };
+		820FAA21213589AF004E38D8 /* rootlessJBUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 820FAA20213589AF004E38D8 /* rootlessJBUITests.m */; };
+		821B7F222213012D00C8A7A4 /* RoundedViews.m in Sources */ = {isa = PBXBuildFile; fileRef = 821B7F212213012D00C8A7A4 /* RoundedViews.m */; };
+		821B7F262213035400C8A7A4 /* exploit.m in Sources */ = {isa = PBXBuildFile; fileRef = 821B7F252213035400C8A7A4 /* exploit.m */; };
+		821B7F29221333B100C8A7A4 /* offsets.c in Sources */ = {isa = PBXBuildFile; fileRef = 821B7F27221333B000C8A7A4 /* offsets.c */; };
+		825D33952135D189008723F8 /* IOKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 825D33932135D189008723F8 /* IOKit.tbd */; };
+		825D33962135D189008723F8 /* jelbrekLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 825D33942135D189008723F8 /* jelbrekLib.a */; };
+		825D33A92135D5DB008723F8 /* bins in Resources */ = {isa = PBXBuildFile; fileRef = 825D33A72135D5DB008723F8 /* bins */; };
+		825D33AE2136A70A008723F8 /* libjb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 825D33AB2136A209008723F8 /* libjb.a */; };
+		825D33B32136AA4F008723F8 /* tars in Resources */ = {isa = PBXBuildFile; fileRef = 825D33B22136AA4E008723F8 /* tars */; };
+		825D33B62136B4E9008723F8 /* payload.c in Sources */ = {isa = PBXBuildFile; fileRef = 825D33B42136B4E9008723F8 /* payload.c */; };
+		825D33B92136C284008723F8 /* offsetsDump.c in Sources */ = {isa = PBXBuildFile; fileRef = 825D33B72136C284008723F8 /* offsetsDump.c */; };
+		82DAE48C22065E03005E4572 /* kernel_alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 82DAE48B22065E03005E4572 /* kernel_alloc.c */; };
+		82DAE4912208B4E7005E4572 /* insert_dylib.c in Sources */ = {isa = PBXBuildFile; fileRef = 82DAE48F2208B4E7005E4572 /* insert_dylib.c */; };
+		CEA5D6DA220649B700075088 /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6CD220649B700075088 /* log.c */; };
+		CEA5D6DB220649B700075088 /* parameters.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6CE220649B700075088 /* parameters.c */; };
+		CEA5D6DC220649B700075088 /* platform_match.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6CF220649B700075088 /* platform_match.c */; };
+		CEA5D6DD220649B700075088 /* platform.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6D1220649B700075088 /* platform.c */; };
+		CEA5D6DE220649B700075088 /* kernel_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6D5220649B700075088 /* kernel_memory.c */; };
+		CEA5D6DF220649B700075088 /* voucher_swap.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6D7220649B700075088 /* voucher_swap.c */; };
+		CEA5D6E0220649B700075088 /* kernel_slide.c in Sources */ = {isa = PBXBuildFile; fileRef = CEA5D6D8220649B700075088 /* kernel_slide.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		820FAA12213589AF004E38D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 820FA9F1213589AF004E38D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 820FA9F8213589AF004E38D8;
+			remoteInfo = rootlessJB;
+		};
+		820FAA1D213589AF004E38D8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 820FA9F1213589AF004E38D8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 820FA9F8213589AF004E38D8;
+			remoteInfo = rootlessJB;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8207AE142154343700ABA466 /* apps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = apps; path = rootlessJB/bootstrap/apps; sourceTree = "<group>"; };
+		820FA9F9213589AF004E38D8 /* rootlessJB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rootlessJB.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		820FA9FC213589AF004E38D8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		820FA9FD213589AF004E38D8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		820FA9FF213589AF004E38D8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		820FAA00213589AF004E38D8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		820FAA03213589AF004E38D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		820FAA05213589AF004E38D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		820FAA08213589AF004E38D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		820FAA0A213589AF004E38D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		820FAA0B213589AF004E38D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		820FAA11213589AF004E38D8 /* rootlessJBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rootlessJBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		820FAA15213589AF004E38D8 /* rootlessJBTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rootlessJBTests.m; sourceTree = "<group>"; };
+		820FAA17213589AF004E38D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		820FAA1C213589AF004E38D8 /* rootlessJBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = rootlessJBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		820FAA20213589AF004E38D8 /* rootlessJBUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rootlessJBUITests.m; sourceTree = "<group>"; };
+		820FAA22213589AF004E38D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		821B7F202213012C00C8A7A4 /* RoundedViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedViews.h; sourceTree = "<group>"; };
+		821B7F212213012D00C8A7A4 /* RoundedViews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedViews.m; sourceTree = "<group>"; };
+		821B7F242213035400C8A7A4 /* exploit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exploit.h; sourceTree = "<group>"; };
+		821B7F252213035400C8A7A4 /* exploit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = exploit.m; sourceTree = "<group>"; };
+		821B7F27221333B000C8A7A4 /* offsets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = offsets.c; sourceTree = "<group>"; };
+		821B7F28221333B000C8A7A4 /* offsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
+		825D33912135D17E008723F8 /* jelbrekLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jelbrekLib.h; sourceTree = "<group>"; };
+		825D33932135D189008723F8 /* IOKit.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = IOKit.tbd; sourceTree = "<group>"; };
+		825D33942135D189008723F8 /* jelbrekLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = jelbrekLib.a; sourceTree = "<group>"; };
+		825D33A72135D5DB008723F8 /* bins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = bins; path = rootlessJB/bootstrap/bins; sourceTree = "<group>"; };
+		825D33AA2136A1F7008723F8 /* libjb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libjb.h; sourceTree = "<group>"; };
+		825D33AB2136A209008723F8 /* libjb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjb.a; sourceTree = "<group>"; };
+		825D33B22136AA4E008723F8 /* tars */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tars; path = rootlessJB/bootstrap/tars; sourceTree = "<group>"; };
+		825D33B42136B4E9008723F8 /* payload.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = payload.c; sourceTree = "<group>"; };
+		825D33B52136B4E9008723F8 /* payload.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = payload.h; sourceTree = "<group>"; };
+		825D33B72136C284008723F8 /* offsetsDump.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = offsetsDump.c; sourceTree = "<group>"; };
+		825D33B82136C284008723F8 /* offsetsDump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = offsetsDump.h; sourceTree = "<group>"; };
+		82DAE48A22065E03005E4572 /* kernel_alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel_alloc.h; sourceTree = "<group>"; };
+		82DAE48B22065E03005E4572 /* kernel_alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kernel_alloc.c; sourceTree = "<group>"; };
+		82DAE48F2208B4E7005E4572 /* insert_dylib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = insert_dylib.c; sourceTree = "<group>"; };
+		82DAE4902208B4E7005E4572 /* insert_dylib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = insert_dylib.h; sourceTree = "<group>"; };
+		82DAE4922208BA90005E4572 /* vnode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vnode.h; sourceTree = "<group>"; };
+		CEA5D6CC220649B700075088 /* kernel_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel_memory.h; sourceTree = "<group>"; };
+		CEA5D6CD220649B700075088 /* log.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = log.c; sourceTree = "<group>"; };
+		CEA5D6CE220649B700075088 /* parameters.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parameters.c; sourceTree = "<group>"; };
+		CEA5D6CF220649B700075088 /* platform_match.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform_match.c; sourceTree = "<group>"; };
+		CEA5D6D0220649B700075088 /* voucher_swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = voucher_swap.h; sourceTree = "<group>"; };
+		CEA5D6D1220649B700075088 /* platform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = platform.c; sourceTree = "<group>"; };
+		CEA5D6D2220649B700075088 /* kernel_slide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kernel_slide.h; sourceTree = "<group>"; };
+		CEA5D6D3220649B700075088 /* platform_match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_match.h; sourceTree = "<group>"; };
+		CEA5D6D4220649B700075088 /* parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parameters.h; sourceTree = "<group>"; };
+		CEA5D6D5220649B700075088 /* kernel_memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kernel_memory.c; sourceTree = "<group>"; };
+		CEA5D6D6220649B700075088 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
+		CEA5D6D7220649B700075088 /* voucher_swap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = voucher_swap.c; sourceTree = "<group>"; };
+		CEA5D6D8220649B700075088 /* kernel_slide.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kernel_slide.c; sourceTree = "<group>"; };
+		CEA5D6D9220649B700075088 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		820FA9F6213589AF004E38D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				825D33952135D189008723F8 /* IOKit.tbd in Frameworks */,
+				825D33962135D189008723F8 /* jelbrekLib.a in Frameworks */,
+				825D33AE2136A70A008723F8 /* libjb.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		820FAA0E213589AF004E38D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		820FAA19213589AF004E38D8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		820FA9F0213589AF004E38D8 = {
+			isa = PBXGroup;
+			children = (
+				8207AE142154343700ABA466 /* apps */,
+				825D33B22136AA4E008723F8 /* tars */,
+				825D33A72135D5DB008723F8 /* bins */,
+				820FA9FB213589AF004E38D8 /* rootlessJB */,
+				820FAA14213589AF004E38D8 /* rootlessJBTests */,
+				820FAA1F213589AF004E38D8 /* rootlessJBUITests */,
+				820FA9FA213589AF004E38D8 /* Products */,
+				825D33AD2136A70A008723F8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		820FA9FA213589AF004E38D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				820FA9F9213589AF004E38D8 /* rootlessJB.app */,
+				820FAA11213589AF004E38D8 /* rootlessJBTests.xctest */,
+				820FAA1C213589AF004E38D8 /* rootlessJBUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		820FA9FB213589AF004E38D8 /* rootlessJB */ = {
+			isa = PBXGroup;
+			children = (
+				825D33972135D2B8008723F8 /* exploit */,
+				825D33922135D189008723F8 /* libs */,
+				820FA9FC213589AF004E38D8 /* AppDelegate.h */,
+				820FA9FD213589AF004E38D8 /* AppDelegate.m */,
+				820FA9FF213589AF004E38D8 /* ViewController.h */,
+				820FAA00213589AF004E38D8 /* ViewController.m */,
+				82DAE4922208BA90005E4572 /* vnode.h */,
+				825D33912135D17E008723F8 /* jelbrekLib.h */,
+				825D33AA2136A1F7008723F8 /* libjb.h */,
+				825D33B42136B4E9008723F8 /* payload.c */,
+				825D33B52136B4E9008723F8 /* payload.h */,
+				825D33B72136C284008723F8 /* offsetsDump.c */,
+				825D33B82136C284008723F8 /* offsetsDump.h */,
+				82DAE48F2208B4E7005E4572 /* insert_dylib.c */,
+				82DAE4902208B4E7005E4572 /* insert_dylib.h */,
+				821B7F202213012C00C8A7A4 /* RoundedViews.h */,
+				821B7F212213012D00C8A7A4 /* RoundedViews.m */,
+				820FAA02213589AF004E38D8 /* Main.storyboard */,
+				820FAA05213589AF004E38D8 /* Assets.xcassets */,
+				820FAA07213589AF004E38D8 /* LaunchScreen.storyboard */,
+				820FAA0A213589AF004E38D8 /* Info.plist */,
+				820FAA0B213589AF004E38D8 /* main.m */,
+			);
+			path = rootlessJB;
+			sourceTree = "<group>";
+		};
+		820FAA14213589AF004E38D8 /* rootlessJBTests */ = {
+			isa = PBXGroup;
+			children = (
+				820FAA15213589AF004E38D8 /* rootlessJBTests.m */,
+				820FAA17213589AF004E38D8 /* Info.plist */,
+			);
+			path = rootlessJBTests;
+			sourceTree = "<group>";
+		};
+		820FAA1F213589AF004E38D8 /* rootlessJBUITests */ = {
+			isa = PBXGroup;
+			children = (
+				820FAA20213589AF004E38D8 /* rootlessJBUITests.m */,
+				820FAA22213589AF004E38D8 /* Info.plist */,
+			);
+			path = rootlessJBUITests;
+			sourceTree = "<group>";
+		};
+		821B7F232213035400C8A7A4 /* v3ntex */ = {
+			isa = PBXGroup;
+			children = (
+				821B7F242213035400C8A7A4 /* exploit.h */,
+				821B7F252213035400C8A7A4 /* exploit.m */,
+				821B7F27221333B000C8A7A4 /* offsets.c */,
+				821B7F28221333B000C8A7A4 /* offsets.h */,
+			);
+			path = v3ntex;
+			sourceTree = "<group>";
+		};
+		825D33922135D189008723F8 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				825D33932135D189008723F8 /* IOKit.tbd */,
+				825D33942135D189008723F8 /* jelbrekLib.a */,
+				825D33AB2136A209008723F8 /* libjb.a */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		825D33972135D2B8008723F8 /* exploit */ = {
+			isa = PBXGroup;
+			children = (
+				821B7F232213035400C8A7A4 /* v3ntex */,
+				CEA5D6CB220649B700075088 /* voucher_swap */,
+			);
+			name = exploit;
+			path = rootlessJB/exploit;
+			sourceTree = SOURCE_ROOT;
+		};
+		825D33AD2136A70A008723F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEA5D6CB220649B700075088 /* voucher_swap */ = {
+			isa = PBXGroup;
+			children = (
+				82DAE48B22065E03005E4572 /* kernel_alloc.c */,
+				82DAE48A22065E03005E4572 /* kernel_alloc.h */,
+				CEA5D6CC220649B700075088 /* kernel_memory.h */,
+				CEA5D6CD220649B700075088 /* log.c */,
+				CEA5D6CE220649B700075088 /* parameters.c */,
+				CEA5D6CF220649B700075088 /* platform_match.c */,
+				CEA5D6D0220649B700075088 /* voucher_swap.h */,
+				CEA5D6D1220649B700075088 /* platform.c */,
+				CEA5D6D2220649B700075088 /* kernel_slide.h */,
+				CEA5D6D3220649B700075088 /* platform_match.h */,
+				CEA5D6D4220649B700075088 /* parameters.h */,
+				CEA5D6D5220649B700075088 /* kernel_memory.c */,
+				CEA5D6D6220649B700075088 /* log.h */,
+				CEA5D6D7220649B700075088 /* voucher_swap.c */,
+				CEA5D6D8220649B700075088 /* kernel_slide.c */,
+				CEA5D6D9220649B700075088 /* platform.h */,
+			);
+			name = voucher_swap;
+			path = rootlessJB/exploit/voucher_swap;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		820FA9F8213589AF004E38D8 /* rootlessJB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 820FAA25213589AF004E38D8 /* Build configuration list for PBXNativeTarget "rootlessJB" */;
+			buildPhases = (
+				820FA9F5213589AF004E38D8 /* Sources */,
+				820FA9F6213589AF004E38D8 /* Frameworks */,
+				820FA9F7213589AF004E38D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = rootlessJB;
+			productName = rootlessJB;
+			productReference = 820FA9F9213589AF004E38D8 /* rootlessJB.app */;
+			productType = "com.apple.product-type.application";
+		};
+		820FAA10213589AF004E38D8 /* rootlessJBTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 820FAA28213589AF004E38D8 /* Build configuration list for PBXNativeTarget "rootlessJBTests" */;
+			buildPhases = (
+				820FAA0D213589AF004E38D8 /* Sources */,
+				820FAA0E213589AF004E38D8 /* Frameworks */,
+				820FAA0F213589AF004E38D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				820FAA13213589AF004E38D8 /* PBXTargetDependency */,
+			);
+			name = rootlessJBTests;
+			productName = rootlessJBTests;
+			productReference = 820FAA11213589AF004E38D8 /* rootlessJBTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		820FAA1B213589AF004E38D8 /* rootlessJBUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 820FAA2B213589AF004E38D8 /* Build configuration list for PBXNativeTarget "rootlessJBUITests" */;
+			buildPhases = (
+				820FAA18213589AF004E38D8 /* Sources */,
+				820FAA19213589AF004E38D8 /* Frameworks */,
+				820FAA1A213589AF004E38D8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				820FAA1E213589AF004E38D8 /* PBXTargetDependency */,
+			);
+			name = rootlessJBUITests;
+			productName = rootlessJBUITests;
+			productReference = 820FAA1C213589AF004E38D8 /* rootlessJBUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		820FA9F1213589AF004E38D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Jake James";
+				TargetAttributes = {
+					820FA9F8213589AF004E38D8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					820FAA10213589AF004E38D8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 820FA9F8213589AF004E38D8;
+					};
+					820FAA1B213589AF004E38D8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 820FA9F8213589AF004E38D8;
+					};
+				};
+			};
+			buildConfigurationList = 820FA9F4213589AF004E38D8 /* Build configuration list for PBXProject "rootlessJB" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 820FA9F0213589AF004E38D8;
+			productRefGroup = 820FA9FA213589AF004E38D8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				820FA9F8213589AF004E38D8 /* rootlessJB */,
+				820FAA10213589AF004E38D8 /* rootlessJBTests */,
+				820FAA1B213589AF004E38D8 /* rootlessJBUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		820FA9F7213589AF004E38D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				820FAA09213589AF004E38D8 /* LaunchScreen.storyboard in Resources */,
+				820FAA06213589AF004E38D8 /* Assets.xcassets in Resources */,
+				8207AE152154343700ABA466 /* apps in Resources */,
+				820FAA04213589AF004E38D8 /* Main.storyboard in Resources */,
+				825D33B32136AA4F008723F8 /* tars in Resources */,
+				825D33A92135D5DB008723F8 /* bins in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		820FAA0F213589AF004E38D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		820FAA1A213589AF004E38D8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		820FA9F5213589AF004E38D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82DAE48C22065E03005E4572 /* kernel_alloc.c in Sources */,
+				CEA5D6E0220649B700075088 /* kernel_slide.c in Sources */,
+				CEA5D6DA220649B700075088 /* log.c in Sources */,
+				CEA5D6DB220649B700075088 /* parameters.c in Sources */,
+				820FAA01213589AF004E38D8 /* ViewController.m in Sources */,
+				820FAA0C213589AF004E38D8 /* main.m in Sources */,
+				825D33B62136B4E9008723F8 /* payload.c in Sources */,
+				821B7F222213012D00C8A7A4 /* RoundedViews.m in Sources */,
+				CEA5D6DE220649B700075088 /* kernel_memory.c in Sources */,
+				821B7F262213035400C8A7A4 /* exploit.m in Sources */,
+				CEA5D6DD220649B700075088 /* platform.c in Sources */,
+				821B7F29221333B100C8A7A4 /* offsets.c in Sources */,
+				82DAE4912208B4E7005E4572 /* insert_dylib.c in Sources */,
+				825D33B92136C284008723F8 /* offsetsDump.c in Sources */,
+				CEA5D6DF220649B700075088 /* voucher_swap.c in Sources */,
+				CEA5D6DC220649B700075088 /* platform_match.c in Sources */,
+				820FA9FE213589AF004E38D8 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		820FAA0D213589AF004E38D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				820FAA16213589AF004E38D8 /* rootlessJBTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		820FAA18213589AF004E38D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				820FAA21213589AF004E38D8 /* rootlessJBUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		820FAA13213589AF004E38D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 820FA9F8213589AF004E38D8 /* rootlessJB */;
+			targetProxy = 820FAA12213589AF004E38D8 /* PBXContainerItemProxy */;
+		};
+		820FAA1E213589AF004E38D8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 820FA9F8213589AF004E38D8 /* rootlessJB */;
+			targetProxy = 820FAA1D213589AF004E38D8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		820FAA02213589AF004E38D8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				820FAA03213589AF004E38D8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		820FAA07213589AF004E38D8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				820FAA08213589AF004E38D8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		820FAA23213589AF004E38D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		820FAA24213589AF004E38D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		820FAA26213589AF004E38D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22G2QV87A2;
+				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INFOPLIST_FILE = rootlessJB/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/rootlessJB/libs",
+				);
+				OTHER_LDFLAGS = "-lc++";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakeashacks.rootlessJB3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		820FAA27213589AF004E38D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22G2QV87A2;
+				ENABLE_BITCODE = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				INFOPLIST_FILE = rootlessJB/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/rootlessJB/libs",
+				);
+				OTHER_LDFLAGS = "-lc++";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakeashacks.rootlessJB3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		820FAA29213589AF004E38D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22G2QV87A2;
+				INFOPLIST_FILE = rootlessJBTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakeashacks.rootlessJBTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/rootlessJB.app/rootlessJB";
+			};
+			name = Debug;
+		};
+		820FAA2A213589AF004E38D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22G2QV87A2;
+				INFOPLIST_FILE = rootlessJBTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakeashacks.rootlessJBTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/rootlessJB.app/rootlessJB";
+			};
+			name = Release;
+		};
+		820FAA2C213589AF004E38D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22G2QV87A2;
+				INFOPLIST_FILE = rootlessJBUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakeashacks.rootlessJBUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = rootlessJB;
+			};
+			name = Debug;
+		};
+		820FAA2D213589AF004E38D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22G2QV87A2;
+				INFOPLIST_FILE = rootlessJBUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jakeashacks.rootlessJBUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = rootlessJB;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		820FA9F4213589AF004E38D8 /* Build configuration list for PBXProject "rootlessJB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				820FAA23213589AF004E38D8 /* Debug */,
+				820FAA24213589AF004E38D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		820FAA25213589AF004E38D8 /* Build configuration list for PBXNativeTarget "rootlessJB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				820FAA26213589AF004E38D8 /* Debug */,
+				820FAA27213589AF004E38D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		820FAA28213589AF004E38D8 /* Build configuration list for PBXNativeTarget "rootlessJBTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				820FAA29213589AF004E38D8 /* Debug */,
+				820FAA2A213589AF004E38D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		820FAA2B213589AF004E38D8 /* Build configuration list for PBXNativeTarget "rootlessJBUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				820FAA2C213589AF004E38D8 /* Debug */,
+				820FAA2D213589AF004E38D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 820FA9F1213589AF004E38D8 /* Project object */;
+}

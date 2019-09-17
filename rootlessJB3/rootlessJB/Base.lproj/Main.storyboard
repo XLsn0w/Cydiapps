@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pUb-Na-Ia2">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ww7-6W-BgM">
+            <objects>
+                <viewController id="pUb-Na-Ia2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Yn-CP-TUK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="axi-vilcinschi-1269615-unsplash 11-12-29-872" translatesAutoresizingMaskIntoConstraints="NO" id="Ywj-ah-M39">
+                                <rect key="frame" x="0.0" y="-34" width="320" height="636"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by @Jakeashacks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxL-Ff-gnc">
+                                <rect key="frame" x="268" y="-53" width="234" height="23"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SBZ-sd-ZeB">
+                                <rect key="frame" x="32.5" y="196" width="255" height="176"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z61-dM-Hjj">
+                                        <rect key="frame" x="82" y="143" width="91" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <state key="normal" title="Unjailbreak">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="uninstall:" destination="pUb-Na-Ia2" eventType="touchUpInside" id="Hyh-1n-LeZ"/>
+                                        </connections>
+                                    </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m4q-xC-ltu">
+                                        <rect key="frame" x="206" y="0.0" width="51" height="31"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="onTintColor" red="0.93469542264938354" green="0.32922995090484619" blue="0.31967747211456299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="thumbTintColor" red="0.99993377923965454" green="1" blue="0.99988192319869995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </switch>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGY-r8-Bqe" customClass="RoundVisualEffectView" customModule="rootlessJB" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="82" width="247" height="53"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q3y-iA-3Hk">
+                                            <rect key="frame" x="0.0" y="0.0" width="247" height="53"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzN-Zk-jNi">
+                                                    <rect key="frame" x="8" y="7" width="231" height="39"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                    <state key="normal" title="Jailbreak">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="jailbreak:" destination="pUb-Na-Ia2" eventType="touchUpInside" id="m4r-B6-Bq8"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mzN-Zk-jNi" firstAttribute="centerY" secondItem="q3y-iA-3Hk" secondAttribute="centerY" id="Kuh-0v-dnD"/>
+                                                <constraint firstItem="mzN-Zk-jNi" firstAttribute="leading" secondItem="q3y-iA-3Hk" secondAttribute="leadingMargin" id="lgw-Yn-e6U"/>
+                                                <constraint firstItem="mzN-Zk-jNi" firstAttribute="trailing" secondItem="q3y-iA-3Hk" secondAttribute="trailingMargin" id="on9-vV-WG1"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </visualEffectView>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CyY-xx-Ekw">
+                                        <rect key="frame" x="206" y="39" width="51" height="31"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="onTintColor" red="1" green="0.0" blue="0.15686274510000001" alpha="0.38" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iSuperSU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHx-zU-BT3">
+                                        <rect key="frame" x="8" y="3" width="89" height="25"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tweaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oQ-AU-pkf">
+                                        <rect key="frame" x="8" y="41" width="71" height="26"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="m4q-xC-ltu" firstAttribute="leading" secondItem="CyY-xx-Ekw" secondAttribute="leading" id="3qr-eh-0pG"/>
+                                    <constraint firstItem="vHx-zU-BT3" firstAttribute="leading" secondItem="SBZ-sd-ZeB" secondAttribute="leadingMargin" id="4dN-bO-wA6"/>
+                                    <constraint firstItem="6oQ-AU-pkf" firstAttribute="centerY" secondItem="CyY-xx-Ekw" secondAttribute="centerY" id="7dF-aG-LSJ"/>
+                                    <constraint firstAttribute="width" constant="255" id="8pB-XZ-JlO"/>
+                                    <constraint firstItem="CyY-xx-Ekw" firstAttribute="trailing" secondItem="aGY-r8-Bqe" secondAttribute="trailing" id="GQy-rx-tf4"/>
+                                    <constraint firstItem="aGY-r8-Bqe" firstAttribute="top" secondItem="CyY-xx-Ekw" secondAttribute="bottom" constant="12" id="JnS-6D-Yp9"/>
+                                    <constraint firstItem="z61-dM-Hjj" firstAttribute="top" secondItem="aGY-r8-Bqe" secondAttribute="bottom" constant="8" symbolic="YES" id="O4j-Vp-Bmo"/>
+                                    <constraint firstItem="CyY-xx-Ekw" firstAttribute="top" secondItem="m4q-xC-ltu" secondAttribute="bottom" constant="8" symbolic="YES" id="UiR-Hd-RMD"/>
+                                    <constraint firstItem="z61-dM-Hjj" firstAttribute="centerX" secondItem="SBZ-sd-ZeB" secondAttribute="centerX" id="YbO-KI-QYn"/>
+                                    <constraint firstAttribute="trailing" secondItem="m4q-xC-ltu" secondAttribute="trailing" id="cmZ-U0-3I8"/>
+                                    <constraint firstAttribute="bottom" secondItem="z61-dM-Hjj" secondAttribute="bottom" id="eFU-ty-6la"/>
+                                    <constraint firstItem="vHx-zU-BT3" firstAttribute="centerY" secondItem="m4q-xC-ltu" secondAttribute="centerY" id="goq-Kb-49O"/>
+                                    <constraint firstItem="6oQ-AU-pkf" firstAttribute="leading" secondItem="aGY-r8-Bqe" secondAttribute="leading" id="sRp-WC-fhu"/>
+                                    <constraint firstAttribute="height" constant="176" id="weF-Gn-Ku1"/>
+                                    <constraint firstItem="m4q-xC-ltu" firstAttribute="top" secondItem="SBZ-sd-ZeB" secondAttribute="top" id="xIr-Mo-VTL"/>
+                                    <constraint firstItem="vHx-zU-BT3" firstAttribute="leading" secondItem="6oQ-AU-pkf" secondAttribute="leading" id="ydP-Pp-V2i"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rootlessJB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeb-ve-NfA">
+                                <rect key="frame" x="94.5" y="20" width="132" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 12.0 - 12.1.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73G-96-tii">
+                                <rect key="frame" x="105.5" y="58" width="110" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6d-jW-eU0">
+                                <rect key="frame" x="42.5" y="84" width="234" height="94"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="94" id="LbH-IQ-rkS"/>
+                                </constraints>
+                                <string key="text">Exploits by Brandon Azad and tihmstar
+Powered by #jelbrekLib</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LXD-zS-5F0">
+                                <rect key="frame" x="16" y="380" width="286.5" height="168"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.99993377923965454" green="1" blue="0.99988192319869995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.048408988807794019" green="0.05053167753612068" blue="0.079363457433917928" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SBZ-sd-ZeB" firstAttribute="centerY" secondItem="3Yn-CP-TUK" secondAttribute="centerY" id="6zT-VN-ZNv"/>
+                            <constraint firstItem="LXD-zS-5F0" firstAttribute="centerX" secondItem="SBZ-sd-ZeB" secondAttribute="centerX" id="80p-LU-f7K"/>
+                            <constraint firstItem="JxL-Ff-gnc" firstAttribute="leading" secondItem="3Yn-CP-TUK" secondAttribute="leading" constant="268" id="AFI-2h-Zk4"/>
+                            <constraint firstItem="Ywj-ah-M39" firstAttribute="top" secondItem="JxL-Ff-gnc" secondAttribute="bottom" constant="-4" id="C6Q-8B-iFN"/>
+                            <constraint firstItem="Ywj-ah-M39" firstAttribute="leading" secondItem="3Yn-CP-TUK" secondAttribute="leading" id="EN4-in-fbR"/>
+                            <constraint firstItem="Ywj-ah-M39" firstAttribute="centerX" secondItem="a6d-jW-eU0" secondAttribute="centerX" id="ILn-Of-52D"/>
+                            <constraint firstItem="xeb-ve-NfA" firstAttribute="centerX" secondItem="73G-96-tii" secondAttribute="centerX" id="JSR-TR-ThB"/>
+                            <constraint firstItem="a6d-jW-eU0" firstAttribute="top" secondItem="73G-96-tii" secondAttribute="bottom" constant="8" symbolic="YES" id="Pt8-1N-84l"/>
+                            <constraint firstItem="xeb-ve-NfA" firstAttribute="top" secondItem="ZnH-x8-6FE" secondAttribute="top" id="Rgj-7D-yzb"/>
+                            <constraint firstItem="Ywj-ah-M39" firstAttribute="bottom" secondItem="ZnH-x8-6FE" secondAttribute="bottom" constant="34" id="Sl4-JB-1zL"/>
+                            <constraint firstItem="Ywj-ah-M39" firstAttribute="centerY" secondItem="SBZ-sd-ZeB" secondAttribute="centerY" id="TGQ-8w-bC7"/>
+                            <constraint firstItem="LXD-zS-5F0" firstAttribute="leading" secondItem="3Yn-CP-TUK" secondAttribute="leadingMargin" id="Ufy-Zu-Spq"/>
+                            <constraint firstItem="73G-96-tii" firstAttribute="top" secondItem="xeb-ve-NfA" secondAttribute="bottom" constant="8" symbolic="YES" id="Zae-pv-uKy"/>
+                            <constraint firstItem="73G-96-tii" firstAttribute="centerX" secondItem="SBZ-sd-ZeB" secondAttribute="centerX" id="aKy-rz-EEa"/>
+                            <constraint firstItem="LXD-zS-5F0" firstAttribute="top" secondItem="SBZ-sd-ZeB" secondAttribute="bottom" constant="8" symbolic="YES" id="hZv-G9-ORK"/>
+                            <constraint firstAttribute="bottom" secondItem="LXD-zS-5F0" secondAttribute="bottom" constant="20" symbolic="YES" id="qzD-Nb-34C"/>
+                            <constraint firstItem="a6d-jW-eU0" firstAttribute="centerX" secondItem="SBZ-sd-ZeB" secondAttribute="centerX" id="sOV-np-6QB"/>
+                            <constraint firstItem="SBZ-sd-ZeB" firstAttribute="centerX" secondItem="3Yn-CP-TUK" secondAttribute="centerX" id="w4C-hx-jvM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZnH-x8-6FE"/>
+                    </view>
+                    <connections>
+                        <outlet property="enableTweaks" destination="CyY-xx-Ekw" id="GPj-CK-WZk"/>
+                        <outlet property="installiSuperSU" destination="m4q-xC-ltu" id="rEg-dK-EzQ"/>
+                        <outlet property="jailbreakButton" destination="mzN-Zk-jNi" id="6yj-Gj-ILg"/>
+                        <outlet property="logs" destination="LXD-zS-5F0" id="jr1-5V-XGS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Af-LH-dUy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-730.39999999999998" y="110.83743842364532"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="axi-vilcinschi-1269615-unsplash 11-12-29-872" width="2381" height="1587"/>
+    </resources>
+</document>
