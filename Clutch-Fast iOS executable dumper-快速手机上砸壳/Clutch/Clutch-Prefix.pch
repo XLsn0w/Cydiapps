@@ -1,0 +1,41 @@
+//
+// Prefix header for all source files of the 'Clutch' target in the 'Clutch' project
+//
+#include <sys/time.h>
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#endif
+
+/* Definition of `CGFLOAT_TYPE', `CGFLOAT_IS_DOUBLE', `CGFLOAT_MIN', and
+ `CGFLOAT_MAX'. */
+#if defined(__LP64__) && __LP64__
+#define CGFLOAT_TYPE double
+#define CGFLOAT_IS_DOUBLE 1
+#define CGFLOAT_MIN DBL_MIN
+#define CGFLOAT_MAX DBL_MAX
+#else
+#define CGFLOAT_TYPE float
+#define CGFLOAT_IS_DOUBLE 0
+#define CGFLOAT_MIN FLT_MIN
+#define CGFLOAT_MAX FLT_MAX
+#endif
+
+/* Definition of the `CGFloat' type and `CGFLOAT_DEFINED'. */
+typedef CGFLOAT_TYPE CGFloat;
+#define CGFLOAT_DEFINED 1
+
+/* Definition of `CLUTCH_VERSION'. */
+#define CLUTCH_VERSION ((NSString *)(NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"]))
+
+/* Definition of `CLUTCH_UNUSED'. */
+#define CLUTCH_UNUSED(x) ((void)x)
+
+/* Definition of `SYSTEM_VERSION_EQUAL_TO', `SYSTEM_VERSION_GREATER_THAN',
+ `SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO', `SYSTEM_VERSION_LESS_THAN',
+ and `SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO'. */
+#define SYSTEM_VERSION_EQUAL_TO(_v) (floor(NSFoundationVersionNumber) == _v ? YES : NO)
+#define SYSTEM_VERSION_GREATER_THAN(_v) (floor(NSFoundationVersionNumber) > _v ? YES : NO)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(_v) (floor(NSFoundationVersionNumber) >= _v ? YES : NO)
+#define SYSTEM_VERSION_LESS_THAN(_v) (floor(NSFoundationVersionNumber) < _v ? YES : NO)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(_v) (floor(NSFoundationVersionNumber) <= _v ? YES : NO)
