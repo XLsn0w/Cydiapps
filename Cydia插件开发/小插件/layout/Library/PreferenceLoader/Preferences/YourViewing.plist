@@ -1,0 +1,29 @@
+entry = {
+  bundle = AppList;
+  cell = PSLinkCell;
+  icon = "/Applications/Preferences.app/AppIcon29x29.png";
+  isController = 1;
+  label = "YourViewing";
+  ALSettingsPath = "/var/mobile/Library/Preferences/com.in8.yourviewing.plist";
+  ALChangeNotification = "com.in8.yourviewing.notification";
+  ALSettingsKey = "YourViewing";
+  ALAllowsSelection = 1;
+  ALSingleEnabledMode = 1;
+  ALSectionDescriptors = (
+  	{
+  	  title = "System Applications";
+  	  predicate = "isSystemApplication = TRUE";
+  	  "cell-class-name" = "ALSwitchCell";
+  	  "icon-size" = 29;
+  	  "suppress-hidden-apps" = 1;
+  	},
+  	{
+  	  title = "User Applications";
+  	  predicate = "isSystemApplication = FALSE";
+  	  "cell-class-name" = "ALSwitchCell";
+  	  "icon-size" = 29;
+  	  "suppress-hidden-apps" = 1;
+  	  "footer-title" = " ";
+  	}
+  );
+};

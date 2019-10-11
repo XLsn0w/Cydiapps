@@ -1,0 +1,9 @@
+Package: com.in8.yourviewing
+Name: YourViewing
+Depends: mobilesubstrate, applist, firmware, preferenceloader
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: in8
+Author: in8
+Section: Tweaks
