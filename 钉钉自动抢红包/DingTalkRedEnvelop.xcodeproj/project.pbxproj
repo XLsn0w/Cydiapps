@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5DD94981F088300961F3E96F /* Pods_DingTalkRedEnvelop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D0C03C76DF972B4580515A /* Pods_DingTalkRedEnvelop.framework */; };
+		DD8E0F8421956BAD001F26EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8E0F8321956BAD001F26EE /* UIKit.framework */; };
+		DD8E0F8621956BAD001F26EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8E0F8521956BAD001F26EE /* Foundation.framework */; };
+		DD8E0F8821956BAD001F26EE /* CydiaSubstrate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD8E0F8721956BAD001F26EE /* CydiaSubstrate.framework */; };
+		DD8E0F9121956BAD001F26EE /* DingTalkRedEnvelop.mm in Sources */ = {isa = PBXBuildFile; fileRef = DD8E0F9021956BAD001F26EE /* DingTalkRedEnvelop.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		10A00C16E960D39BEE0E1F9F /* Pods-DingTalkRedEnvelop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DingTalkRedEnvelop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DingTalkRedEnvelop/Pods-DingTalkRedEnvelop.debug.xcconfig"; sourceTree = "<group>"; };
+		79D0C03C76DF972B4580515A /* Pods_DingTalkRedEnvelop.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DingTalkRedEnvelop.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9647C0085A8AE1D05FCFDE1A /* Pods-DingTalkRedEnvelop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DingTalkRedEnvelop.release.xcconfig"; path = "Pods/Target Support Files/Pods-DingTalkRedEnvelop/Pods-DingTalkRedEnvelop.release.xcconfig"; sourceTree = "<group>"; };
+		DD8E0F8021956BAD001F26EE /* DingTalkRedEnvelop.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = DingTalkRedEnvelop.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD8E0F8321956BAD001F26EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DD8E0F8521956BAD001F26EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DD8E0F8721956BAD001F26EE /* CydiaSubstrate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CydiaSubstrate.framework; path = Library/Frameworks/CydiaSubstrate.framework; sourceTree = DEVELOPER_DIR; };
+		DD8E0F8C21956BAD001F26EE /* control */ = {isa = PBXFileReference; lastKnownFileType = text; name = control; path = Package/DEBIAN/control; sourceTree = "<group>"; };
+		DD8E0F8E21956BAD001F26EE /* DingTalkRedEnvelop-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DingTalkRedEnvelop-Prefix.pch"; sourceTree = "<group>"; };
+		DD8E0F8F21956BAD001F26EE /* DingTalkRedEnvelop.xm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = DingTalkRedEnvelop.xm; sourceTree = "<group>"; };
+		DD8E0F9021956BAD001F26EE /* DingTalkRedEnvelop.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DingTalkRedEnvelop.mm; sourceTree = "<group>"; };
+		DD8E0F9521956BAD001F26EE /* DingTalkRedEnvelop.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = DingTalkRedEnvelop.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/DingTalkRedEnvelop.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD8E0F7C21956BAD001F26EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD8E0F8421956BAD001F26EE /* UIKit.framework in Frameworks */,
+				DD8E0F8621956BAD001F26EE /* Foundation.framework in Frameworks */,
+				DD8E0F8821956BAD001F26EE /* CydiaSubstrate.framework in Frameworks */,
+				5DD94981F088300961F3E96F /* Pods_DingTalkRedEnvelop.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B8463420B29C8574AFCC638C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9647C0085A8AE1D05FCFDE1A /* Pods-DingTalkRedEnvelop.release.xcconfig */,
+				10A00C16E960D39BEE0E1F9F /* Pods-DingTalkRedEnvelop.debug.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DD8E0F7521956BAD001F26EE = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8921956BAD001F26EE /* DingTalkRedEnvelop */,
+				DD8E0F8221956BAD001F26EE /* Frameworks */,
+				DD8E0F8121956BAD001F26EE /* Products */,
+				B8463420B29C8574AFCC638C /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		DD8E0F8121956BAD001F26EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8021956BAD001F26EE /* DingTalkRedEnvelop.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD8E0F8221956BAD001F26EE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8321956BAD001F26EE /* UIKit.framework */,
+				DD8E0F8521956BAD001F26EE /* Foundation.framework */,
+				DD8E0F8721956BAD001F26EE /* CydiaSubstrate.framework */,
+				79D0C03C76DF972B4580515A /* Pods_DingTalkRedEnvelop.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD8E0F8921956BAD001F26EE /* DingTalkRedEnvelop */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8F21956BAD001F26EE /* DingTalkRedEnvelop.xm */,
+				DD8E0F9021956BAD001F26EE /* DingTalkRedEnvelop.mm */,
+				DD8E0F8A21956BAD001F26EE /* Package */,
+				DD8E0F8D21956BAD001F26EE /* Supporting Files */,
+			);
+			path = DingTalkRedEnvelop;
+			sourceTree = "<group>";
+		};
+		DD8E0F8A21956BAD001F26EE /* Package */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8B21956BAD001F26EE /* DEBIAN */,
+				DD8E0F9221956BAD001F26EE /* Library */,
+			);
+			name = Package;
+			sourceTree = "<group>";
+		};
+		DD8E0F8B21956BAD001F26EE /* DEBIAN */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8C21956BAD001F26EE /* control */,
+			);
+			name = DEBIAN;
+			sourceTree = "<group>";
+		};
+		DD8E0F8D21956BAD001F26EE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F8E21956BAD001F26EE /* DingTalkRedEnvelop-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD8E0F9221956BAD001F26EE /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F9321956BAD001F26EE /* MobileSubstrate */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		DD8E0F9321956BAD001F26EE /* MobileSubstrate */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F9421956BAD001F26EE /* DynamicLibraries */,
+			);
+			name = MobileSubstrate;
+			sourceTree = "<group>";
+		};
+		DD8E0F9421956BAD001F26EE /* DynamicLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				DD8E0F9521956BAD001F26EE /* DingTalkRedEnvelop.plist */,
+			);
+			name = DynamicLibraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DD8E0F7D21956BAD001F26EE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DD8E0F7F21956BAD001F26EE /* DingTalkRedEnvelop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD8E0F9821956BAD001F26EE /* Build configuration list for PBXNativeTarget "DingTalkRedEnvelop" */;
+			buildPhases = (
+				442A17C4C9A6F65A5CDEA57A /* [CP] Check Pods Manifest.lock */,
+				DD8E0F7A21956BAD001F26EE /* ShellScript */,
+				DD8E0F7B21956BAD001F26EE /* Sources */,
+				DD8E0F7C21956BAD001F26EE /* Frameworks */,
+				DD8E0F7D21956BAD001F26EE /* Headers */,
+				DD8E0F7E21956BAD001F26EE /* ShellScript */,
+				29A3ABEEB1168D17EB642294 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DingTalkRedEnvelop;
+			productName = DingTalkRedEnvelop;
+			productReference = DD8E0F8021956BAD001F26EE /* DingTalkRedEnvelop.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD8E0F7621956BAD001F26EE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				TargetAttributes = {
+					DD8E0F7F21956BAD001F26EE = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = DD8E0F7921956BAD001F26EE /* Build configuration list for PBXProject "DingTalkRedEnvelop" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DD8E0F7521956BAD001F26EE;
+			productRefGroup = DD8E0F8121956BAD001F26EE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD8E0F7F21956BAD001F26EE /* DingTalkRedEnvelop */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		29A3ABEEB1168D17EB642294 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DingTalkRedEnvelop/Pods-DingTalkRedEnvelop-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		442A17C4C9A6F65A5CDEA57A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DingTalkRedEnvelop-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD8E0F7A21956BAD001F26EE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp-logos";
+		};
+		DD8E0F7E21956BAD001F26EE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD8E0F7B21956BAD001F26EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD8E0F9121956BAD001F26EE /* DingTalkRedEnvelop.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DD8E0F9621956BAD001F26EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/frameworks/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/lib/**";
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				OTHER_CFLAGS = "-DTHEOS_INSTANCE_NAME=\"\\\"DingTalkRedEnvelop\\\"\"";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DD8E0F9721956BAD001F26EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/frameworks/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/lib/**";
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DTHEOS_INSTANCE_NAME=\"\\\"DingTalkRedEnvelop\\\"\"";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		DD8E0F9921956BAD001F26EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9647C0085A8AE1D05FCFDE1A /* Pods-DingTalkRedEnvelop.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DingTalkRedEnvelop/DingTalkRedEnvelop-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(MonkeyDevTheosPath)/vendor/include/**",
+					"$(PROJECT_DIR)/DingTalkRedEnvelop/include",
+				);
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DingTalkRedEnvelop",
+				);
+				MonkeyDevBuildPackageOnAnyBuild = NO;
+				MonkeyDevClearUiCacheOnInstall = NO;
+				MonkeyDevCopyOnBuild = NO;
+				MonkeyDevDeviceIP = 192.168.34.249;
+				MonkeyDevDevicePassword = "";
+				MonkeyDevDevicePort = 22;
+				MonkeyDevInstallOnAnyBuild = NO;
+				MonkeyDevInstallOnProfiling = YES;
+				MonkeyDevkillProcessOnInstall = SpringBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7";
+			};
+			name = Release;
+		};
+		DD8E0F9A21956BAD001F26EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10A00C16E960D39BEE0E1F9F /* Pods-DingTalkRedEnvelop.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DingTalkRedEnvelop/DingTalkRedEnvelop-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(MonkeyDevTheosPath)/vendor/include/**",
+					"$(PROJECT_DIR)/DingTalkRedEnvelop/include",
+				);
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/DingTalkRedEnvelop",
+				);
+				MonkeyDevBuildPackageOnAnyBuild = NO;
+				MonkeyDevClearUiCacheOnInstall = NO;
+				MonkeyDevCopyOnBuild = NO;
+				MonkeyDevDeviceIP = 192.168.34.249;
+				MonkeyDevDevicePassword = "";
+				MonkeyDevDevicePort = 22;
+				MonkeyDevInstallOnAnyBuild = NO;
+				MonkeyDevInstallOnProfiling = YES;
+				MonkeyDevkillProcessOnInstall = SpringBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 arm64e armv7";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD8E0F7921956BAD001F26EE /* Build configuration list for PBXProject "DingTalkRedEnvelop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD8E0F9621956BAD001F26EE /* Release */,
+				DD8E0F9721956BAD001F26EE /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD8E0F9821956BAD001F26EE /* Build configuration list for PBXNativeTarget "DingTalkRedEnvelop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD8E0F9921956BAD001F26EE /* Release */,
+				DD8E0F9A21956BAD001F26EE /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD8E0F7621956BAD001F26EE /* Project object */;
+}
