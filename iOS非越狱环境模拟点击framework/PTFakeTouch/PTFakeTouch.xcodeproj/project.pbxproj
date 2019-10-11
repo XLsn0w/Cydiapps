@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD62638020669BDC009C683D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD62637F20669BDC009C683D /* IOKit.framework */; };
+		DD62638820669C71009C683D /* UITouch-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62638220669C71009C683D /* UITouch-KIFAdditions.m */; };
+		DD62638920669C71009C683D /* UIView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62638320669C71009C683D /* UIView-KIFAdditions.m */; };
+		DD62638A20669C71009C683D /* UITouch-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62638420669C71009C683D /* UITouch-KIFAdditions.h */; };
+		DD62638B20669C71009C683D /* UIEvent+KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62638520669C71009C683D /* UIEvent+KIFAdditions.h */; };
+		DD62638C20669C71009C683D /* UIEvent+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62638620669C71009C683D /* UIEvent+KIFAdditions.m */; };
+		DD62638D20669C71009C683D /* UIView-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62638720669C71009C683D /* UIView-KIFAdditions.h */; };
+		DD62639020669CA4009C683D /* PTFakeTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62638E20669CA4009C683D /* PTFakeTouch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DD62639120669CA4009C683D /* PTFakeTouch.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62638F20669CA4009C683D /* PTFakeTouch.m */; };
+		DD62639420669E3D009C683D /* IOHIDEvent+KIF.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62639220669E3D009C683D /* IOHIDEvent+KIF.h */; };
+		DD62639520669E3D009C683D /* IOHIDEvent+KIF.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62639320669E3D009C683D /* IOHIDEvent+KIF.m */; };
+		DD62639820669E5C009C683D /* UIWindow-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62639620669E5C009C683D /* UIWindow-KIFAdditions.m */; };
+		DD62639920669E5C009C683D /* UIWindow-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62639720669E5C009C683D /* UIWindow-KIFAdditions.h */; };
+		DD62639C20669E6C009C683D /* UIApplication-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DD62639A20669E6C009C683D /* UIApplication-KIFAdditions.m */; };
+		DD62639D20669E6C009C683D /* UIApplication-KIFAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DD62639B20669E6C009C683D /* UIApplication-KIFAdditions.h */; };
+		DD99173C2066A2F200F75161 /* LoadableCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = DD99173B2066A2F200F75161 /* LoadableCategory.h */; };
+		DD99173E2066A43800F75161 /* FixCategoryBug.h in Headers */ = {isa = PBXBuildFile; fileRef = DD99173D2066A43700F75161 /* FixCategoryBug.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DD62637420669B81009C683D /* PTFakeTouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PTFakeTouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD62637820669B81009C683D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD62637F20669BDC009C683D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IOKit.framework; sourceTree = "<group>"; };
+		DD62638220669C71009C683D /* UITouch-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITouch-KIFAdditions.m"; sourceTree = "<group>"; };
+		DD62638320669C71009C683D /* UIView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-KIFAdditions.m"; sourceTree = "<group>"; };
+		DD62638420669C71009C683D /* UITouch-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch-KIFAdditions.h"; sourceTree = "<group>"; };
+		DD62638520669C71009C683D /* UIEvent+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+KIFAdditions.h"; sourceTree = "<group>"; };
+		DD62638620669C71009C683D /* UIEvent+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIEvent+KIFAdditions.m"; sourceTree = "<group>"; };
+		DD62638720669C71009C683D /* UIView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-KIFAdditions.h"; sourceTree = "<group>"; };
+		DD62638E20669CA4009C683D /* PTFakeTouch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PTFakeTouch.h; sourceTree = "<group>"; };
+		DD62638F20669CA4009C683D /* PTFakeTouch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTFakeTouch.m; sourceTree = "<group>"; };
+		DD62639220669E3D009C683D /* IOHIDEvent+KIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOHIDEvent+KIF.h"; sourceTree = "<group>"; };
+		DD62639320669E3D009C683D /* IOHIDEvent+KIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOHIDEvent+KIF.m"; sourceTree = "<group>"; };
+		DD62639620669E5C009C683D /* UIWindow-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow-KIFAdditions.m"; sourceTree = "<group>"; };
+		DD62639720669E5C009C683D /* UIWindow-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow-KIFAdditions.h"; sourceTree = "<group>"; };
+		DD62639A20669E6C009C683D /* UIApplication-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication-KIFAdditions.m"; sourceTree = "<group>"; };
+		DD62639B20669E6C009C683D /* UIApplication-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication-KIFAdditions.h"; sourceTree = "<group>"; };
+		DD99173B2066A2F200F75161 /* LoadableCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadableCategory.h; sourceTree = "<group>"; };
+		DD99173D2066A43700F75161 /* FixCategoryBug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixCategoryBug.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD62637020669B81009C683D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD62638020669BDC009C683D /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD62636A20669B81009C683D = {
+			isa = PBXGroup;
+			children = (
+				DD62637620669B81009C683D /* PTFakeTouch */,
+				DD62637520669B81009C683D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD62637520669B81009C683D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD62637420669B81009C683D /* PTFakeTouch.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD62637620669B81009C683D /* PTFakeTouch */ = {
+			isa = PBXGroup;
+			children = (
+				DD62637F20669BDC009C683D /* IOKit.framework */,
+				DD62638120669C27009C683D /* head */,
+				DD62638E20669CA4009C683D /* PTFakeTouch.h */,
+				DD62638F20669CA4009C683D /* PTFakeTouch.m */,
+				DD62637820669B81009C683D /* Info.plist */,
+			);
+			path = PTFakeTouch;
+			sourceTree = "<group>";
+		};
+		DD62638120669C27009C683D /* head */ = {
+			isa = PBXGroup;
+			children = (
+				DD99173D2066A43700F75161 /* FixCategoryBug.h */,
+				DD99173B2066A2F200F75161 /* LoadableCategory.h */,
+				DD62639B20669E6C009C683D /* UIApplication-KIFAdditions.h */,
+				DD62639A20669E6C009C683D /* UIApplication-KIFAdditions.m */,
+				DD62639720669E5C009C683D /* UIWindow-KIFAdditions.h */,
+				DD62639620669E5C009C683D /* UIWindow-KIFAdditions.m */,
+				DD62639220669E3D009C683D /* IOHIDEvent+KIF.h */,
+				DD62639320669E3D009C683D /* IOHIDEvent+KIF.m */,
+				DD62638520669C71009C683D /* UIEvent+KIFAdditions.h */,
+				DD62638620669C71009C683D /* UIEvent+KIFAdditions.m */,
+				DD62638420669C71009C683D /* UITouch-KIFAdditions.h */,
+				DD62638220669C71009C683D /* UITouch-KIFAdditions.m */,
+				DD62638720669C71009C683D /* UIView-KIFAdditions.h */,
+				DD62638320669C71009C683D /* UIView-KIFAdditions.m */,
+			);
+			path = head;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DD62637120669B81009C683D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD99173E2066A43800F75161 /* FixCategoryBug.h in Headers */,
+				DD62639020669CA4009C683D /* PTFakeTouch.h in Headers */,
+				DD62638A20669C71009C683D /* UITouch-KIFAdditions.h in Headers */,
+				DD99173C2066A2F200F75161 /* LoadableCategory.h in Headers */,
+				DD62639920669E5C009C683D /* UIWindow-KIFAdditions.h in Headers */,
+				DD62639D20669E6C009C683D /* UIApplication-KIFAdditions.h in Headers */,
+				DD62638D20669C71009C683D /* UIView-KIFAdditions.h in Headers */,
+				DD62638B20669C71009C683D /* UIEvent+KIFAdditions.h in Headers */,
+				DD62639420669E3D009C683D /* IOHIDEvent+KIF.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DD62637320669B81009C683D /* PTFakeTouch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD62637C20669B81009C683D /* Build configuration list for PBXNativeTarget "PTFakeTouch" */;
+			buildPhases = (
+				DD62636F20669B81009C683D /* Sources */,
+				DD62637020669B81009C683D /* Frameworks */,
+				DD62637120669B81009C683D /* Headers */,
+				DD62637220669B81009C683D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PTFakeTouch;
+			productName = PTFakeTouch;
+			productReference = DD62637420669B81009C683D /* PTFakeTouch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD62636B20669B81009C683D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = In8;
+				TargetAttributes = {
+					DD62637320669B81009C683D = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = DD62636E20669B81009C683D /* Build configuration list for PBXProject "PTFakeTouch" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DD62636A20669B81009C683D;
+			productRefGroup = DD62637520669B81009C683D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD62637320669B81009C683D /* PTFakeTouch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD62637220669B81009C683D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD62636F20669B81009C683D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD62638C20669C71009C683D /* UIEvent+KIFAdditions.m in Sources */,
+				DD62638820669C71009C683D /* UITouch-KIFAdditions.m in Sources */,
+				DD62639120669CA4009C683D /* PTFakeTouch.m in Sources */,
+				DD62639C20669E6C009C683D /* UIApplication-KIFAdditions.m in Sources */,
+				DD62638920669C71009C683D /* UIView-KIFAdditions.m in Sources */,
+				DD62639820669E5C009C683D /* UIWindow-KIFAdditions.m in Sources */,
+				DD62639520669E3D009C683D /* IOHIDEvent+KIF.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DD62637A20669B81009C683D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DD62637B20669B81009C683D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DD62637D20669B81009C683D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LL8WB84C9S;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PTFakeTouch",
+				);
+				INFOPLIST_FILE = PTFakeTouch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.in8.PTFakeTouch;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DD62637E20669B81009C683D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LL8WB84C9S;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PTFakeTouch",
+				);
+				INFOPLIST_FILE = PTFakeTouch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.in8.PTFakeTouch;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD62636E20669B81009C683D /* Build configuration list for PBXProject "PTFakeTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD62637A20669B81009C683D /* Debug */,
+				DD62637B20669B81009C683D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD62637C20669B81009C683D /* Build configuration list for PBXNativeTarget "PTFakeTouch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD62637D20669B81009C683D /* Debug */,
+				DD62637E20669B81009C683D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD62636B20669B81009C683D /* Project object */;
+}
