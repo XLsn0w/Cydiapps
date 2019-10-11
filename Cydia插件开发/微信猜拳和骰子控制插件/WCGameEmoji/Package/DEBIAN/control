@@ -1,0 +1,17 @@
+Package: com.organization.WCGameEmoji
+Name: WCGameEmoji
+Version: 1.1-1
+Description: 
+Section: Tweaks
+Depends: firmware (>= 5.0), mobilesubstrate
+Conflicts: 
+Replaces: 
+Priority: optional
+Architecture: iphoneos-arm
+Author: In8
+dev: 
+Homepage: 
+Depiction: 
+Maintainer: 
+Icon: 
+

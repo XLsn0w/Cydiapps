@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'WCGameEmoji' target in the 'WCGameEmoji' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#import "BaseMsgContentViewController.h"
+
+#endif
