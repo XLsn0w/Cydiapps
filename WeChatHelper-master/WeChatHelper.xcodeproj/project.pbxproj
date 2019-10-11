@@ -1,0 +1,490 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DDB4C39122F032A900FC8C2A /* WeChatHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C37F22F032A900FC8C2A /* WeChatHeader.h */; };
+		DDB4C39222F032A900FC8C2A /* WBSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38122F032A900FC8C2A /* WBSettingViewController.m */; };
+		DDB4C39322F032A900FC8C2A /* WBRedEnvelopParamQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38222F032A900FC8C2A /* WBRedEnvelopParamQueue.m */; };
+		DDB4C39422F032A900FC8C2A /* WBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38322F032A900FC8C2A /* WBBaseViewController.m */; };
+		DDB4C39522F032A900FC8C2A /* WeChatRedEnvelopParam.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38422F032A900FC8C2A /* WeChatRedEnvelopParam.h */; };
+		DDB4C39622F032A900FC8C2A /* WBRedEnvelopTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38522F032A900FC8C2A /* WBRedEnvelopTaskManager.m */; };
+		DDB4C39722F032A900FC8C2A /* WBReceiveRedEnvelopOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38622F032A900FC8C2A /* WBReceiveRedEnvelopOperation.h */; };
+		DDB4C39822F032A900FC8C2A /* WBRedEnvelopConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38722F032A900FC8C2A /* WBRedEnvelopConfig.h */; };
+		DDB4C39922F032A900FC8C2A /* WBBaseViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38822F032A900FC8C2A /* WBBaseViewController.h */; };
+		DDB4C39A22F032A900FC8C2A /* WBRedEnvelopParamQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38922F032A900FC8C2A /* WBRedEnvelopParamQueue.h */; };
+		DDB4C39B22F032A900FC8C2A /* WBSettingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38A22F032A900FC8C2A /* WBSettingViewController.h */; };
+		DDB4C39C22F032A900FC8C2A /* WBRedEnvelopTaskManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C38B22F032A900FC8C2A /* WBRedEnvelopTaskManager.h */; };
+		DDB4C39E22F032A900FC8C2A /* WeChatRedEnvelopParam.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38D22F032A900FC8C2A /* WeChatRedEnvelopParam.m */; };
+		DDB4C39F22F032A900FC8C2A /* WBRedEnvelopConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38E22F032A900FC8C2A /* WBRedEnvelopConfig.m */; };
+		DDB4C3A022F032A900FC8C2A /* WBReceiveRedEnvelopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C38F22F032A900FC8C2A /* WBReceiveRedEnvelopOperation.m */; };
+		DDB4C3A522F0345800FC8C2A /* XXXAllButtonsView.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C3A122F0345800FC8C2A /* XXXAllButtonsView.h */; };
+		DDB4C3A622F0345800FC8C2A /* XXXSendButton.h in Headers */ = {isa = PBXBuildFile; fileRef = DDB4C3A222F0345800FC8C2A /* XXXSendButton.h */; };
+		DDB4C3A722F0345800FC8C2A /* XXXAllButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C3A322F0345800FC8C2A /* XXXAllButtonsView.m */; };
+		DDB4C3A822F0345800FC8C2A /* XXXSendButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DDB4C3A422F0345800FC8C2A /* XXXSendButton.m */; };
+		DDB4C3AA22F0350B00FC8C2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB4C3A922F0350B00FC8C2A /* CoreGraphics.framework */; };
+		DDF9FD7A22EFD05600A30B21 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF9FD7922EFD05600A30B21 /* UIKit.framework */; };
+		DDF9FD7C22EFD05600A30B21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF9FD7B22EFD05600A30B21 /* Foundation.framework */; };
+		DDF9FD7E22EFD05600A30B21 /* CydiaSubstrate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF9FD7D22EFD05600A30B21 /* CydiaSubstrate.framework */; };
+		DDF9FD8722EFD05600A30B21 /* WeChatHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = DDF9FD8622EFD05600A30B21 /* WeChatHelper.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DDB4C37F22F032A900FC8C2A /* WeChatHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatHeader.h; sourceTree = "<group>"; };
+		DDB4C38122F032A900FC8C2A /* WBSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBSettingViewController.m; sourceTree = "<group>"; };
+		DDB4C38222F032A900FC8C2A /* WBRedEnvelopParamQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBRedEnvelopParamQueue.m; sourceTree = "<group>"; };
+		DDB4C38322F032A900FC8C2A /* WBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBBaseViewController.m; sourceTree = "<group>"; };
+		DDB4C38422F032A900FC8C2A /* WeChatRedEnvelopParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatRedEnvelopParam.h; sourceTree = "<group>"; };
+		DDB4C38522F032A900FC8C2A /* WBRedEnvelopTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBRedEnvelopTaskManager.m; sourceTree = "<group>"; };
+		DDB4C38622F032A900FC8C2A /* WBReceiveRedEnvelopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBReceiveRedEnvelopOperation.h; sourceTree = "<group>"; };
+		DDB4C38722F032A900FC8C2A /* WBRedEnvelopConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBRedEnvelopConfig.h; sourceTree = "<group>"; };
+		DDB4C38822F032A900FC8C2A /* WBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBBaseViewController.h; sourceTree = "<group>"; };
+		DDB4C38922F032A900FC8C2A /* WBRedEnvelopParamQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBRedEnvelopParamQueue.h; sourceTree = "<group>"; };
+		DDB4C38A22F032A900FC8C2A /* WBSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSettingViewController.h; sourceTree = "<group>"; };
+		DDB4C38B22F032A900FC8C2A /* WBRedEnvelopTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBRedEnvelopTaskManager.h; sourceTree = "<group>"; };
+		DDB4C38D22F032A900FC8C2A /* WeChatRedEnvelopParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeChatRedEnvelopParam.m; sourceTree = "<group>"; };
+		DDB4C38E22F032A900FC8C2A /* WBRedEnvelopConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBRedEnvelopConfig.m; sourceTree = "<group>"; };
+		DDB4C38F22F032A900FC8C2A /* WBReceiveRedEnvelopOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBReceiveRedEnvelopOperation.m; sourceTree = "<group>"; };
+		DDB4C3A122F0345800FC8C2A /* XXXAllButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXAllButtonsView.h; sourceTree = "<group>"; };
+		DDB4C3A222F0345800FC8C2A /* XXXSendButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXXSendButton.h; sourceTree = "<group>"; };
+		DDB4C3A322F0345800FC8C2A /* XXXAllButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXAllButtonsView.m; sourceTree = "<group>"; };
+		DDB4C3A422F0345800FC8C2A /* XXXSendButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXXSendButton.m; sourceTree = "<group>"; };
+		DDB4C3A922F0350B00FC8C2A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DDF9FD7622EFD05600A30B21 /* WeChatHelper.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = WeChatHelper.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDF9FD7922EFD05600A30B21 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DDF9FD7B22EFD05600A30B21 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DDF9FD7D22EFD05600A30B21 /* CydiaSubstrate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CydiaSubstrate.framework; path = Library/Frameworks/CydiaSubstrate.framework; sourceTree = DEVELOPER_DIR; };
+		DDF9FD8222EFD05600A30B21 /* control */ = {isa = PBXFileReference; lastKnownFileType = text; name = control; path = Package/DEBIAN/control; sourceTree = "<group>"; };
+		DDF9FD8422EFD05600A30B21 /* WeChatHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeChatHelper-Prefix.pch"; sourceTree = "<group>"; };
+		DDF9FD8522EFD05600A30B21 /* WeChatHelper.xm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = WeChatHelper.xm; sourceTree = "<group>"; };
+		DDF9FD8622EFD05600A30B21 /* WeChatHelper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = WeChatHelper.mm; sourceTree = "<group>"; };
+		DDF9FD8B22EFD05600A30B21 /* WeChatHelper.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = WeChatHelper.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/WeChatHelper.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DDF9FD7222EFD05600A30B21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDB4C3AA22F0350B00FC8C2A /* CoreGraphics.framework in Frameworks */,
+				DDF9FD7A22EFD05600A30B21 /* UIKit.framework in Frameworks */,
+				DDF9FD7C22EFD05600A30B21 /* Foundation.framework in Frameworks */,
+				DDF9FD7E22EFD05600A30B21 /* CydiaSubstrate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DDB4C37D22F032A900FC8C2A /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				DDB4C3A122F0345800FC8C2A /* XXXAllButtonsView.h */,
+				DDB4C3A322F0345800FC8C2A /* XXXAllButtonsView.m */,
+				DDB4C3A222F0345800FC8C2A /* XXXSendButton.h */,
+				DDB4C3A422F0345800FC8C2A /* XXXSendButton.m */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		DDB4C37E22F032A900FC8C2A /* Stars */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stars;
+			sourceTree = "<group>";
+		};
+		DDB4C38022F032A900FC8C2A /* RedEnvelop */ = {
+			isa = PBXGroup;
+			children = (
+				DDB4C38B22F032A900FC8C2A /* WBRedEnvelopTaskManager.h */,
+				DDB4C38522F032A900FC8C2A /* WBRedEnvelopTaskManager.m */,
+				DDB4C38422F032A900FC8C2A /* WeChatRedEnvelopParam.h */,
+				DDB4C38D22F032A900FC8C2A /* WeChatRedEnvelopParam.m */,
+				DDB4C38922F032A900FC8C2A /* WBRedEnvelopParamQueue.h */,
+				DDB4C38222F032A900FC8C2A /* WBRedEnvelopParamQueue.m */,
+				DDB4C38622F032A900FC8C2A /* WBReceiveRedEnvelopOperation.h */,
+				DDB4C38F22F032A900FC8C2A /* WBReceiveRedEnvelopOperation.m */,
+			);
+			path = RedEnvelop;
+			sourceTree = "<group>";
+		};
+		DDB4C39022F032A900FC8C2A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				DDB4C38722F032A900FC8C2A /* WBRedEnvelopConfig.h */,
+				DDB4C38E22F032A900FC8C2A /* WBRedEnvelopConfig.m */,
+				DDB4C38822F032A900FC8C2A /* WBBaseViewController.h */,
+				DDB4C38322F032A900FC8C2A /* WBBaseViewController.m */,
+				DDB4C38A22F032A900FC8C2A /* WBSettingViewController.h */,
+				DDB4C38122F032A900FC8C2A /* WBSettingViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		DDF9FD6B22EFD05600A30B21 = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD7F22EFD05600A30B21 /* WeChatHelper */,
+				DDF9FD7822EFD05600A30B21 /* Frameworks */,
+				DDF9FD7722EFD05600A30B21 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DDF9FD7722EFD05600A30B21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD7622EFD05600A30B21 /* WeChatHelper.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DDF9FD7822EFD05600A30B21 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDB4C3A922F0350B00FC8C2A /* CoreGraphics.framework */,
+				DDF9FD7922EFD05600A30B21 /* UIKit.framework */,
+				DDF9FD7B22EFD05600A30B21 /* Foundation.framework */,
+				DDF9FD7D22EFD05600A30B21 /* CydiaSubstrate.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DDF9FD7F22EFD05600A30B21 /* WeChatHelper */ = {
+			isa = PBXGroup;
+			children = (
+				DDB4C37F22F032A900FC8C2A /* WeChatHeader.h */,
+				DDB4C37D22F032A900FC8C2A /* Game */,
+				DDB4C38022F032A900FC8C2A /* RedEnvelop */,
+				DDB4C39022F032A900FC8C2A /* Setting */,
+				DDB4C37E22F032A900FC8C2A /* Stars */,
+				DDF9FD8522EFD05600A30B21 /* WeChatHelper.xm */,
+				DDF9FD8622EFD05600A30B21 /* WeChatHelper.mm */,
+				DDF9FD8022EFD05600A30B21 /* Package */,
+				DDF9FD8322EFD05600A30B21 /* Supporting Files */,
+			);
+			path = WeChatHelper;
+			sourceTree = "<group>";
+		};
+		DDF9FD8022EFD05600A30B21 /* Package */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD8122EFD05600A30B21 /* DEBIAN */,
+				DDF9FD8822EFD05600A30B21 /* Library */,
+			);
+			name = Package;
+			sourceTree = "<group>";
+		};
+		DDF9FD8122EFD05600A30B21 /* DEBIAN */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD8222EFD05600A30B21 /* control */,
+			);
+			name = DEBIAN;
+			sourceTree = "<group>";
+		};
+		DDF9FD8322EFD05600A30B21 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD8422EFD05600A30B21 /* WeChatHelper-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DDF9FD8822EFD05600A30B21 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD8922EFD05600A30B21 /* MobileSubstrate */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		DDF9FD8922EFD05600A30B21 /* MobileSubstrate */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD8A22EFD05600A30B21 /* DynamicLibraries */,
+			);
+			name = MobileSubstrate;
+			sourceTree = "<group>";
+		};
+		DDF9FD8A22EFD05600A30B21 /* DynamicLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				DDF9FD8B22EFD05600A30B21 /* WeChatHelper.plist */,
+			);
+			name = DynamicLibraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DDF9FD7322EFD05600A30B21 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDB4C39722F032A900FC8C2A /* WBReceiveRedEnvelopOperation.h in Headers */,
+				DDB4C39822F032A900FC8C2A /* WBRedEnvelopConfig.h in Headers */,
+				DDB4C39C22F032A900FC8C2A /* WBRedEnvelopTaskManager.h in Headers */,
+				DDB4C39522F032A900FC8C2A /* WeChatRedEnvelopParam.h in Headers */,
+				DDB4C3A622F0345800FC8C2A /* XXXSendButton.h in Headers */,
+				DDB4C39B22F032A900FC8C2A /* WBSettingViewController.h in Headers */,
+				DDB4C39A22F032A900FC8C2A /* WBRedEnvelopParamQueue.h in Headers */,
+				DDB4C39122F032A900FC8C2A /* WeChatHeader.h in Headers */,
+				DDB4C39922F032A900FC8C2A /* WBBaseViewController.h in Headers */,
+				DDB4C3A522F0345800FC8C2A /* XXXAllButtonsView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		DDF9FD7522EFD05600A30B21 /* WeChatHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DDF9FD8E22EFD05600A30B21 /* Build configuration list for PBXNativeTarget "WeChatHelper" */;
+			buildPhases = (
+				DDF9FD7022EFD05600A30B21 /* ShellScript */,
+				DDF9FD7122EFD05600A30B21 /* Sources */,
+				DDF9FD7222EFD05600A30B21 /* Frameworks */,
+				DDF9FD7322EFD05600A30B21 /* Headers */,
+				DDF9FD7422EFD05600A30B21 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeChatHelper;
+			productName = WeChatHelper;
+			productReference = DDF9FD7622EFD05600A30B21 /* WeChatHelper.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DDF9FD6C22EFD05600A30B21 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				TargetAttributes = {
+					DDF9FD7522EFD05600A30B21 = {
+						CreatedOnToolsVersion = 10.2;
+					};
+				};
+			};
+			buildConfigurationList = DDF9FD6F22EFD05600A30B21 /* Build configuration list for PBXProject "WeChatHelper" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DDF9FD6B22EFD05600A30B21;
+			productRefGroup = DDF9FD7722EFD05600A30B21 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DDF9FD7522EFD05600A30B21 /* WeChatHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DDF9FD7022EFD05600A30B21 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp-logos";
+		};
+		DDF9FD7422EFD05600A30B21 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDF9FD7122EFD05600A30B21 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DDB4C39622F032A900FC8C2A /* WBRedEnvelopTaskManager.m in Sources */,
+				DDB4C39E22F032A900FC8C2A /* WeChatRedEnvelopParam.m in Sources */,
+				DDB4C3A022F032A900FC8C2A /* WBReceiveRedEnvelopOperation.m in Sources */,
+				DDB4C3A722F0345800FC8C2A /* XXXAllButtonsView.m in Sources */,
+				DDB4C39F22F032A900FC8C2A /* WBRedEnvelopConfig.m in Sources */,
+				DDB4C39422F032A900FC8C2A /* WBBaseViewController.m in Sources */,
+				DDB4C39222F032A900FC8C2A /* WBSettingViewController.m in Sources */,
+				DDB4C39322F032A900FC8C2A /* WBRedEnvelopParamQueue.m in Sources */,
+				DDF9FD8722EFD05600A30B21 /* WeChatHelper.mm in Sources */,
+				DDB4C3A822F0345800FC8C2A /* XXXSendButton.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DDF9FD8C22EFD05600A30B21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/frameworks/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/lib/**";
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				OTHER_CFLAGS = "-DTHEOS_INSTANCE_NAME=\"\\\"WeChatHelper\\\"\"";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DDF9FD8D22EFD05600A30B21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(MonkeyDevPath)/frameworks/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(MonkeyDevTheosPath)/vendor/lib/**";
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DTHEOS_INSTANCE_NAME=\"\\\"WeChatHelper\\\"\"";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		DDF9FD8F22EFD05600A30B21 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = LL8WB84C9S;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WeChatHelper/WeChatHelper-Prefix.pch";
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				MonkeyDevBuildPackageOnAnyBuild = NO;
+				MonkeyDevClearUiCacheOnInstall = NO;
+				MonkeyDevCopyOnBuild = NO;
+				MonkeyDevDeviceIP = 192.168.34.89;
+				MonkeyDevDevicePassword = "";
+				MonkeyDevDevicePort = 22;
+				MonkeyDevInstallOnAnyBuild = NO;
+				MonkeyDevInstallOnProfiling = YES;
+				MonkeyDevkillProcessOnInstall = SpringBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DDF9FD9022EFD05600A30B21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = LL8WB84C9S;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WeChatHelper/WeChatHelper-Prefix.pch";
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				MonkeyDevBuildPackageOnAnyBuild = NO;
+				MonkeyDevClearUiCacheOnInstall = NO;
+				MonkeyDevCopyOnBuild = NO;
+				MonkeyDevDeviceIP = 192.168.34.89;
+				MonkeyDevDevicePassword = "";
+				MonkeyDevDevicePort = 22;
+				MonkeyDevInstallOnAnyBuild = NO;
+				MonkeyDevInstallOnProfiling = YES;
+				MonkeyDevkillProcessOnInstall = SpringBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DDF9FD6F22EFD05600A30B21 /* Build configuration list for PBXProject "WeChatHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDF9FD8C22EFD05600A30B21 /* Release */,
+				DDF9FD8D22EFD05600A30B21 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDF9FD8E22EFD05600A30B21 /* Build configuration list for PBXNativeTarget "WeChatHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDF9FD8F22EFD05600A30B21 /* Release */,
+				DDF9FD9022EFD05600A30B21 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DDF9FD6C22EFD05600A30B21 /* Project object */;
+}
