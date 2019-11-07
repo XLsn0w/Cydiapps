@@ -1,0 +1,10 @@
+Package: com.yourcompany.alipaylog
+Name: alipaylog
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: cardlan_yuhuajun
+Author: cardlan_yuhuajun
+Section: Tweaks
+Version: 0.0.1-119+debug
+Installed-Size: 264
