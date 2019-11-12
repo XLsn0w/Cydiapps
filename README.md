@@ -19,6 +19,20 @@ https://xlsn0w.github.io/ipas
 
 
 # deb包的解压,修改,重新打包方法
+
+## mac上 使用dpkg命令
+
+## 1: 先 安装 Macports
+```
+https://www.macports.org/install.php
+```
+
+## 2: 安装 dpkg
+
+```
+sudo port -f install dpkg
+```
+
 ```
 1、准备工作：
     mkdir -p extract/DEBIAN
