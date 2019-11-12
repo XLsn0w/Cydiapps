@@ -17,6 +17,24 @@ https://xlsn0w.github.io/ipas
 
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
+
+# deb包的解压,修改,重新打包方法
+```
+1、准备工作：
+    mkdir -p extract/DEBIAN
+    mkdir build
+
+2、解包命令为：
+    #解压出包中的文件到extract目录下
+    dpkg -X ../openssh-xxx.deb extract/
+    #解压出包的控制信息extract/DEBIAN/下：
+    dpkg -e ../openssh-xxx.deb extract/DEBIAN/
+3、修改文件:
+    sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' extract/etc/ssh/sshd_config
+4、对修改后的内容重新进行打包生成deb包
+    dpkg-deb -b extract/ build/
+```
+
 # fishhook
 
 ### 相关资料
