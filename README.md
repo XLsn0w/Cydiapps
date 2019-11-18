@@ -17,7 +17,81 @@ https://xlsn0w.github.io/ipas
 
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
+# 搭建个人博客
+## 什么是Hexo？
+Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
 
+官方文档：https://hexo.io/zh-cn/docs/
+1.安装Hexo
+安装 Hexo 相当简单。然而在安装前，您必须检查电脑中是否已安装下列应用程序：
+
+Node.js
+Git
+如果您的电脑中已经安装上述必备程序，那么恭喜您！接下来只需要使用 npm 即可完成 Hexo 的安装。
+终端输入：(一定要加上sudo，否则会因为权限问题报错)
+```
+$ sudo npm install -g hexo-cli
+```
+终端输入：查看安装的版本，检查是否已安装成功！
+```
+$ hexo -v  // 显示 Hexo 版本
+```
+2.建站
+安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。
+```
+// 新建空文件夹
+$ cd /Users/renbo/Workspaces/BlogProject
+// 初始化
+$ hexo init 
+$ npm install
+```
+新建完成后，指定文件夹的目录如下：
+
+目录结构图
+
+_config.yml：网站的 配置 信息，您可以在此配置大部分的参数。
+scaffolds：模版 文件夹。当您新建文章（即新建markdown文件）时，Hexo 会根据 scaffold 来建立文件。
+source：资源文件夹是存放用户资源（即markdown文件）的地方。
+themes：主题 文件夹。Hexo 会根据主题来生成静态页面。
+
+3.新建博客文章
+新建一篇文章（即新建markdown文件）指令：
+```
+$ hexo new "文章标题"
+```
+4.生成静态文件
+将文章markdown文件按指定格式生成静态网页文件
+```
+$ hexo g  // g 表示 generate ，是简写
+```
+5.部署网站
+即将生成的网页文件上传到网站服务器（这里是上传到Github）。
+
+上传之前可以先启动本地服务器（指令：hexo s ），在本地预览生成的网站。
+
+默认本地预览网址：http://localhost:4000/
+```
+$ hexo s  // s 表示 server，是简写
+```
+部署网站指令：
+```
+$ hexo d  // d 表示 deploy，是简写
+```
+注意，如果报错： ERROR Deployer not found: git
+
+需要我们再安装一个插件：
+```
+$ sudo npm install hexo-deployer-git --save
+```
+安装完插件之后再执行一下【hexo d】,它就会开始将public文件夹下的文件全部上传到你的gitHub仓库中。
+
+6.清除文件
+清除缓存文件 (db.json) 和已生成的静态文件 (public目录下的所有文件)。
+
+清除指令：（一般是更改不生效时使用）
+```
+$ hexo clean
+```
 # deb包的解压,修改,重新打包方法
 
 ```
