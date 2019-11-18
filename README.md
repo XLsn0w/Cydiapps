@@ -18,6 +18,61 @@ https://xlsn0w.github.io/ipas
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
 # 插件开发(.xm)
+
+
+## deb 大概结构
+其中包括：DEBIAN目录 和 软件具体安装目录（模拟安装目录）（如etc, usr, opt, tmp等）。
+在DEBIAN目录中至少有control文件，还可能有postinst(postinstallation)、postrm(postremove)、preinst(preinstallation)、prerm(preremove)、copyright (版权）、changlog （修订记录）和conffiles等。
+
+postinst文件：包含了软件在进行正常目录文件拷贝到系统后，所需要执行的配置工作。
+prerm文件：软件卸载前需要执行的脚本。
+postrm文件：软件卸载后需要执行的脚本。
+control文件：这个文件比较重要，它是描述软件包的名称（Package），版本（Version），描述（Description）等，是deb包必须剧本的描述性文件，以便于软件的安装管理和索引。
+其中可能会有下面的字段：
+-- Package 包名
+-- Version 版本
+-- Architecture：软件包结构，如基于i386, amd64,m68k, sparc, alpha, powerpc等
+-- Priority：申明软件对于系统的重要程度，如required, standard, optional, extra等
+-- Essential：申明是否是系统最基本的软件包（选项为yes/no），如果是的话，这就表明该软件是维持系统稳定和正常运行的软件包，不允许任何形式的卸载（除非进行强制性的卸载）
+-- Section：申明软件的类别，常见的有utils, net, mail, text, devel 等
+-- Depends：软件所依赖的其他软件包和库文件。如果是依赖多个软件包和库文件，彼此之间采用逗号隔开
+-- Pre-Depends：软件安装前必须安装、配置依赖性的软件包和库文件，它常常用于必须的预运行脚本需求
+-- Recommends：这个字段表明推荐的安装的其他软件包和库文件
+-- Suggests：建议安装的其他软件包和库文件
+-- Description：对包的描述
+-- Installed-Size：安装的包大小
+-- Maintainer：包的制作者，联系方式等
+我的测试包的control：
+
+Package: kellan-test
+Version: 1.0
+Architecture: all
+Maintainer: Kellan Fan
+Installed-Size: 128
+Recommends:
+Suggests:
+Section: devel
+Priority: optional
+Multi-Arch: foreign
+Description: just for test
+三 制作包
+制作包其实很简单，就一条命令
+dpkg -b <包目录> <包名称>.deb
+
+四 其他命令
+安装
+dpkg -i xxx.deb
+卸载
+dpkg -r xxx.deb
+解压缩包
+dpkg -X xxx.deb [dirname]
+
+作者：FilesFan
+链接：https://www.jianshu.com/p/6b89c9a4c002
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+$ dpkg -b /Users/mac/Desktop/debtest x.deb
+dpkg-deb: 正在 'x.deb' 中构建软件包 'com.gtx.gtx'。
 ```
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
