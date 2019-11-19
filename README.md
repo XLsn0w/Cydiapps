@@ -67,12 +67,10 @@ dpkg -r xxx.deb
 解压缩包
 dpkg -X xxx.deb [dirname]
 
-作者：FilesFan
-链接：https://www.jianshu.com/p/6b89c9a4c002
-来源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-$ dpkg -b /Users/mac/Desktop/debtest x.deb
+```
+$ dpkg -b /Users/mac/Desktop/debPath debName.deb
 dpkg-deb: 正在 'x.deb' 中构建软件包 'com.gtx.gtx'。
+```
 ```
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
