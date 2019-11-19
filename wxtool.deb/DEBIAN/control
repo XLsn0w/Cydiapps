@@ -1,0 +1,9 @@
+Package: com.gtx.gtx
+Name: 钢铁侠
+Depends: mobilesubstrate
+Version: 2.2
+Architecture: iphoneos-arm
+Description: 钢铁侠插件
+Maintainer: 钢铁侠
+Author: 钢铁侠
+Section: Tweaks
