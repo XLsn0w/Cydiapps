@@ -1,0 +1,39 @@
+
+将 netconsole 解压到firstbox任意目录
+然后选择其中一个管理节点作为netconsole服务节点
+登录该节点，获取ip地址和对应ip地址接口的mac地址 
+./install.sh <ip> <mac>
+
+执行完成后，检查是否收到日志
+ssh <ip>  ls /var/log/netconsole/
+
+执行过程中 server节点会报错，直接忽略，因为server 收不到自己的日志
+
+
+例如：test2 是管理节点，用来做netconsole server 
+root@test2:~# ifconfig  br0 
+br0       Link encap:Ethernet  HWaddr 7c:fe:90:be:84:d0  
+          inet addr:200.1.1.11  Bcast:200.1.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::7efe:90ff:febe:84d0/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:1382494302 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1120513244 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:361448876048 (361.4 GB)  TX bytes:184670310056 (184.6 GB)
+
+./install.sh  200.1.1.11 7c:fe:90:be:84:d0
+
+netconsole server ip is 200.1.1.11 , mac is 7c:fe:90:be:84:d0 [y/n]: y
+
+server_ip=200.1.1.11
+server_mac=7c:fe:90:be:84:d0
+ins_server.sh                                                              100%  529     0.5KB/s   00:00    
+ * Stopping system logging syslog-ng
+   ...done.
+ * Starting system logging syslog-ng
+   ...done.
+test1 netconsole fix done...
+test2 netconsole fix failed... ( 忽略)
+test3 netconsole fix done...
+test4 netconsole fix done...
+test5 netconsole fix done...

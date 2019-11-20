@@ -1,0 +1,37 @@
+if &compatible
+  set nocompatible
+end
+ 
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+ 
+" Let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+ 
+" Define bundles via Github repos
+" 标签导航
+Bundle 'majutsushi/tagbar'
+Bundle 'vim-scripts/ctags.vim'
+" 静态代码分析
+Bundle 'scrooloose/syntastic'
+" 文件搜索
+Bundle 'kien/ctrlp.vim'
+" 目录树导航
+Bundle "scrooloose/nerdtree"
+" 美化状态栏
+Bundle "Lokaltog/vim-powerline"
+" 主题风格
+Bundle "altercation/vim-colors-solarized"
+" python自动补全
+Bundle 'davidhalter/jedi-vim'
+Bundle "klen/python-mode"
+" 括号匹配高亮
+Bundle 'kien/rainbow_parentheses.vim'
+" 可视化缩进
+Bundle 'nathanaelkane/vim-indent-guides'
+if filereadable(expand("~/.vimrc.bundles.local"))
+  source ~/.vimrc.bundles.local
+endif
+ 
+filetype on

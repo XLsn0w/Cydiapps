@@ -1,0 +1,15 @@
+#!/usr/bin/expect
+# exp_internal 1
+
+set timeout 2
+set user [lindex $argv 0]
+set host [lindex $argv 1]
+set pass [lindex $argv 2]
+set src [lindex $argv 3]
+set dst [lindex $argv 4]
+set port [lindex $argv 5]
+spawn scp -P ${port} -q -r ${src} ${user}@${host}:${dst}
+expect {
+    "*yes/no" { send "yes\r"; exp_continue }
+    "*password:" { send "$pass\r"; send "exit\r"; interact }
+}

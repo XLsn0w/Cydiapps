@@ -1,0 +1,8 @@
+#!/usr/bin/expect
+set user [lindex $argv 0]
+set pass [lindex $argv 1]
+spawn su - $user
+expect { 
+    "*Password" {send "$pass\n"; interact}
+}
+

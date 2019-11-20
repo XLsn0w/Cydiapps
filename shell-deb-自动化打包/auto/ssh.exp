@@ -1,0 +1,22 @@
+#!/usr/bin/expect
+# exp_internal 1
+
+set timeout 2
+set user [lindex $argv 0]
+set host [lindex $argv 1]
+set pass [lindex $argv 2]
+set pass1 [lindex $argv 3]
+set pass2 [lindex $argv 4]
+set port [lindex $argv 5]
+if {$argc != 6} {
+    send "usage: ./ssh.exp user host pass pass1 pass2 port"
+    exit
+}
+spawn ssh -p ${port} -q ${user}@${host}
+expect {
+    "*yes/no" { send "yes\r"; exp_continue }
+    "*password:" { send "$pass\r"; send "exit\r";exp_continue}
+    "*password:" { send "$pass1\r"; send "exit\r";interact} 
+    "*password:" { send "$pass2\r"; send "exit\r";interact}
+    "elcome"   {  interact }
+}
