@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<html><head>
+    <title localize="NETWORK_ERROR"></title>
+    <meta name="viewport" content="width=320px, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" src="menes/menes.js"></script>
+    <script type="text/javascript" src="localize.js"></script>
+    <base target="_blank"/>
+
+    <style>
+        body {
+            background: #c7ced5 url(cydia://uikit-image/UIPinstripe.png);
+            background-size: 7px 1px;
+            display: table;
+            font-family: Helvetica;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            text-shadow: rgba(255, 255, 255, 0.75) 1px 1px 0
+        }
+
+        div.page {
+            display: table-cell;
+            text-align: center;
+            width: 320px;
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+
+        div.title {
+            font-size: 32px;
+        }
+
+        div.error {
+            font-size: 24px;
+        }
+    </style>
+</head><body><div class="page">
+
+<div class="title" localize="UNABLE_TO_LOAD"></div>
+
+<div class="error">(<script>
+    document.write(decodeURI(location.search.substring(1)));
+</script>)</div>
+
+</div></body></html>

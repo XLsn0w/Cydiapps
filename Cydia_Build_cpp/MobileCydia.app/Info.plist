@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+
+    <key>CFBundleExecutable</key>
+    <string>Cydia</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>com.saurik.Cydia</string>
+
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+
+    <key>CFBundleName</key>
+    <string>Cydia</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>0.9</string>
+
+    <key>CFBundleSignature</key>
+    <string>????</string>
+
+    <key>CFBundleVersion</key>
+    <string>0.9</string>
+
+    <key>SBUsesNetwork</key>
+    <integer>11</integer>
+
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>Cydia Internal URL</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>cydia</string>
+            </array>
+        </dict>
+    </array>
+
+    <key>DTSDKName</key>
+    <string>iphoneos2.0.saurik</string>
+
+    <key>DTPlatformVersion</key>
+    <string>8.0</string>
+
+    <key>MinimumOSVersion</key>
+    <string>2.0</string>
+
+    <key>UIDeviceFamily</key>
+    <array>
+        <integer>1</integer>
+        <integer>2</integer>
+    </array>
+
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <true/>
+
+    <key>CFBundleIconFile</key>
+    <string>iconClassic.png</string>
+
+    <key>CFBundleIconFiles</key>
+    <array>
+        <!-- iOS 6 iPhone (home) [59x60] -->
+        <string>icon.png</string>
+        <string>icon@2x.png</string>
+
+        <!-- iOS 6 iPad (home) [74x76] -->
+        <string>icon-72.png</string>
+        <string>icon-72@2x.png</string>
+
+        <!-- iOS 7 iPhone (home) [60x60] -->
+        <string>Icon-60</string>
+
+        <!-- iOS 7 iPad (home) [76x76] -->
+        <string>Icon-76</string>
+
+        <!-- iOS 7 (spotlight) [40x40] -->
+        <string>Icon-Small-40</string>
+
+        <!-- iOS 6 iPhone (spotlight) [29x29] -->
+        <string>Icon-Small.png</string>
+        <string>Icon-Small@2x.png</string>
+
+        <!-- iOS 6 iPad (spotlight) [50x50] -->
+        <string>Icon-Small-50.png</string>
+        <string>Icon-Small-50@2x.png</string>
+    </array>
+
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>audio</string>
+    </array>
+
+    <key>UIApplicationExitsOnSuspend</key>
+    <false/>
+
+    <key>UILaunchImages</key>
+    <array>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>7.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Portrait</string>
+            <key>UILaunchImageSize</key>
+            <string>{320, 480}</string>
+        </dict>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>7.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Portrait</string>
+            <key>UILaunchImageSize</key>
+            <string>{320, 568}</string>
+        </dict>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default-667h</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>8.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Portrait</string>
+            <key>UILaunchImageSize</key>
+            <string>{375, 667}</string>
+        </dict>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default-736h-Portrait</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>8.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Portrait</string>
+            <key>UILaunchImageSize</key>
+            <string>{414, 736}</string>
+        </dict>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default-736h-Landscape</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>8.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Landscape</string>
+            <key>UILaunchImageSize</key>
+            <string>{414, 736}</string>
+        </dict>
+    </array>
+
+    <key>UILaunchImages~ipad</key>
+    <array>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default-Portrait</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>7.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Portrait</string>
+            <key>UILaunchImageSize</key>
+            <string>{768, 1024}</string>
+        </dict>
+        <dict>
+            <key>UILaunchImageName</key>
+            <string>iOS7-Default-Landscape</string>
+            <key>UILaunchImageMinimumOSVersion</key>
+            <string>7.0</string>
+            <key>UILaunchImageOrientation</key>
+            <string>Landscape</string>
+            <key>UILaunchImageSize</key>
+            <string>{768, 1024}</string>
+        </dict>
+    </array>
+</dict>
+
+</plist>

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+declare -a cydia
+cydia=($CYDIA)
+
+if [[ $1 == upgrade ]]; then
+    if [[ ${CYDIA+@} ]]; then
+        if [[ ${cydia[1]} -lt 1 ]]; then
+            echo 'PLEASE RESTART CYDIA!'
+            echo 'PLEASE RESTART CYDIA!'
+            echo 'PLEASE RESTART CYDIA!'
+        else
+            eval "echo 'finish:reopen' >&${cydia[0]}"
+        fi
+    fi
+fi
+
+exit 0

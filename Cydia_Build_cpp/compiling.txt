@@ -1,0 +1,7 @@
+0) use a Mac (I'm sorry, I really am)
+1) install the official Apple iOS SDK
+2) install Fink (the only sane choice)
+3) activate Fink (. /sw/bin/init.sh)
+4) sudo fink install bash ldid sed tar wget xz
+5) run ./sysroot.sh and wait a bit
+6) type "make" to compile the executable

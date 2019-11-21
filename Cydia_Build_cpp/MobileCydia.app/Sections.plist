@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+
+<dict>
+    <key>Hunspell Dictionaries</key>
+    <string>Dictionaries</string>
+
+    <key>Utility</key>
+    <string>Utilities</string>
+
+    <key>Utilites</key>
+    <string>Utilities</string>
+
+    <key>Developer</key>
+    <string>Development</string>
+
+    <key>Site-Specific</key>
+    <string>Site-Specific Apps</string>
+
+    <key>Themes (Springboard)</key>
+    <string>Themes (SpringBoard)</string>
+
+    <key>Themes (SummerBoard)</key>
+    <string>Themes (SpringBoard)</string>
+    
+    <key>Themes (Systen)</key>
+    <string>Themes (System)</string>
+
+    <key>Themes (Lockcreen)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>Themes (Lockscreens)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>Themes (Locksceen)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>Themes (Lockscree)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>Themes (Losckscreen)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>Themes (Video)</key>
+    <string>Themes (Apps)</string>
+
+    <key>Themes (Lockscreen)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>Themes (Widgets)</key>
+    <string>Themes (Addons)</string>
+
+    <key>Wallpapers</key>
+    <string>Wallpaper</string>
+
+    <key>Ringtone</key>
+    <string>Ringtones</string>
+
+    <key>Tweak</key>
+    <string>Tweaks</string>
+
+    <key>SBSettings Addons</key>
+    <string>Addons (SBSettings)</string>
+    
+    <key>LockInfo Addons</key>
+    <string>Addons (LockInfo)</string>
+    
+    <key>App Addons</key>
+    <string>Addons</string>
+    
+    <key>App Addons (Iconoclasm)</key>
+    <string>Addons (Iconoclasm)</string>
+    
+    <key>App Addons (OpenNotifier)</key>
+    <string>Addons (OpenNotifier)</string>
+
+    <key>BossPaper Addons</key>
+    <string>Addons (BossPaper)</string>
+    
+    <key>Lockinfo Addons</key>
+    <string>Addons (LockInfo)</string>
+
+    <key>Dictionaries (Hunspell)</key>
+    <string>Dictionaries</string>
+
+    <key>Addons (Bootlogo)</key>
+    <string>Addons (BootLogo)</string>
+
+    <key>Addons (BootLogos)</key>
+    <string>Addons (BootLogo)</string>
+
+    <key>eBooks</key>
+    <string>Books</string>
+
+    <key>Themes (Localization)</key>
+    <string>Localization</string>
+
+    <key>Themes (APPS)</key>
+    <string>Themes (Apps)</string>
+
+    <key>Themes (Weather)</key>
+    <string>Themes (Apps)</string>
+
+    <key>Themes (Videos)</key>
+    <string>Themes (Apps)</string>
+
+    <key>Themes (SMS)</key>
+    <string>Themes (Apps)</string>
+
+    <key>Themes (iPad)</key>
+    <string>Themes</string>
+
+    <key>Themes (Dock)</key>
+    <string>Themes (SpringBoard)</string>
+
+    <key>Themes (Dialer)</key>
+    <string>Themes (Apps)</string>
+
+    <key>Themes (Battery)</key>
+    <string>Themes (LockScreen)</string>
+
+    <key>FontSwap</key>
+    <string>Addons (FontSwap)</string>
+
+    <key>Cydgets (Lock)</key>
+    <string>Addons (Cydget)</string>
+
+    <key>Themes (App Addons)</key>
+    <string>Themes (Addons)</string>
+</dict>
+
+</plist>
