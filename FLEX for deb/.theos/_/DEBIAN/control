@@ -1,0 +1,10 @@
+Package: com.xlsn0w.flex
+Name: FLEX
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: FLEX deb插件版
+Maintainer: XLsn0w
+Author: XLsn0w
+Section: XLsn0w
+Version: 1.0.1-1
+Installed-Size: 1784
