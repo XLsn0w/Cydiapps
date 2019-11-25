@@ -1,0 +1,308 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A29D798F1F2B6E8700595835 /* WBWifiListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A29D798E1F2B6E8700595835 /* WBWifiListViewController.m */; };
+		A29D79961F2B757000595835 /* WBGPSPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A29D79951F2B757000595835 /* WBGPSPickerViewController.m */; };
+		A29D79B11F2C5DBD00595835 /* WBWifiStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A29D79B01F2C5DBD00595835 /* WBWifiStore.m */; };
+		A29D79B41F2C5DCF00595835 /* WBWifiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A29D79B31F2C5DCF00595835 /* WBWifiModel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A21AED281F2A2AFD0004944A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A21AED2A1F2A2AFD0004944A /* libDingTalkAssistant.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDingTalkAssistant.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A29D798D1F2B6E8700595835 /* WBWifiListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBWifiListViewController.h; path = ../../WIFI/WBWifiListViewController.h; sourceTree = "<group>"; };
+		A29D798E1F2B6E8700595835 /* WBWifiListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBWifiListViewController.m; path = ../../WIFI/WBWifiListViewController.m; sourceTree = "<group>"; };
+		A29D79941F2B757000595835 /* WBGPSPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBGPSPickerViewController.h; path = ../../GPS/WBGPSPickerViewController.h; sourceTree = "<group>"; };
+		A29D79951F2B757000595835 /* WBGPSPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBGPSPickerViewController.m; path = ../../GPS/WBGPSPickerViewController.m; sourceTree = "<group>"; };
+		A29D79AF1F2C5DBD00595835 /* WBWifiStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBWifiStore.h; path = ../../WIFI/WBWifiStore.h; sourceTree = "<group>"; };
+		A29D79B01F2C5DBD00595835 /* WBWifiStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBWifiStore.m; path = ../../WIFI/WBWifiStore.m; sourceTree = "<group>"; };
+		A29D79B21F2C5DCF00595835 /* WBWifiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WBWifiModel.h; path = ../../WIFI/WBWifiModel.h; sourceTree = "<group>"; };
+		A29D79B31F2C5DCF00595835 /* WBWifiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WBWifiModel.m; path = ../../WIFI/WBWifiModel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A21AED271F2A2AFD0004944A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A21AED211F2A2AFD0004944A = {
+			isa = PBXGroup;
+			children = (
+				A21AED2C1F2A2AFD0004944A /* DingTalkAssistant */,
+				A21AED2B1F2A2AFD0004944A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A21AED2B1F2A2AFD0004944A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A21AED2A1F2A2AFD0004944A /* libDingTalkAssistant.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A21AED2C1F2A2AFD0004944A /* DingTalkAssistant */ = {
+			isa = PBXGroup;
+			children = (
+				A29D79901F2B750C00595835 /* GPS */,
+				A29D798C1F2B6E5A00595835 /* WIFI */,
+				A2753E1C1F2A33C800C2293B /* MenuWindow */,
+			);
+			path = DingTalkAssistant;
+			sourceTree = "<group>";
+		};
+		A2753E1C1F2A33C800C2293B /* MenuWindow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MenuWindow;
+			sourceTree = "<group>";
+		};
+		A29D798C1F2B6E5A00595835 /* WIFI */ = {
+			isa = PBXGroup;
+			children = (
+				A29D798D1F2B6E8700595835 /* WBWifiListViewController.h */,
+				A29D798E1F2B6E8700595835 /* WBWifiListViewController.m */,
+				A29D79AF1F2C5DBD00595835 /* WBWifiStore.h */,
+				A29D79B01F2C5DBD00595835 /* WBWifiStore.m */,
+				A29D79B21F2C5DCF00595835 /* WBWifiModel.h */,
+				A29D79B31F2C5DCF00595835 /* WBWifiModel.m */,
+			);
+			name = WIFI;
+			sourceTree = "<group>";
+		};
+		A29D79901F2B750C00595835 /* GPS */ = {
+			isa = PBXGroup;
+			children = (
+				A29D79941F2B757000595835 /* WBGPSPickerViewController.h */,
+				A29D79951F2B757000595835 /* WBGPSPickerViewController.m */,
+			);
+			name = GPS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A21AED291F2A2AFD0004944A /* DingTalkAssistant */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A21AED331F2A2AFD0004944A /* Build configuration list for PBXNativeTarget "DingTalkAssistant" */;
+			buildPhases = (
+				A21AED261F2A2AFD0004944A /* Sources */,
+				A21AED271F2A2AFD0004944A /* Frameworks */,
+				A21AED281F2A2AFD0004944A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DingTalkAssistant;
+			productName = DingTalkAssistant;
+			productReference = A21AED2A1F2A2AFD0004944A /* libDingTalkAssistant.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A21AED221F2A2AFD0004944A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = buginux;
+				TargetAttributes = {
+					A21AED291F2A2AFD0004944A = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = AMCXGTYG4X;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A21AED251F2A2AFD0004944A /* Build configuration list for PBXProject "DingTalkAssistant" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A21AED211F2A2AFD0004944A;
+			productRefGroup = A21AED2B1F2A2AFD0004944A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A21AED291F2A2AFD0004944A /* DingTalkAssistant */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A21AED261F2A2AFD0004944A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A29D79961F2B757000595835 /* WBGPSPickerViewController.m in Sources */,
+				A29D79B11F2C5DBD00595835 /* WBWifiStore.m in Sources */,
+				A29D79B41F2C5DCF00595835 /* WBWifiModel.m in Sources */,
+				A29D798F1F2B6E8700595835 /* WBWifiListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A21AED311F2A2AFD0004944A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A21AED321F2A2AFD0004944A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A21AED341F2A2AFD0004944A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = AMCXGTYG4X;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A21AED351F2A2AFD0004944A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = AMCXGTYG4X;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A21AED251F2A2AFD0004944A /* Build configuration list for PBXProject "DingTalkAssistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A21AED311F2A2AFD0004944A /* Debug */,
+				A21AED321F2A2AFD0004944A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A21AED331F2A2AFD0004944A /* Build configuration list for PBXNativeTarget "DingTalkAssistant" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A21AED341F2A2AFD0004944A /* Debug */,
+				A21AED351F2A2AFD0004944A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A21AED221F2A2AFD0004944A /* Project object */;
+}

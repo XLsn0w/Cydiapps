@@ -1,0 +1,9 @@
+Package: com.xlsn0w.dingtalkgpsfaker
+Name: 钉钉打卡伪装
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iosre
+Description: 钉钉打卡 伪装GPS
+Maintainer: XLsn0w
+Author: XLsn0w
+Section: iosre

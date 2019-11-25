@@ -1,0 +1,10 @@
+Package: com.xlsn0w.dingtalkhelper
+Name: 钉钉助手
+Depends: mobilesubstrate
+Architecture: iosre
+Description: 钉钉打卡助手 GPS WiFi伪装
+Maintainer: XLsn0w
+Author: XLsn0w
+Section: iosre
+Version: 0.0.2-1
+Installed-Size: 204
