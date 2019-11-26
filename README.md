@@ -23,30 +23,40 @@ $ sudo xcode-select --switch /Applications/Xcode.app
 $ sudo xcode-select -switch /Applications/Xcode.app
 
 安装命令
+```
 $ export THEOS=/opt/theos        
 $ sudo git clone git://github.com/DHowett/theos.git $THEOS
+```
 
 安装ldid 签名工具
+```
 http://joedj.net/ldid  然后复制到/opt/theos/bin 
 然后sudo chmod 777 /opt/theos/bin/ldid
+```
 
 配置CydiaSubstrate
 用iTools,将iOS上
+```
 /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate
+```
 拷贝到电脑上, 然后改名为libsubstrate.dylib , 然后拷贝到/opt/theos/lib 中.
 
 安装神器dkpg
+```
 $ sudo port install dpkg
+```
 //不需要再下载那个dpkg-deb了
 
 增加nic-templates(可选)
+```
 从 https://github.com/DHowett/theos-nic-templates 下载 
-然后将解压后的5个.tar放到/opt/theos/templates/iphone/下即可
+```
+然后将解压后的5个.tar放到/opt/theos/templates/ios/下即可
 
 # 创建deb tweak
 
 /opt/theos/bin/nic.pl
-
+```
 NIC 1.0 - New Instance Creator
 ——————————
   [1.] iphone/application
@@ -60,35 +70,34 @@ Package Name [com.yourcompany.firstdemo]:
 Author/Maintainer Name [Author Name]: 
 Instantiating iphone/application in firstdemo/…
 Done.
-
+```
 选择 [5.] iphone/tweak
-
+```
 Project Name (required): Test
 Package Name [com.yourcompany.test]: com.test.firstTest
 Author/Maintainer Name [小伍]: xiaowu
 [iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: com.apple.springboard
 [iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]: SpringBoard
-
+```
 第一个相当于工程文件夹的名字
 第二个相当于bundle id
 第三个就是作者
 第四个是作用对象的bundle identifier
 第五个是要重启的应用
 b.修改Makefile
-
+```
 TWEAK_NAME = iOSRE
 iOSRE_FILES = Tweak.xm
 include $(THEOS_MAKE_PATH)/tweak.mk
 THEOS_DEVICE_IP = 192.168.1.34
 iOSRE_FRAMEWORKS=UIKit Foundation
 ARCHS = arm64
+```
 上面的ip必须写, 当然写你测试机的ip , 然后archs 写你想生成对应机型的型号
 
 c.便携Tweak.xm
-
+```
 #import <UIKit/UIKit.h>
-
-
 #import <SpringBoard/SpringBoard.h>
 
 %hook SpringBoard
@@ -107,17 +116,20 @@ otherButtonTitles:nil];
 }
 
 %end
-
+```
 你默认的Tweak.xm里面的代码都是被注销的
 
 d.设置环境变量
 打开terminal输入
-
+```
 export THEOS=/opt/theos/
 export THEOS_DEVICE_IP=xxx.xxx.xxx.xxx(手机的ip地址)
+```
 3.构建工程
+
 第一个命令:make
 
+```
 $ make
 Making all for application firstdemo…
  Compiling main.m…
@@ -126,16 +138,19 @@ Making all for application firstdemo…
  Linking application firstdemo…
  Stripping firstdemo…
  Signing firstdemo…
+ ```
 第二个命令:make package
-
+```
 make package
 Making all for application firstdemo…
 make[2]: Nothing to be done for ‘internal-application-compile’.
 Making stage for application firstdemo…
  Copying resource directories into the application wrapper…
 dpkg-deb: building package ‘com.yourcompany.firstdemo’ in ‘/Users/author/Desktop/firstdemo/com.yourcompany.firstdemo_0.0.1-1_iphoneos-arm.deb’.
-第三个命令: make install
+```
 
+第三个命令: make package install
+```
 $ make package install
 Making all for application firstdemo…
 make[2]: Nothing to be done for `internal-application-compile’.
@@ -145,8 +160,8 @@ dpkg-deb: building package ‘com.yourcompany.firstdemo’ in ‘/Users/author/D
 ...
 root@ip’s password: 
 ...
-
-过程会让你输入两次iphoen密码 , 默认是alpine
+```
+# 过程会让你输入两次iphoen密码 , 默认是alpine
 
 ** 当然你也可以直接 make package install 一步到位, 直接编译, 打包, 安装一气呵成**
 
