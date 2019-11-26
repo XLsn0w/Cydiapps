@@ -16,6 +16,34 @@ https://xlsn0w.github.io/ipas
 
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
+# iOS Jailbreak Material - 推荐阅读iOS越狱资料
+清单:
+```
+iOS 8.4.1 Yalu Open Source Jailbreak Project: https://github.com/kpwn/yalu
+
+OS-X-10.11.6-Exp-via-PEGASUS: https://github.com/zhengmin1989/OS-X-10.11.6-Exp-via-PEGASUS
+
+iOS 9.3.* Trident exp: https://github.com/benjamin-42/Trident
+
+iOS 10.1.1 mach_portal incomplete jailbreak: https://bugs.chromium.org/p/project-zero/issues/detail?id=965#c2
+
+iOS 10.2 jailbreak source code: https://github.com/kpwn/yalu102
+
+Local Privilege Escalation for macOS 10.12.2 and XNU port Feng Shui: https://github.com/zhengmin1989/macOS-10.12.2-Exp-via-mach_voucher
+
+Remotely Compromising iOS via Wi-Fi and Escaping the Sandbox: https://www.youtube.com/watch?v=bP5VP7vLLKo
+
+Pwn2Own 2017 Safari sandbox: https://github.com/maximehip/Safari-iOS10.3.2-macOS-10.12.4-exploit-Bugs
+
+Live kernel introspection on iOS: https://bazad.github.io/2017/09/live-kernel-introspection-ios/
+
+iOS 11.1.2 IOSurfaceRootUserClient double free to tfp0: https://bugs.chromium.org/p/project-zero/issues/detail?id=1417
+
+iOS 11.3.1 MULTIPATH kernel heap overflow to tfp0: https://bugs.chromium.org/p/project-zero/issues/detail?id=1558
+
+iOS 11.3.1 empty_list kernel heap overflow to tfp0: https://bugs.chromium.org/p/project-zero/issues/detail?id=1564
+```
+
 # theos 的一些事
 
 // 使用-switch选项可将系统上的Xcode更改为另一个版本：
