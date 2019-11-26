@@ -30,8 +30,9 @@ https://xlsn0w.github.io/ipas
 //     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
 //     \  \ `_.   \_ __\ /__ _/   .-` /  /
 // XL---`-.____`.___ \_____/___.-`___.-'---sn0w
-// 
-```                  `=---='
+//                   `=---='
+```
+
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
 # iOS Jailbreak Material - 推荐阅读iOS越狱资料
