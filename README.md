@@ -16,6 +16,159 @@ https://xlsn0w.github.io/ipas
 
 ![CydiaRepo](https://github.com/XLsn0w/Cydia/blob/master/xlsn0w.github.io:CydiaRepo.png?raw=true)
 
+# theos 的一些事
+
+// 使用-switch选项可将系统上的Xcode更改为另一个版本：
+$ sudo xcode-select --switch /Applications/Xcode.app
+$ sudo xcode-select -switch /Applications/Xcode.app
+
+安装命令
+$ export THEOS=/opt/theos        
+$ sudo git clone git://github.com/DHowett/theos.git $THEOS
+
+安装ldid 签名工具
+http://joedj.net/ldid  然后复制到/opt/theos/bin 
+然后sudo chmod 777 /opt/theos/bin/ldid
+
+配置CydiaSubstrate
+用iTools,将iOS上
+/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate
+拷贝到电脑上, 然后改名为libsubstrate.dylib , 然后拷贝到/opt/theos/lib 中.
+
+安装神器dkpg
+$ sudo port install dpkg
+//不需要再下载那个dpkg-deb了
+
+增加nic-templates(可选)
+从 https://github.com/DHowett/theos-nic-templates 下载 
+然后将解压后的5个.tar放到/opt/theos/templates/iphone/下即可
+
+# 创建deb tweak
+
+/opt/theos/bin/nic.pl
+
+NIC 1.0 - New Instance Creator
+——————————
+  [1.] iphone/application
+  [2.] iphone/library
+  [3.] iphone/preference_bundle
+  [4.] iphone/tool
+  [5.] iphone/tweak
+Choose a Template (required): 1
+Project Name (required): firstdemo
+Package Name [com.yourcompany.firstdemo]: 
+Author/Maintainer Name [Author Name]: 
+Instantiating iphone/application in firstdemo/…
+Done.
+
+选择 [5.] iphone/tweak
+
+Project Name (required): Test
+Package Name [com.yourcompany.test]: com.test.firstTest
+Author/Maintainer Name [小伍]: xiaowu
+[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: com.apple.springboard
+[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]: SpringBoard
+
+第一个相当于工程文件夹的名字
+第二个相当于bundle id
+第三个就是作者
+第四个是作用对象的bundle identifier
+第五个是要重启的应用
+b.修改Makefile
+
+TWEAK_NAME = iOSRE
+iOSRE_FILES = Tweak.xm
+include $(THEOS_MAKE_PATH)/tweak.mk
+THEOS_DEVICE_IP = 192.168.1.34
+iOSRE_FRAMEWORKS=UIKit Foundation
+ARCHS = arm64
+上面的ip必须写, 当然写你测试机的ip , 然后archs 写你想生成对应机型的型号
+
+c.便携Tweak.xm
+
+#import <UIKit/UIKit.h>
+
+
+#import <SpringBoard/SpringBoard.h>
+
+%hook SpringBoard
+
+-(void)applicationDidFinishLaunching:(id)application {
+
+UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome"
+message:@"Welcome to your iPhone!"
+delegate:nil
+cancelButtonTitle:@"Thanks"
+otherButtonTitles:nil];
+[alert show];
+[alert release];
+%orig;
+
+}
+
+%end
+
+你默认的Tweak.xm里面的代码都是被注销的
+
+d.设置环境变量
+打开terminal输入
+
+export THEOS=/opt/theos/
+export THEOS_DEVICE_IP=xxx.xxx.xxx.xxx(手机的ip地址)
+3.构建工程
+第一个命令:make
+
+$ make
+Making all for application firstdemo…
+ Compiling main.m…
+ Compiling firstdemoApplication.mm…
+ Compiling RootViewController.mm…
+ Linking application firstdemo…
+ Stripping firstdemo…
+ Signing firstdemo…
+第二个命令:make package
+
+make package
+Making all for application firstdemo…
+make[2]: Nothing to be done for ‘internal-application-compile’.
+Making stage for application firstdemo…
+ Copying resource directories into the application wrapper…
+dpkg-deb: building package ‘com.yourcompany.firstdemo’ in ‘/Users/author/Desktop/firstdemo/com.yourcompany.firstdemo_0.0.1-1_iphoneos-arm.deb’.
+第三个命令: make install
+
+$ make package install
+Making all for application firstdemo…
+make[2]: Nothing to be done for `internal-application-compile’.
+Making stage for application firstdemo…
+ Copying resource directories into the application wrapper…
+dpkg-deb: building package ‘com.yourcompany.firstdemo’ in ‘/Users/author/Desktop/firstdemo/com.yourcompany.firstdemo_0.0.1-1_iphoneos-arm.deb’.
+...
+root@ip’s password: 
+...
+
+过程会让你输入两次iphoen密码 , 默认是alpine
+
+** 当然你也可以直接 make package install 一步到位, 直接编译, 打包, 安装一气呵成**
+
+# 说一说 遇到的坑
+1.在 环境安装 的第二步骤 下载theos , 下载好的theos有可能是有问题的
+
+ /opt/theos/vendor/  里面的文件是否是空的? 仔细检查 否则在make编译的时候回报一个 什么vendor 的错误
+2.如果在make成功之后还想make 发现报了Nothing to be done for `internal-library-compile’错误
+
+那就把你刚才创建出来的obj删掉和packages删掉 , 然后显示隐藏文件, 你就会发现和obj同一个目录有一个.theos , 吧.theos里面的东西删掉就好了
+3.简单总结下
+
+基本问题就一下几点:
+1.代码%hook ClassName 没有修改
+2.代码没调用头文件
+3.代码注释没有解开(代码写错)
+4.makefile里面东西写错
+5.makefile里面没有写ip地址
+6.没有配置环境地址
+7.遇到路径的问题你就 export THEOS_DEVICE_IP=192.168.1.34
+8.遇到路径问题你就THEOS=/opt/theos 
+
 # 插件开发(.xm)
 
 dpkg -i package.deb               #安装包
