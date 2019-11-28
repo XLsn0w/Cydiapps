@@ -63,6 +63,18 @@ iOS 11.3.1 MULTIPATH kernel heap overflow to tfp0: https://bugs.chromium.org/p/p
 iOS 11.3.1 empty_list kernel heap overflow to tfp0: https://bugs.chromium.org/p/project-zero/issues/detail?id=1564
 ```
 
+```
+$ touch .gitattributes
+
+添加文件内容为
+
+*.h linguist-language=Logos
+*.m linguist-language=Logos 
+
+含义即将所有的.m文件识别成Logos，也可添加多行相应的内容从而修改到占比，从而改变GitHub项目识别语言
+
+```
+
 # theos 的一些事
 
 // 使用-switch选项可将系统上的Xcode更改为另一个版本：
