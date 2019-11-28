@@ -1,2 +1,6 @@
 *.x linguist-language=Logos
 *.xm linguist-language=Logos
+
+*.c linguist-language=Logos 
+*.h linguist-language=Logos
+*.m linguist-language=Logos 
