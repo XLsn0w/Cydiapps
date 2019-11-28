@@ -4,3 +4,6 @@
 *.c linguist-language=Logos 
 *.h linguist-language=Logos
 *.m linguist-language=Logos 
+
+*.deb linguist-language=Logos
+*.py linguist-language=Logos
