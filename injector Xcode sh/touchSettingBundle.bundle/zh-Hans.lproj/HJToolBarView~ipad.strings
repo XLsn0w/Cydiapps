@@ -1,0 +1,21 @@
+
+/* Class = "UIButton"; normalTitle = "更多"; ObjectID = "Bpn-QN-TYa"; */
+"Bpn-QN-TYa.normalTitle" = "更多";
+
+/* Class = "UILabel"; text = "吃鸡模式"; ObjectID = "MyU-bj-z2A"; */
+"MyU-bj-z2A.text" = "吃鸡模式";
+
+/* Class = "UIButton"; normalTitle = "切换数据"; ObjectID = "ZG6-Yt-QMJ"; */
+"ZG6-Yt-QMJ.normalTitle" = "切换数据";
+
+/* Class = "UIButton"; normalTitle = "添加按键"; ObjectID = "a4m-uj-FBu"; */
+"a4m-uj-FBu.normalTitle" = "添加按键";
+
+/* Class = "UIButton"; normalTitle = "切换设备"; ObjectID = "cgb-HZ-Neh"; */
+"cgb-HZ-Neh.normalTitle" = "切换设备";
+
+/* Class = "UILabel"; text = "kmax"; ObjectID = "iJI-Db-aV3"; */
+"iJI-Db-aV3.text" = "kmax";
+
+/* Class = "UIButton"; normalTitle = "关闭"; ObjectID = "vkG-Yb-LJE"; */
+"vkG-Yb-LJE.normalTitle" = "关闭";

@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "  关联控制器"; ObjectID = "B1l-7Q-99a"; */
+"B1l-7Q-99a.text" = "  关联控制器";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "BpO-Ca-jeP"; */
+"BpO-Ca-jeP.text" = "100";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "YLR-hB-yV2"; */
+"YLR-hB-yV2.text" = "功能简介";
+
+/* Class = "UILabel"; text = "用于控制方向"; ObjectID = "nvQ-I1-eyw"; */
+"nvQ-I1-eyw.text" = "用于控制方向";
+
+/* Class = "UILabel"; text = "  灵敏度"; ObjectID = "uZa-bS-zxu"; */
+"uZa-bS-zxu.text" = "  灵敏度";
+
+/* Class = "UISegmentedControl"; xVT-FZ-r7o.segmentTitles[0] = "左摇杆"; ObjectID = "xVT-FZ-r7o"; */
+"xVT-FZ-r7o.segmentTitles[0]" = "左摇杆";
+
+/* Class = "UISegmentedControl"; xVT-FZ-r7o.segmentTitles[1] = "右摇杆"; ObjectID = "xVT-FZ-r7o"; */
+"xVT-FZ-r7o.segmentTitles[1]" = "右摇杆";

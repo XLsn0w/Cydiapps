@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "+"; ObjectID = "48n-p4-qqs"; */
+"48n-p4-qqs.text" = "+";
+
+/* Class = "UILabel"; text = "  开关快捷键"; ObjectID = "4rE-wH-vZN"; */
+"4rE-wH-vZN.text" = "  开关快捷键";
+
+/* Class = "UISegmentedControl"; HXC-ld-0wk.segmentTitles[0] = "关"; ObjectID = "HXC-ld-0wk"; */
+"HXC-ld-0wk.segmentTitles[0]" = "关";
+
+/* Class = "UISegmentedControl"; HXC-ld-0wk.segmentTitles[1] = "开"; ObjectID = "HXC-ld-0wk"; */
+"HXC-ld-0wk.segmentTitles[1]" = "开";
+
+/* Class = "UIButton"; normalTitle = "修改"; ObjectID = "HYU-qK-sGE"; */
+"HYU-qK-sGE.normalTitle" = "修改";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "Ic0-6V-cLs"; */
+"Ic0-6V-cLs.text" = "未设置";
+
+/* Class = "UILabel"; text = "  施法辅助"; ObjectID = "Lcy-cc-KNz"; */
+"Lcy-cc-KNz.text" = "  施法辅助";
+
+/* Class = "UILabel"; text = "  施法范围"; ObjectID = "bal-Vm-nSn"; */
+"bal-Vm-nSn.text" = "  施法范围";
+
+/* Class = "UILabel"; text = "select"; ObjectID = "d19-Jw-1tG"; */
+"d19-Jw-1tG.text" = "select";
+
+/* Class = "UILabel"; text = "  样式"; ObjectID = "fyz-0x-Nmk"; */
+"fyz-0x-Nmk.text" = "  样式";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "i0V-sU-xmi"; */
+"i0V-sU-xmi.text" = "1";
+
+/* Class = "UISegmentedControl"; nCd-gq-yyf.segmentTitles[0] = "扇形"; ObjectID = "nCd-gq-yyf"; */
+"nCd-gq-yyf.segmentTitles[0]" = "扇形";
+
+/* Class = "UISegmentedControl"; nCd-gq-yyf.segmentTitles[1] = "锤形"; ObjectID = "nCd-gq-yyf"; */
+"nCd-gq-yyf.segmentTitles[1]" = "锤形";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "qi5-kG-oC7"; */
+"qi5-kG-oC7.text" = "1";
+
+/* Class = "UILabel"; text = "  锤球大小"; ObjectID = "vaq-FZ-Rpq"; */
+"vaq-FZ-Rpq.text" = "  锤球大小";

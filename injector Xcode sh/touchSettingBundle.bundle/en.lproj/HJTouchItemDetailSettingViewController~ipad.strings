@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "功能选择"; ObjectID = "L9d-0j-xlm"; */
+"L9d-0j-xlm.text" = "Function";
+
+/* Class = "UILabel"; text = "功能名称"; ObjectID = "TVY-AJ-XdI"; */
+"TVY-AJ-XdI.text" = "Function Name";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "pSu-xo-Qza"; */
+"pSu-xo-Qza.normalTitle" = "Button";

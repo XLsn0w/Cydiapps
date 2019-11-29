@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "    名称:"; ObjectID = "Jav-A3-9cW"; */
+"Jav-A3-9cW.text" = "    Name:";
+
+/* Class = "UITextField"; placeholder = "数据名称"; ObjectID = "S0r-JV-3QL"; */
+"S0r-JV-3QL.placeholder" = "Name";
+
+/* Class = "UIButton"; normalTitle = "保存"; ObjectID = "la4-Pl-6QU"; */
+"la4-Pl-6QU.normalTitle" = "Save";
+
+/* Class = "UILabel"; text = "数据保存"; ObjectID = "mtx-UV-WyA"; */
+"mtx-UV-WyA.text" = "Save";
+
+/* Class = "UILabel"; text = "      数据另存"; ObjectID = "sbo-9l-lx3"; */
+"sbo-9l-lx3.text" = "      Save as";

@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "  滑动速度"; ObjectID = "L0i-sG-8Ot"; */
+"L0i-sG-8Ot.text" = "  Sliding Speed";
+
+/* Class = "UILabel"; text = "  滑动范围"; ObjectID = "Nal-xk-KkN"; */
+"Nal-xk-KkN.text" = "  Sliding Range";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "WN1-TM-s8O"; */
+"WN1-TM-s8O.text" = "1";
+
+/* Class = "UILabel"; text = "  滑动方向"; ObjectID = "abD-h3-3q2"; */
+"abD-h3-3q2.text" = "  Sliding Direction";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "f0G-s1-Qg3"; */
+"f0G-s1-Qg3.text" = "Introduction";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "zmX-QC-Ai3"; */
+"zmX-QC-Ai3.text" = "60";

@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Y:0"; ObjectID = "Roe-2M-Jfu"; */
+"Roe-2M-Jfu.text" = "Y:0";
+
+/* Class = "UILabel"; text = "  按下点击位置"; ObjectID = "aJv-SW-Qdc"; */
+"aJv-SW-Qdc.text" = "  The location to click when press";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "iwu-rw-wBr"; */
+"iwu-rw-wBr.text" = "Introduction";
+
+/* Class = "UILabel"; text = "X:0"; ObjectID = "y2A-BE-Xt7"; */
+"y2A-BE-Xt7.text" = "X:0";

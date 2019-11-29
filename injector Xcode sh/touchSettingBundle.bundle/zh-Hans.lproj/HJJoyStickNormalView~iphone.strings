@@ -1,0 +1,60 @@
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "2mD-Ft-U6j"; */
+"2mD-Ft-U6j.text" = "未设置";
+
+/* Class = "UILabel"; text = "  半径"; ObjectID = "CQr-53-wqp"; */
+"CQr-53-wqp.text" = "  半径";
+
+/* Class = "UILabel"; text = "静步"; ObjectID = "FHr-sp-6Ew"; */
+"FHr-sp-6Ew.text" = "静步";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "GEH-om-cEO"; */
+"GEH-om-cEO.text" = "未设置";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "HUJ-n3-p2j"; */
+"HUJ-n3-p2j.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "疾跑"; ObjectID = "Jhb-HW-IKj"; */
+"Jhb-HW-IKj.text" = "疾跑";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "Q7x-zp-VGc"; */
+"Q7x-zp-VGc.text" = "60";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "SNz-l2-L6P"; */
+"SNz-l2-L6P.text" = "未设置";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "Wxe-5L-jwj"; */
+"Wxe-5L-jwj.text" = "未设置";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "cIr-z5-Kea"; */
+"cIr-z5-Kea.normalTitle" = "设置";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "dMQ-LB-csg"; */
+"dMQ-LB-csg.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "  按下疾跑"; ObjectID = "e1n-Fp-yGj"; */
+"e1n-Fp-yGj.text" = "  按下疾跑";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "ezu-wo-lwL"; */
+"ezu-wo-lwL.text" = "功能简介";
+
+/* Class = "UILabel"; text = "  锁定静步"; ObjectID = "fQ5-67-AWT"; */
+"fQ5-67-AWT.text" = "  锁定静步";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "hiE-Es-T0H"; */
+"hiE-Es-T0H.text" = "未设置";
+
+/* Class = "UILabel"; text = "  自动疾跑"; ObjectID = "nGf-XZ-JPd"; */
+"nGf-XZ-JPd.text" = "  自动疾跑";
+
+/* Class = "UILabel"; text = "  按下静步"; ObjectID = "qtY-2n-9Wl"; */
+"qtY-2n-9Wl.text" = "  按下静步";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "u25-k5-fZu"; */
+"u25-k5-fZu.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "  锁定疾跑"; ObjectID = "u6Q-U5-2I3"; */
+"u6Q-U5-2I3.text" = "  锁定疾跑";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "yyn-t2-SBp"; */
+"yyn-t2-SBp.normalTitle" = "设置";

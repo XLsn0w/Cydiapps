@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "  指针速度"; ObjectID = "AFS-dk-HfX"; */
+"AFS-dk-HfX.text" = "  Pointer Speed";
+
+/* Class = "UILabel"; text = "  半径"; ObjectID = "Euc-cL-Hcx"; */
+"Euc-cL-Hcx.text" = "  Radius";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "Npt-x8-GGj"; */
+"Npt-x8-GGj.text" = "60";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "YoN-pB-IDI"; */
+"YoN-pB-IDI.text" = "Introduction";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "dqc-OR-1G7"; */
+"dqc-OR-1G7.text" = "1";
+
+/* Class = "UILabel"; text = "【Start】键可调出/隐藏鼠标指针\n【R2    】键为鼠标指针点击"; ObjectID = "xG1-9n-Ugt"; */
+"xG1-9n-Ugt.text" = "【Start】 button is used for enabling/disabling the mouse pointer\n【R2】 button for mouse pointer click";

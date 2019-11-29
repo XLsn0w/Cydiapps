@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "AGv-ua-Jd0"; */
+"AGv-ua-Jd0.text" = "功能简介";
+
+/* Class = "UILabel"; text = "手势已录制"; ObjectID = "D6T-Oi-Dsv"; */
+"D6T-Oi-Dsv.text" = "手势已录制";
+
+/* Class = "UIButton"; normalTitle = "开始录制手势"; ObjectID = "Oge-7Y-aOI"; */
+"Oge-7Y-aOI.normalTitle" = "开始录制手势";

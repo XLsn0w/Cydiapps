@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "20"; ObjectID = "Fvg-wh-KYa"; */
+"Fvg-wh-KYa.text" = "20";
+
+/* Class = "UILabel"; text = "  显示半径"; ObjectID = "G1i-9U-wiK"; */
+"G1i-9U-wiK.text" = "  Show radius";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "OoF-L3-5nE"; */
+"OoF-L3-5nE.text" = "Introduction";
+
+/* Class = "UILabel"; text = "  关联控制器"; ObjectID = "X97-kE-DzX"; */
+"X97-kE-DzX.text" = "  Associated controller";
+
+/* Class = "UISegmentedControl"; YwL-5n-TuD.segmentTitles[0] = "First"; ObjectID = "YwL-5n-TuD"; */
+"YwL-5n-TuD.segmentTitles[0]" = "First";
+
+/* Class = "UISegmentedControl"; YwL-5n-TuD.segmentTitles[1] = "Second"; ObjectID = "YwL-5n-TuD"; */
+"YwL-5n-TuD.segmentTitles[1]" = "Second";
+
+/* Class = "UILabel"; text = "半径"; ObjectID = "fEP-Xn-3Mw"; */
+"fEP-Xn-3Mw.text" = "Radius";
+
+/* Class = "UILabel"; text = "用于控制技能方向的控制器"; ObjectID = "nAT-pT-eAc"; */
+"nAT-pT-eAc.text" = "Controller for changing the skill direction";

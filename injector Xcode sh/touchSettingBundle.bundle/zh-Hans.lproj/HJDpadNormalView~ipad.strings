@@ -1,0 +1,75 @@
+
+/* Class = "UILabel"; text = "静步"; ObjectID = "05f-4m-8Uj"; */
+"05f-4m-8Uj.text" = "静步";
+
+/* Class = "UIButton"; normalTitle = "上"; ObjectID = "3Gp-Ob-eQH"; */
+"3Gp-Ob-eQH.normalTitle" = "上";
+
+/* Class = "UILabel"; text = "  自动疾跑"; ObjectID = "4CK-g4-p5c"; */
+"4CK-g4-p5c.text" = "  自动疾跑";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "8kr-k5-1gi"; */
+"8kr-k5-1gi.text" = "未设置";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "AdL-wr-bK2"; */
+"AdL-wr-bK2.text" = "60";
+
+/* Class = "UIButton"; normalTitle = "左"; ObjectID = "BS7-fn-yTJ"; */
+"BS7-fn-yTJ.normalTitle" = "左";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "EJb-ZB-ll7"; */
+"EJb-ZB-ll7.text" = "功能简介";
+
+/* Class = "UILabel"; text = "疾跑"; ObjectID = "EVE-lB-r37"; */
+"EVE-lB-r37.text" = "疾跑";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "FnP-Yl-nAP"; */
+"FnP-Yl-nAP.text" = "未设置";
+
+/* Class = "UILabel"; text = "  按下静步"; ObjectID = "LRn-Aj-mIt"; */
+"LRn-Aj-mIt.text" = "  按下静步";
+
+/* Class = "UIButton"; normalTitle = "下"; ObjectID = "Mvn-2O-bya"; */
+"Mvn-2O-bya.normalTitle" = "下";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "OmP-8p-wGZ"; */
+"OmP-8p-wGZ.normalTitle" = "设置";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "PFb-FP-g5t"; */
+"PFb-FP-g5t.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "  十字键键位设置"; ObjectID = "Tpp-81-vLJ"; */
+"Tpp-81-vLJ.text" = "  十字键键位设置";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "YaG-HA-U1q"; */
+"YaG-HA-U1q.text" = "未设置";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "fKb-Ia-dX4"; */
+"fKb-Ia-dX4.text" = "未设置";
+
+/* Class = "UIButton"; normalTitle = "右"; ObjectID = "it3-cg-P4l"; */
+"it3-cg-P4l.normalTitle" = "右";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "mQB-Yi-Hcd"; */
+"mQB-Yi-Hcd.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "  半径"; ObjectID = "mis-3R-U46"; */
+"mis-3R-U46.text" = "  半径";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "njD-lt-QGZ"; */
+"njD-lt-QGZ.normalTitle" = "设置";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "o96-C0-CLQ"; */
+"o96-C0-CLQ.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "  按下疾跑"; ObjectID = "pwD-Vy-wVW"; */
+"pwD-Vy-wVW.text" = "  按下疾跑";
+
+/* Class = "UILabel"; text = "  锁定疾跑"; ObjectID = "wJd-TF-3jR"; */
+"wJd-TF-3jR.text" = "  锁定疾跑";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "x1y-Yv-Uz7"; */
+"x1y-Yv-Uz7.text" = "未设置";
+
+/* Class = "UILabel"; text = "  锁定静步"; ObjectID = "yLO-zm-mLX"; */
+"yLO-zm-mLX.text" = "  锁定静步";

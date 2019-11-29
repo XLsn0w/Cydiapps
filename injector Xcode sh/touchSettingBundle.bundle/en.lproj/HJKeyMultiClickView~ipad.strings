@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "  时间间隔（毫秒）"; ObjectID = "0t0-cO-R96"; */
+"0t0-cO-R96.text" = "  Time interval(msec)";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "8nI-Fh-8H7"; */
+"8nI-Fh-8H7.text" = "Introduction";
+
+/* Class = "UILabel"; text = "  防止视角失灵"; ObjectID = "S73-uv-OIt"; */
+"S73-uv-OIt.text" = "  Prevent from visual failure";
+
+/* Class = "UISegmentedControl"; Wpy-fs-9kp.segmentTitles[0] = "不启用"; ObjectID = "Wpy-fs-9kp"; */
+"Wpy-fs-9kp.segmentTitles[0]" = "OFF";
+
+/* Class = "UISegmentedControl"; Wpy-fs-9kp.segmentTitles[1] = "启用"; ObjectID = "Wpy-fs-9kp"; */
+"Wpy-fs-9kp.segmentTitles[1]" = "ON";
+
+/* Class = "UILabel"; text = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具"; ObjectID = "bX5-t4-zIv"; */
+"bX5-t4-zIv.text" = "Please enable the function of preventing from failure if ：\nDo not open: fire, jump, lying down, jump, small eyes, move\nPlease open: open the door, pick up, open sights, drive, get off, weapon 1/2/3/4, automatic/semi-automatic, grenade, medical props";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "f9N-gs-PY9"; */
+"f9N-gs-PY9.text" = "100";

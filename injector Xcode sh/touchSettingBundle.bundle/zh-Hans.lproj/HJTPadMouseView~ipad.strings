@@ -1,0 +1,57 @@
+
+/* Class = "UILabel"; text = "  防止视角变化越来越快"; ObjectID = "33o-vq-wym"; */
+"33o-vq-wym.text" = "  防止视角变化越来越快";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "6Pg-gS-uVG"; */
+"6Pg-gS-uVG.text" = "未设置";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "98a-Jg-E01"; */
+"98a-Jg-E01.text" = "60";
+
+/* Class = "UILabel"; text = "开镜减速(按下减速键减速，抬起减速键恢复)"; ObjectID = "Drq-Nh-QC5"; */
+"Drq-Nh-QC5.text" = "开镜减速(按下减速键减速，抬起减速键恢复)";
+
+/* Class = "UISegmentedControl"; IZ9-Iq-6Ry.segmentTitles[0] = "有边界"; ObjectID = "IZ9-Iq-6Ry"; */
+"IZ9-Iq-6Ry.segmentTitles[0]" = "有边界";
+
+/* Class = "UISegmentedControl"; IZ9-Iq-6Ry.segmentTitles[1] = "无边界"; ObjectID = "IZ9-Iq-6Ry"; */
+"IZ9-Iq-6Ry.segmentTitles[1]" = "无边界";
+
+/* Class = "UISegmentedControl"; IZ9-Iq-6Ry.segmentTitles[2] = "全屏"; ObjectID = "IZ9-Iq-6Ry"; */
+"IZ9-Iq-6Ry.segmentTitles[2]" = "全屏";
+
+/* Class = "UILabel"; text = "  无边界"; ObjectID = "Ic2-Vp-s55"; */
+"Ic2-Vp-s55.text" = "  无边界";
+
+/* Class = "UILabel"; text = "0.5"; ObjectID = "Ie7-cc-CjM"; */
+"Ie7-cc-CjM.text" = "0.5";
+
+/* Class = "UILabel"; text = "  指针速度"; ObjectID = "Ppg-ST-lXD"; */
+"Ppg-ST-lXD.text" = "  指针速度";
+
+/* Class = "UILabel"; text = "  减速键"; ObjectID = "RFM-ak-TJc"; */
+"RFM-ak-TJc.text" = "  减速键";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "Xkb-CT-Sm0"; */
+"Xkb-CT-Sm0.text" = "1";
+
+/* Class = "UILabel"; text = "  速度（灵敏度）"; ObjectID = "bDH-p6-12b"; */
+"bDH-p6-12b.text" = "  速度（灵敏度）";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "d4X-6I-fqM"; */
+"d4X-6I-fqM.text" = "功能简介";
+
+/* Class = "UILabel"; text = "【Start】键可调出/隐藏鼠标指针\n【R2    】键为鼠标指针点击"; ObjectID = "def-0D-fo1"; */
+"def-0D-fo1.text" = "【Start】键可调出/隐藏鼠标指针\n【R2    】键为鼠标指针点击";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "eTa-Q4-gs9"; */
+"eTa-Q4-gs9.normalTitle" = "设置";
+
+/* Class = "UILabel"; text = "  减速系数"; ObjectID = "hGk-Ph-67l"; */
+"hGk-Ph-67l.text" = "  减速系数";
+
+/* Class = "UILabel"; text = "  半径"; ObjectID = "swz-ZZ-A5d"; */
+"swz-ZZ-A5d.text" = "  半径";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "t2F-fb-blx"; */
+"t2F-fb-blx.text" = "1";

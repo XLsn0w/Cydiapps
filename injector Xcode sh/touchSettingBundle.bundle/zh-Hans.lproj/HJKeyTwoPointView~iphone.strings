@@ -1,0 +1,63 @@
+
+/* Class = "UILabel"; text = "A"; ObjectID = "1Oo-35-sCi"; */
+"1Oo-35-sCi.text" = "A";
+
+/* Class = "UISegmentedControl"; 2tE-24-f77.segmentTitles[0] = "关闭"; ObjectID = "2tE-24-f77"; */
+"2tE-24-f77.segmentTitles[0]" = "关闭";
+
+/* Class = "UISegmentedControl"; 2tE-24-f77.segmentTitles[1] = "开启"; ObjectID = "2tE-24-f77"; */
+"2tE-24-f77.segmentTitles[1]" = "开启";
+
+/* Class = "UISegmentedControl"; 8nU-th-lwy.segmentTitles[0] = "关闭"; ObjectID = "8nU-th-lwy"; */
+"8nU-th-lwy.segmentTitles[0]" = "关闭";
+
+/* Class = "UISegmentedControl"; 8nU-th-lwy.segmentTitles[1] = "开启"; ObjectID = "8nU-th-lwy"; */
+"8nU-th-lwy.segmentTitles[1]" = "开启";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "B3E-LQ-gv0"; */
+"B3E-LQ-gv0.text" = "Label";
+
+/* Class = "UISegmentedControl"; Dgk-kk-vVD.segmentTitles[0] = "不启用"; ObjectID = "Dgk-kk-vVD"; */
+"Dgk-kk-vVD.segmentTitles[0]" = "不启用";
+
+/* Class = "UISegmentedControl"; Dgk-kk-vVD.segmentTitles[1] = "启用"; ObjectID = "Dgk-kk-vVD"; */
+"Dgk-kk-vVD.segmentTitles[1]" = "启用";
+
+/* Class = "UILabel"; text = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具"; ObjectID = "IwC-7p-zQ0"; */
+"IwC-7p-zQ0.text" = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具";
+
+/* Class = "UILabel"; text = "  松开点击位置"; ObjectID = "Olo-q5-woJ"; */
+"Olo-q5-woJ.text" = "            松开点击位置";
+
+/* Class = "UILabel"; text = "  摇杆自动重置"; ObjectID = "PCF-cZ-h1m"; */
+"PCF-cZ-h1m.text" = "  摇杆自动重置";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Rp0-Eo-AlO"; */
+"Rp0-Eo-AlO.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Xuk-WI-QxQ"; */
+"Xuk-WI-QxQ.text" = "Label";
+
+/* Class = "UILabel"; text = "  防止视角失灵"; ObjectID = "Ywe-Hs-yOR"; */
+"Ywe-Hs-yOR.text" = "  防止视角失灵";
+
+/* Class = "UILabel"; text = "  按下点击位置"; ObjectID = "qJM-CC-fBD"; */
+"qJM-CC-fBD.text" = "            按下点击位置";
+
+/* Class = "UILabel"; text = "  若按下后晃摇杆再抬起，摇杆失灵，请开启该功能。"; ObjectID = "rlw-ny-RG9"; */
+"rlw-ny-RG9.text" = "  若按下后晃摇杆再抬起，摇杆失灵，请开启该功能。";
+
+/* Class = "UILabel"; text = "A"; ObjectID = "sXl-uA-Bmj"; */
+"sXl-uA-Bmj.text" = "A";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tTg-GH-Bru"; */
+"tTg-GH-Bru.text" = "Label";
+
+/* Class = "UILabel"; text = " 按下显示鼠标，松开隐藏鼠标"; ObjectID = "xw3-E3-gcd"; */
+"xw3-E3-gcd.text" = " 按下显示鼠标，松开隐藏鼠标";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "xyP-od-XQs"; */
+"xyP-od-XQs.text" = "功能简介";
+
+/* Class = "UILabel"; text = " 伴随鼠标显示"; ObjectID = "ySq-ba-JEE"; */
+"ySq-ba-JEE.text" = " 伴随鼠标显示";

@@ -1,0 +1,60 @@
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "2mD-Ft-U6j"; */
+"2mD-Ft-U6j.text" = "Not set";
+
+/* Class = "UILabel"; text = "  半径"; ObjectID = "CQr-53-wqp"; */
+"CQr-53-wqp.text" = "  Radius";
+
+/* Class = "UILabel"; text = "静步"; ObjectID = "FHr-sp-6Ew"; */
+"FHr-sp-6Ew.text" = "Slow walk";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "GEH-om-cEO"; */
+"GEH-om-cEO.text" = "Not set";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "HUJ-n3-p2j"; */
+"HUJ-n3-p2j.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "疾跑"; ObjectID = "Jhb-HW-IKj"; */
+"Jhb-HW-IKj.text" = "Sprint";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "Q7x-zp-VGc"; */
+"Q7x-zp-VGc.text" = "60";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "SNz-l2-L6P"; */
+"SNz-l2-L6P.text" = "Not set";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "Wxe-5L-jwj"; */
+"Wxe-5L-jwj.text" = "Not set";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "cIr-z5-Kea"; */
+"cIr-z5-Kea.normalTitle" = "Set";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "dMQ-LB-csg"; */
+"dMQ-LB-csg.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "  按下疾跑"; ObjectID = "e1n-Fp-yGj"; */
+"e1n-Fp-yGj.text" = "  Press to sprint";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "ezu-wo-lwL"; */
+"ezu-wo-lwL.text" = "Introduction";
+
+/* Class = "UILabel"; text = "  锁定静步"; ObjectID = "fQ5-67-AWT"; */
+"fQ5-67-AWT.text" = "  Keep walking slowly";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "hiE-Es-T0H"; */
+"hiE-Es-T0H.text" = "Not set";
+
+/* Class = "UILabel"; text = "  自动疾跑"; ObjectID = "nGf-XZ-JPd"; */
+"nGf-XZ-JPd.text" = "  Automatic sprint";
+
+/* Class = "UILabel"; text = "  按下静步"; ObjectID = "qtY-2n-9Wl"; */
+"qtY-2n-9Wl.text" = "  Press to walk slowly";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "u25-k5-fZu"; */
+"u25-k5-fZu.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "  锁定疾跑"; ObjectID = "u6Q-U5-2I3"; */
+"u6Q-U5-2I3.text" = "  Keep sprinting";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "yyn-t2-SBp"; */
+"yyn-t2-SBp.normalTitle" = "Set";

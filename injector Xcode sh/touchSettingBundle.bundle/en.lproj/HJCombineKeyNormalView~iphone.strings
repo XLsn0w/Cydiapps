@@ -1,0 +1,42 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3Ds-b4-onB"; */
+"3Ds-b4-onB.text" = "Label";
+
+/* Class = "UILabel"; text = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具"; ObjectID = "3Pd-50-QG1"; */
+"3Pd-50-QG1.text" = "Please enable the function of preventing from failure if ：\nDo not open: fire, jump, lying down, jump, small eyes, move\nPlease open: open the door, pick up, open sights, drive, get off, weapon 1/2/3/4, automatic/semi-automatic, grenade, medical props";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "83C-eB-npS"; */
+"83C-eB-npS.text" = "Introduction";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "DQp-fk-HsL"; */
+"DQp-fk-HsL.text" = "Label";
+
+/* Class = "UILabel"; text = "  当前位置"; ObjectID = "FiN-cn-Ufk"; */
+"FiN-cn-Ufk.text" = "  Current Location";
+
+/* Class = "UILabel"; text = "  伴随鼠标显示与隐藏"; ObjectID = "R1w-Fh-qTA"; */
+"R1w-Fh-qTA.text" = "  With mouse switch";
+
+/* Class = "UISegmentedControl"; bsJ-gq-Jtd.segmentTitles[0] = "不启用"; ObjectID = "bsJ-gq-Jtd"; */
+"bsJ-gq-Jtd.segmentTitles[0]" = "OFF";
+
+/* Class = "UISegmentedControl"; bsJ-gq-Jtd.segmentTitles[1] = "鼠标显示"; ObjectID = "bsJ-gq-Jtd"; */
+"bsJ-gq-Jtd.segmentTitles[1]" = "Show Mouse";
+
+/* Class = "UISegmentedControl"; bsJ-gq-Jtd.segmentTitles[2] = "鼠标隐藏"; ObjectID = "bsJ-gq-Jtd"; */
+"bsJ-gq-Jtd.segmentTitles[2]" = "Hide Mouse";
+
+/* Class = "UISegmentedControl"; bsJ-gq-Jtd.segmentTitles[3] = "自动"; ObjectID = "bsJ-gq-Jtd"; */
+"bsJ-gq-Jtd.segmentTitles[3]" = "Automatic";
+
+/* Class = "UISegmentedControl"; doz-vc-6fu.segmentTitles[0] = "不启用"; ObjectID = "doz-vc-6fu"; */
+"doz-vc-6fu.segmentTitles[0]" = "OFF";
+
+/* Class = "UISegmentedControl"; doz-vc-6fu.segmentTitles[1] = "启用"; ObjectID = "doz-vc-6fu"; */
+"doz-vc-6fu.segmentTitles[1]" = "ON";
+
+/* Class = "UILabel"; text = "  防止视角失灵"; ObjectID = "maS-lt-mBI"; */
+"maS-lt-mBI.text" = "  Prevent from visual failure";
+
+/* Class = "UILabel"; text = ". 不启用：不关联鼠标显示与隐藏，仅做为普通点击。\n. 鼠标显示：点击按键后，会显示鼠标\n. 鼠标隐藏：点击按键后，会隐藏鼠标\n. 自动：点击按键后，若鼠标是显示状态，会自动隐藏鼠标；若鼠标是隐藏状态，会自动显示鼠标"; ObjectID = "pHH-Ev-uAd"; */
+"pHH-Ev-uAd.text" = "Disabled: Not associated with the mouse to show and hide, only as a normal click. \n. Mouse display: After clicking, the mouse will be displayed\n. Mouse hidden: After clicking, the mouse will be hidden\n. Automatic: After clicking, If the mouse is displayed, it will hide; If the mouse is hidden, it will display";

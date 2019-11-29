@@ -1,0 +1,39 @@
+
+/* Class = "UISegmentedControl"; 0v4-6S-KRT.segmentTitles[0] = "左摇杆"; ObjectID = "0v4-6S-KRT"; */
+"0v4-6S-KRT.segmentTitles[0]" = "Left handstick";
+
+/* Class = "UISegmentedControl"; 0v4-6S-KRT.segmentTitles[1] = "右摇杆"; ObjectID = "0v4-6S-KRT"; */
+"0v4-6S-KRT.segmentTitles[1]" = "Right handstick";
+
+/* Class = "UILabel"; text = "  关联控制器"; ObjectID = "264-JW-wYI"; */
+"264-JW-wYI.text" = "  Associated controller";
+
+/* Class = "UILabel"; text = "  灵敏度"; ObjectID = "3K7-Qk-8tg"; */
+"3K7-Qk-8tg.text" = "  Sensitivity";
+
+/* Class = "UILabel"; text = "100"; ObjectID = "54S-qA-fFe"; */
+"54S-qA-fFe.text" = "100";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "7D1-zT-6Kb"; */
+"7D1-zT-6Kb.text" = "20";
+
+/* Class = "UISegmentedControl"; NvA-lN-EzF.segmentTitles[0] = "无边界"; ObjectID = "NvA-lN-EzF"; */
+"NvA-lN-EzF.segmentTitles[0]" = "No Boundary";
+
+/* Class = "UISegmentedControl"; NvA-lN-EzF.segmentTitles[1] = "有边界"; ObjectID = "NvA-lN-EzF"; */
+"NvA-lN-EzF.segmentTitles[1]" = "WIth Boundary";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "Wue-FE-UHw"; */
+"Wue-FE-UHw.text" = "Introduction";
+
+/* Class = "UILabel"; text = "用于控制方向"; ObjectID = "bUT-ib-IoB"; */
+"bUT-ib-IoB.text" = "Suitable for direction controlling";
+
+/* Class = "UILabel"; text = "  边界"; ObjectID = "bhW-WL-3hQ"; */
+"bhW-WL-3hQ.text" = "  Boundary";
+
+/* Class = "UILabel"; text = "  边界范围"; ObjectID = "j2F-RU-xvT"; */
+"j2F-RU-xvT.text" = "  Boundary Range";
+
+/* Class = "UILabel"; text = "【无边界】适用于：荒野行动、终结者2等\n【有边界】适用于：绝地求生(刺激战场)、绝地求生(全军出击)、穿越火线、小米枪战\n【注意】: 有边界时，边界一定不能超出屏幕"; ObjectID = "uln-Qf-YHq"; */
+"uln-Qf-YHq.text" = "";

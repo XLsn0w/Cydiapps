@@ -1,0 +1,63 @@
+
+/* Class = "UILabel"; text = "A"; ObjectID = "2AR-Gd-U31"; */
+"2AR-Gd-U31.text" = "A";
+
+/* Class = "UILabel"; text = "  防止视角失灵"; ObjectID = "4RF-m8-WRW"; */
+"4RF-m8-WRW.text" = "  防止视角失灵";
+
+/* Class = "UILabel"; text = "A"; ObjectID = "ClZ-Oc-dJE"; */
+"ClZ-Oc-dJE.text" = "A";
+
+/* Class = "UILabel"; text = " 伴随鼠标显示"; ObjectID = "Ewm-7H-V0a"; */
+"Ewm-7H-V0a.text" = " 伴随鼠标显示";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Jiq-jr-bAk"; */
+"Jiq-jr-bAk.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Kc3-l7-X2i"; */
+"Kc3-l7-X2i.text" = "Label";
+
+/* Class = "UILabel"; text = " 按下显示鼠标，松开隐藏鼠标"; ObjectID = "Kfb-gr-CFP"; */
+"Kfb-gr-CFP.text" = " 按下显示鼠标，松开隐藏鼠标";
+
+/* Class = "UILabel"; text = "  若按下后晃摇杆再抬起，摇杆失灵，请开启该功能。"; ObjectID = "MMG-cX-zr0"; */
+"MMG-cX-zr0.text" = "  若按下后晃摇杆再抬起，摇杆失灵，请开启该功能。";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Mmk-Tc-BwW"; */
+"Mmk-Tc-BwW.text" = "Label";
+
+/* Class = "UISegmentedControl"; UyB-Nf-eUR.segmentTitles[0] = "关闭"; ObjectID = "UyB-Nf-eUR"; */
+"UyB-Nf-eUR.segmentTitles[0]" = "关闭";
+
+/* Class = "UISegmentedControl"; UyB-Nf-eUR.segmentTitles[1] = "开启"; ObjectID = "UyB-Nf-eUR"; */
+"UyB-Nf-eUR.segmentTitles[1]" = "开启";
+
+/* Class = "UILabel"; text = "  松开点击位置"; ObjectID = "V3o-Rg-Tny"; */
+"V3o-Rg-Tny.text" = "  松开点击位置";
+
+/* Class = "UILabel"; text = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具"; ObjectID = "g1e-Zq-3Ic"; */
+"g1e-Zq-3Ic.text" = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ils-o5-A2f"; */
+"ils-o5-A2f.text" = "Label";
+
+/* Class = "UILabel"; text = "  摇杆自动重置"; ObjectID = "mUt-gh-6x3"; */
+"mUt-gh-6x3.text" = "  摇杆自动重置";
+
+/* Class = "UISegmentedControl"; qCB-W3-Ph7.segmentTitles[0] = "关闭"; ObjectID = "qCB-W3-Ph7"; */
+"qCB-W3-Ph7.segmentTitles[0]" = "关闭";
+
+/* Class = "UISegmentedControl"; qCB-W3-Ph7.segmentTitles[1] = "开启"; ObjectID = "qCB-W3-Ph7"; */
+"qCB-W3-Ph7.segmentTitles[1]" = "开启";
+
+/* Class = "UISegmentedControl"; qm6-Pz-JLV.segmentTitles[0] = "不启用"; ObjectID = "qm6-Pz-JLV"; */
+"qm6-Pz-JLV.segmentTitles[0]" = "不启用";
+
+/* Class = "UISegmentedControl"; qm6-Pz-JLV.segmentTitles[1] = "启用"; ObjectID = "qm6-Pz-JLV"; */
+"qm6-Pz-JLV.segmentTitles[1]" = "启用";
+
+/* Class = "UILabel"; text = "  按下点击位置"; ObjectID = "rbs-h6-hgw"; */
+"rbs-h6-hgw.text" = "  按下点击位置";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "wtm-z4-3AP"; */
+"wtm-z4-3AP.text" = "功能简介";

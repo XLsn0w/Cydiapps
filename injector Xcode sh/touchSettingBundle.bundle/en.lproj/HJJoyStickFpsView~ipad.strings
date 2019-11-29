@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "  半径"; ObjectID = "DDe-Cc-Qr1"; */
+"DDe-Cc-Qr1.text" = "  Radius";
+
+/* Class = "UILabel"; text = "  边界"; ObjectID = "FaD-I8-iyK"; */
+"FaD-I8-iyK.text" = "  Boundary";
+
+/* Class = "UILabel"; text = "开镜减速(按下减速键减速，抬起减速键恢复)"; ObjectID = "Ghm-8x-gdv"; */
+"Ghm-8x-gdv.text" = "Decelerate the mouse when sight open";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "NGa-3l-Kch"; */
+"NGa-3l-Kch.text" = "Introduction";
+
+/* Class = "UILabel"; text = "  减速系数"; ObjectID = "OOl-ii-L9X"; */
+"OOl-ii-L9X.text" = "  Deceleration Ratio";
+
+/* Class = "UILabel"; text = "0.5"; ObjectID = "cHF-hA-MEQ"; */
+"cHF-hA-MEQ.text" = "0.5";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "fi6-gC-mCb"; */
+"fi6-gC-mCb.text" = "60";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "k1j-pz-RZ1"; */
+"k1j-pz-RZ1.text" = "1";
+
+/* Class = "UISegmentedControl"; mjy-Ix-yOF.segmentTitles[0] = "有边界"; ObjectID = "mjy-Ix-yOF"; */
+"mjy-Ix-yOF.segmentTitles[0]" = "WIth Boundary";
+
+/* Class = "UISegmentedControl"; mjy-Ix-yOF.segmentTitles[1] = "无边界"; ObjectID = "mjy-Ix-yOF"; */
+"mjy-Ix-yOF.segmentTitles[1]" = "No Boundary";
+
+/* Class = "UISegmentedControl"; mjy-Ix-yOF.segmentTitles[2] = "全屏"; ObjectID = "mjy-Ix-yOF"; */
+"mjy-Ix-yOF.segmentTitles[2]" = "Full screen";
+
+/* Class = "UILabel"; text = "  减速键"; ObjectID = "nC3-5N-fMl"; */
+"nC3-5N-fMl.text" = "  Deceleration key";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "pfg-1V-nM7"; */
+"pfg-1V-nM7.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "qHR-8a-fiN"; */
+"qHR-8a-fiN.text" = "Not set";
+
+/* Class = "UILabel"; text = "  速度"; ObjectID = "vUo-ri-0Wj"; */
+"vUo-ri-0Wj.text" = "  Speed";

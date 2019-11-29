@@ -1,0 +1,42 @@
+
+/* Class = "UILabel"; text = "  伴随鼠标显示与隐藏"; ObjectID = "8CW-sg-Z0z"; */
+"8CW-sg-Z0z.text" = "  With mouse switch";
+
+/* Class = "UILabel"; text = ". 不启用：不关联鼠标显示与隐藏，仅做为普通点击。\n. 鼠标显示：点击按键后，会显示鼠标\n. 鼠标隐藏：点击按键后，会隐藏鼠标\n. 自动：点击按键后，若鼠标是显示状态，会自动隐藏鼠标；若鼠标是隐藏状态，会自动显示鼠标"; ObjectID = "C6z-5K-7sc"; */
+"C6z-5K-7sc.text" = ". Disabled: Not associated with the mouse to show and hide, only as a normal click. \n. Mouse display: After clicking, the mouse will be displayed\n. Mouse hidden: After clicking, the mouse will be hidden\n. Automatic: After clicking, If the mouse is displayed, it will hide; If the mouse is hidden, it will display";
+
+/* Class = "UISegmentedControl"; MWz-kt-enm.segmentTitles[0] = "不启用"; ObjectID = "MWz-kt-enm"; */
+"MWz-kt-enm.segmentTitles[0]" = "OFF";
+
+/* Class = "UISegmentedControl"; MWz-kt-enm.segmentTitles[1] = "启用"; ObjectID = "MWz-kt-enm"; */
+"MWz-kt-enm.segmentTitles[1]" = "ON";
+
+/* Class = "UILabel"; text = "如果遇到因为某个按键导致视角无法转动、鼠标失灵，启用防失灵\n【终结者2】防失灵设置建议：\n禁止开启：开火、跳跃、卧倒、跳跃、小眼睛、人物移动\n需要开启：开门、拾取、开镜、驾驶、下车、武器1/2/3/4、自动/半自动、手雷、医疗道具"; ObjectID = "Snk-ek-Ndn"; */
+"Snk-ek-Ndn.text" = "Please enable the function of preventing from failure if ：\nDo not open: fire, jump, lying down, jump, small eyes, move\nPlease open: open the door, pick up, open sights, drive, get off, weapon 1/2/3/4, automatic/semi-automatic, grenade, medical props";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "Tt0-Ve-7wP"; */
+"Tt0-Ve-7wP.text" = "Introduction";
+
+/* Class = "UISegmentedControl"; VR3-X3-ZkP.segmentTitles[0] = "不启用"; ObjectID = "VR3-X3-ZkP"; */
+"VR3-X3-ZkP.segmentTitles[0]" = "Disabled";
+
+/* Class = "UISegmentedControl"; VR3-X3-ZkP.segmentTitles[1] = "鼠标显示"; ObjectID = "VR3-X3-ZkP"; */
+"VR3-X3-ZkP.segmentTitles[1]" = "Mouse display";
+
+/* Class = "UISegmentedControl"; VR3-X3-ZkP.segmentTitles[2] = "鼠标隐藏"; ObjectID = "VR3-X3-ZkP"; */
+"VR3-X3-ZkP.segmentTitles[2]" = "Mouse hide";
+
+/* Class = "UISegmentedControl"; VR3-X3-ZkP.segmentTitles[3] = "自动"; ObjectID = "VR3-X3-ZkP"; */
+"VR3-X3-ZkP.segmentTitles[3]" = "Automatic";
+
+/* Class = "UILabel"; text = "Y:0"; ObjectID = "Xa1-7y-Occ"; */
+"Xa1-7y-Occ.text" = "Y:0";
+
+/* Class = "UILabel"; text = "X:0"; ObjectID = "dh8-xu-H0R"; */
+"dh8-xu-H0R.text" = "X:0";
+
+/* Class = "UILabel"; text = "  点击位置"; ObjectID = "hPA-c5-IGb"; */
+"hPA-c5-IGb.text" = "  Click Area";
+
+/* Class = "UILabel"; text = "  防止视角失灵"; ObjectID = "lZW-xh-hRR"; */
+"lZW-xh-hRR.text" = "  Prevent from visual failure";

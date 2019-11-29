@@ -1,0 +1,9 @@
+
+/* Class = "UILabel"; text = "设备未连接"; ObjectID = "E1W-AO-Ueb"; */
+"E1W-AO-Ueb.text" = "Device disconneted";
+
+/* Class = "UILabel"; text = "v:0.0"; ObjectID = "XxS-Lv-maN"; */
+"XxS-Lv-maN.text" = "v:0.0";
+
+/* Class = "UIButton"; normalTitle = "返回"; ObjectID = "kRt-8G-VpQ"; */
+"kRt-8G-VpQ.normalTitle" = "Back";

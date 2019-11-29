@@ -1,0 +1,123 @@
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "0Zq-ec-k9e"; */
+"0Zq-ec-k9e.text" = "Not set";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "18X-g5-jpr"; */
+"18X-g5-jpr.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "  减速系数"; ObjectID = "1Ze-eC-nS8"; */
+"1Ze-eC-nS8.text" = "  Deceleration Ratio";
+
+/* Class = "UILabel"; text = "60"; ObjectID = "2mB-qO-iSw"; */
+"2mB-qO-iSw.text" = "60";
+
+/* Class = "UILabel"; text = "功能简介"; ObjectID = "3By-r6-aps"; */
+"3By-r6-aps.text" = "Introduction";
+
+/* Class = "UISegmentedControl"; 4cG-dF-GJX.segmentTitles[0] = "竖向滑动"; ObjectID = "4cG-dF-GJX"; */
+"4cG-dF-GJX.segmentTitles[0]" = "Vertical Slide";
+
+/* Class = "UISegmentedControl"; 4cG-dF-GJX.segmentTitles[1] = "横向滑动"; ObjectID = "4cG-dF-GJX"; */
+"4cG-dF-GJX.segmentTitles[1]" = "Horizontal Slide";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "5yF-OW-xAk"; */
+"5yF-OW-xAk.text" = "1";
+
+/* Class = "UILabel"; text = "0.5"; ObjectID = "8eG-Fo-bEl"; */
+"8eG-Fo-bEl.text" = "0.5";
+
+/* Class = "UILabel"; text = "  子弹时间间隔(秒)"; ObjectID = "DTf-gO-JcZ"; */
+"DTf-gO-JcZ.text" = "  子弹时间间隔(秒)";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "Dvt-yR-6Cr"; */
+"Dvt-yR-6Cr.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "E6s-eM-cJb"; */
+"E6s-eM-cJb.text" = "1";
+
+/* Class = "UILabel"; text = "  下滑力度"; ObjectID = "FdV-2Q-YsX"; */
+"FdV-2Q-YsX.text" = "  下滑力度";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "GKE-NN-dHV"; */
+"GKE-NN-dHV.text" = "Not set";
+
+/* Class = "UILabel"; text = "  点击显示、再点隐藏"; ObjectID = "GQf-2C-hvm"; */
+"GQf-2C-hvm.text" = "  Click to show, then hide";
+
+/* Class = "UILabel"; text = "5"; ObjectID = "HMu-Cj-wqf"; */
+"HMu-Cj-wqf.text" = "5";
+
+/* Class = "UILabel"; text = "  鼠标指针显示与隐藏设置："; ObjectID = "ISf-fE-rbn"; */
+"ISf-fE-rbn.text" = "  Mouse pointer display and hidden settings:";
+
+/* Class = "UILabel"; text = "  滑动方向"; ObjectID = "LVP-qE-wHD"; */
+"LVP-qE-wHD.text" = "  Sliding Direction";
+
+/* Class = "UILabel"; text = "开镜减速(按下减速键减速，抬起减速键恢复)"; ObjectID = "OKN-IR-AHb"; */
+"OKN-IR-AHb.text" = "Decelerate the mouse when sight open";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "ON4-H6-gYa"; */
+"ON4-H6-gYa.normalTitle" = "Set";
+
+/* Class = "UISegmentedControl"; OZl-dP-hux.segmentTitles[0] = "关"; ObjectID = "OZl-dP-hux"; */
+"OZl-dP-hux.segmentTitles[0]" = "OFF";
+
+/* Class = "UISegmentedControl"; OZl-dP-hux.segmentTitles[1] = "开"; ObjectID = "OZl-dP-hux"; */
+"OZl-dP-hux.segmentTitles[1]" = "ON";
+
+/* Class = "UILabel"; text = "0.5"; ObjectID = "T28-5h-iyV"; */
+"T28-5h-iyV.text" = "0.5";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "THO-u8-PUC"; */
+"THO-u8-PUC.text" = "1";
+
+/* Class = "UILabel"; text = "  防止视角变化越来越快"; ObjectID = "Ygg-oD-YWf"; */
+"Ygg-oD-YWf.text" = "  Prevents changes in perspective faster and faster";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "bMk-vG-Z4B"; */
+"bMk-vG-Z4B.text" = "Not set";
+
+/* Class = "UILabel"; text = "自动下滑"; ObjectID = "bXY-AW-l8n"; */
+"bXY-AW-l8n.text" = "自动下滑";
+
+/* Class = "UILabel"; text = "  减速键"; ObjectID = "dVk-Lv-JCR"; */
+"dVk-Lv-JCR.text" = "  Deceleration key";
+
+/* Class = "UILabel"; text = "未设置"; ObjectID = "gba-Up-BIi"; */
+"gba-Up-BIi.text" = "Not set";
+
+/* Class = "UILabel"; text = "  速度（灵敏度）"; ObjectID = "hAi-vF-1je"; */
+"hAi-vF-1je.text" = "  Speed (sensitivity)";
+
+/* Class = "UILabel"; text = "  边界范围"; ObjectID = "hiI-fm-6pD"; */
+"hiI-fm-6pD.text" = "  Boundary Range";
+
+/* Class = "UILabel"; text = "  滚轮设置: \n\n  鼠标指针显示时，滚动滚轮，将会在指针指向位置模拟滑动。"; ObjectID = "iKB-2y-3b9"; */
+"iKB-2y-3b9.text" = "  Roller settings: \n\n When the mouse pointer is displayed, the scroll wheel will simulate the slide at the pointer position.";
+
+/* Class = "UILabel"; text = "  边界"; ObjectID = "iWX-BD-UA0"; */
+"iWX-BD-UA0.text" = "  Boundary";
+
+/* Class = "UIButton"; normalTitle = "设置"; ObjectID = "iZL-dj-d5c"; */
+"iZL-dj-d5c.normalTitle" = "Set";
+
+/* Class = "UILabel"; text = "  触发键"; ObjectID = "igj-Lx-5oE"; */
+"igj-Lx-5oE.text" = "  Trigger Key";
+
+/* Class = "UISegmentedControl"; jgh-wG-hQh.segmentTitles[0] = "有边界"; ObjectID = "jgh-wG-hQh"; */
+"jgh-wG-hQh.segmentTitles[0]" = "WIth Boundary";
+
+/* Class = "UISegmentedControl"; jgh-wG-hQh.segmentTitles[1] = "无边界"; ObjectID = "jgh-wG-hQh"; */
+"jgh-wG-hQh.segmentTitles[1]" = "No Boundary";
+
+/* Class = "UISegmentedControl"; jgh-wG-hQh.segmentTitles[2] = "全屏"; ObjectID = "jgh-wG-hQh"; */
+"jgh-wG-hQh.segmentTitles[2]" = "Full-screen";
+
+/* Class = "UILabel"; text = "  指针速度"; ObjectID = "mXX-xJ-Mzv"; */
+"mXX-xJ-Mzv.text" = "  Pointer Speed";
+
+/* Class = "UILabel"; text = "  按下显示、松开隐藏"; ObjectID = "p2I-X9-MDC"; */
+"p2I-X9-MDC.text" = "  Press to show and lift hide";
+
+/* Class = "UILabel"; text = "  滑动速度"; ObjectID = "uyU-gz-fve"; */
+"uyU-gz-fve.text" = "  Sliding Speed";
