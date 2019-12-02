@@ -77,6 +77,11 @@ $ touch .gitattributes
 
 # theos 的一些事
 
+( Logos is a component of the Theos development suite that allows method hooking code to be written easily and clearly, using a set of special preprocessor directives. )
+Logos是Theos开发套件的一个组件，该套件允许使用一组特殊的预处理程序指令轻松而清晰地编写方法挂钩代码。
+
+This is an [Logos 语法介绍]http://iphonedevwiki.net/index.php/Logos"With a Title").
+
 // 使用-switch选项可将系统上的Xcode更改为另一个版本：
 $ sudo xcode-select --switch /Applications/Xcode.app
 $ sudo xcode-select -switch /Applications/Xcode.app
