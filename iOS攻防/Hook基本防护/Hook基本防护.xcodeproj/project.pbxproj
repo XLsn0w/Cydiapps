@@ -1,0 +1,558 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E1A9564420BB16F70036CA18 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9564320BB16F70036CA18 /* AppDelegate.m */; };
+		E1A9564720BB16F70036CA18 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9564620BB16F70036CA18 /* ViewController.m */; };
+		E1A9564A20BB16F70036CA18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A9564820BB16F70036CA18 /* Main.storyboard */; };
+		E1A9564C20BB16FA0036CA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1A9564B20BB16FA0036CA18 /* Assets.xcassets */; };
+		E1A9564F20BB16FA0036CA18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A9564D20BB16FA0036CA18 /* LaunchScreen.storyboard */; };
+		E1A9565220BB16FA0036CA18 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9565120BB16FA0036CA18 /* main.m */; };
+		E1A9566320BB182F0036CA18 /* WJHookFrameWork.h in Headers */ = {isa = PBXBuildFile; fileRef = E1A9566120BB182F0036CA18 /* WJHookFrameWork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1A9566620BB182F0036CA18 /* WJHookFrameWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A9565F20BB182E0036CA18 /* WJHookFrameWork.framework */; };
+		E1A9566820BB182F0036CA18 /* WJHookFrameWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1A9565F20BB182E0036CA18 /* WJHookFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1A9566E20BB18890036CA18 /* WJHook.h in Headers */ = {isa = PBXBuildFile; fileRef = E1A9566C20BB18880036CA18 /* WJHook.h */; };
+		E1A9566F20BB18890036CA18 /* WJHook.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9566D20BB18890036CA18 /* WJHook.m */; };
+		E1A9567220BB199F0036CA18 /* WJHookFrameWork.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E1A9565F20BB182E0036CA18 /* WJHookFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E1A9566420BB182F0036CA18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A9563720BB16F70036CA18 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1A9565E20BB182E0036CA18;
+			remoteInfo = WJHookFrameWork;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E1A9565820BB17940036CA18 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E1A9567220BB199F0036CA18 /* WJHookFrameWork.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9566720BB182F0036CA18 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E1A9566820BB182F0036CA18 /* WJHookFrameWork.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9567120BB198A0036CA18 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E1A9563F20BB16F70036CA18 /* Hook基本防护.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hook基本防护.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A9564220BB16F70036CA18 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E1A9564320BB16F70036CA18 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E1A9564520BB16F70036CA18 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E1A9564620BB16F70036CA18 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E1A9564920BB16F70036CA18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E1A9564B20BB16FA0036CA18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1A9564E20BB16FA0036CA18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E1A9565020BB16FA0036CA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1A9565120BB16FA0036CA18 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E1A9565F20BB182E0036CA18 /* WJHookFrameWork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WJHookFrameWork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A9566120BB182F0036CA18 /* WJHookFrameWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WJHookFrameWork.h; sourceTree = "<group>"; };
+		E1A9566220BB182F0036CA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1A9566C20BB18880036CA18 /* WJHook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WJHook.h; sourceTree = "<group>"; };
+		E1A9566D20BB18890036CA18 /* WJHook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WJHook.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E1A9563C20BB16F70036CA18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9566620BB182F0036CA18 /* WJHookFrameWork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9565B20BB182E0036CA18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E1A9563620BB16F70036CA18 = {
+			isa = PBXGroup;
+			children = (
+				E1A9564120BB16F70036CA18 /* Hook基本防护 */,
+				E1A9566020BB182F0036CA18 /* WJHookFrameWork */,
+				E1A9564020BB16F70036CA18 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1A9564020BB16F70036CA18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1A9563F20BB16F70036CA18 /* Hook基本防护.app */,
+				E1A9565F20BB182E0036CA18 /* WJHookFrameWork.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1A9564120BB16F70036CA18 /* Hook基本防护 */ = {
+			isa = PBXGroup;
+			children = (
+				E1A9564220BB16F70036CA18 /* AppDelegate.h */,
+				E1A9564320BB16F70036CA18 /* AppDelegate.m */,
+				E1A9564520BB16F70036CA18 /* ViewController.h */,
+				E1A9564620BB16F70036CA18 /* ViewController.m */,
+				E1A9564820BB16F70036CA18 /* Main.storyboard */,
+				E1A9564B20BB16FA0036CA18 /* Assets.xcassets */,
+				E1A9564D20BB16FA0036CA18 /* LaunchScreen.storyboard */,
+				E1A9565020BB16FA0036CA18 /* Info.plist */,
+				E1A9565120BB16FA0036CA18 /* main.m */,
+			);
+			path = "Hook基本防护";
+			sourceTree = "<group>";
+		};
+		E1A9566020BB182F0036CA18 /* WJHookFrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				E1A9566C20BB18880036CA18 /* WJHook.h */,
+				E1A9566D20BB18890036CA18 /* WJHook.m */,
+				E1A9566120BB182F0036CA18 /* WJHookFrameWork.h */,
+				E1A9566220BB182F0036CA18 /* Info.plist */,
+			);
+			path = WJHookFrameWork;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E1A9565C20BB182E0036CA18 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9566E20BB18890036CA18 /* WJHook.h in Headers */,
+				E1A9566320BB182F0036CA18 /* WJHookFrameWork.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E1A9563E20BB16F70036CA18 /* Hook基本防护 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1A9565520BB16FA0036CA18 /* Build configuration list for PBXNativeTarget "Hook基本防护" */;
+			buildPhases = (
+				E1A9563B20BB16F70036CA18 /* Sources */,
+				E1A9563C20BB16F70036CA18 /* Frameworks */,
+				E1A9563D20BB16F70036CA18 /* Resources */,
+				E1A9565820BB17940036CA18 /* CopyFiles */,
+				E1A9565920BB179C0036CA18 /* ShellScript */,
+				E1A9566720BB182F0036CA18 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1A9566520BB182F0036CA18 /* PBXTargetDependency */,
+			);
+			name = "Hook基本防护";
+			productName = "Hook基本防护";
+			productReference = E1A9563F20BB16F70036CA18 /* Hook基本防护.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E1A9565E20BB182E0036CA18 /* WJHookFrameWork */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1A9566920BB182F0036CA18 /* Build configuration list for PBXNativeTarget "WJHookFrameWork" */;
+			buildPhases = (
+				E1A9565A20BB182E0036CA18 /* Sources */,
+				E1A9565B20BB182E0036CA18 /* Frameworks */,
+				E1A9565C20BB182E0036CA18 /* Headers */,
+				E1A9565D20BB182E0036CA18 /* Resources */,
+				E1A9567120BB198A0036CA18 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WJHookFrameWork;
+			productName = WJHookFrameWork;
+			productReference = E1A9565F20BB182E0036CA18 /* WJHookFrameWork.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1A9563720BB16F70036CA18 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = WinJayQ;
+				TargetAttributes = {
+					E1A9563E20BB16F70036CA18 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					E1A9565E20BB182E0036CA18 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+				};
+			};
+			buildConfigurationList = E1A9563A20BB16F70036CA18 /* Build configuration list for PBXProject "Hook基本防护" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E1A9563620BB16F70036CA18;
+			productRefGroup = E1A9564020BB16F70036CA18 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1A9563E20BB16F70036CA18 /* Hook基本防护 */,
+				E1A9565E20BB182E0036CA18 /* WJHookFrameWork */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E1A9563D20BB16F70036CA18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9564F20BB16FA0036CA18 /* LaunchScreen.storyboard in Resources */,
+				E1A9564C20BB16FA0036CA18 /* Assets.xcassets in Resources */,
+				E1A9564A20BB16F70036CA18 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9565D20BB182E0036CA18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E1A9565920BB179C0036CA18 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = /Users/zhihuishequ/WJshell/XcodeSign.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E1A9563B20BB16F70036CA18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9564720BB16F70036CA18 /* ViewController.m in Sources */,
+				E1A9565220BB16FA0036CA18 /* main.m in Sources */,
+				E1A9564420BB16F70036CA18 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9565A20BB182E0036CA18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9566F20BB18890036CA18 /* WJHook.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E1A9566520BB182F0036CA18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E1A9565E20BB182E0036CA18 /* WJHookFrameWork */;
+			targetProxy = E1A9566420BB182F0036CA18 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E1A9564820BB16F70036CA18 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A9564920BB16F70036CA18 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E1A9564D20BB16FA0036CA18 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A9564E20BB16FA0036CA18 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E1A9565320BB16FA0036CA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E1A9565420BB16FA0036CA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E1A9565620BB16FA0036CA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				INFOPLIST_FILE = "Hook基本防护/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liefeng.Hookjbfh;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1A9565720BB16FA0036CA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				INFOPLIST_FILE = "Hook基本防护/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liefeng.Hookjbfh;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E1A9566A20BB182F0036CA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = WJHookFrameWork/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liefeng.WJHookFrameWork;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E1A9566B20BB182F0036CA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = WJHookFrameWork/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liefeng.WJHookFrameWork;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E1A9563A20BB16F70036CA18 /* Build configuration list for PBXProject "Hook基本防护" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A9565320BB16FA0036CA18 /* Debug */,
+				E1A9565420BB16FA0036CA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1A9565520BB16FA0036CA18 /* Build configuration list for PBXNativeTarget "Hook基本防护" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A9565620BB16FA0036CA18 /* Debug */,
+				E1A9565720BB16FA0036CA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1A9566920BB182F0036CA18 /* Build configuration list for PBXNativeTarget "WJHookFrameWork" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A9566A20BB182F0036CA18 /* Debug */,
+				E1A9566B20BB182F0036CA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E1A9563720BB16F70036CA18 /* Project object */;
+}

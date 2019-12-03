@@ -1,0 +1,523 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E102A86D20BC3033008BF9D9 /* antiHook.h in Headers */ = {isa = PBXBuildFile; fileRef = E102A86B20BC3033008BF9D9 /* antiHook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E102A87020BC3033008BF9D9 /* antiHook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E102A86920BC3033008BF9D9 /* antiHook.framework */; };
+		E102A87220BC3033008BF9D9 /* antiHook.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E102A86920BC3033008BF9D9 /* antiHook.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E102A87620BC304B008BF9D9 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = E1A9563020BB0EC90036CA18 /* fishhook.c */; };
+		E102A87720BC304B008BF9D9 /* hookMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9563420BB0F070036CA18 /* hookMgr.m */; };
+		E1A9561C20BB0C040036CA18 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9561B20BB0C040036CA18 /* AppDelegate.m */; };
+		E1A9561F20BB0C040036CA18 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9561E20BB0C040036CA18 /* ViewController.m */; };
+		E1A9562220BB0C040036CA18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A9562020BB0C040036CA18 /* Main.storyboard */; };
+		E1A9562420BB0C090036CA18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1A9562320BB0C090036CA18 /* Assets.xcassets */; };
+		E1A9562720BB0C090036CA18 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1A9562520BB0C090036CA18 /* LaunchScreen.storyboard */; };
+		E1A9562A20BB0C0A0036CA18 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A9562920BB0C0A0036CA18 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E102A86E20BC3033008BF9D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E1A9560F20BB0C030036CA18 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E102A86820BC3033008BF9D9;
+			remoteInfo = antiHook;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E102A87120BC3033008BF9D9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E102A87220BC3033008BF9D9 /* antiHook.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E102A86920BC3033008BF9D9 /* antiHook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = antiHook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E102A86B20BC3033008BF9D9 /* antiHook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = antiHook.h; sourceTree = "<group>"; };
+		E102A86C20BC3033008BF9D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1A9561720BB0C040036CA18 /* 基本防护.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "基本防护.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1A9561A20BB0C040036CA18 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E1A9561B20BB0C040036CA18 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E1A9561D20BB0C040036CA18 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E1A9561E20BB0C040036CA18 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E1A9562120BB0C040036CA18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E1A9562320BB0C090036CA18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1A9562620BB0C090036CA18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E1A9562820BB0C0A0036CA18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1A9562920BB0C0A0036CA18 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E1A9563020BB0EC90036CA18 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		E1A9563120BB0EC90036CA18 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		E1A9563320BB0F070036CA18 /* hookMgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hookMgr.h; sourceTree = "<group>"; };
+		E1A9563420BB0F070036CA18 /* hookMgr.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hookMgr.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E102A86520BC3033008BF9D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9561420BB0C040036CA18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E102A87020BC3033008BF9D9 /* antiHook.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E102A86A20BC3033008BF9D9 /* antiHook */ = {
+			isa = PBXGroup;
+			children = (
+				E1A9563120BB0EC90036CA18 /* fishhook.h */,
+				E1A9563020BB0EC90036CA18 /* fishhook.c */,
+				E1A9563320BB0F070036CA18 /* hookMgr.h */,
+				E1A9563420BB0F070036CA18 /* hookMgr.m */,
+				E102A86B20BC3033008BF9D9 /* antiHook.h */,
+				E102A86C20BC3033008BF9D9 /* Info.plist */,
+			);
+			path = antiHook;
+			sourceTree = "<group>";
+		};
+		E1A9560E20BB0C030036CA18 = {
+			isa = PBXGroup;
+			children = (
+				E1A9561920BB0C040036CA18 /* 基本防护 */,
+				E102A86A20BC3033008BF9D9 /* antiHook */,
+				E1A9561820BB0C040036CA18 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1A9561820BB0C040036CA18 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1A9561720BB0C040036CA18 /* 基本防护.app */,
+				E102A86920BC3033008BF9D9 /* antiHook.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1A9561920BB0C040036CA18 /* 基本防护 */ = {
+			isa = PBXGroup;
+			children = (
+				E1A9561A20BB0C040036CA18 /* AppDelegate.h */,
+				E1A9561B20BB0C040036CA18 /* AppDelegate.m */,
+				E1A9561D20BB0C040036CA18 /* ViewController.h */,
+				E1A9561E20BB0C040036CA18 /* ViewController.m */,
+				E1A9562020BB0C040036CA18 /* Main.storyboard */,
+				E1A9562320BB0C090036CA18 /* Assets.xcassets */,
+				E1A9562520BB0C090036CA18 /* LaunchScreen.storyboard */,
+				E1A9562820BB0C0A0036CA18 /* Info.plist */,
+				E1A9562920BB0C0A0036CA18 /* main.m */,
+			);
+			path = "基本防护";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E102A86620BC3033008BF9D9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E102A86D20BC3033008BF9D9 /* antiHook.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E102A86820BC3033008BF9D9 /* antiHook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E102A87320BC3033008BF9D9 /* Build configuration list for PBXNativeTarget "antiHook" */;
+			buildPhases = (
+				E102A86420BC3033008BF9D9 /* Sources */,
+				E102A86520BC3033008BF9D9 /* Frameworks */,
+				E102A86620BC3033008BF9D9 /* Headers */,
+				E102A86720BC3033008BF9D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = antiHook;
+			productName = antiHook;
+			productReference = E102A86920BC3033008BF9D9 /* antiHook.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E1A9561620BB0C040036CA18 /* 基本防护 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E1A9562D20BB0C0A0036CA18 /* Build configuration list for PBXNativeTarget "基本防护" */;
+			buildPhases = (
+				E1A9561320BB0C040036CA18 /* Sources */,
+				E1A9561420BB0C040036CA18 /* Frameworks */,
+				E1A9561520BB0C040036CA18 /* Resources */,
+				E102A87120BC3033008BF9D9 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E102A86F20BC3033008BF9D9 /* PBXTargetDependency */,
+			);
+			name = "基本防护";
+			productName = "基本防护";
+			productReference = E1A9561720BB0C040036CA18 /* 基本防护.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1A9560F20BB0C030036CA18 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = WinJayQ;
+				TargetAttributes = {
+					E102A86820BC3033008BF9D9 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					E1A9561620BB0C040036CA18 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+				};
+			};
+			buildConfigurationList = E1A9561220BB0C030036CA18 /* Build configuration list for PBXProject "基本防护" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E1A9560E20BB0C030036CA18;
+			productRefGroup = E1A9561820BB0C040036CA18 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1A9561620BB0C040036CA18 /* 基本防护 */,
+				E102A86820BC3033008BF9D9 /* antiHook */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E102A86720BC3033008BF9D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9561520BB0C040036CA18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9562720BB0C090036CA18 /* LaunchScreen.storyboard in Resources */,
+				E1A9562420BB0C090036CA18 /* Assets.xcassets in Resources */,
+				E1A9562220BB0C040036CA18 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E102A86420BC3033008BF9D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E102A87620BC304B008BF9D9 /* fishhook.c in Sources */,
+				E102A87720BC304B008BF9D9 /* hookMgr.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1A9561320BB0C040036CA18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1A9561F20BB0C040036CA18 /* ViewController.m in Sources */,
+				E1A9562A20BB0C0A0036CA18 /* main.m in Sources */,
+				E1A9561C20BB0C040036CA18 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E102A86F20BC3033008BF9D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E102A86820BC3033008BF9D9 /* antiHook */;
+			targetProxy = E102A86E20BC3033008BF9D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E1A9562020BB0C040036CA18 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A9562120BB0C040036CA18 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E1A9562520BB0C090036CA18 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E1A9562620BB0C090036CA18 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E102A87420BC3033008BF9D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = antiHook/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WinJayQ.antiHook;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E102A87520BC3033008BF9D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = antiHook/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.WinJayQ.antiHook;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E1A9562B20BB0C0A0036CA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E1A9562C20BB0C0A0036CA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E1A9562E20BB0C0A0036CA18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				INFOPLIST_FILE = "基本防护/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liefeng.basicfh;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E1A9562F20BB0C0A0036CA18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = LFHQ946SL3;
+				INFOPLIST_FILE = "基本防护/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liefeng.basicfh;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E102A87320BC3033008BF9D9 /* Build configuration list for PBXNativeTarget "antiHook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E102A87420BC3033008BF9D9 /* Debug */,
+				E102A87520BC3033008BF9D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1A9561220BB0C030036CA18 /* Build configuration list for PBXProject "基本防护" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A9562B20BB0C0A0036CA18 /* Debug */,
+				E1A9562C20BB0C0A0036CA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E1A9562D20BB0C0A0036CA18 /* Build configuration list for PBXNativeTarget "基本防护" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1A9562E20BB0C0A0036CA18 /* Debug */,
+				E1A9562F20BB0C0A0036CA18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E1A9560F20BB0C030036CA18 /* Project object */;
+}
