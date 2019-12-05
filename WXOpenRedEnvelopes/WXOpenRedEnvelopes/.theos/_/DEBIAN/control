@@ -1,0 +1,10 @@
+Package: com.xlsn0w.wxopenredenvelopes
+Name: WXOpenRedEnvelopes
+Depends: mobilesubstrate
+Architecture: iosre
+Description: 微信自动抢红包探究
+Maintainer: XLsn0w
+Author: XLsn0w
+Section: XLsn0w
+Version: 1.0.0-2
+Installed-Size: 136
