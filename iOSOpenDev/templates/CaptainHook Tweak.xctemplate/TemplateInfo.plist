@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>com.kokoabim.iosopendev.captainHookTweak</string>
+	<key>Concrete</key>
+	<true/>
+	<key>Description</key>
+	<string>This template builds a CaptainHook-based Substrate Tweak.</string>
+	<key>Ancestors</key>
+	<array>
+		<string>com.kokoabim.iosopendev.base</string>
+		<string>com.kokoabim.iosopendev.unitTests</string>
+	</array>
+	<key>Targets</key>
+	<array>
+		<dict>
+			<key>ProductType</key>
+			<string>com.apple.product-type.library.dynamic</string>
+			<key>SharedSettings</key>
+			<dict>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>___PACKAGENAME___/___PACKAGENAME___-Prefix.pch</string>
+				<key>INSTALL_PATH</key>
+				<string>/Library/MobileSubstrate/DynamicLibraries</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+			</dict>
+			<key>BuildPhases</key>
+			<array>
+				<dict>
+					<key>Class</key>
+					<string>Sources</string>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>Frameworks</string>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>Headers</string>
+				</dict>
+				<dict>
+					<key>ShellScript</key>
+					<string>/opt/iOSOpenDev/bin/iosod --xcbp</string>
+					<key>ShellPath</key>
+					<string>/bin/sh</string>
+					<key>RunOnlyForDeploymentPostprocessing</key>
+					<false/>
+					<key>Class</key>
+					<string>ShellScript</string>
+				</dict>
+			</array>
+			<key>Frameworks</key>
+			<array>
+				<string>Foundation</string>
+			</array>
+		</dict>
+	</array>
+	<key>Nodes</key>
+	<array>
+		<string>___PACKAGENAME___-Prefix.pch:objC:importFoundation</string>
+		<string>___PACKAGENAMEASIDENTIFIER___.mm</string>
+		<string>Package/DEBIAN/control:debianControl:section</string>
+		<string>Package/DEBIAN/control:debianControl:depends</string>
+		<string>Package/Library/MobileSubstrate/DynamicLibraries/___PACKAGENAMEASIDENTIFIER___.plist</string>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>___PACKAGENAMEASIDENTIFIER___.mm</key>
+		<dict>
+			<key>Path</key>
+			<string>___PACKAGENAMEASIDENTIFIER___.mm</string>
+		</dict>
+		<key>Package/Library/MobileSubstrate/DynamicLibraries/___PACKAGENAMEASIDENTIFIER___.plist</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>Library</string>
+				<string>MobileSubstrate</string>
+				<string>DynamicLibraries</string>
+			</array>
+			<key>Path</key>
+			<string>___PACKAGENAMEASIDENTIFIER___.plist</string>
+		</dict>
+		<key>*:debianControl:section</key>
+		<string>Section: Tweaks</string>
+		<key>*:debianControl:depends</key>
+		<string>Depends: firmware (&gt;= 5.0), mobilesubstrate</string>
+	</dict>
+</dict>
+</plist>

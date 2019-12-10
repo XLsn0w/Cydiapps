@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>com.kokoabim.iosopendev.debianPackage</string>
+	<key>Targets</key>
+	<array>
+		<dict>
+			<key>SharedSettings</key>
+			<dict>
+				<key>iOSOpenDevBuildPackageOnAnyBuild</key>
+				<string>NO</string>
+				<key>iOSOpenDevUsePackageVersionPList</key>
+				<string>YES</string>
+			</dict>
+		</dict>
+	</array>
+	<key>Nodes</key>
+	<array>
+		<string>Package/DEBIAN/control.txt</string>
+		<string>Package/DEBIAN/control</string>
+		<string>Package/DEBIAN/control:debianControl</string>
+		<string>PackageVersion.plist</string>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>Package/DEBIAN/control.txt</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>DEBIAN</string>
+			</array>
+			<key>Beginning</key>
+			<string>
+The control file in the same directory as this file is the Debian control file that is needed
+to build the project&apos;s Debian package that&apos;s used by APT repositories like Cydia.
+
+For more on...
+	Debian packages, see http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html.
+	Debian control files, see http://www.debian.org/doc/debian-policy/ch-controlfields.html.
+	Cydia packages, see http://www.saurik.com/id/7.
+
+Note: This file (control.txt) was created only to provide an explaination about the Debian control file. This file can now be deleted.</string>
+		</dict>
+		<key>Package/DEBIAN/control</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>DEBIAN</string>
+			</array>
+		</dict>
+		<key>*:debianControl</key>
+		<dict>
+			<key>Beginning</key>
+			<string>Package: ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___
+Name: ___VARIABLE_productName___
+Version: 0.1-1
+Description: </string>
+			<key>End</key>
+			<string>Conflicts: 
+Replaces: 
+Priority: optional
+Architecture: iphoneos-arm
+Author: ___FULLUSERNAME___
+dev: 
+Homepage: 
+Depiction: 
+Maintainer: 
+Icon: 
+</string>
+		</dict>
+		<key>Package/DEBIAN/preinst</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>DEBIAN</string>
+			</array>
+			<key>Beginning</key>
+			<string>#!/bin/sh
+
+# This script is executed BEFORE the Debian package is INSTALLED
+# For information about this file, see http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html#s-maintscripts.
+</string>
+		</dict>
+		<key>Package/DEBIAN/postinst</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>DEBIAN</string>
+			</array>
+			<key>Beginning</key>
+			<string>#!/bin/sh
+
+# This script is executed AFTER the Debian package is INSTALLED
+# For information about this file, see http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html#s-maintscripts.
+</string>
+		</dict>
+		<key>Package/DEBIAN/prerm</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>DEBIAN</string>
+			</array>
+			<key>Beginning</key>
+			<string>#!/bin/sh
+
+# This script is executed BEFORE the Debian package is REMOVED
+# For information about this file, see http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html#s-maintscripts.
+</string>
+		</dict>
+		<key>Package/DEBIAN/postrm</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>DEBIAN</string>
+			</array>
+			<key>Beginning</key>
+			<string>#!/bin/sh
+
+# This script is executed AFTER the Debian package is REMOVED
+# For information about this file, see http://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html#s-maintscripts.
+</string>
+		</dict>
+		<key>PackageVersion.plist</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Supporting Files</string>
+			</array>
+			<key>Beginning</key>
+			<string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+	&lt;key&gt;Major&lt;/key&gt;
+	&lt;string&gt;1&lt;/string&gt;
+	&lt;key&gt;Minor&lt;/key&gt;
+	&lt;string&gt;0&lt;/string&gt;
+	&lt;key&gt;BugFix&lt;/key&gt;
+	&lt;string&gt;&lt;/string&gt;
+	&lt;key&gt;Stage&lt;/key&gt;
+	&lt;string&gt;&lt;/string&gt;
+	&lt;key&gt;PackageRevision&lt;/key&gt;
+	&lt;string&gt;1&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

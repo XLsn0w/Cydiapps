@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [[ $1 == upgrade ]]; then
+	/bin/launchctl unload /Library/LaunchDaemons/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___.plist
+fi
+
+chown root:wheel /usr/bin/__PACKAGENAME__
+chmod 755 /usr/bin/__PACKAGENAME__
+chown root:wheel /Library/LaunchDaemons/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___.plist
+chmod 644 /Library/LaunchDaemons/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___.plist
+
+/bin/launchctl load /Library/LaunchDaemons/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___.plist
+
+exit 0

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>com.kokoabim.iosopendev.preferenceLoader</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>SortOrder</key>
+			<integer>2</integer>
+			<key>Default</key>
+			<string>false</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Identifier</key>
+			<string>includePreferenceLoaderSimple</string>
+			<key>Name</key>
+			<string>Include Simple PreferenceLoader</string>
+			<key>Description</key>
+			<string>Indicates whether a Simple PreferenceLoader (non-bundle) is included.</string>
+			<key>Type</key>
+			<string>checkbox</string>
+			<key>Units</key>
+			<dict>
+				<key>true</key>
+				<array>
+					<dict>
+						<key>Definitions</key>
+						<dict>
+							<key>Package/Library/PreferenceLoader/Preferences/___PACKAGENAMEASIDENTIFIER___.plist</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Package</string>
+									<string>Library</string>
+									<string>PreferenceLoader</string>
+									<string>Preferences</string>
+								</array>
+								<key>Path</key>
+								<string>___PACKAGENAMEASIDENTIFIER___.plist</string>
+							</dict>
+							<key>Package/Library/PreferenceLoader/Preferences/___PACKAGENAMEASIDENTIFIER___Icon.png</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Package</string>
+									<string>Library</string>
+									<string>PreferenceLoader</string>
+									<string>Preferences</string>
+								</array>
+								<key>Path</key>
+								<string>___PACKAGENAMEASIDENTIFIER___Icon.png</string>
+							</dict>
+							<key>Package/Library/PreferenceLoader/Preferences/___PACKAGENAMEASIDENTIFIER___Icon@2x.png</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Package</string>
+									<string>Library</string>
+									<string>PreferenceLoader</string>
+									<string>Preferences</string>
+								</array>
+								<key>Path</key>
+								<string>___PACKAGENAMEASIDENTIFIER___Icon@2x.png</string>
+							</dict>
+						</dict>
+						<key>Nodes</key>
+						<array>
+							<string>Package/Library/PreferenceLoader/Preferences/___PACKAGENAMEASIDENTIFIER___.plist</string>
+							<string>Package/Library/PreferenceLoader/Preferences/___PACKAGENAMEASIDENTIFIER___Icon.png</string>
+							<string>Package/Library/PreferenceLoader/Preferences/___PACKAGENAMEASIDENTIFIER___Icon@2x.png</string>
+						</array>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>

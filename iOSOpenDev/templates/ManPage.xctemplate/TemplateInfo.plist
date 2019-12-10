@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>com.kokoabim.iosopendev.manPage</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>SortOrder</key>
+			<integer>2</integer>
+			<key>Default</key>
+			<string>false</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Identifier</key>
+			<string>includeManPage</string>
+			<key>Name</key>
+			<string>Include Man Page</string>
+			<key>Description</key>
+			<string>Indicates whether a man page should be included.</string>
+			<key>Type</key>
+			<string>checkbox</string>
+			<key>Units</key>
+			<dict>
+				<key>true</key>
+				<array>
+					<dict>
+						<key>Nodes</key>
+						<array>
+							<string>___PACKAGENAMEASIDENTIFIER___.1</string>
+						</array>
+						<key>Targets</key>
+						<array>
+							<dict>
+								<key>BuildPhases</key>
+								<array>
+									<dict>
+										<key>Class</key>
+										<string>CopyFiles</string>
+										<key>DstPath</key>
+										<string>/usr/share/man/man1/</string>
+										<key>DstSubfolderSpec</key>
+										<string>0</string>
+										<key>RunOnlyForDeploymentPostprocessing</key>
+										<string>YES</string>
+									</dict>
+								</array>
+							</dict>
+						</array>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>___PACKAGENAMEASIDENTIFIER___.1</key>
+		<dict>
+			<key>Path</key>
+			<string>___PACKAGENAMEASIDENTIFIER___.1</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

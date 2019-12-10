@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>title</key>
+	<string>___PACKAGENAMEASIDENTIFIER___</string>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>isStaticText</key>
+			<true/>
+			<key>label</key>
+			<string>Use Preferences File To Get/Set Value</string>
+			<key>footerText</key>
+			<string>Example of how to get/set values directly from/to the preferences (plist) file by not calling any code (just how non-bundles do so).</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>key</key>
+			<string>SwitchExample</string>
+			<key>label</key>
+			<string>Switch</string>
+			<key>PostNotification</key>
+			<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASIDENTIFIER___.settingsChanged</string>
+			<key>defaults</key>
+			<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASIDENTIFIER___</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>isStaticText</key>
+			<true/>
+			<key>label</key>
+			<string>Use Code To Get Value</string>
+			<key>footerText</key>
+			<string>Example of how to get values from code by sending messages to the bundle&apos;s principal class.</string>
+		</dict>
+		<dict>
+			<key>key</key>
+			<string>TemplateVersionExample</string>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>get</key>
+			<string>getValueForSpecifier:</string>
+			<key>label</key>
+			<string>Template Version</string>
+		</dict>
+		<dict>
+			<key>defaults</key>
+			<string>/System/Library/CoreServices/SystemVersion</string>
+			<key>key</key>
+			<string>ProductVersion</string>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
+			<key>get</key>
+			<string>getValueForSpecifier:</string>
+			<key>label</key>
+			<string>OS Version</string>
+		</dict>
+		<dict>
+			<key>footerText</key>
+			<string>Example of how to get/set/use values from/to/in code by sending messages to the bundle&apos;s principal class.</string>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>isStaticText</key>
+			<true/>
+			<key>label</key>
+			<string>Use Code To Get/Set/Use Value</string>
+		</dict>
+		<dict>
+			<key>set</key>
+			<string>setValue:forSpecifier:</string>
+			<key>get</key>
+			<string>getValueForSpecifier:</string>
+			<key>label</key>
+			<string>Text</string>
+			<key>PostNotification</key>
+			<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASIDENTIFIER___.settingsChanged</string>
+			<key>defaults</key>
+			<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASIDENTIFIER___</string>
+			<key>key</key>
+			<string>TextExample</string>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+		</dict>
+		<dict>
+			<key>footerText</key>
+			<string>Perform an action by sending messages to the bundle&apos;s principal class.</string>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>isStaticText</key>
+			<true/>
+			<key>label</key>
+			<string>Perform Action</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>followOnTwitter:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Follow Kokoabim</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>visitWebSite:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Visit iOSOpenDev.com</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>makeDonation:</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Donate to iOSOpenDev</string>
+		</dict>
+		<dict>
+			<key>footerText</key>
+			<string>© ___YEAR___ ___ORGANIZATIONNAME___</string>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>isStaticText</key>
+			<true/>
+			<key>label</key>
+			<string></string>
+		</dict>
+	</array>
+</dict>
+</plist>

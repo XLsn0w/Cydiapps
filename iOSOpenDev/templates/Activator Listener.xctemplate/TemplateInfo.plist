@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>com.kokoabim.iosopendev.activatorListener</string>
+	<key>Concrete</key>
+	<true/>
+	<key>Description</key>
+	<string>This template builds an Activator Listener.</string>
+	<key>Ancestors</key>
+	<array>
+		<string>com.kokoabim.iosopendev.base</string>
+		<string>com.kokoabim.iosopendev.unitTests</string>
+	</array>
+	<key>Targets</key>
+	<array>
+		<dict>
+			<key>ProductType</key>
+			<string>com.apple.product-type.library.dynamic</string>
+			<key>SharedSettings</key>
+			<dict>
+				<key>INSTALL_PATH</key>
+				<string>/Library/MobileSubstrate/DynamicLibraries</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+			</dict>
+			<key>BuildPhases</key>
+			<array>
+				<dict>
+					<key>Class</key>
+					<string>Sources</string>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>Frameworks</string>
+				</dict>
+				<dict>
+					<key>Class</key>
+					<string>Headers</string>
+				</dict>
+				<dict>
+					<key>ShellScript</key>
+					<string>/opt/iOSOpenDev/bin/iosod --xcbp</string>
+					<key>ShellPath</key>
+					<string>/bin/sh</string>
+					<key>RunOnlyForDeploymentPostprocessing</key>
+					<false/>
+					<key>Class</key>
+					<string>ShellScript</string>
+				</dict>
+			</array>
+			<key>Frameworks</key>
+			<array>
+				<string>Foundation</string>
+				<string>UIKit</string>
+			</array>
+		</dict>
+	</array>
+	<key>Nodes</key>
+	<array>
+		<string>___PACKAGENAMEASIDENTIFIER___.m</string>
+		<string>Package/DEBIAN/control:debianControl:section</string>
+		<string>Package/DEBIAN/control:debianControl:depends</string>
+		<string>Package/Library/MobileSubstrate/DynamicLibraries/___PACKAGENAMEASIDENTIFIER___.plist</string>
+		<string>Package/Library/Activator/Listeners/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___/Info.plist</string>
+		<string>Package/Library/Activator/Listeners/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___/Icon-small.png</string>
+		<string>Package/Library/Activator/Listeners/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___/Icon-small@2x.png</string>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>___PACKAGENAMEASIDENTIFIER___.m</key>
+		<dict>
+			<key>Beginning</key>
+			<string>//
+//  ___FILENAME___
+//  ___PACKAGENAME___
+//
+//  Created by ___FULLUSERNAME___ on ___DATE___.
+//  Copyright (c) ___YEAR___ ___ORGANIZATIONNAME___. All rights reserved.
+//
+
+// LibActivator by Ryan Petrich
+// See https://github.com/rpetrich/libactivator
+
+#import &lt;Foundation/Foundation.h&gt;
+#import &lt;UIKit/UIKit.h&gt;
+#import &lt;libactivator/libactivator.h&gt;
+
+#error iOSOpenDev post-project creation from template requirements (remove these lines after completed) -- \
+ Link to libactivator.dylib: \
+ (1) go to TARGETS > Build Phases > Link Binary With Libraries and add /opt/iOSOpenDev/lib/libactivator.dylib
+
+@interface ___FILEBASENAMEASIDENTIFIER___ : NSObject&lt;LAListener, UIAlertViewDelegate&gt; {
+@private
+	UIAlertView *av;
+}
+@end
+
+@implementation ___FILEBASENAMEASIDENTIFIER___
+
+- (BOOL)dismiss
+{
+	if (av)
+	{
+		[av dismissWithClickedButtonIndex:[av cancelButtonIndex] animated:YES];
+		return YES;
+	}
+	return NO;
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+}
+
+- (void)activator:(LAActivator *)activator receiveEvent:(LAEvent *)event
+{
+	if (![self dismiss])
+	{
+		av = [[UIAlertView alloc] initWithTitle:@&quot;___PACKAGENAME___&quot; message:[event name] delegate:self cancelButtonTitle:@&quot;Ok&quot; otherButtonTitles:nil];
+		[av show];
+		[event setHandled:YES];
+	}
+}
+
+- (void)activator:(LAActivator *)activator abortEvent:(LAEvent *)event
+{
+	// Called when event is escalated to higher event
+	[self dismiss];
+}
+
+- (void)activator:(LAActivator *)activator otherListenerDidHandleEvent:(LAEvent *)event
+{
+	// Called when other listener receives an event
+	[self dismiss];
+}
+
+- (void)activator:(LAActivator *)activator receiveDeactivateEvent:(LAEvent *)event
+{
+	// Called when the home button is pressed.
+	// If showing UI, then dismiss it and call setHandled:.
+	if ([self dismiss])
+		[event setHandled:YES];
+}
+
+
++ (void)load
+{
+	@autoreleasepool
+	{
+		[[LAActivator sharedInstance] registerListener:[self new] forName:@&quot;___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___&quot;];
+	}
+}
+
+@end</string>
+		</dict>
+		<key>Package/Library/MobileSubstrate/DynamicLibraries/___PACKAGENAMEASIDENTIFIER___.plist</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>Library</string>
+				<string>MobileSubstrate</string>
+				<string>DynamicLibraries</string>
+			</array>
+			<key>Beginning</key>
+			<string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+	&lt;key&gt;Filter&lt;/key&gt;
+	&lt;dict&gt;
+		&lt;key&gt;Bundles&lt;/key&gt;
+		&lt;array&gt;
+			&lt;string&gt;com.apple.springboard&lt;/string&gt;
+		&lt;/array&gt;
+	&lt;/dict&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</string>
+		</dict>
+		<key>*:debianControl:section</key>
+		<string>Section: System</string>
+		<key>*:debianControl:depends</key>
+		<string>Depends: firmware (&gt;= 5.0), mobilesubstrate, libactivator</string>
+		<key>Package/Library/Activator/Listeners/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___/Info.plist</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>Library</string>
+				<string>Activator</string>
+				<string>Listeners</string>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___</string>
+			</array>
+			<key>Beginning</key>
+			<string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;dict&gt;
+	&lt;key&gt;title&lt;/key&gt;
+	&lt;string&gt;___PACKAGENAME___&lt;/string&gt;
+	&lt;key&gt;description&lt;/key&gt;
+	&lt;string&gt;Go Red Sox!&lt;/string&gt;
+	&lt;key&gt;compatible-modes&lt;/key&gt;
+	&lt;array&gt;
+		&lt;string&gt;springboard&lt;/string&gt;
+		&lt;string&gt;application&lt;/string&gt;
+		&lt;string&gt;lockscreen&lt;/string&gt;
+	&lt;/array&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;</string>
+		</dict>
+		<key>Package/Library/Activator/Listeners/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___/Icon-small.png</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>Library</string>
+				<string>Activator</string>
+				<string>Listeners</string>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___</string>
+			</array>
+			<key>Path</key>
+			<string>Icon-small.png</string>
+		</dict>
+		<key>Package/Library/Activator/Listeners/___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___/Icon-small@2x.png</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Package</string>
+				<string>Library</string>
+				<string>Activator</string>
+				<string>Listeners</string>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___VARIABLE_productName:RFC1034Identifier___</string>
+			</array>
+			<key>Path</key>
+			<string>Icon-small@2x.png</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
