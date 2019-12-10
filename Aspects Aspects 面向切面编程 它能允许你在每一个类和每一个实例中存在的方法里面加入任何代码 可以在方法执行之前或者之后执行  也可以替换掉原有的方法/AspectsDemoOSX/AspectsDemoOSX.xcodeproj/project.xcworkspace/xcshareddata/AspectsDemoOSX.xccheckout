@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BE9DB880-2611-435A-9782-57D047D30C1A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AspectsDemoOSX</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BFDD7EB6-262A-4289-BF40-2E5B677EEC58</key>
+		<string>https://github.com/steipete/Aspects.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AspectsDemoOSX/AspectsDemoOSX.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BFDD7EB6-262A-4289-BF40-2E5B677EEC58</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/steipete/Aspects.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BFDD7EB6-262A-4289-BF40-2E5B677EEC58</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BFDD7EB6-262A-4289-BF40-2E5B677EEC58</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Aspects</string>
+		</dict>
+	</array>
+</dict>
+</plist>
