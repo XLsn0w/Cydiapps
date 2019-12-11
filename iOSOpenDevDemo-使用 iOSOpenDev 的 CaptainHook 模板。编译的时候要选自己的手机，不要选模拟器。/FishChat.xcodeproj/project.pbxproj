@@ -1,0 +1,445 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A43B99CA1E5DEBD60060676F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A43B99C91E5DEBD60060676F /* Foundation.framework */; };
+		A43B99D41E5DEBD60060676F /* FishChat.mm in Sources */ = {isa = PBXBuildFile; fileRef = A43B99D31E5DEBD60060676F /* FishChat.mm */; };
+		A43B99E11E5DF38D0060676F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A43B99E01E5DF38D0060676F /* JavaScriptCore.framework */; };
+		A43B99E31E5DF3970060676F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A43B99E21E5DF3970060676F /* libsqlite3.0.tbd */; };
+		A43B99E71E5DF48E0060676F /* Cycript.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A43B99E61E5DF48E0060676F /* Cycript.framework */; };
+		A445B5621E6318C2008616D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49CDD301E5DFF31000A00AB /* UIKit.framework */; };
+		A49CDD631E5E0916000A00AB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A49CDD621E5E0916000A00AB /* libz.tbd */; };
+		A4AFEC9A215BD28500362450 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A4AFEC99215BD28500362450 /* libc++.tbd */; };
+		A4EE97041E62A42B00B5FD42 /* FishConfigurationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = A4EE97021E62A42B00B5FD42 /* FishConfigurationCenter.h */; };
+		A4EE97051E62A42B00B5FD42 /* FishConfigurationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A4EE97031E62A42B00B5FD42 /* FishConfigurationCenter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A43B99C61E5DEBD60060676F /* FishChat.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = FishChat.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		A43B99C91E5DEBD60060676F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A43B99CE1E5DEBD60060676F /* control.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = control.txt; path = Package/DEBIAN/control.txt; sourceTree = "<group>"; };
+		A43B99CF1E5DEBD60060676F /* control */ = {isa = PBXFileReference; lastKnownFileType = text; name = control; path = Package/DEBIAN/control; sourceTree = "<group>"; };
+		A43B99D11E5DEBD60060676F /* PackageVersion.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PackageVersion.plist; sourceTree = "<group>"; };
+		A43B99D21E5DEBD60060676F /* FishChat-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FishChat-Prefix.pch"; sourceTree = "<group>"; };
+		A43B99D31E5DEBD60060676F /* FishChat.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FishChat.mm; sourceTree = "<group>"; };
+		A43B99D81E5DEBD60060676F /* FishChat.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = FishChat.plist; path = Package/Library/MobileSubstrate/DynamicLibraries/FishChat.plist; sourceTree = "<group>"; };
+		A43B99E01E5DF38D0060676F /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		A43B99E21E5DF3970060676F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		A43B99E41E5DF3A10060676F /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		A43B99E61E5DF48E0060676F /* Cycript.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Cycript.framework; sourceTree = "<group>"; };
+		A49CDD301E5DFF31000A00AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A49CDD321E5DFF42000A00AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A49CDD341E5DFF4B000A00AB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A49CDD361E5DFF53000A00AB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		A49CDD621E5E0916000A00AB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		A4AFEC99215BD28500362450 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		A4EE97021E62A42B00B5FD42 /* FishConfigurationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FishConfigurationCenter.h; sourceTree = "<group>"; };
+		A4EE97031E62A42B00B5FD42 /* FishConfigurationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishConfigurationCenter.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A43B99C21E5DEBD60060676F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4AFEC9A215BD28500362450 /* libc++.tbd in Frameworks */,
+				A445B5621E6318C2008616D0 /* UIKit.framework in Frameworks */,
+				A43B99E71E5DF48E0060676F /* Cycript.framework in Frameworks */,
+				A49CDD631E5E0916000A00AB /* libz.tbd in Frameworks */,
+				A43B99E31E5DF3970060676F /* libsqlite3.0.tbd in Frameworks */,
+				A43B99E11E5DF38D0060676F /* JavaScriptCore.framework in Frameworks */,
+				A43B99CA1E5DEBD60060676F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A43B99BC1E5DEBD60060676F = {
+			isa = PBXGroup;
+			children = (
+				A43B99CB1E5DEBD60060676F /* FishChat */,
+				A43B99C81E5DEBD60060676F /* Frameworks */,
+				A43B99C71E5DEBD60060676F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A43B99C71E5DEBD60060676F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99C61E5DEBD60060676F /* FishChat.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A43B99C81E5DEBD60060676F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A4AFEC99215BD28500362450 /* libc++.tbd */,
+				A49CDD621E5E0916000A00AB /* libz.tbd */,
+				A49CDD361E5DFF53000A00AB /* CFNetwork.framework */,
+				A49CDD341E5DFF4B000A00AB /* QuartzCore.framework */,
+				A49CDD321E5DFF42000A00AB /* CoreGraphics.framework */,
+				A49CDD301E5DFF31000A00AB /* UIKit.framework */,
+				A43B99E61E5DF48E0060676F /* Cycript.framework */,
+				A43B99E41E5DF3A10060676F /* libstdc++.6.0.9.tbd */,
+				A43B99E21E5DF3970060676F /* libsqlite3.0.tbd */,
+				A43B99E01E5DF38D0060676F /* JavaScriptCore.framework */,
+				A43B99C91E5DEBD60060676F /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A43B99CB1E5DEBD60060676F /* FishChat */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99D31E5DEBD60060676F /* FishChat.mm */,
+				A4EE97021E62A42B00B5FD42 /* FishConfigurationCenter.h */,
+				A4EE97031E62A42B00B5FD42 /* FishConfigurationCenter.m */,
+				A43B99CC1E5DEBD60060676F /* Package */,
+				A43B99D01E5DEBD60060676F /* Supporting Files */,
+			);
+			path = FishChat;
+			sourceTree = "<group>";
+		};
+		A43B99CC1E5DEBD60060676F /* Package */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99CD1E5DEBD60060676F /* DEBIAN */,
+				A43B99D51E5DEBD60060676F /* Library */,
+			);
+			name = Package;
+			sourceTree = "<group>";
+		};
+		A43B99CD1E5DEBD60060676F /* DEBIAN */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99CE1E5DEBD60060676F /* control.txt */,
+				A43B99CF1E5DEBD60060676F /* control */,
+			);
+			name = DEBIAN;
+			sourceTree = "<group>";
+		};
+		A43B99D01E5DEBD60060676F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99D11E5DEBD60060676F /* PackageVersion.plist */,
+				A43B99D21E5DEBD60060676F /* FishChat-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A43B99D51E5DEBD60060676F /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99D61E5DEBD60060676F /* MobileSubstrate */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		A43B99D61E5DEBD60060676F /* MobileSubstrate */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99D71E5DEBD60060676F /* DynamicLibraries */,
+			);
+			name = MobileSubstrate;
+			sourceTree = "<group>";
+		};
+		A43B99D71E5DEBD60060676F /* DynamicLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				A43B99D81E5DEBD60060676F /* FishChat.plist */,
+			);
+			name = DynamicLibraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		A43B99C31E5DEBD60060676F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4EE97041E62A42B00B5FD42 /* FishConfigurationCenter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A43B99C51E5DEBD60060676F /* FishChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A43B99DB1E5DEBD60060676F /* Build configuration list for PBXNativeTarget "FishChat" */;
+			buildPhases = (
+				A43B99C11E5DEBD60060676F /* Sources */,
+				A43B99C21E5DEBD60060676F /* Frameworks */,
+				A43B99C31E5DEBD60060676F /* Headers */,
+				A43B99C41E5DEBD60060676F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FishChat;
+			productName = FishChat;
+			productReference = A43B99C61E5DEBD60060676F /* FishChat.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A43B99BD1E5DEBD60060676F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1000;
+				TargetAttributes = {
+					A43B99C51E5DEBD60060676F = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = D3RCVUP6VH;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A43B99C01E5DEBD60060676F /* Build configuration list for PBXProject "FishChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = A43B99BC1E5DEBD60060676F;
+			productRefGroup = A43B99C71E5DEBD60060676F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A43B99C51E5DEBD60060676F /* FishChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A43B99C41E5DEBD60060676F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/iOSOpenDev/bin/iosod --xcbp";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A43B99C11E5DEBD60060676F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A43B99D41E5DEBD60060676F /* FishChat.mm in Sources */,
+				A4EE97051E62A42B00B5FD42 /* FishConfigurationCenter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A43B99D91E5DEBD60060676F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(iOSOpenDevPath)/frameworks/**",
+					"$(SDKROOT)/System/Library/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(iOSOpenDevPath)/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LIBRARY_SEARCH_PATHS = "$(iOSOpenDevPath)/lib/**";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+				iOSOpenDevPath = /opt/iOSOpenDev;
+			};
+			name = Debug;
+		};
+		A43B99DA1E5DEBD60060676F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(iOSOpenDevPath)/frameworks/**",
+					"$(SDKROOT)/System/Library/PrivateFrameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(iOSOpenDevPath)/include/**";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LIBRARY_SEARCH_PATHS = "$(iOSOpenDevPath)/lib/**";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				iOSOpenDevPath = /opt/iOSOpenDev;
+			};
+			name = Release;
+		};
+		A43B99DC1E5DEBD60060676F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3RCVUP6VH;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FishChat/FishChat-Prefix.pch";
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				iOSOpenDevBuildPackageOnAnyBuild = NO;
+				iOSOpenDevCopyOnBuild = NO;
+				iOSOpenDevDevice = "";
+				iOSOpenDevInstallOnAnyBuild = NO;
+				iOSOpenDevInstallOnProfiling = YES;
+				iOSOpenDevRespringOnInstall = YES;
+				iOSOpenDevUsePackageVersionPList = YES;
+			};
+			name = Debug;
+		};
+		A43B99DD1E5DEBD60060676F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3RCVUP6VH;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FishChat/FishChat-Prefix.pch";
+				INSTALL_PATH = /Library/MobileSubstrate/DynamicLibraries;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				iOSOpenDevBuildPackageOnAnyBuild = NO;
+				iOSOpenDevCopyOnBuild = NO;
+				iOSOpenDevDevice = "";
+				iOSOpenDevInstallOnAnyBuild = NO;
+				iOSOpenDevInstallOnProfiling = YES;
+				iOSOpenDevRespringOnInstall = YES;
+				iOSOpenDevUsePackageVersionPList = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A43B99C01E5DEBD60060676F /* Build configuration list for PBXProject "FishChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A43B99D91E5DEBD60060676F /* Debug */,
+				A43B99DA1E5DEBD60060676F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A43B99DB1E5DEBD60060676F /* Build configuration list for PBXNativeTarget "FishChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A43B99DC1E5DEBD60060676F /* Debug */,
+				A43B99DD1E5DEBD60060676F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A43B99BD1E5DEBD60060676F /* Project object */;
+}
