@@ -3512,11 +3512,7 @@ Xcode会在‘密码错误’的警告框弹出时停下，左侧会显示出这
 一张图看完支付宝的登录过程
 ![](http://blog.imjun.net/posts/restore-symbol-of-iOS-app/xcode_backtrace.jpg)
 
-## 参考文献
-
-- http://c.blog.sina.com.cn/profile.php?blogid=cb8a22ea89000gtw 
-<br/>这篇有点过时了，修改libReveal.plist时经常出现白苹果，可以强制进入[安全模式](https://www.google.com.hk/#newwindow=1&safe=strict&q=iphone+安全模式)后将文件修改好再重新启动。
-- http://hilen.github.io/2015/12/01/Reveal-Loader/
+# 编译器
 
 GCC
 
@@ -3566,8 +3562,7 @@ LVVM 优化器会进行 BitCode 的生成，链接期优化等等。
 这是一些主动保护策略，增大破解者调试、分析App的门槛。
 
 
-
-4. 逆向工具🔧
+ 逆向工具
 1. class-dump
 class-dump 利用 Objective-C runtime 特性，将存储在 Mach-O 文件结构里 data 部分的类属性和方法等信息提取出来，并生成对应的 .h 文件的工具。
 
