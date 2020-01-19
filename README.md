@@ -1,12 +1,11 @@
 ##  iOS逆向工程开发 越狱Jailbreak Cydia deb插件开发
 ![touch4](https://github.com/XLsn0w/Cydia/blob/master/iOS%206.1.6%20jailbreak.JPG?raw=true)
 
-![SE](https://github.com/XLsn0w/Cydia/blob/master/iOS%209.3.2%20jailbreak.JPG?raw=true)
 # 我的微信公众号: Cydiapple
 ![cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 ## Cycript / Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
 
-越狱开发常见的工具OpenSSH，Dumpdecrypted，class-dump、Theos、Reveal、IDA，Hopper，
+# 越狱开发常见的工具OpenSSH，Dumpdecrypted，class-dump、Theos、Reveal、IDA，Hopper，
 
 # 添加我的Github个人Cydia插件源: 
 ```
