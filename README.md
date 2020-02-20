@@ -2735,3 +2735,14 @@ p命令：首先p是打印非对象的值。如果使用它打印对象的话，
 po 命令：po 命令是我们最常用的命令因为在ios开发中，我们时刻面临着对象，所以我们在绝大部分时候都会使用po。首先po这个命令会打印出对象的description描述。
 bt [all] 打印调用堆栈，是thread backtrace的简写，加all可打印所有thread的堆栈。
 br l 是break
+
+1、找到对应的应用打包生成的appName.dYSM 文件，在终端中使用cd命令进入该目录
+
+2、用atos命令来符号化某个特定的模块加载地址：
+```
+xcrun atos -o appName.app.dSYM/Contents/Resources/DWARF/appName -l 0x1000d0000 -arch arm64
+```
+
+输入完这个命令后如果没有报错，会进入到一个带输入状态，然后再输入另外的地址0x00352aee，按回车，之后便会得到应用代码中报错位置
+
+
