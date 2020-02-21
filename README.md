@@ -2734,9 +2734,136 @@ LLDB是由苹果出品，内置于Xcode中的动态调试工具，可以调试C�
 p命令：首先p是打印非对象的值。如果使用它打印对象的话，那么它会打印出对象的地址，如果打印非对象它一般会打印出基本变量类型的值。当然用它也可以申明一个变量譬如 p int a=10;（注lldb使用a = 10; （注lldb使用在变量前来声明为lldb内的命名空间的）
 po 命令：po 命令是我们最常用的命令因为在ios开发中，我们时刻面临着对象，所以我们在绝大部分时候都会使用po。首先po这个命令会打印出对象的description描述。
 bt [all] 打印调用堆栈，是thread backtrace的简写，加all可打印所有thread的堆栈。
-br l 是break
 
-1、找到对应的应用打包生成的appName.dYSM 文件，在终端中使用cd命令进入该目录
+## 一、LLDB
+
+正向开发与逆向都经常会用到LLDB调试，而熟悉LLDB调试对正向、逆向开发都有很大的帮助,尤其是动态调试三方App，此笔记主要记录一些常用的调试命令
+
+二、常用的LLDB调试命令
+
+## （一）、断点命令
+
+命令	                效果
+```
+breakpoint set -n 某函数名	给某函数下断点
+breakpoint set -n "[类名 SEL]" -n "[类名 SEL]" ...	给多个方法下断点,形成断点组
+breakpoint list	查看当前断点列表
+breakpoint disable(enable) 组号(编号)	禁用(启用)某一组(某一个)断点
+breakpoint delete 编号	禁用某一个断点
+breakpoint delete 组号	删除某一组断点
+breakpoint delete	删除所有断点
+breakpoint set --selectore 方法名	全局方法断点,工程所有该方法都会下断点
+brepoint set --file 文件名.m --selector 方法名	给.m实现文件某个方法下断点
+breakpoint set -r 字符串	遍历整个工程，含该字串的方法、函数都会下断点
+breakpoint command add 标号	某标号断点过后执行相应命令，以Done结束，类似于Xcode界面Edit breakpoint
+breakpoint command list 标号	列出断点过后执行的命令
+breakpoint command delete	删除断点过后执行的命令
+b 内存地址	对内存地址下断点
+```
+
+
+## （二）、其他常用命令
+
+命令	            效果
+```
+p 语句	动态执行语句(expression的缩写)，内存操作（下同）
+expression 语句	同上,可缩写成exp
+po 语句	print object 常用于查看对象信息
+c	程序继续执行
+process interrput	暂停程序
+image list	列出所有加载的模块 缩写im li
+image list -o -f 模块名	只列出输入模块名信息，常用于主模块
+bt	查看当前调用栈
+up	查看上一个调用函数
+down	查看下一个调用函数
+frame variable	查看函数参数
+frame select 标号	查看指定调用函数
+dis -a $pc	反汇编指定地址,此处为pc寄存器对应地址
+thread info	输出当前线程信息
+b trace -c xxx	满足某个条件后中断
+target stop-hook add -o "frame variable"	断点进入后默认做的操作,这里是打印参数
+help 指令	查看指令信息
+```
+
+## （三）、跳转命令、读写命令
+
+命令	      效果
+```
+n	将子函数整体一步执行，源码级别
+s	跳进子函数一步一步执行，源码级别
+ni	跳到下一条指令,汇编级别
+si	跳到当前指令内部，汇编级别
+finish	返回上层调用栈
+thread return	不再执行往下代码，直接从当前调用栈返回一个值
+register read	读取所有寄存器值
+register read $x0	读取x0寄存器值
+register write $x1 10	修改x1寄存器的值为10
+p/x	以十六进制形式读取值，读取的对象可以很多
+watchpoint set variable p->_name	给属性添加内存断点，属性改变时会触发断点，可以看到属性的新旧值，类似KVO效果
+watchpoint set expression 变量内存地址	效果同上
+
+```
+大部分命令可以缩写，这里列出部分几个，可以多尝试缩写，用多了就自然记住了:
+
+```
+breakpoint :br、b
+list:li
+delete:del
+disable:dis
+enable:ena
+```
+## (四)、使用image lookup定位crash
+
+image lookup –name，简写为image lookup -n。
+当我们想查找一个方法或者符号的信息，比如所在文件位置等。
+image lookup –name,可以非常有效的定位由于导入某些第三方SDK或者静态库，出现了同名category方法（如果实现一样，此时问题不大。但是一旦两个行为不一致，会导致一些奇怪的bug）。顺便说下，如果某个类多个扩展，有相同方法的，app在启动的时候，会选择某个实现，一旦选择运行的过程中会一直都运行这个选择的实现。
+
+
+# 三、LLDB高级调试技巧
+
+(一)、使用Python脚本
+
+两个开源库：
+
+chisel :Facebook开源LLDB命令工具
+LLDB:Derek Selander开源的工具
+
+(二)、安装
+
+LLDB默认会从~/.lldbinit(没有的话可以创建)加载自定义脚本,因此可以在里面添加一些脚本，先使用brew install chisel安装chisel,再分别git clone 两个开源工具代码，然后将以下命令写入.lldbinit文件,重启Xcode即生效(注意开源工具代码路径替换成自己的):
+```
+command script import /Users/kinken_yuen/chisel/fblldb.py
+command script import /Users/kinken_yuen/LLDB/LLDB/lldb_commands/dslldb.py
+```
+(三)、一些常用命令用法
+
+以下参数address均为对象内存地址
+
+命令	                    效果
+```
+pviews	打印当前界面结构和View，如果出错，先导入UIKit
+pvc	打印主窗口所有ViewController
+methods address	打印类的所有方法以及对应的IMP地址
+ivars address	打印类所有的成员变量
+presponder address	打印控件的响应链
+pactions address	打印控件的action
+pblock address	打印block的信息，IMP地址、签名,参数为block地址
+search UIButton	搜索当前界面下的所有UIButton类及其子类，其他控件同理
+flicker address	快速显示和隐藏视图，以快速帮助可视化它的位置
+dismiss <viewController>	dismiss一个正在显示的控制器
+visualize address	预览UIImage,CGImageRef, UIView, CALayer, NSData (of an image), UIColor, CIColor, or CGColorRef类型的对象
+fv classNameRegex	匹配给出的类名正则表达式，在当前界面结构View的继承层次上查找视图
+fvc classNameRegex	匹配给出的类名正则表达式，在当前界面结构ViewController的继承层次上查找VC
+show/hide address 、tv address	显示或隐藏某个view或者layer，无须继续程序执行，即时性。经测试，show的时候不用，hide的时候需要resuming
+mask/unmask address	在某个view/layer上覆盖一层view,主要是定位目标视图、层的范围
+border/unborder address	在某个view/layer上添加边框，查找目标的位置
+caflush	强制核心动画刷新,将重新绘制UI，可能会打乱正在进行的动画
+bmessage <expressign>	在类的方法或实例的方法上设置符号断点，不必担心层次结构中的哪个类实际实现了该方法，eg:bmessage -[0x1063e0290 continueButtonClicked]
+wivar <object> <ivarName>	给某对象实例变量设置一个watchpoint
+sbt	打印还原符号表的函数调用栈
+```
+
+1、找到对应的应用打包生成的appName.dYSM 文件，在终端中使用cd命令进入该目录
 
 2、用atos命令来符号化某个特定的模块加载地址：
 ```
