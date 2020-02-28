@@ -72,6 +72,61 @@ $ touch .gitattributes
 含义即将所有的.m文件识别成Logos，也可添加多行相应的内容从而修改到占比，从而改变GitHub项目识别语言
 
 ```
+# Mac远程登录到iphone
+
+我们经常在Mac的终端上，通过敲一下命令来完成一些操作，iOS 和Mac OSX 都是基于Drawin（苹果的一个基于Unix的开源系统内核）,
+所以ios中同样支持终端的命令行操作，在逆向工程中，可以使用命令行来操纵iphone。
+
+## 为了建立连接需要用到 SSH 和OpenSSH
+
+SSH： Secure Shell的缩写，表示“安全外壳协议”，是一种可以为远程登录提供安全保障的协议，
+使用SSH，可以把所有传输的数据进行加密，"中间人"攻击方式就不可能实现，能防止DNS 欺骗和IP欺骗
+
+OpenSSH： 是SSH协议的免费开源实现，可以通过OpenSSH的方式让Mac远程登录到iphone,此时进行访问时，Mac 是客户端 iphone是服务器
+
+使用OpenSSH远程登录步骤如下
+
+在iphone上安装cydia 安装OpenSSH工具（软件源http://apt.saurik.com）
+OpenSSH的具体使用步骤可以查看Description中的描述
+第一种登录方式可以使用WIFI
+
+具体使用步骤
+
+确保Mac和iphone在同一个局域网下（连接同一个WIFI）
+在Mac的终端输入ssh账户名@服务器主机地址，比如ssh root@10.1.1.168（这里服务器是手机） 初始密码 alpine
+登录成功后就可以使用终端命令行操作iphone
+退出登录 exit
+ps：ios下2个常用账户 root、moblie
+
+root： 最高权限账户，HOME是 /var/root
+moblie :普通权限账户，只能操作一些普通文件，不能操作别的文件,HOME是/var/mobile
+登录moblie用户：root moblie@服务器主机地址
+root和mobli用户的初始登录密码都是alpine
+第二种登录方式 通过USB进行SSH登录
+
+22端口
+端口就是设备对外提供服务的窗口，每个端口都有个端口号,范围是0--65535，共2^16个
+有些端口是保留的，已经规定了用途，比如 21端口提供FTP服务，80端口是提供HTTP服务，22端口提供SSH服务，更多保留端口号课参考 链接
+iphone 默认是使用22端口进行SSH通信，采用的是TCP协议
+默认情况下，由于SSH走的是TCP协议，Mac是通过网络连接的方式SSH登录到iphone，要求iPhone连接WIFI，为了加快传输速度，也可以通过USB连接的方式进行SSH登录，Mac上有个服务程序usbmuxd（开机自动启动），可以将Mac的数据通过USB传输到iphone，路径是/System/Library/PrivateFrameworks/mobileDevice.framework/Resources/usbmuxd
+usbmuxd的使用
+下载usbmuxd工具包，下载v1.0.8版本，主要用到里面的一个python脚本： tcprelay.py, 下载链接
+将iphone的22端口（SSH端口）映射到Mac本地的10010端口
+cd ~/Documents/usbmux-1.08/python-client
+python tcprelay.py -t 22:10010
+加上 -t 参数是为了能够同时支持多个SSH连接，端口映射完毕后，以后如果想跟iphone的22端口通信，直接跟Mac本地的10010端口通信就可以了，新开一个终端界面，SSH登录到Mac本地的10010端口，usbmuxd会将Mac本地10010端口的TCP协议数据，通过USB连接转发到iphone的22 端口，远程拷贝文件也可以直接跟Mac本地的10010端口通信，如：scp -p 10010 ~/Desktop/1.txt root@localhost:~/test 将Mac上的/Desktop/1.txt文件，拷贝到iphone上的/test路径。
+先开一个终端，先完成端口映射
+*cd 到usbmuxd文件夹路径
+python tcprelay.py -t 22:10010
+
+15237725002208.jpg
+再开一个端口
+注入手机
+ssh root@localhost -p 10010
+:~ root# cycript -p SpringBoard
+
+## 切记第一个终端不可以关闭，才可以保持端口映射状态
+
 # ipa内容介绍
 
 首先来介绍下ipa包。ipa实际上是一个压缩包，我们从App Store下载的应用实际上都是压缩包。压缩包中包含.app的文件，.app文件实际上是一个带后缀的文件夹。在app中，存在如下文件：
@@ -97,7 +152,8 @@ code signature 包含资源文件的签名信息，如果资源文件被更改�
 砸壳的技术方案可以分为两种，一种是静态砸壳，一种是动态砸壳。静态砸壳的原理是硬破解apple的加密算法，目前是一种使用频率极低的技术方案。动态砸壳是利用iOS将文件解密后加载到内存后，将解密数据拷贝到磁盘的方案。动态砸壳目前成熟的方案很多，在这里介绍下dumpdecrypted的方式。
 dumpdecrypted是以动态库的方式，将代码注入到目标进程中。那么如何让一个应用程序在运行时加载我们的动态库呢？目前的方案主要有两种：
 1）修改Mach-O文件，在LC中，添加LC_LOAD_DYLIB信息，然后重签名运行。
-这需要开发者对Mach-O文件有足够的了解，否则很容易损毁文件。不过已经有相应的工具：https://github.com/Tyilo/insert_dylib。有兴趣的可以试验下。
+这需要开发者对Mach-O文件有足够的了解，否则很容易损毁文件。不过已经有相应的工具：https://github.com/Tyilo/insert_dylib
+
 2）通过在手机的终端输入DYLD_INSERT_LIBRARIES="动态库"  APP路径  命令（这就要求手机必须是越狱的），指定应用加载动态库，dumpdecrypted采用的就是这种方式。
 DYLD_INSERT_LIBRARIES是系统的环境变量。通过在终端输入man dyld 可以查看环境变量及其解释。DYLD_INSERT_LIBRARIES的解释如下：
 
