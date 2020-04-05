@@ -5,7 +5,7 @@
 ![cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 ## Cycript / Class-dump / Theos / Reveal / Dumpdecrypted  逆向工具使用介绍
 
-# 越狱开发常见的工具OpenSSH，Dumpdecrypted，class-dump、Theos、Reveal、IDA，Hopper，
+# 越狱开发常见的工具OpenSSH，Dumpdecrypted，class-dump、Theos、Reveal、IDA，Hopper
 
 # 添加我的Github个人Cydia插件源: 
 ```
