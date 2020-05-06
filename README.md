@@ -233,9 +233,7 @@ detectIllegalApplication:
 ```
 （3）检差dylib（动态链接库）的内容，使用_dyld_image_count与_dyld_get_image_name，检查是否包含越狱插件的dylib文件
 
-参考：
-http://theiphonewiki.com/wiki/index.php?title=XCon
-http://theiphonewiki.com/wiki/index.php?title=Bypassing_Jailbreak_Detection
+参考：http://theiphonewiki.com/wiki/index.php?title=Bypassing_Jailbreak_Detection
 
 # iOS12及以上砸壳工具CrackerXI+的使用方法，如下所示：
 ```
