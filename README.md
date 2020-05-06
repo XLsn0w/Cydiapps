@@ -4,6 +4,239 @@
 # 我的微信公众号: CydiaInstaller
 ![cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 
+# 越狱检测的常见方法
+```
+一、越狱检测
+（一）《Hacking and Securing iOS Applications》这本书的第13章介绍了以下方面做越狱检测
+1. 沙盒完整性校验
+根据fork()的返回值判断创建子进程是否成功
+（1）返回－1，表示没有创建新的进程
+（2）在子进程中，返回0
+（3）在父进程中，返回子进程的PID
+沙盒如何被破坏，则fork的返回值为大于等于0.
+ 
+
+我在越狱设备上，尝试了一下，创建子进程是失败，说明不能根据这种方法来判断是否越狱。xCon对此种方法有检测。
+代码如下：
+
+
+2. 文件系统检查
+（1）检查常见的越狱文件是否存在
+以下是最常见的越狱文件。可以使用stat函数来判断以下文件是否存在
+
+/Library/MobileSubstrate/MobileSubstrate.dylib 最重要的越狱文件，几乎所有的越狱机都会安装MobileSubstrate
+/Applications/Cydia.app/ /var/lib/cydia/绝大多数越狱机都会安装
+/var/cache/apt /var/lib/apt /etc/apt
+/bin/bash /bin/sh
+/usr/sbin/sshd /usr/libexec/ssh-keysign /etc/ssh/sshd_config
+代码如下：
+ 
+ 
+
+（1）返回0，表示指定的文件存在
+（2）返回－1，表示执行失败，错误代码存于errno中
+错误代码:
+    ENOENT         参数file_name指定的文件不存在
+    ENOTDIR        路径中的目录存在但却非真正的目录
+    ELOOP          欲打开的文件有过多符号连接问题，上限为16符号连接
+    EFAULT         参数buf为无效指针，指向无法存在的内存空间
+    EACCESS        存取文件时被拒绝
+    ENOMEM         核心内存不足
+    ENAMETOOLONG   参数file_name的路径名称太长
+struct stat {
+    dev_t         st_dev;       //文件的设备编号
+    ino_t         st_ino;       //节点
+    mode_t        st_mode;      //文件的类型和存取的权限
+    nlink_t       st_nlink;     //连到该文件的硬连接数目，刚建立的文件值为1
+    uid_t         st_uid;       //用户ID
+    gid_t         st_gid;       //组ID
+    dev_t         st_rdev;      //(设备类型)若此文件为设备文件，则为其设备编号
+    off_t         st_size;      //文件字节数(文件大小)
+    unsigned long st_blksize;   //块大小(文件系统的I/O 缓冲区大小)
+    unsigned long st_blocks;    //块数
+    time_t        st_atime;     //最后一次访问时间
+    time_t        st_mtime;     //最后一次修改时间
+    time_t        st_ctime;     //最后一次改变时间(指属性)
+};
+该方法最简单，也是流程最广的，但最容易被破解。在使用该方法的时候，注意使用底层的c函数 stat函数来判断以下路径名，路径名做编码处理（不要使用base64编码），千万不要使用NSFileManager类，会被hook掉
+
+(2) /etc/fstab文件的大小
+该文件描述系统在启动时挂载文件系统和存储设备的详细信息，为了使得/root文件系统有读写权限，一般会修改该文件。虽然app不允许查看该文件的内容，但可以使用stat函数获得该文件的大小。在iOS 5上，未越狱的该文件大小未80字节，越狱的一般只有65字节。
+
+在安装了xCon的越狱设备上运行，result的大小为803705776 ；卸载xCon后在越狱设备上运行，result的大小为66
+个人觉得该方法不怎么可靠，并且麻烦，特别是在app在多个iOS版本上运行时。xCon对此种方法有检测,不能采用这种办法
+（3）检查特定的文件是否是符号链接文件
+iOS磁盘通常会划分为两个分区，一个只读，容量较小的系统分区，和一个较大的用户分区。所有的预装app（例如appstore）都安装在系统分区的/Application文件夹下。在越狱设备上，为了使得第三方软件可以安装在该文件夹下同时又避免占用系统分区的空间，会创建一个符号链接到/var/stash/下。因此可以使用lstat函数，检测/Applications的属性，看是目录，还是符号链接。如果是符号链接，则能确定是越狱设备。
+以下列出了一般会创建符号链接的几个文件,可以检查以下文件
+
+没有检测过未越狱设备的情况，所以不好判断该方法是否有效
+（二）http://theiphonewiki.com/wiki/index.php?title=Bypassing_Jailbreak_Detection 给出了以下6种越狱监测方法
+1、检测特定目录或文件是否存在
+检测文件系统是否存在越狱后才会有的文件，例如/Applications/Cydia.app, /privte/var/stash
+一般采用NSFileManager类的- (BOOL)fileExistsAtPath:(NSString *)path方法（很容易被hook掉）
+或者采用底层的C函数，例如fopen(),stat() or access()
+与《Hacking and Securing iOS Applications》的方法2文件系统检查相同
+xCon对此种方法有检测
+
+2、检测特定目录或文件的文件访问权限
+检测文件系统中特定文件或目录的unix文件访问权限（还有大小），越狱设备较之未越狱设备有太多的目录或文件具备写权限
+一般采用NSFileManager类的- (BOOL)isWritableFileAtPath:(NSString *)path（很容易被hook掉）
+或者采用底层的C函数，例如statfs()
+xCon对此种方法有检测
+3、检测是否能创建子进程
+检测能否创建子进程，在非越狱设备上，由于沙箱保护机制，是不允许进程的
+可以调用一些会创建子进程的C函数，例如fork(),popen()
+与《Hacking and Securing iOS Applications》的方法1沙盒完整性检查相同
+xCon对此种方法有检测
+4、检测能否执行ssh本地连接
+检测能否执行ssh本地连接，在绝大多数的非越狱设备上，一般会安装OpenSSH（ssh服务端），如果能检测到ssh 127.0.0.1 －p 22连接成功，则说明为越狱机
+xCon对此种方法有检测
+5、检测system()函数的返回值
+检测system()函数的返回值,调用sytem()函数，不要任何参数。在越狱设备上会返回1,在非越狱设备上会返回0
+sytem()函数如果不要参数会报错
+
+6、检测dylib（动态链接库）的内容
+这种方法是目前最靠谱的方法，调用_dyld_image_count()和_dyld_get_image_name()来看当前有哪些dylib被加载
+
+测试结果： 
+使用下面代码就可以知道目标iOS设备加载了哪些dylib
+
+#include <string.h>
+#import <mach-o/loader.h>
+#import <mach-o/dyld.h>
+#import <mach-o/arch.h>
+void printDYLD()
+{
+    //Get count of all currently loaded DYLD
+    uint32_t count = _dyld_image_count();
+    for(uint32_t i = 0; i < count; i++)
+    {
+        //Name of image (includes full path)
+        const char *dyld = _dyld_get_image_name(i);
+        
+        //Get name of file
+        int slength = strlen(dyld);
+        
+        int j;
+        for(j = slength - 1; j>= 0; --j)
+            if(dyld[j] == '/') break;
+      
+        printf("%s\n",  dyld);
+    }
+    printf("\n");
+}
+int main(int argc, char *argv[])
+{
+    printDYLD();
+
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int retVal = UIApplicationMain(argc, argv, nil, nil);
+    [pool release];
+    return retVal;
+}
+下图显示了我的iOS设备当前加载的dylib的路径，最下面就可以看到xCon
+```
+
+此种方法存在一个问题，是否能通过app store审核呢？
+
+二、越狱检测绕过——xCon
+可以从Cydia中安装，是目前为止最强大的越狱检测工具。由n00neimp0rtant与Lunatik共同开发，它据说patch了目前所知的所有越狱检测方法（也有不能patch的应用）。估计是由于影响太大了，目前已不开放源码了。
+安装xCon后，会有两个文件xCon.dylib与xCon.plist出现在设备/Library/MobileSubstrate/DynamicLibraries目录下
+（1）xCon.plist
+该文件为过滤文件，标识在调用com.apple.UIKit时加载xCon.dylib
+
+ 
+
+(2) xCon.dylib
+可以使用otool工具将该文件的text section反汇编出来从而了解程序的具体逻辑（在windows下可以使用IDA Pro查看）
+
+DANI-LEE-2:iostools danqingdani$ otool -tV xCon.dylib >xContextsection
+可以根据文件中的函数名，同时结合该工具的原理以及越狱检测的一些常用手段（文章第一部分有介绍）来猜其逻辑，例如越狱检测方法中的文件系统检查，会根据特定的文件路径名来匹配，我们可以使用strings查看文件中的内容，看看会有哪些文件路径名。
+
+DANI-LEE-2:IAP tools danqingdani$ strings xCon.dylib >xConReadable
+以下是xCon中会匹配的文件名
+```
+/usr/bin/sshd
+/usr/libexec/sftp-server
+/usr/sbin/sshd
+/bin/bash
+/bin/sh
+/bin/sw
+/etc/apt
+/etc/fstab
+/Applications/blackra1n.app
+/Applications/Cydia.app
+/Applications/Cydia.app/Info.plist
+/Applications/Cycorder.app
+/Applications/Loader.app
+/Applications/FakeCarrier.app
+/Applications/Icy.app
+/Applications/IntelliScreen.app
+/Applications/MxTube.app
+/Applications/RockApp.app
+/Applications/SBSettings.app
+/Applications/WinterBoard.app
+/bin/bash/Applications/Cydia.app
+/Library/LaunchDaemons/com.openssh.sshd.plist
+/Library/Frameworks/CydiaSubstrate.framework
+/Library/MobileSubstrate
+/Library/MobileSubstrate/
+/Library/MobileSubstrate/DynamicLibraries
+/Library/MobileSubstrate/DynamicLibraries/
+/Library/MobileSubstrate/DynamicLibraries/LiveClock.plist
+/Library/MobileSubstrate/DynamicLibraries/Veency.plist
+/Library/MobileSubstrate/DynamicLibraries/xCon.plist
+/private/var/lib/apt
+/private/var/lib/apt/
+/private/var/lib/cydia
+/private/var/mobile/Library/SBSettings/Themes
+/private/var/stash
+/private/var/tmp/cydia.log
+/System/Library/LaunchDaemons/com.ikey.bbot.plist
+/System/Library/LaunchDaemons/com.saurik.Cydia.Startup.plist
+NzI0MS9MaWJyYXJ5L01vYmlsZVN1YnN0cmF0ZQ==  (对应7241/Library/MobileSubstrate） 
+```
+通过分析，xCon会绕过以下越狱检测方法
+
+（1）根据是否存在特定的越狱文件，及特定文件的权限是否发生变化来判断设备是否越狱
+```
+fileExistsAtPath:
+fileExistsAtPath:isDirectory:
+filePermission:
+fileSystemIsValid:
+checkFileSystemWithPath:forPermissions:
+mobileSubstrateWorkaround
+detectIllegalApplication:
+```
+（2）根据沙箱完整性检测设备是否越狱
+（3）根据文件系统的分区是否发生变化来检测设备是否越狱
+（4）根据是否安装ssh来判断设备是否越狱
+
+三、总结
+总之，要做好越狱检测，建议使用底层的c语言函数进行，用于越狱检测的特征字符也需要做混淆处理，检测函数名也做混淆处理。第一部分介绍的以下三种方法，可以尝试一下
+（1）检查常见的越狱文件是否存在，使用stat（），检查以下文件是否存在
+```
+/Library/MobileSubstrate/MobileSubstrate.dylib 最重要的越狱文件，几乎所有的越狱机都会安装MobileSubstrate
+/Applications/Cydia.app/ /var/lib/cydia/绝大多数越狱机都会安装
+/var/cache/apt /var/lib/apt /etc/apt
+/bin/bash /bin/sh
+/usr/sbin/sshd /usr/libexec/ssh-keysign /etc/ssh/sshd_config
+```
+（2）检查特定的文件是否是符号链接文件，使用lstat（），检查以下文件是否为符号链接文件
+```
+/Applications
+/Library/Ringtones
+/Library/Wallpaper
+/usr/include
+/usr/libexec
+/usr/share
+```
+（3）检差dylib（动态链接库）的内容，使用_dyld_image_count与_dyld_get_image_name，检查是否包含越狱插件的dylib文件
+
+参考：
+http://theiphonewiki.com/wiki/index.php?title=XCon
+http://theiphonewiki.com/wiki/index.php?title=Bypassing_Jailbreak_Detection
+
 # iOS12及以上砸壳工具CrackerXI+的使用方法，如下所示：
 ```
 1.在cydia中添加 源地址 http://cydia.iphonecake.com ，添加成功后，在cydia中搜索CrackerXI+并安装。
