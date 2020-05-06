@@ -4,6 +4,17 @@
 # 我的微信公众号: CydiaInstaller
 ![cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 
+# iOS12及以上砸壳工具CrackerXI+的使用方法，如下所示：
+```
+1.在cydia中添加 源地址 http://cydia.iphonecake.com ，添加成功后，在cydia中搜索CrackerXI+并安装。
+2.打开CrackerXI+，在settings中设置CrackerXI Hook为enable
+3.设置完CrackerXI+，查看列表中是否有需要被砸壳的目的app，如果有的话，选择它进行砸壳。
+4.砸壳步骤根据CrackerXI+提示，一直选择yes即可。
+5.CrackerXI+砸壳后，通过ssh连接手机后，即可在/var/mobile/Documents/CrackerXI/ 中看到砸壳后的app。
+
+6.通过scp获取手机中/var/mobile/Documents/CrackerXI 目录中的ipa到电脑中，开始愉快地分析。
+```
+
 破解软件的问题，其实不仅仅是iOS上，几乎所有平台上，无论是pc还是移动终端，都是顽疾。可能在中国这块神奇的国度，大家都习惯用盗版了，并不觉得这是个问题，个人是这么想，甚至某些盈利性质的公司也这么想，著名的智能手机门户网站91.com前不久就宣传自己平台上盗版全，不花钱。其实这种把盗版软件当成噱头的网站很多，当然还没出现过91这种义正言辞地去宣传用盗版是白富美，买正版是傻X的公司。大家都是做实诚样，把最新最受欢迎的盗版应用一一挂在首页来吸引用户。同步助手就是这种内有好货，不要错过的代表，并且在盗版圈子里，享有良好的口碑，号称同步在手，江山我有。
 
 其实iOS破解软件的问题，既不起源于中国，现阶段也没有发扬光大到称霸的地位，目前属于老二，当然很有希望赶超。据统计，全球范围内，排名前五的破解app分享网站有以下几家：
