@@ -4,6 +4,106 @@
 # 我的微信公众号: CydiaInstaller
 ![cydiapple](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 
+# iOS 逆向开发资料
+
+介绍
+https://zh.wikipedia.org/wiki/Cydia
+网址
+https://cydia.saurik.com/
+OpenSSH
+
+安装
+https://cydia.saurik.com/openssh.html
+使用
+http://ged.msu.edu/angus/tutorials/using-ssh-scp-terminal-macosx.html
+usbmuxd
+http://bbs.iosre.com/t/usb-ssh-ios/193
+scp
+http://ged.msu.edu/angus/tutorials/using-ssh-scp-terminal-macosx.html
+Cycript
+
+官网
+http://www.cycript.org/
+手册
+http://www.cycript.org/manual/
+Cycript Tricks Wiki
+http://iphonedevwiki.net/index.php/Cycript_Tricks
+使用
+http://www.jianshu.com/p/7c41b03c9eb3
+IDA
+
+下载 demo
+https://www.hex-rays.com/products/ida/support/download_demo.shtml
+About
+https://www.hex-rays.com/products/ida/index.shtml
+使用
+http://blog.csdn.net/column/details/ios-ida.html
+Hopper
+
+下载 demo
+https://www.hopperapp.com/
+iOS逆向工程之Hopper中的ARM指令
+http://www.cnblogs.com/ludashi/p/5740696.html
+Theos
+
+Theos/Setup
+http://iphonedevwiki.net/index.php/Theos/Setup#For_Mac_OS_X
+Logos
+http://iphonedevwiki.net/index.php/Logos
+Tutorial: Install the latest Theos step by step
+http://bbs.iosre.com/t/tutorial-install-the-latest-theos-step-by-step/2753
+Theos：iOS越狱程序开发框架
+http://security.ios-wiki.com/issue-3-6/
+iOS逆向工程之Theos
+http://www.cnblogs.com/ludashi/p/5714095.html
+iOS逆向入门实践 — 逆向微信，伪装定位(一)
+http://pandara.xyz/2016/08/13/fake_wechat_location/
+iOS逆向入门实践 — 逆向微信，伪装定位(二)
+http://pandara.xyz/2016/08/14/fake_wechat_location2/
+iOSOpenDev
+
+iOSOpenDev
+http://www.iosopendev.com/
+iOSOpenDev & 应用重签名 & iOSAppHook 等
+https://github.com/Urinx/iOSAppHook
+iOS App 签名的原理
+http://blog.cnbang.net/tech/3386/
+优秀教程
+
+iOS安全些许经验和学习笔记
+http://bbs.pediy.com/showthread.php?t=209014
+移动App入侵与逆向破解技术－iOS篇
+https://dev.qq.com/topic/577e0acc896e9ebb6865f321
+如何让 Mac 版微信客户端防撤回
+http://www.jianshu.com/p/fdb8b42f7614
+小试牛刀：iOS去广告入门实战
+http://www.freebuf.com/articles/terminal/77386.html
+一步一步实现iOS微信自动抢红包(非越狱)
+http://www.jianshu.com/p/189afbe3b429
+APP逆向分析之钉钉抢红包插件的实现-iOS篇
+https://yohunl.com/ding-ding-qiang-hong-bao-cha-jian-iospian/
+
+Blog
+
+蒸米的文章
+https://github.com/zhengmin1989/MyArticles
+
+念茜（极客学院 Wiki ）
+http://wiki.jikexueyuan.com/project/ios-security-defense/
+杨君的小黑屋
+http://blog.imjun.net/
+
+碳基体
+http://danqingdani.blog.163.com/
+
+iPhoneDevWiki
+http://iphonedevwiki.net/index.php/Main_Page
+
+iOS Security
+http://security.ios-wiki.com/
+
+
+
 # 安装Frida-ios-dump一键砸壳
 
 # 注意:下列解决问题指令都是在 frida-ios-dump 文件夹路径下 
