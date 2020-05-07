@@ -6,36 +6,44 @@
 
 # 安装Frida-ios-dump一键砸壳
 
-注意:下列解决问题指令都是在 frida-ios-dump 文件夹路径下 
-终端cd到 frida-ios-dump 路径下
+# 注意:下列解决问题指令都是在 frida-ios-dump 文件夹路径下 
+# 终端cd到 frida-ios-dump 路径下
 
-ios端配置：
-打开cydia 添加源：https://build.frida.re
-
-打开刚刚添加的源 安装 Frida 203
-
-安装完成！检查是否工作可以可在手机终端运行 frida-ps -U 查看
+iOS端配置：
+打开cydia 添加源：https://build.frida.re 安装对应插件
+检查是否工作可以可在手机终端运行 frida-ps -U 查看
 
 mac端配置：
-安装Homebrew 115
+安装Homebrew
 
-安装python: brew install python
-
-安装wget: brew install wget
+安装python: 
+```
+brew install python
+```
+安装wget: 
+```
+brew install wget
+```
 
 安装pip:
-
+```
 wget https://bootstrap.pypa.io/get-pip.py
-
+```
+```
 sudo python get-pip.py
+```
 
-安装usbmuxd：brew install usbmuxd
-
-清理残留: rm ~/get-pip.py
-
+安装usbmuxd：
+```
+brew install usbmuxd
+```
+清理残留: 
+```
+rm ~/get-pip.py
+```
 Ps: 使用brew install xxx如果一直卡在Updating Homebrew… 可以control + z结束当前进程 再新开一个终端安装 此时可以跳过更新
 
-安装frida for mac：
+# 安装frida for mac：
 终端执行：
 
 sudo pip install frida
@@ -44,42 +52,74 @@ sudo pip install frida
 -Uninstalling a distutils installed project (six) has been deprecated and will be removed in a future version. This is due to the fact that uninstalling a distutils project will only partially uninstall the project.
 
 使用以下命令安装：
-
 sudo pip install frida –upgrade –ignore-installed six
+
 建议如下
+```
 sudo pip install frida --ignore-installed six
-配置frida-ios-dump环境：
-从Github下载工程：
+```
+
+# 配置frida-ios-dump环境：
+
+从Github下载工程到opt：
+```
 sudo mkdir /opt/dump && cd /opt/dump && sudo git clone https://github.com/AloneMonkey/frida-ios-dump
-安装依赖：
+```
+
+# 安装依赖：
+会报错
 sudo pip install -r /opt/dump/frida-ios-dump/requirements.txt --upgrade
+
+
 建议用如下
+```
 sudo pip install -r requirements.txt --ignore-installed six  
+```
+
 修改dump.py参数：
+```
 vim /opt/dump/frida-ios-dump/dump.py
+```
 找到如下几行(32~35)：
-  User = 'root'
+```
+      User = 'root'
       Password = 'alpine'
       Host = 'localhost'
       Port = 2222
+```
    按需修改 如把Password 改成自己的
-   ps:如果不习惯vim 用访达打开/opt/dump/frida-ios-dump/dump.py手动编辑。
+   ps:如果不习惯vim 用文本编辑打开/opt/dump/frida-ios-dump/dump.py手动编辑。
+
 设置别名：
 
 在终端输入：
+```
 vim ~/.bash_profile
+```
+
 在末尾新增下面一段：
+```
 alias dump.py="/opt/dump/frida-ios-dump/dump.py"
+```
+
 注意：以上的/opt/dump 可以按需更改 。
 使别名生效：
 source ~/.bash_profile
 
-Enjoying and using it !
+以上使用文本编辑一样实现
+
+# 使用砸壳
+
 打开终端 设置端口转发:
+```
 iproxy 2222 22
+```
+
 command + n 新建终端执行一键砸壳(QQ):
+dump.py + appName
+```
 dump.py QQ
-好了 现在在终端ls 查看刚刚的成果吧~
+```
 
 1. frida-tools 1.2.2 has requirement prompt-toolkit<2.0.0,>=0.57, but you'll have prompt-toolkit 2.0.7 which is incompatible.
 这个问题是我在配置frida-iOS-dump的时候遇到的, 问题说的是 frida-tools要求的 prompt-toolkit 在 0.57及以上, 2.0.0以下, 不兼容2.0.7
