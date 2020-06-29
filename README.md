@@ -8,6 +8,26 @@
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
 ```
+在 Mac 和 iOS 上，有一个名为 mach_vm_read_overwrite 的低级函数. 
+这个函数可以在其中指定两个指针以及从一个指针复制到另一个指针的字节数.
+这是一个系统调用, 即调用是在内核级别执行的, 因此可以安全地检查它并返回错误.
+下面是函数原型, 它接受一个任务, 就像一个进程, 如果你有正确的权限, 你可以从其他进程读取.
+
+public func mach_vm_read_overwrite(
+      _ target_task: vm_map_t,
+      _ address: mach_vm_address_t,
+      _ size: mach_vm_size_t,
+      _ data: mach_vm_address_t,
+      _ outsize: UnsafeMutablePointer<mach_vm_size_t>!)
+  -> kern_return_t
+  
+  该函数接受一个源地址, 一个长度, 一个目标地址和一个指向长度的指针，它会告诉你它实际读取了多少字节
+  
+  例如Clutch借助mach_vm_read_overwrite函数来读取指定进程空间中的任意虚拟内存区域中所存储的内容。
+  
+```
+
+```
 //注入动态库
 
 // ./insert_dylib @executable_path(表示加载bin所在目录)/inject.dylib test
