@@ -349,10 +349,9 @@ public func mach_vm_read_overwrite(
     nslog.replaced = (void *)&sys_nslog;
     struct rebinding rebs[1] = {nslog};
     rebind_symbols(rebs, 1);
-    
 }
 
-//---------------------------------更改NSLog-----------
+//------------------XLsn0wLog替换NSLog------------------
 //函数指针
 static void(*sys_nslog)(NSString * format,...);
 
