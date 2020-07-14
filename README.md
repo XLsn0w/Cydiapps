@@ -7,6 +7,40 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## 出于多种原因，有的时候需要直接对deb包中的各种文件内容进行修改，例如：在没有源代码的情况下的修改，还有破解的时候
+```
+那么就有三个问题需要解决：
+0、如何将deb包文件进行解包呢？
+1、修改要修改的文件？
+2、对修改后的内容进行生成deb包？
+```
+
+```
+解决方法：
+-0、准备工作：
+mkdir xlsn0w
+mkdir xlsn0w/DEBIAN
+mkdir build
+
+0、解包命令为：
+
+#解压出包中的文件到xlsn0w目录下
+dpkg -X ../name.deb xlsn0w/
+
+#解压出包的控制信息xlsn0w/DEBIAN/下：
+dpkg -e ../name.deb xlsn0w/DEBIAN/ 
+
+1、修改文件(此处以修改ssh连接时禁止以root身份进行远程登录，原来是能够以root登录的)：
+sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' extract/etc/ssh/sshd_config
+
+2、对修改后的内容重新进行打包生成deb包
+dpkg-deb -b xlsn0w/ build/
+
+~$ ll build/
+总用量 1016
+
+验证方法为：再次解开重新打包的deb文件，查看在etc/ssh/sshd_config文件是否已经被修改；
+```
 ## 响应式编程（Reactive Programming）是一种编程思想，相对应的也有面向过程编程、面向对象编程、函数式编程等等。不同的是，响应式编程的核心是面向异步数据流和变化的。
 
  在现在的前端世界中，我们需要处理大量的事件，既有用户的交互，也有不断的网络请求，还有来自系统或者框架的各种通知，因此也无可避免产生纷繁复杂的状态。
