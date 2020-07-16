@@ -8,11 +8,8 @@
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
 # iOS12及以上砸壳工具CrackerXI+的使用方法  
-## 纯手机端傻瓜式操作
-```
-https://www.jianshu.com/p/97a97ff81384
-```
-
+## 纯手机端傻瓜式操作: https://www.jianshu.com/p/97a97ff81384
+![CrackerXI+](https://upload-images.jianshu.io/upload_images/1155391-056769989ae6fc8d.PNG?imageMogr2/auto-orient/strip|imageView2/2/w/750/format/webp)
 
 ## 出于多种原因，有的时候需要直接对deb包中的各种文件内容进行修改，例如：在没有源代码的情况下的修改，还有破解的时候
 ```
