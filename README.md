@@ -7,6 +7,13 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+# iOS12及以上砸壳工具CrackerXI+的使用方法  
+## 纯手机端傻瓜式操作
+```
+https://www.jianshu.com/p/97a97ff81384
+```
+
+
 ## 出于多种原因，有的时候需要直接对deb包中的各种文件内容进行修改，例如：在没有源代码的情况下的修改，还有破解的时候
 ```
 那么就有三个问题需要解决：
@@ -4425,46 +4432,4 @@ LLDB:Derek Selander开源的工具
 
 (二)、安装
 
-LLDB默认会从~/.lldbinit(没有的话可以创建)加载自定义脚本,因此可以在里面添加一些脚本，先使用brew install chisel安装chisel,再分别git clone 两个开源工具代码，然后将以下命令写入.lldbinit文件,重启Xcode即生效(注意开源工具代码路径替换成自己的):
-```
-command script import /Users/kinken_yuen/chisel/fblldb.py
-command script import /Users/kinken_yuen/LLDB/LLDB/lldb_commands/dslldb.py
-```
-(三)、一些常用命令用法
-
-以下参数address均为对象内存地址
-
-命令	                    效果
-```
-pviews	打印当前界面结构和View，如果出错，先导入UIKit
-pvc	打印主窗口所有ViewController
-methods address	打印类的所有方法以及对应的IMP地址
-ivars address	打印类所有的成员变量
-presponder address	打印控件的响应链
-pactions address	打印控件的action
-pblock address	打印block的信息，IMP地址、签名,参数为block地址
-search UIButton	搜索当前界面下的所有UIButton类及其子类，其他控件同理
-flicker address	快速显示和隐藏视图，以快速帮助可视化它的位置
-dismiss <viewController>	dismiss一个正在显示的控制器
-visualize address	预览UIImage,CGImageRef, UIView, CALayer, NSData (of an image), UIColor, CIColor, or CGColorRef类型的对象
-fv classNameRegex	匹配给出的类名正则表达式，在当前界面结构View的继承层次上查找视图
-fvc classNameRegex	匹配给出的类名正则表达式，在当前界面结构ViewController的继承层次上查找VC
-show/hide address 、tv address	显示或隐藏某个view或者layer，无须继续程序执行，即时性。经测试，show的时候不用，hide的时候需要resuming
-mask/unmask address	在某个view/layer上覆盖一层view,主要是定位目标视图、层的范围
-border/unborder address	在某个view/layer上添加边框，查找目标的位置
-caflush	强制核心动画刷新,将重新绘制UI，可能会打乱正在进行的动画
-bmessage <expressign>	在类的方法或实例的方法上设置符号断点，不必担心层次结构中的哪个类实际实现了该方法，eg:bmessage -[0x1063e0290 continueButtonClicked]
-wivar <object> <ivarName>	给某对象实例变量设置一个watchpoint
-sbt	打印还原符号表的函数调用栈
-```
-
-1、找到对应的应用打包生成的appName.dYSM 文件，在终端中使用cd命令进入该目录
-
-2、用atos命令来符号化某个特定的模块加载地址：
-```
-xcrun atos -o appName.app.dSYM/Contents/Resources/DWARF/appName -l 0x1000d0000 -arch arm64
-```
-
-输入完这个命令后如果没有报错，会进入到一个带输入状态，然后再输入另外的地址0x00352aee，按回车，之后便会得到应用代码中报错位置
-
-
+LLDB默认会从~/.lldbinit(没有的话可以创建)加载自定义脚本,因此可以在里面添加一些脚本，先使用bre
