@@ -7,6 +7,8 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+# Cydia就是一个移植到ARM上的debian系统的APT管理器 = Debian APT
+
 # iOS 12.0-13.3 tfp0
 tfp0本质上是一种在内核内存中获取读写权限的方法，这是Apple极力尝试混淆的一种方法。
 由于操作系统从属于内核运行，因此可以越狱，从而实现系统范围的自定义。
