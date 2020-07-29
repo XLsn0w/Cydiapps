@@ -1,4 +1,4 @@
-##  iOS逆向工程开发 越狱Jailbreak Cydia deb插件开发
+##  iOS逆向工程开发 越狱Jailbreak Cydia deb插件APT开发
 ![iPod touch4](https://github.com/XLsn0w/Cydia/blob/master/iOS%206.1.6%20jailbreak.JPG?raw=true)
 
 # 我的微信公众号: CydiaInstaller
@@ -7,7 +7,49 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
-# Cydia就是一个移植到ARM上的debian系统的APT管理器 = Debian APT
+## iOS Exception Log
+```
+Date/Time:           2020-07-29 01:39:07.0825 +0800
+Launch Time:         2020-07-29 01:38:59.6953 +0800
+OS Version:          iPhone OS 13.4.1 (17E262)
+Release Type:        User
+Baseband Version:    4.02.02
+Report Version:      104
+
+Exception Type:  EXC_BAD_ACCESS (SIGSEGV)   //异常的类型
+Exception Subtype: KERN_INVALID_ADDRESS at 0x0000000000000528   //异常子类型
+VM Region Info: 0x528 is not in any region.  Bytes before following region: 4296030936
+      REGION TYPE                      START - END             [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      UNUSED SPACE AT START
+--->  
+      __TEXT                 0000000100104000-0000000100c68000 [ 11.4M] r-x/r-x SM=COW  ...cyqp.app/cyqp
+
+Termination Signal: Segmentation fault: 11
+Termination Reason: Namespace SIGNAL, Code 0xb      //终止原因
+Terminating Process: exc handler [424]
+Triggered by Thread:  0
+
+Thread 0 name:  Dispatch queue: com.apple.main-thread
+Thread 0 Crashed:  //异常发生的线程(0为主线程，其他为子线程)
+
+Exception Type:   EXC_CRASH (SIGKILL)                     //异常的类型
+Exception Subtype: KERN_INVALID_ADDRESS at 0x0000000000000118  //异常子类型
+Exception Code: 0x0000000000000000, 0x0000000000000000     //异常地址
+Exception Note: EXC_CORPSE_NOTIFY//描述
+Termination reason:Namespace SPRINGBOARD, Code 0x8badf00d   //终止原因
+
+Triggered by Thread:  0                    //异常发生的线程(0为主线程，其他为子线程)
+
+```
+
+# iOS符号化（Symbolication）
+
+从iOS设备中检索到的崩溃日志只有可执行代码在加载的二进制映像（Binary Images）中的十六进制地址，是没有包含方法或函数名称的，而这些方法和函数的名称被称为符号
+
+将回溯的地址解析为源码的方法和行号被称为符号化 ，这过程需要上传到AppStore的应用的二进制文件和编译二进制文件时生成的.dSYM文件。
+
+
+## Cydia就是一个移植到ARM上的debian系统的APT管理器 = Debian APT
 
 # iOS 12.0-13.3 tfp0
 tfp0本质上是一种在内核内存中获取读写权限的方法，这是Apple极力尝试混淆的一种方法。
