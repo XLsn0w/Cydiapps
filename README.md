@@ -13,9 +13,6 @@
 ## 1.生成伪代码：
 view-Open subviews-Generate pesudocode (快捷键F5)
 
-->
-
-(F5前后对比图)
 
 ## 2.伪代码切换到对应的反汇编代码：
 前面说了，IDA生成的伪代码不可全信。当怀疑伪代码的正确性时，需要返回到反汇编代码对比。但是有别于IDA view和Hex view窗口，两者是同步定位的关系，Pseudocode和IDA view窗口之间不存在这样的关系。可以通过Jump-Jump to pseudocode (快捷键)跳回到对应的源码
