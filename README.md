@@ -7,6 +7,196 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+# IDA反编译器，
+## 虽然还原出来的代码不能直接使用，但是其参考作用不容否认
+
+## 1.生成伪代码：
+view-Open subviews-Generate pesudocode (快捷键F5)
+
+->
+
+(F5前后对比图)
+
+## 2.伪代码切换到对应的反汇编代码：
+前面说了，IDA生成的伪代码不可全信。当怀疑伪代码的正确性时，需要返回到反汇编代码对比。但是有别于IDA view和Hex view窗口，两者是同步定位的关系，Pseudocode和IDA view窗口之间不存在这样的关系。可以通过Jump-Jump to pseudocode (快捷键)跳回到对应的源码
+
+## 3.修改变量(函数)名：
+除非有pdb文件，否则反编译器生成的变量名/函数名简直惨不忍睹，这时候需要修改变量名。在变量上右键-Rename lvar-在Please enter a string对话框中输入变量名 (快捷键N)，修改函数名同理。修改后，伪代码中所有使用该变量的地方都跟着被修正了。
+
+->
+
+(修改函数名/变量名前后)
+
+## 4.修改变量类型：
+如下面源码中，main函数中定义了字符串数组，并进行了初始化。
+
+int main(int /*argc*/, char * /*argv*/[])
+{
+ 
+	int ret = 0;
+	unsigned char result[32] = { 0 };
+        ...
+}
+根据反汇编经验数组的初始化在反汇编代码中会以为数组元素赋值的形式实现。但是反编译器不能区分是普通变量初始化还是数组元素赋值，所以经常出错。下面是反编译器提供的伪代码：
+```
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  unsigned int j; // [esp+D0h] [ebp-4Ch]
+  unsigned int i; // [esp+DCh] [ebp-40h]
+  char Buf1; // [esp+E8h] [ebp-34h]
+  int v7; // [esp+E9h] [ebp-33h]
+  int v8; // [esp+EDh] [ebp-2Fh]
+  int v9; // [esp+F1h] [ebp-2Bh]
+  int v10; // [esp+F5h] [ebp-27h]
+  int v11; // [esp+F9h] [ebp-23h]
+  int v12; // [esp+FDh] [ebp-1Fh]
+  int v13; // [esp+101h] [ebp-1Bh]
+  __int16 v14; // [esp+105h] [ebp-17h]
+  char v15; // [esp+107h] [ebp-15h]
+  int ret; // [esp+110h] [ebp-Ch]
+ 
+  ret = 0;
+  Buf1 = 0;
+  v7 = 0;
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v13 = 0;
+  v14 = 0;
+  v15 = 0;
+  ```
+这样的伪代码与真实代码相去甚远，因此，需要将字符型变量v15修改成数组。在变量上右键-set lvar type-please enter a string中输入变量的新类型，下面是修正后的代码：
+```
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  unsigned int j; // [esp+D0h] [ebp-4Ch]
+  unsigned int i; // [esp+DCh] [ebp-40h]
+  char result[32]; // [esp+E8h] [ebp-34h]
+  int ret; // [esp+110h] [ebp-Ch]
+ 
+  ret = 0;
+  result[0] = 0;
+  *(_DWORD *)&result[1] = 0;
+  *(_DWORD *)&result[5] = 0;
+  *(_DWORD *)&result[9] = 0;
+  *(_DWORD *)&result[13] = 0;
+  *(_DWORD *)&result[17] = 0;
+  *(_DWORD *)&result[21] = 0;
+  *(_DWORD *)&result[25] = 0;
+  *(_WORD *)&result[29] = 0;
+  result[31] = 0;
+ ``` 
+## 5.转换为指针/结构体指针：
+在x86机器上，整形变量和(结构体)指针变量占用的地址空间相同，所以，反编译器经常会混淆两者。如下面源码中，函数原型为:
+
+void md5_final(md5_ctx *ctx, const unsigned char *buf, size_t size, unsigned char *result);
+而反编译器生成如此不伦不类的函数原型：
+```
+void *__cdecl md5_final(int a1, char* a2, size_t a3, char* *a4)
+{
+  unsigned int v4; // STFC_4
+  int v5; // STF0_4
+  signed __int64 v6; // rax
+  unsigned int v8; // [esp+F0h] [ebp-54h]
+  int Dst[14]; // [esp+FCh] [ebp-48h]
+  int v10; // [esp+134h] [ebp-10h]
+  int v11; // [esp+138h] [ebp-Ch]
+  ```
+对于基本类型指针，做法同4.修改变量类型，不再赘述；
+
+对于非基本类型指针，为了将int变量修正为结构体指针变量，可以在变量定义处右键-convert to struct*-Select a structure，（如果是自定义的结构体，需要在IDA Structures窗口中创建该结构体，否则该结构体不会出现在"Select a structure"列表中）
+
+最终生成如下伪代码：
+```
+void *__cdecl md5_final(md5_ctx *a1, char *a2, size_t a3, char *a4)
+{
+  unsigned int v4; // STFC_4
+  int v5; // STF0_4
+  __int64 v6; // rax
+  unsigned int v8; // [esp+F0h] [ebp-54h]
+  int Dst[14]; // [esp+FCh] [ebp-48h]
+  int v10; // [esp+134h] [ebp-10h]
+  int v11; // [esp+138h] [ebp-Ch]
+  ```
+如果想撤回修改，将结构体指针变回整形变量，只要在变量上右键-Reset pointer type即可。
+
+
+
+## 6.变量映射：
+IDA生成的伪代码中变量满天飞，特别是参与大量计算的代码片。很多变量是中间变量，由反编译器生成的，并不存在于真正的源码中。这些中间变量的存在，多少会影响我们分析源码，所以我们要把这些中间变量映射到其他变量上。
+
+如下面的源码：
+```
+static void md5_final(md5_ctx *ctx, const unsigned char *buf, size_t size, unsigned char *result)
+{
+    ...
+    	uint32_t index = ((uint32_t)ctx->length_ & 63) >> 2;
+	uint32_t shift = ((uint32_t)ctx->length_ & 3) * 8;
+ 
+	//添加0x80进去，并且把余下的空间补充0
+	message[index] &= ~(0xFFFFFFFF << shift);
+	message[index++] ^= 0x80 << shift;
+ 
+	//如果这个block还无法处理，其后面的长度无法容纳长度64bit，那么先处理这个block
+	if (index > 14)
+	{
+		while (index < 16)
+		{
+			message[index++] = 0;
+		}
+ 
+		zen_md5_process_block(ctx->hash_, message);
+		index = 0;
+	}
+      
+```
+然而，经过IDA的反编译，生成若干中间变量：
+```
+void *__cdecl md5_final(md5_ctx *a1, char *a2, size_t a3, char *a4)
+{
+    ...
+  v4 = (unsigned __int64)(ctx->length & 0x3F) >> 2;
+  v5 = 8 * (ctx->length & 3);
+  message[v4] &= ~(-1 << v5);
+  message[v4] ^= 128 << v5;
+  v8 = v4 + 1; //<----------------v8是中间变量
+  if ( v8 > 0xE )
+  {
+    while ( v8 < 0x10 )
+      message[v8++] = 0;
+    sub_401540(ctx->hash_, message);
+    v8 = 0;
+  }
+  ```
+修正这个差异需要用到变量映射的功能。在变量v8处右键-Map to another variable-Map v8 to...列表框中选择一个要被映射的变量。
+
+## 7.高级技能：
+有时，反编译器会过度优化，并完全消除对易失性变量的引用。比如在.rodata节内定义有变量i，由于反编译器觉得没有人会修改变量i，而把部分分支优化没了，如：
+```
+.text:00401799                 cmp     ds:dword_40E000, 0
+.text:004017A0                 jz      short loc_4017E6
+```
+指令引用了变量dword_40E000，它定义在：
+```
+.r_only:0040E000 ; Segment type: Pure data
+.r_only:0040E000 ; Segment permissions: Read
+.r_only:0040E000 _r_only         segment para public 'DATA' use32
+.r_only:0040E000                 assume cs:_r_only
+.r_only:0040E000                 ;org 40E000h
+.r_only:0040E000 dword_40E000    dd 0                    ; DATA XREF: sub_401770+29
+反编译器认为上面的汇编代码等效于：
+```
+if (dword_40E000) {
+	// ...
+}
+由于dword_40E000看似为0，所以，反编译器会优化掉这个分支。对此，我们需要修改.r_only段属性：打开Program Segmentation窗口(view-Open subviews-Segment)-右键.rdata段-Edit segment-Segment permissions-勾选Write
+
+
+再次F5，被IDA吞掉的分支就会出现。
+对于全局变量，在IDA view窗口设置变量类型，为其添加volatile声明；对于栈变量，双击变量，进入Stack窗口-右键-Set type-Please enter string
+
 ## iOS Exception Log
 ```
 Date/Time:           2020-07-29 01:39:07.0825 +0800
