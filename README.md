@@ -11,12 +11,8 @@
 # App越狱检测
 ## 一般App编译生成的函数，都存放于Macho文件的`__TEXT`区  
 ## 如果是系统的原函数，则位于`__DATA`区
-## 如果检测到系统的函数(如open,getenv等)，它的函数地址位于`__TEXT`区，则可断定它被fish hook重绑定了
-## 检测函数前几个汇编指令是否为跳转指令即可。 
-## uncacheMubels.m  打印出所有不在dyld shared cache动态库的名字 
-## 用task_info找出进程的信息,得到dyld_all_image_infos，遍历dyld_uuid_info数组来打印信息.
-## 这个方法,比用_dyld_image_count  _dyld_get_image_name的方法准确，省去了名字匹配.   
-## 现在大多数都知道hook _dyld_get_image_name来修改返回.
+## 如果检测到系统的函数(如open,getenv等)，它的函数地址位于`__TEXT`区，则可断定它被fishhook重绑rebinding
+## 用task_info找出进程的信息,得到dyld_all_image_infos，遍历dyld_uuid_info数组来打印信息, 比用_dyld_image_count  _dyld_get_image_name的方法准确
 ```
 #include "uncacheModules.h"
 #include "defs.h"
