@@ -8,6 +8,265 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## 通过task_threads（）绕过iOS平台二进制限制
+```
+尽管此API在像Mach这样的微内核系统中有许多合法用途，但它也恰恰使开发变得更加容易：一旦获得进程的任务端口，我们便拥有它。这一事实使任务移植成为漏洞利用的有希望的目标，Apple也注意到了这一点。
+
+一个相对较新的例子是Ian Beer的mach_portal，它利用内核错误来建立com.apple.iohideventsystemMach服务与其客户端之间的中间人连接。Mach_portal使用此功能来获取powerd任务端口的副本，该端口是未沙盒化的根进程，已通过Mach消息发送给com.apple.iohideventsystem。一旦mach_portal具有powerd的任务端口，它实际上就具有powerd的特权。在向苹果披露该漏洞利用后的某个时候，未沙盒化的根进程不再通过Mach消息发送其任务端口。
+
+不久之后，伊恩·比尔（Ian Beer）发布了Triple_fetch，这是libxpc中共享内存问题的一种利用。此漏洞在很大程度上依赖于滥用任务端口，以便在其他进程中执行操作。特别是，在获得任务端口of之后coreauthd，trim_fetch可以使用processor_set_tasks()技巧获取系统上任何其他进程的任务端口，这意味着Triple_fetch对用户空间中的每个进程都具有完全的控制权。坦白说，这就是令人震惊的特权：尚不清楚任何进程都应该具有该级别的控制权。
+
+平台二进制缓解
+从iOS 11开始，Apple推出了缓解措施，旨在防止漏洞利用中对任务端口的这种小幅滥用。像大多数缓解措施一样，它不应阻止所有任务端口滥用，但应使攻击者的工作更加困难。特别是，它应防止攻击者在仅提供任务端口的进程中执行任意代码。
+
+缓解措施包括一个称为的新函数task_conversion_eval()，当内核使用ipc_port将该task对象 转换为对象时，将调用该函数convert_port_to_task()。这是此函数的代码；caller是要在任务端口上进行操作的任务，并且victim是要在其上进行操作的任务：
+
+kern_return_t
+task_conversion_eval(task_t caller, task_t victim)
+{
+	/*
+	 * Tasks are allowed to resolve their own task ports, and the kernel is
+	 * allowed to resolve anyone's task port.
+	 */
+	if (caller == kernel_task) {
+		return KERN_SUCCESS;
+	}
+
+	if (caller == victim) {
+		return KERN_SUCCESS;
+	}
+
+	/*
+	 * Only the kernel can can resolve the kernel's task port. We've established
+	 * by this point that the caller is not kernel_task.
+	 */
+	if (victim == kernel_task) {
+		return KERN_INVALID_SECURITY;
+	}
+
+#if CONFIG_EMBEDDED
+	/*
+	 * On embedded platforms, only a platform binary can resolve the task port
+	 * of another platform binary.
+	 */
+	if ((victim->t_flags & TF_PLATFORM) && !(caller->t_flags & TF_PLATFORM)) {
+#if SECURE_KERNEL
+		return KERN_INVALID_SECURITY;
+#else
+		if (cs_relax_platform_task_ports) {
+			return KERN_SUCCESS;
+		} else {
+			return KERN_INVALID_SECURITY;
+		}
+#endif /* SECURE_KERNEL */
+	}
+#endif /* CONFIG_EMBEDDED */
+
+	return KERN_SUCCESS;
+}
+尽管整个功能很有趣（尤其是与保护kernel_task有关），但与我们相关的部分在底部，它说：“在嵌入式平台上，只有平台二进制文件才能解析另一个平台二进制文件的任务端口。” 如果受害者是平台二进制文件，而调用任务不是，则后续检查将拒绝访问。
+
+在实践中这意味着什么？进程基于其代码签名被授予平台二进制状态：尤其是，它必须由Apple 1签名。由于我们编写的任何攻击代码显然都不会被Apple签名，因此我们的攻击过程不是平台二进制文件，因此 task_conversion_eval()将拒绝我们convert_port_to_task()在任务端口上使用平台二进制文件。
+
+具体而言，这意味着我们无法再对Apple签名的进程的任务端口执行某些操作，这阻止了我们使用恶意的任务端口来控制进程并提升特权。mach_vm_*()操作将全部失败，其他API（例如task_set_exception_ports()和）也会失败 thread_create_running()。由于先前的代码注入框架依赖于这些功能，因此所有缓解措施均有效地阻止了它们。
+
+它实际上保护了什么？
+我在为iOS 11.2上的系统服务开发漏洞时发现了这种缓解措施。我的漏洞利用有效负载将在特权进程的上下文中运行，然后将受害者的任务端口发回给我，这样我就可以在受害者中执行代码，而不必每次都利用该错误。但是，我注意到类似的操作mach_vm_read()在返回的任务端口上将失败，并且调查使我采取了上述缓解措施。
+
+每当您遇到新的缓解措施时，都值得进行调查。他们为什么要添加此缓解措施？它旨在保护什么？它如何实现这种保护？它实际上保护了什么？这些问题的目的是了解缓解措施的理论和实践，并希望找到两者不一致的领域。
+
+在我们的情况下，首先要了解在哪里task_conversion_eval()调用。
+
+任务端口的面孔很多
+让我们构造（反向）调用图，以找到task_conversion_eval()可以达到的所有方式：
+
+task_conversion_eval
+├── convert_port_to_locked_task
+│   ├── convert_port_to_space               intran ipc_space_t
+│   └── convert_port_to_map                 intran vm_map_t
+│       └── convert_port_entry_to_map       intran vm_task_entry_t (vm_map_t)
+└── convert_port_to_task_with_exec_token
+    ├── ipc_kobject_server
+    │   └── ...
+    └── convert_port_to_task                intran task_t
+        ├── task_info_from_user
+        └── port_name_to_task
+            └── ...
+该intran说明指出，由MIG生成的隐式调用现场。当内核收到包含特殊类型的Mach端口的Mach消息时，它将ipc_port使用在定义类型时在MIG中指定的转换函数，将对象自动转换 为相应的内核对象。例如，这是task_tin中 的定义mach_types.defs：
+
+type task_t = mach_port_t
+#if	KERNEL_SERVER
+		intran: task_t convert_port_to_task(mach_port_t)
+		outtran: mach_port_t convert_task_to_port(task_t)
+		destructor: task_deallocate(task_t)
+#endif	/* KERNEL_SERVER */
+		;
+此定义告诉内核中自动生成的MIG代码使用来将ipc_port对象转换为 task对象convert_port_to_task()。例如，这是MIG的定义 thread_create_running()：
+
+/*
+ *      Create a new thread within the target task, returning
+ *      the port representing that new thread.  The new thread 
+ *	is not suspended; its initial execution state is given
+ *	by flavor and new_state. Returns the port representing 
+ *	the new thread.
+ */
+routine
+#ifdef KERNEL_SERVER
+thread_create_running_from_user(
+#else
+thread_create_running(
+#endif
+                parent_task     : task_t;
+                flavor          : thread_state_flavor_t;
+                new_state       : thread_state_t;
+        out     child_act       : thread_act_t);
+当进程thread_create_running()在用户空间中调用以在任务中创建新线程时，用户空间MIG代码将创建一个包含有关操作信息的Mach消息，然后调用mach_msg()Mach陷阱将控制权转移到内核。内核将看到目标端口（parent_task）由内核拥有并处理消息本身，并将消息传递给MIG处理程序。MIG处理例程将解析消息的内容，并使用将内核中的任务端口转换为实际的任务对象convert_port_to_task()。最后，MIG处理程序将调用的内核实现thread_create_running_from_user()来执行实际工作。
+
+因此，任何时候，内核处理涉及马赫消息task_t，ipc_space_t，vm_map_t，或者vm_task_entry_t，内核将使用一个转换函数，最终召唤出 task_conversion_eval()以检查当前进程应被授予访问权限。
+
+在继续进行之前，有必要讨论为什么保护任务端口的缓解措施似乎还涉及其他类型task_t。在用户空间，task_t，ipc_space_t，vm_map_t，和 vm_task_entry_t都是相同typedef“d到mach_port_t（32位整数）。在内核中，task_t是指向a的指针struct task，ipc_space_t是指向a的指针struct ipc_space，并且vm_map_t是指向a的指针struct _vm_map。（vm_task_entry_t实际上在内核中不存在；convert_port_entry_to_map()返回vm_map_t。）但是，这些内核对象没有获得不同的IPC端口类型：它们都由任务端口表示。原因是a task_t可以唯一地转换为a vm_map_t或ipc_space_t，因此在期望其他类型之一的地方使用任务端口是明确的。这种从用户空间的效果是，即使thread_create_running()索赔采取task_t同时 mach_vm_read()要求采取vm_map_t，你传递一个任务端口两者。
+
+回到缓解措施上，task_conversion_eval()在进程希望对这些类型进行操作时调用似乎是一种强大的防御措施。毕竟，每个在任务端口上运行的代码注入库都依赖于至少一个函数，该函数将消息发送至四种受限类型之一。
+
+不过，也有其他类型之外ipc_space_t，vm_map_t和vm_task_entry_t到任务端口可以被转换：如果你在看mach_types.defs和 ipc_tt.c，你会看到一个任务端口也有米格类型定义的转换 task_name_t，task_inspect_t和ipc_space_inspect_t。稍加挖掘就可以发现，它们是功能更强大的兄弟姐妹的受限版本：它们用于例程，这些例程将检查任务而无需以任何方式对其进行修改。您可以从以下示例中看到此示例的区别 task.defs：
+
+/*
+ *	Returns the current value of the selected special port
+ *	associated with the target task.
+ */
+routine task_get_special_port(
+		task		: task_inspect_t;
+		which_port	: int;
+	out	special_port	: mach_port_t);
+
+/*
+ *	Set one of the special ports associated with the
+ *	target task.
+ */
+routine task_set_special_port(
+		task		: task_t;
+		which_port	: int;
+		special_port	: mach_port_t);
+这task_get_special_port()是一个检查例程：它可用于获取任务的特殊端口的副本。另一方面，它task_set_special_port()是一个修改例程：它可用于更改任务的特殊端口的值。这些功能的行为之间的语义区别被编码为将消息发送到的任务端口的类型。由于 task_get_special_port()对进行操作task_inspect_t，因此表明该函数无法修改任务；相反，由于task_set_special_port()对进行操作task_t，因此表明该函数可以修改任务。
+
+因此，我们已经发现了减缓的一个重要的限制：它不限制在拍摄功能使用任务端口task_name_t，task_inspect_t或ipc_space_inspect_t。因此，虽然我们不能调用mach_vm_read()平台二进制文件的任务端口，但可以调用 task_get_special_port()它。
+
+在哪里搜索解决方法
+表面上，我们不能使用检查权限来修改任务，但有两个警告。
+
+首先，需要注意的是，内核本身在a task_t和a 之间没有区别task_inspect_t：它们都是typedefs的struct task指针。因此，task_tvs 的语义 task_inspect_t决定了进程应该如何期待内核的行为，而不是内核在现实中的行为。没有什么可以阻止task_get_special_port()修改相应任务的内核实现 。如果我们可以找到具有检查权限的MIG例程，但仍在修改任务，那么我们也许可以绕过缓解措施。
+
+其次，即使task_inspect_t不能将a用来直接修改任务，也不意味着它不能间接用于修改任务。例如，task_get_special_port()它不修改相应的任务，但是确实为我们提供了该任务的特殊端口的副本，该端口在理论上可以用于修改任务（例如，通过将消息发送到任务所使用的端口）。如果我们找到一个拥有检查权限的MIG例程并产生另一个我们可以控制的对象，那么我们也许可以绕过缓解措施。
+
+这让我们如何为旁路搜索到缓解一个不错的主意：看看所有MIG例程手柄一个task_name_t，task_inspect_t或ipc_space_inspect_t看他们中是否修改任务或产生功能修改的任务。
+
+task_threads（）
+在此搜索的早期，我遇到了该函数task_threads()：
+
+/*
+ *	Returns the set of threads belonging to the target task.
+ */
+routine task_threads(
+		target_task	: task_inspect_t;
+	out	act_list	: thread_act_array_t);
+该函数获得task_inspect_t权限，并返回任务中线程的线程端口列表。返回的线程实际上是thread_act_t权限，而不是thread_inspect_t权限，这意味着我们可以thread_set_state()在它们上面调用函数。这很关键，因为 thread_set_state()在线程中设置寄存器的值！
+
+这意味着我们完全绕过了平台二进制任务端口缓解措施：调用 task_threads()任务端口以获取线程端口列表，然后调用thread_set_state()返回的线程端口之一直接pc在该线程中设置寄存器。
+
+通过iOS 11上的任务端口执行任意代码
+当然，在设置pc寄存器和调用带有任意参数的任意函数之间仍然存在非常实际的差距。为了弥合这一差距，我写了threadexec。本文的其余部分描述了threadexec如何使用任务端口来获取该任务中的任意代码执行。
+
+为简单起见，我将注入过程的上下文称为“本地”，并将注入过程的上下文称为“远程”。
+
+我们的目标是使用远程进程的任务端口来：
+
+在远程进程中使用任意参数调用任意函数并获取返回值；
+在远程过程中读写内存；和
+在本地和远程任务之间传输Mach端口（发送或接收权限）。
+这些功能对于大多数漏洞利用已经足够。
+
+步骤1：线程劫持
+我们要做的第一件事是调用task_threads()任务端口以获取远程任务中的线程列表，然后选择其中一个进行劫持。与传统的代码注入框架不同，我们无法创建新的远程线程，因为thread_create_running()它将被新的缓解措施阻止。
+
+劫持现有线程意味着我们将干扰我们要注入的进程的正常功能。但是，该库是专门为在我们不关心破坏受害者功能的漏洞利用中使用而设计的。
+
+拥有远程线程的线程端口后，我们将进行劫持，我们可以调用thread_suspend()来停止线程的运行。
+
+此时，我们对远程线程的唯一有用控制是停止它，启动它，获取其寄存器值并设置其寄存器值。2特别是，我们无法在远程线程中读取或写入内存，这对于我们可能希望使受害者进程执行的更复杂的任务至关重要。因此，我们将必须弄清楚如何通过从此访问中构建某种执行原语来完全控制远程线程的内存。
+
+幸运的是，即使没有读/写原语，arm64体系结构和调用约定也使构建函数调用原语变得容易。标准的调用约定使我们可以将前8个（整数）自变量放入寄存器中。只要我们要调用的函数接受不超过8个参数（这是非常慷慨的要求），我们就不必在调用之前设置堆栈，从而使我们能够在没有内存写功能的情况下通过。同样，返回值是在寄存器中指定的（而不是在x86-64之类的堆栈中），这为我们提供了一种简单的方法来控制执行的函数返回后发生的情况。
+
+话虽如此，即使我们不对其内存进行写操作，我们仍然需要一个有效的堆栈指针作为开始。幸运的是，我们劫持了一个先前初始化并正在运行的线程，因此该sp寄存器已指向有效的堆栈。
+
+因此，我们可以x0通过x7将远程线程中的寄存器设置pc为参数，设置为要执行的函数并启动线程来启动远程函数调用。这将导致远程线程使用提供的参数运行该函数，然后该函数将返回。在这一点上，我们需要检测返回值并确保线程不会崩溃。
+
+有几种方法可以解决此问题。一种方法是在调用函数之前使用thread_set_exception_ports()并将返回地址寄存器设置为lr无效地址，从而为远程线程注册和异常处理程序。这样，在函数运行之后，将生成一个异常，并将一条消息发送到我们的异常端口，这时我们可以检查线程的状态以获取返回值。但是，为简单起见，我复制了Ian Beer的Triple_fetch利用中使用的策略，该策略设置lr为一条指令的地址，该指令将无限循环，然后反复轮询线程的寄存器，直到pc指向该指令为止。
+
+至此，我们有了一个基本的执行原语：我们可以调用最多8个参数的任意函数，并获取返回值。但是，离我们的目标还有很长的路要走。
+
+步骤2：用于通信的马赫端口
+下一步是创建Mach端口，我们可以在这些端口上与远程线程进行通信。这些Mach端口稍后将有助于在任务之间转移任意发送和接收权限。
+
+为了建立双向通信，我们将需要创建两个Mach接收权限：一个在本地任务中，一个在远程任务中。然后，我们将需要将每个端口的发送权转移给其他任务。这将为每个任务提供一种发送消息的方式，该消息可以被其他任务接收。
+
+首先让我们着重于设置本地端口，即本地任务持有接收权的端口。通过调用，我们可以像创建其他端口一样创建Mach端口mach_port_allocate()。诀窍是使该端口的发送权进入远程任务。
+
+我们可以使用一个简单的技巧，仅使用基本执行原语将当前任务的发送权限复制到远程任务中，方法是使用以下方法将发送权限存储到远程线程的THREAD_KERNEL_PORT特殊端口中的本地端口 thread_set_special_port()：然后，我们可以进行远程线程调用mach_thread_self()以检索发送权限。
+
+接下来，我们将设置远程端口，这几乎与我们刚刚做的相反。我们可以通过调用使远程线程分配一个Mach端口mach_reply_port()；我们不能使用它， mach_port_allocate()因为后者会在内存中返回分配的端口名，并且我们还没有读取原语。一旦有了端口，就可以通过调用mach_port_insert_right()远程线程来创建发送权限 。然后，我们可以通过调用将端口隐藏在内核中thread_set_special_port()。最后，回到本地任务，我们可以通过调用thread_get_special_port()远程线程来检索端口，从而为我们分配了刚在远程任务中分配的Mach端口的发送权。
+
+至此，我们已经创建了用于双向通信的Mach端口。
+
+步骤3：基本内存读/写
+现在，我们将使用execute原语创建基本的内存读取和写入原语。这些基元不会被大量使用（我们将很快升级到功能更强大的基元），但是它们是帮助我们扩展对远程过程的控制的关键步骤。
+
+为了使用我们的execute原语读写存储器，我们将寻找以下函数：
+
+uint64_t read_func(uint64_t *address) {
+    return *address;
+}
+void write_func(uint64_t *address, uint64_t value) {
+    *address = value;
+}
+它们可能对应于以下程序集：
+
+_read_func:
+    ldr     x0, [x0]
+    ret
+_write_func:
+    str     x1, [x0]
+    ret
+快速浏览一些常见的库，发现一些不错的候选库。要读取内存，我们可以使用 property_getName()函数从Objective-C的运行时库：
+
+const char *property_getName(objc_property_t prop)
+{
+    return prop->name;
+}
+事实证明，prop是的第一个字段objc_property_t，因此这直接对应于read_func上面的假设。我们只需要执行一个远程函数调用，第一个参数是我们要读取的地址，返回值就是该地址处的数据。
+
+寻找一个预先编写的函数来写入内存要困难一些，但是仍然有很多不错的选择，而不会产生不希望的副作用。在libxpc中，该_xpc_int64_set_value()函数具有以下反汇编：
+
+__xpc_int64_set_value:
+    str     x1, [x0, #0x18]
+    ret
+因此，要在address执行64位写入address，我们可以执行远程调用：
+
+_xpc_int64_set_value(address - 0x18, value)
+有了这些原语，我们就可以创建共享内存了。
+
+步骤4：共享内存
+我们的下一步是在远程任务和本地任务之间创建共享内存。这将使我们能够更轻松地在进程之间传输数据：有了共享的内存区域，任意内存的读写就如同远程调用一样简单memcpy()。此外，拥有共享的内存区域将使我们能够轻松地建立堆栈，从而可以调用具有8个以上参数的函数。
+
+为了使事情变得简单，我们可以重用libxpc的共享内存功能。Libxpc提供了XPC对象类型，OS_xpc_shmem它允许在XPC上建立共享内存区域。通过反转libxpc，我们确定它OS_xpc_shmem基于马赫内存条目，马赫内存条目是代表虚拟内存区域的马赫端口。而且，由于我们已经展示了如何将Mach端口发送到远程任务，因此我们可以使用它轻松地设置自己的共享内存。
+
+首先，我们需要分配要共享的内存mach_vm_allocate()。我们需要使用mach_vm_allocate()以便可以用来为该区域xpc_shmem_create()创建一个 OS_xpc_shmem对象。xpc_shmem_create()将为我们创建Mach内存条目，并将将Mach发送权存储到该内存条目的不透明 OS_xpc_shmem对象中，偏移量为0x18。
+
+有了内存入口之后，我们将OS_xpc_shmem在远程进程中创建一个表示相同内存区域的对象，从而允许我们调用xpc_shmem_map()以建立共享内存映射。首先，我们执行一个远程调用来malloc()为分配内存， OS_xpc_shmem并使用我们的基本写入原语复制本地OS_xpc_shmem对象的内容 。不幸的是，结果对象不是很正确：其偏移处的Mach内存条目字段0x18包含内存条目的本地任务名称，而不是远程任务的名称。为了解决这个问题，我们将使用thread_set_special_port()技巧将Mach内存条目的发送权限插入远程任务，然后0x18使用远程内存条目的名称覆盖字段。此时，遥控器OS_xpc_shmem对象有效，可以通过远程调用建立内存映射xpc_shmem_remote()。
+
+步骤5：完全控制
+有了已知地址的共享内存和任意执行原语，我们就可以完成。分别通过memcpy()对共享区域的调用和对共享区域的调用来实现对任意存储器的读写。具有超过8个参数的函数调用是根据调用约定通过在堆栈上的前8个参数之外布置其他参数来执行的。通过在较早建立的端口上发送Mach消息，可以在任务之间转移任意的Mach端口。我们甚至可以使用文件端口在进程之间传输文件描述符（特别感谢Ian Beer在Triple_fetch中演示了该技术！）
+```
+
 ## 为什么黑客这么喜欢攻击棋牌游戏呢？
 ```
 1、篡改数据
