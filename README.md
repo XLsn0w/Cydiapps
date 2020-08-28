@@ -8,6 +8,26 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+# SHSH (Signature HaSH blobs) 验证iTunes恢复固件合法性证书
+```
+什么是SHSH？
+SHSH的全称是Signature HasH blobs，中文：签名证书。
+SHSH就是验证iTunes恢复固件操作合法性的一个证书。
+当我们用iTunes进行升级 / 恢复固件操作时，
+iTunes会向苹果验证服务器提交待升级 / 恢复固件设备的ECID，
+并申请获取升级 / 恢复该版固件的SHSH，
+苹果会通过验证服务器发送一个和ECID对应的SHSH证书给iTunes，
+iTunes就可以继续进行和这个SHSH相对应版本的固件进行升级 / 恢复。
+```
+
+```
+SHSH有什么作用?
+苹果基制是发布新版固件之后，旧版本固件将会在短时间内停止验证。
+需要恢复苹果已经关闭验证的固件，
+必须通过SHSH备份以及降级工具签证
+欺骗苹果服务的验证进行恢复已经关闭验证的固件，这就是降级。
+```
+
 ## cuck00
 ```
 #include <errno.h>
