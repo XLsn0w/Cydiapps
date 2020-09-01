@@ -8,6 +8,66 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+```
+// 常见越狱文件
+const char *Jailbreak_Tool_pathes[] = {
+    "/Applications/Cydia.app",
+    "/Library/MobileSubstrate/MobileSubstrate.dylib",
+    "/bin/bash",
+    "/usr/sbin/sshd",
+    "/etc/apt"
+};
+
+char *printEnv(void) {
+    char *env = getenv("DYLD_INSERT_LIBRARIES");
+    return env;
+}
+
+/** 当前设备是否越狱 */
++ (BOOL)isDeviceJailbreak {
+    // 判断是否存在越狱文件
+    for (int i = 0; i < 5; i++) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:Jailbreak_Tool_pathes[i]]]) {
+            NSLog(@"1此设备越狱!");
+            return YES;
+        }
+    }
+    
+    // 判断是否存在cydia应用
+    if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]){
+        NSLog(@"2此设备越狱!");
+        return YES;
+    }
+    
+    // 读取系统所有的应用名称
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/User/Applications/"]){
+        NSLog(@"3此设备越狱!");
+        return YES;
+    }
+    
+    // 读取环境变量
+    if(printEnv()){
+        NSLog(@"4此设备越狱!");
+        return YES;
+    }
+    
+    NSLog(@"5此设备没有越狱");
+    return NO;
+}
+
+
+/** 文件是否被篡改 */
++ (BOOL)isDocumentHasBeenTamper {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSDictionary *info = [bundle infoDictionary];
+    if ([info objectForKey:@"SignerIdentity"] != nil)
+    {
+        return YES;
+    }
+    return NO;
+}
+```
+
 # SHSH (Signature HaSH blobs) 验证iTunes恢复固件合法性证书
 ```
 什么是SHSH？
