@@ -10,6 +10,30 @@
 
 # 汇编指令
 ```
+SVC：SuperVisor Call
+
+    Syntax（语法）：SVC{cond} #imm
+    cond：一个可选的条件码
+    imm：一个整数数值表达式，范围为
+
+-在ARM指令中为 0 ~ 224，一个24-bit的整数值
+-在Thumb指令中为 0 ~ 255，一个8-bit的整数值
+
+Operation（操作）：
+SVC指令会引起异常。这意味着处理器模式会切换到特权级。CPSR（当前程序状态寄存器）会被保存到特权模式SPSR（程序状态保护寄存器）中，程序会跳转到SVC异常处理程序（exception handler）中执行。
+imm会被处理器忽略。但是，imm可以被异常处理程序（exception handler）获得，并且可以根据imm来判断请求的是什么服务。
+
+注意：SVC在早期ARM版本的汇编语言里被称为SWI。
+SWI指令反汇编为SVC指令，并且带有注释：这是以前的    SWI指令。
+
+Condition flags（条件标志位）：此条指令不改变标志位。
+
+Architectures（处理器架构）：
+此ARM指令在所有版本的ARM架构中可用。
+此16位Thumb指令在所有的支持T变种（即支持Thumb指令集）的ARM架构中可用。
+该指令没有对应的32位Thumb指令。
+
+
 bl 指令 跳转到标号出执行
 b.le ：判断上面cmp的值是小于等于 执行标号，否则直接往下走
 b.ge 大于等于 执行地址 否则往下
