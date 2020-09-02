@@ -8,6 +8,15 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## 防止.ipa被二次打包
+1、检测plist文件中是否有SignerIdentity值，SignerIdentity值只有ipa包被反编译后篡改二进制文件再次打包，才会有此值。
+(注：如果替换资源文件，比如图片、plist文件等是没有SignerIdentity这个值的)
+
+2、检测 cryptid 的值来检测二进制文件是否被篡改。cryptid这个值在Mach-o中才有
+
+3、IPA包上传到TestFlight或者App Store后，计算安装包中重要文件的MD5值，服务器记录，
+在应用运行前首先将本地计算的 MD5 值和服务器记录的 MD5 值 进行对比，如不同，则退出应用
+
 # 越狱检测
 ```
 检测代码
