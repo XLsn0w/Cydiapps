@@ -8,6 +8,62 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+```
+采用dloen+dlsym调用ptrace
+ //拼接一个 ptrace
+    unsigned char funcStr[] = {
+        ('a' ^ 'p'),
+        ('a' ^ 't'),
+        ('a' ^ 'r'),
+        ('a' ^ 'a'),
+        ('a' ^ 'c'),
+        ('a' ^ 'e'),
+        ('a' ^ '\0'),
+    };
+    unsigned char * p = funcStr;
+    while (((*p) ^= 'a') != '\0') p++;
+    
+    //通过dlopen拿到句柄
+    void * handle = dlopen("/usr/lib/system/libsystem_kernel.dylib", RTLD_LAZY);
+    //定义函数指针
+    int (*ptrace_p)(int _request, pid_t _pid, caddr_t _addr, int _data);
+    
+    if (handle) {
+        ptrace_p = dlsym(handle, (const char *)funcStr);
+        if (ptrace_p) {
+            ptrace_p(PT_DENY_ATTACH, 0, 0, 0 );
+        }
+    }
+   
+```
+使用这种方式调用系统函数(ptrace,syscall,sysctrl)进行防护,
+就只能通过去找代码块中的汇编指令svc #0x80来定位防护代码了.
+#ifdef __arm64__
+    asm(
+        "mov x0,#0\n"
+        "mov w16,#1\n"
+        "svc #0x80\n"
+    );
+#endif
+#ifdef __arm__ //32位下
+    asm(
+        "mov r0,#0\n"
+        "mov r12,#1\n"
+        "svc #80\n"
+    );
+#endif
+
+```
+    asm volatile(
+                     "mov x0,#31\n"
+                     "mov x1,#0\n"
+                     "mov x2,#0\n"
+                     "mov x3,#0\n"
+                     "mov x16,#26\n"//中断根据x16 里面的值，跳转ptrace
+                     "svc #0x80\n"//这条指令就是触发中断（系统级别的跳转！）
+                     );
+```
+
 ## 判断iOS App是否被反编译
 ### 方案1、调用syscall(26, 31, 0, 0, 0)
 ### 方案2、调用sysctl
