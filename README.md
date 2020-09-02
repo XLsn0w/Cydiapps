@@ -8,6 +8,20 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## embedded.mobileprovision
+
+为什么.ipa包上传到App Store被苹果处理之后就没有这个文件了呢？
+因为embedded.mobileprovision文件里边存储的是证书相关的公钥私钥信息，
+苹果会用自己的私钥验证这里边的内容，如果验证通过则说明该APP是安全的合法的，之后就会将该文件删除，
+因为，App Store的APP苹果会用自己的公钥私钥进行重签名(也就是加壳)，这样该文件就失去它的意义了，所以被删除了。
+这也就是为啥证书过期之后，从App Store上已经下载过的APP还可以继续使用的原因。
+
+ 而通过企业证书分发的APP，.ipa包里边还是有这个文件的，这时候苹果做安全校验的时候就是通过这个文件去做的，
+ 所以，如果企业证书过期了，这时候企业分发的APP就立马不能安装使用了，并且已经下载安装的APP也不能使用。
+         
+不存在该文件：App Store下载的.ipa、砸壳的.ipa。
+存在该文件：Xcode打出来的.ipa、企业证书分发的.ipa、越狱手机上自己二次打包的.ipa。
+
 # 汇编指令
 ```
 SVC：SuperVisor Call
