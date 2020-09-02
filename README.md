@@ -8,6 +8,39 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+# 判断APP是否被反编译、
+# 是否被gcd\lldb进行动态调试。
+      由于该方法可能会被hook掉，比如使用fishhook来hook此方法。
+      增强方案：1、调用syscall(26, 31, 0, 0, 0)。2、调用sysctl。3、直接编写汇编代码，利用svc 去触发CPU的中断命令。
+ ```
+ // 阻止 gdb/lldb 调试
+// 调用 ptrace 设置参数 PT_DENY_ATTACH，如果有调试器依附，则会产生错误并退出
+#import <dlfcn.h>
+#import <sys/types.h>
+ 
+typedef int (*ptrace_ptr_t)(int _request, pid_t _pid, caddr_t _addr, int _data);
+#if !defined(PT_DENY_ATTACH)
+#define PT_DENY_ATTACH 31
+#endif
+ 
+void anti_gdb_debug() {
+    void *handle = dlopen(0, RTLD_GLOBAL | RTLD_NOW);
+    ptrace_ptr_t ptrace_ptr = dlsym(handle, "ptrace");
+    ptrace_ptr(PT_DENY_ATTACH, 0, 0, 0);
+    dlclose(handle);
+}
+ 
+int main(int argc, char * argv[]) {
+#ifndef DEBUG
+    // 非 DEBUG 模式下禁止调试
+    anti_gdb_debug();
+#endif
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+    }
+}
+ ```
+
 ## embedded.mobileprovision
 
 为什么.ipa包上传到App Store被苹果处理之后就没有这个文件了呢？
