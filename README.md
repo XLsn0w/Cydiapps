@@ -8,12 +8,12 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
-# 判断APP是否被反编译、
-# 是否被gcd\lldb进行动态调试。
-      由于该方法可能会被hook掉，比如使用fishhook来hook此方法。
-      增强方案：1、调用syscall(26, 31, 0, 0, 0)。2、调用sysctl。3、直接编写汇编代码，利用svc 去触发CPU的中断命令。
+## 判断iOS App是否被反编译
+### 方案1、调用syscall(26, 31, 0, 0, 0)
+### 方案2、调用sysctl
+### 方案3、直接编写汇编代码，利用svc 去触发CPU的中断命令
  ```
- // 阻止 gdb/lldb 调试
+ // 阻止 gdb/lldb 调试 //是否被gcd\lldb进行动态调试
 // 调用 ptrace 设置参数 PT_DENY_ATTACH，如果有调试器依附，则会产生错误并退出
 #import <dlfcn.h>
 #import <sys/types.h>
