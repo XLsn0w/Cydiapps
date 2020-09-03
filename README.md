@@ -8,6 +8,39 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+theos .deb插件
+   .
+├── .theos
+|   ├── _ 
+|   |    └── ...  *
+|   ├── obj 
+|   |    └── ...  *
+|   ├── packages 
+|   |    └── ...   记录版本号
+|   ├── build_session
+|   ├── fakeroot
+|   └── last_package    当前打包成功以后放的路径
+├── obj   实际上跟上面.theos/obj的目录是一样的
+|   └── debug/...   空的
+├── packages
+|   └── ...   你的包程序，也就是你的插件的包，在很多威锋源里面的*.deb文件，每次打包都会生成一个包文件，每次包文件的版本号都会++
+├── control    配置信息
+├── Makefile   环境变量信息
+├── Tweak.xm      编写logos hook代码
+├── ***.plist     目标进程，就是你需要修改、hook的App的Bundle identifier
+
+_ 目录
+├── DEBIAN
+|   └── control    配置信息
+├── Library 
+|   |    └── MobileSubstrate/Dynamiclibrarte/**.plist  目标进程，就是你需要修改、hook的App的Bundle identifier
+
+obj 目录  上面两个obj目录实际上都是一样的，只不过在根目录中的obj在打包安装的整个过程中都是空的，我也不知道作者当时是怎么想的，所以就绕过去，可能还有别的作用的，现在是没找到相关的内容。
+├── debug
+|   ├── arm64    arm64的*.dylib 动态库
+|   └── armv7     armv7的*.dylib 动态库
+|   |    └──  *.dylib   合并arm64、armv7的动态库  
+
 ```
 采用dloen+dlsym调用ptrace
  //拼接一个 ptrace
