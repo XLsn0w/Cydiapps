@@ -1,5 +1,5 @@
-# iOS逆向工程开发 
-# iOS越狱 Jailbreak Cydia deb插件APT开发
+# iOS逆向工程越狱开发 
+# iOS Jailbreak Dev
 ![iPod touch4](https://github.com/XLsn0w/Cydia/blob/master/iOS%206.1.6%20jailbreak.JPG?raw=true)
 
 # 我的微信公众号: CydiaInstaller
