@@ -65,9 +65,10 @@ dyld 会将 App 依赖的动态库和 App 文件加载到内存执行。
 
 ### Mach header：描述 Mach-O 的 CPU 架构、文件类型以及加载命令等；
 ### Load commands：描述了文件中数据的具体组织结构，不同的数据类型使用不同的加载命令；
-### Data：Data 中的每个段（segment）的数据都保存在这里，
+### Data：Data 中的每个段（segment）的数据都保存在这里;
 
-每个段都有一个或多个 Section, 存放了具体的数据与代码，主要包含这三种类型：
+### 每个段（segment）都有Section : 存放了具体的数据与代码，主要包含以下三种类型：
+
 __TEXT 包含 Mach header，被执行的代码和只读常量（如C 字符串）。只读可执行（r-x）。
 
 __DATA 包含全局变量，静态变量等。可读写（rw-）。
