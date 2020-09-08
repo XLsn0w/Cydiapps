@@ -35,9 +35,9 @@ __DATA 包含全局变量，静态变量等。可读写（rw-）。
 __LINKEDIT 包含了加载程序的元数据，比如函数的名称和地址。只读（r–-）。
 
 ## MachOView : 查看MachO文件格式信息
-```
-MachOView源码地址：https://github.com/gdbinit/MachOView
+### MachOView源码地址：https://github.com/gdbinit/MachOView
 
+```
 Mach-O格式全称为Mach Object文件格式的缩写，是mac上可执行文件的格式，
 类似于windows上的PE格式 (Portable Executable ), linux上的elf格式 (Executable and Linking Format)。
 
