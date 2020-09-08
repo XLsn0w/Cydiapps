@@ -36,8 +36,6 @@ __LINKEDIT 包含了加载程序的元数据，比如函数的名称和地址。
 
 ## MachOView : 查看MachO文件格式信息
 ```
-MachOView下载地址：http://sourceforge.net/projects/machoview/
-
 MachOView源码地址：https://github.com/gdbinit/MachOView
 
 Mach-O格式全称为Mach Object文件格式的缩写，是mac上可执行文件的格式，
