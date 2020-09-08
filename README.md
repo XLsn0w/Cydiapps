@@ -34,6 +34,94 @@ __TEXT 包含 Mach header，被执行的代码和只读常量（如C 字符串�
 __DATA 包含全局变量，静态变量等。可读写（rw-）。
 __LINKEDIT 包含了加载程序的元数据，比如函数的名称和地址。只读（r–-）。
 
+## MachOView : 查看MachO文件格式信息
+```
+MachOView下载地址：http://sourceforge.net/projects/machoview/
+
+MachOView源码地址：https://github.com/gdbinit/MachOView
+
+Mach-O格式全称为Mach Object文件格式的缩写，是mac上可执行文件的格式，
+类似于windows上的PE格式 (Portable Executable ), linux上的elf格式 (Executable and Linking Format)。
+
+Mach-O文件类型分为：
+
+1、Executable：应用的主要二进制
+
+2、Dylib Library：动态链接库（又称DSO或DLL）
+
+3、Static Library：静态链接库
+
+4、Bundle：不能被链接的Dylib，只能在运行时使用dlopen( )加载，可当做macOS的插件
+
+5、Relocatable Object File ：可重定向文件类型
+
+那什么又是FatFile/FatBinary？
+
+简单来说，就是一个由不同的编译架构后的Mach-O产物所合成的集合体。
+一个架构的mach-O只能在相同架构的机器或者模拟器上用，为了支持不同架构需要一个集合体。
+```
+
+```
+MachOView在load Commands里面加载了这么些动态库: 
+
+LC_SEGMENT_64：定义一个（64位）段， 当文件加载后它将被映射到地址空间。包括段内节（section）的定义。
+
+LC_SYMTAB：为该文件定义符号表（‘stabs’ 风格）和字符串表。 他们在链接文件时被链接器使用，同时也用于调试器映射符号到源文件。具体来说，符号表定义本地符号仅用于调试，而已定义和未定义external 符号被链接器使用。
+
+LC_DYSYMTAB：提供符号表中给出符号的额外符号信息给动态链接器，以便其处理。 包括专门为此而设的一个间接符号表的定义。
+
+LC_DYLD_INFO_ONLY：定义一个附加 压缩的动态链接器信息节，它包含在其他事项中用到的 动态绑定符号和操作码的元数据。stub 绑定器（“dyld_stub_binder”），它涉及的动态间接链接利用了这点。 “_ONLY” 后缀t表明这个加载指令是程序运行必须的，, 这样那些旧到不能理解这个加载指令的链接器就在这里停下。
+
+LC_LOAD_DYLINKER: 加载一个动态链接器。在OS X上，通常是“/usr/lib/dyld”。LC_LOAD_DYLIB: 加载一个动态链接共享库。举例来说，“/usr/lib/libSystem.B.dylib”，这是C标准库的实现再加上一堆其他的事务（系统调用和内核服务，其他系统库等）。每个库由动态链接器加载并包含一个符号表，符号链接名称是查找匹配的符号地址。
+
+LC_MAIN：指明程序的入口点。在本案例，是函数themain()的地址。
+
+LC_UUID：提供一个唯一的随机UUID，通常由静态链接器生成。
+
+LC_VERSION_MIN_MACOSX：程序可运行的最低OS X版本要求
+
+LC_SOURCE_VERSION:：构建二进制文件的源码版本号。
+
+LC_FUNCTION_STARTS：定义一个函数起始地址表，使调试器和其他程序易于看到一个地址是否在函数内。
+
+LC_DATA_IN_CODE：定义在代码段内的非指令的表。
+
+LC_DYLIB_CODE_SIGN_DRS: 为已链接的动态库定义代码签名 指定要求。
+
+Xcode工程里的系统库 则转化为LC_LOAD_DYLIB 所谓dylib嵌入就是指的这个过程 此在后文中予以介绍
+
+而关于LC_SEGMENT_64头部则有如下的定义说明
+
+__PAGEZERO：一个全用0填充的段，用于抓取空指针引用。这通常不会占用磁盘空间(或内存空间)，因为它运行时映射为一群0啊。顺便说一句，这个段是隐藏恶意代码的好地方。
+
+__TEXT：本段只有可执行代码和其他只读数据。
+
+__text：本段是可执行机器码。
+
+__stubs：间接符号存根。这些跳转到非延迟加载 (“随运行加载”) 和延迟加载(“初次使用时加载”) 间接引用的（可写）位置的值 (例如条目“__la_symbol_ptr”，我们很快就会看到)。对于延迟加载引用，其地址跳转讲首先指向一个解析过程，但初始化解析后会指向一个确定的地址。 对于非延迟加载引用，其地址跳转会始终指向一个确定的地址，因为动态链接器在加载可执行文件时就修正好了。
+
+__stub_helper：提供助手来解决延迟加载符号。如上所述，延迟加载的间接符号指针将指到这里面，直到得到确定地址。
+
+__cstring： constant (只读) C风格字符串（如”Hello, world!n”）的节。链接器在生成最终产品时会清除重复语句。
+
+__unwind_info：一个紧凑格式，为了存储堆栈展开信息供处理异常。此节由链接器生成，通过“__eh_frame”里供OS X异常处理的信息。
+
+__eh_frame： 一个标准的节，用于异常处理，它提供堆栈展开信息，以DWARF格式。
+
+
+__DATA：用于读取和写入数据的一个段。
+
+__nl_symbol_ptr：非延迟导入符号指针表。
+
+__la_symbol_ptr：延迟导入符号指针表。本节开始时，指针们指向解析助手，如前所讨述。
+
+__got：全局偏移表–— （非延迟）导入全局指针表。
+
+
+__LINKEDIT：包含给链接器（“链接编辑器‘）的原始数据的段，在本案例中，包括符号和字符串表，压缩动态链接信息，代码签名存托凭证，以及间接符号表–所有这一切的占区都被加载指令指定了。
+
+```
+
 
 theos .deb插件
 ```
