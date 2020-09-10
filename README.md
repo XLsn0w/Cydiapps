@@ -525,7 +525,45 @@ BOOL isSecurityCheckPassed()
 }
 
 @end
+```
 
+## Homebrew国内安装
+### 自动脚本(全部国内地址)（在Mac终端中复制粘贴回车下面脚本)
+安装脚本：
+```
+/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)"
+```
+卸载脚本：
+```
+/bin/zsh -c "$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)"
+```
+
+## curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443 
+### 此处出现报错, 证明当前网络不行, 切换另外的网络/热点就行
+```
+$     sudo /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/AloneMonkey/MonkeyDev/master/bin/md-install)"
+curl: (35) LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to raw.githubusercontent.com:443 
+此处出现报错, 证明当前网络不行, 切换另外的网络/热点就行
+Password:
+$     sudo /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/AloneMonkey/MonkeyDev/master/bin/md-install)"
+Downloading MonkeyDev base from Github...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 3452k  100 3452k    0     0   4256      0  0:13:50  0:13:50 --:--:-- 10751
+Downloading Xcode templates from Github...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  306k    0  306k    0     0  16915      0 --:--:--  0:00:18 --:--:-- 14798
+Downloading frida-ios-dump from Github...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  9669  100  9669    0     0   1012      0  0:00:09  0:00:09 --:--:--   396
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 11727  100 11727    0     0   3273      0  0:00:03  0:00:03 --:--:--  3273
+Creating symlink to Xcode templates...
+Modifying Bash personal initialization file...
+   
 ```
 
 ## 如何检测越狱设备
