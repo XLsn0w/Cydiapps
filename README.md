@@ -1382,13 +1382,126 @@ dyld函数 -迄今为止最难解决的问题。调用诸如_dyld_image_count（
 如果类转储的头文件没有给出任何内容，则在二进制文件中搜索“ jail”，“ cydia”，“ apt”等字符串通常会导致断点。
 
 ----------------------------------------------------------------------------------------------------------------
-# 汇编语言
+# 汇编语言  Assembly
 
 答：汇编语言是计算机语言，通俗来讲就是人类与计算机(CPU)交流的桥梁，
 计算机不认识人类的语言，想要让计算机去完成人们的工作，就需要俺们将这些工作翻译成计算机语言，属于低级计算机语言。
 
 iOS App与汇编语言的关系
 一个APP安装到操作系统上面的可执行的文件本质上来讲就是二进制文件，操作系统本质上执行的指令也是二进制，是由CPU执行的；
+
+## Assembly 和 fishhook
+Objective-C的方法在编译后会走objc_msgSend，所以通过fishhook来hook这一个C函数即可获得Objective-C符号
+由于objc_msgSend是变长参数，所以hook代码需要用汇编来实现：
+```
+ 1//代码参考InspectiveC
+ 2__attribute__((__naked__))
+ 3static void hook_Objc_msgSend() {
+ 4    save()
+ 5    __asm volatile ("mov x2, lr\n");
+ 6    __asm volatile ("mov x3, x4\n");
+ 7    call(blr, &before_objc_msgSend)
+ 8    load()
+ 9    call(blr, orig_objc_msgSend)
+10    save()
+11    call(blr, &after_objc_msgSend)
+12    __asm volatile ("mov lr, x0\n");
+13    load()
+14    ret()
+15}
+```
+子程序调用时候要保存和恢复参数寄存器，
+所以save和load分别对x0~x9, q0~q9入栈/出栈。
+call则通过寄存器来间接调用函数：
+```
+ 1#define save() \
+ 2__asm volatile ( \
+ 3"stp q6, q7, [sp, #-32]!\n"\
+ 4...
+ 5
+ 6#define load() \
+ 7__asm volatile ( \
+ 8"ldp x0, x1, [sp], #16\n" \
+ 9...
+10
+11#define call(b, value) \
+12__asm volatile ("stp x8, x9, [sp, #-16]!\n"); \
+13__asm volatile ("mov x12, %0\n" :: "r"(value)); \
+14__asm volatile ("ldp x8, x9, [sp], #16\n"); \
+15__asm volatile (#b " x12\n");
+```
+在before_objc_msgSend中用栈保存lr，在after_objc_msgSend恢复lr。
+由于要生成trace文件，为了降低文件的大小，直接写入的是函数地址，且只有当前可执行文件的Mach-O(app和动态库)代码段才会写入：
+
+iOS中，由于ALSR(https://en.wikipedia.org/wiki/Address_space_layout_randomization)的存在，在写入之前需要先减去偏移量slide：
+```
+1IMP imp = (IMP)class_getMethodImplementation(object_getClass(self), _cmd);
+2unsigned long imppos = (unsigned long)imp;
+3unsigned long addr = immpos - macho_slide
+```
+获取一个二进制的__text段地址范围：
+```
+1unsigned long size = 0;
+2unsigned long start = (unsigned long)getsectiondata(mhp,  "__TEXT", "__text", &size);
+3unsigned long end = start + size;
+获取到函数地址后，反查linkmap既可找到方法的符号名。
+```
+
+iOS的block是一种特殊的单元，block在编译后的函数体是一个C函数，
+在调用的时候直接通过指针调用，并不走objc_msgSend，所以需要单独hook。
+
+通过Block的源码可以看到block的内存布局如下：
+```
+ 1struct Block_layout {
+ 2    void *isa;
+ 3    int32_t flags; // contains ref count
+ 4    int32_t reserved;
+ 5    void  *invoke;
+ 6    struct Block_descriptor1 *descriptor;
+ 7};
+ 8struct Block_descriptor1 {
+ 9    uintptr_t reserved;
+10    uintptr_t size;
+11};
+```
+其中invoke就是函数的指针，hook思路是将invoke替换为自定义实现，然后在reserved保存为原始实现。
+```
+1
+2if (layout->descriptor != NULL && layout->descriptor->reserved == NULL)
+3{
+4    if (layout->invoke != (void *)hook_block_envoke)
+5    {
+6        layout->descriptor->reserved = layout->invoke;
+7        layout->invoke = (void *)hook_block_envoke;
+8    }
+9}
+```
+由于block对应的函数签名不一样，所以仍然采用汇编来实现hook_block_envoke：
+```
+ 1__attribute__((__naked__))
+ 2static void hook_block_envoke() {
+ 3    save()
+ 4    __asm volatile ("mov x1, lr\n");
+ 5    call(blr, &before_block_hook);
+ 6    __asm volatile ("mov lr, x0\n");
+ 7    load()
+ 8    //调用原始的invoke，即resvered存储的地址
+ 9    __asm volatile ("ldr x12, [x0, #24]\n");
+10    __asm volatile ("ldr x12, [x12]\n");
+11    __asm volatile ("br x12\n");
+12}
+```
+
+在before_block_hook中获得函数地址（同样要减去slide）。
+```
+1intptr_t before_block_hook(id block,intptr_t lr)
+2{
+3    Block_layout * layout = (Block_layout *)block;
+4    //layout->descriptor->reserved即block的函数地址
+5    return lr;
+6}
+```
+同样，通过函数地址反查linkmap既可找到block符号
 
 ### .s 汇编语言源程序;  操作: 汇编
 ### .S 汇编语言源程序;  操作: 预处理 + 汇编
