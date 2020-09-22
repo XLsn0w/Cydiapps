@@ -11,6 +11,11 @@
 ## dlopen 和 dlsym 方法动态加载库和调用函数
 ### Linux/unix/macOS/iOS 提供了使用 dlopen 和 dlsym 方法动态加载库和调用函数
 
+UNIX 诞生于 20 世纪 60 年代末，
+Windows 诞生于 20 世纪 80 年代中期，
+Linux 诞生于 20 世纪 90 年代初，
+可以说 UNIX 是操作系统中的"老大哥", Windows 和 Linux 都参考了 UNIX。
+
 dlopen 打开一个库，获取句柄。
 dlsym 在打开的库中查找符号的值。
 dlclose 关闭句柄。
