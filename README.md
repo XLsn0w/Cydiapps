@@ -1,14 +1,21 @@
 # iOS逆向工程越狱开发 
-# iOS Jailbreak Dev
+# iOS Jailbreak Develop/hook/Reverse
 ![iPod touch4](https://github.com/XLsn0w/Cydia/blob/master/iOS%206.1.6%20jailbreak.JPG?raw=true)
 
-# 我的微信公众号: CydiaInstaller
+# 我的微信公众号: Cydia
 ![Cydia](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
 
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
-## dlopen 和 dlsym 方法动态加载库和调用函数
+## macOS/iOS 签名工具
+```
+$ brew install ldid
+```
+ ### ldid工具：ldid是mac上的命令行工具，可以用于导出的签名文件、对文件进行重签名等操作。
+ ### codesign工具：Mac上的命令行工具、也可以用于权限签名操作。
+
+### dlopen 和 dlsym 方法动态加载库和调用函数
 ### Linux/unix/macOS/iOS 提供了使用 dlopen 和 dlsym 方法动态加载库和调用函数
 
 UNIX 诞生于 20 世纪 60 年代末，
