@@ -8,6 +8,14 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## dlopen 和 dlsym 方法动态加载库和调用函数
+### Linux/unix/macOS/iOS 提供了使用 dlopen 和 dlsym 方法动态加载库和调用函数
+
+dlopen 打开一个库，获取句柄。
+dlsym 在打开的库中查找符号的值。
+dlclose 关闭句柄。
+dlerror 返回一个描述最后一次调用dlopen、dlsym，或 dlclose 的错误信息的字符串。
+
 ## Makefile
 Makefile关系到了整个工程的编译规则。一个工程中的源文件不计数，其按类型、功能、模块分别放在若干个目录中，
 Makefile定义了一系列的规则来指定，哪些文件需要先编译，哪些文件需要后编译，哪些文件需要重新编译，甚至于进行更复杂的功能操作，
