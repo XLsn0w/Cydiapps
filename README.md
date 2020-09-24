@@ -8,6 +8,13 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## .app手动压缩改后缀.ipa
+```
+1: 新建“Payload”文件夹;
+2: 将.app包放到Payload中;
+3: 在Payload文件夹上右键压缩成zip，然后将生成的.zip文件后缀改成.ipa即可
+```
+
 ## macOS/iOS 签名工具
 ```
 $ brew install ldid
