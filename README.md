@@ -8,6 +8,26 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+### theos安装deb到手机, 先做下端口映射
+```
+iproxy 2222 22 
+```
+### 执行make install命令
+```
+$     make install
+==> Installing…
+The authenticity of host '[localhost]:2222 ([127.0.0.1]:2222)' can't be established.
+RSA key fingerprint is SHA256:9BPzMfuq0HFe2lkxXBRpdZSwg+if/NSbn1m2+7RudqM.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[localhost]:2222' (RSA) to the list of known hosts.
+Selecting previously unselected package cn.xlsn0w.dock.
+(Reading database ... 3893 files and directories currently installed.)
+Preparing to unpack /tmp/_theos_install.deb ...
+Unpacking cn.xlsn0w.dock (1.1.5-4) ...
+Setting up cn.xlsn0w.dock (1.1.5-4) ...
+install.exec "killall -9 SpringBoard"
+```
+
 ## .app手动压缩改后缀.ipa
 ```
 1: 新建“Payload”文件夹;
