@@ -8,9 +8,14 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## usbmuxd
+usbmuxd将依赖于TCP/IP的命令的被连接方，通过本地端口映射。
+用usb连接代替了网络连接，使得在没有网络的情况下也可以连接设备。
+(iproxy 2222 22) : 将本地电脑2222端口转发到usb连接设备22端口
+
 ### theos安装deb到手机
 
-1.设备安装openSSH插件
+1.设备安装openSSH插件, 安装usbmuxd(brew install usbmuxd)
 2.把当前连接设备的22端口(SSH端口)映射到电脑的2222端口:(iproxy 2222 22)
 3.theos想和设备22端口通信，直接和本地的2222端口通信即可
 ```
@@ -20,9 +25,22 @@ iproxy 2222 22
 ### ssh连接设备IP==连接电脑本地localhost 127.0.0.1
 ```
 ssh -p 2222 root@127.0.0.1
+
+ssh root@localhost -p 22222
 ```
 
-### 执行make install命令
+## dpkg -r packageName 卸载deb插件
+1. ssh连接手机(ssh -p 2222 root@127.0.0.1)
+2. 使用dpkg -r packageName (packageName是创建Tweak项目时输入的包名)
+3. 注销SpringBoard 
+
+```
+iPhone-6:~ root# dpkg -r cn.xlsn0w.dock:iphoneos-arm
+(Reading database ... 1896 files and directories currently installed.)
+Removing cn.xlsn0w.dock (1.1.6-2) ...
+```
+
+### 执行make install命令安装deb插件
 ```
 $     make install
 ==> Installing…
