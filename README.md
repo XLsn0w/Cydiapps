@@ -8,6 +8,23 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## dpkg
+
+安装deb -i == -install
+```
+$ dpkg -i cn.xlsn0w.deb
+```
+
+卸载deb -r == -remove
+```
+$ dpkg -r cn.xlsn0w.deb
+```
+
+查看deb信息 -s == -see
+```
+$ dpkg -s cn.xlsn0w.deb 
+```
+
 ## iOS大神金字塔
 1.OC基础、UI层：熟练掌握各种组件的业务开发
 
