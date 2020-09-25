@@ -8,10 +8,20 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
-### theos安装deb到手机, 先做下端口映射
+### theos安装deb到手机
+
+1.设备安装openSSH插件
+2.把当前连接设备的22端口(SSH端口)映射到电脑的2222端口:(iproxy 2222 22)
+3.theos想和设备22端口通信，直接和本地的2222端口通信即可
 ```
 iproxy 2222 22 
 ```
+
+### ssh连接设备IP==连接电脑本地localhost 127.0.0.1
+```
+ssh -p 2222 root@127.0.0.1
+```
+
 ### 执行make install命令
 ```
 $     make install
