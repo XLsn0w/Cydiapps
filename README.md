@@ -8,6 +8,15 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## iOS大神金字塔
+1.OC基础、UI层：熟练掌握各种组件的业务开发
+2.runloop、runtime层：熟练掌握OC实现原理，定位各种异常问题
+3.源码层：OC底层源码、比如objc、GNUStep 等源码，从底层原理上分析问题，解决问题
+4.汇编层：熟悉OC在机器码层面实现，例如寄存器、汇编、macho等
+5.系统层：学习Drawin系统、BSD等
+6.知识面的拓宽：Android、flutter、swift、shell、ruby、脚本等
+7.硬件层：比如说集成电路、操作系统如何运转等等
+
 ## usbmuxd
 usbmuxd将依赖于TCP/IP的命令的被连接方，通过本地端口映射。
 
