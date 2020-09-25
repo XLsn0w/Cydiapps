@@ -13,7 +13,31 @@ usbmuxd将依赖于TCP/IP的命令的被连接方，通过本地端口映射。
 用usb连接代替了网络连接，使得在没有网络的情况下也可以连接设备。
 (iproxy 2222 22) : 将本地电脑2222端口转发到usb连接设备22端口
 
-### theos安装deb到手机
+### Makefile
+```
+DEBUG = false
+
+THEOS_DEVICE_IP = localhost
+THEOS_DEVICE_PORT = 2222
+
+ARCHS = arm64 arm64e
+
+TARGET = iphone:latest:11.0
+
+THEOS_MAKE_PATH = /opt/theos/makefiles
+
+include $(THEOS)/makefiles/common.mk
+
+TWEAK_NAME = XLsn0wTweak
+
+XLsn0wTweak_FILES = Tweak.xm
+
+include $(THEOS_MAKE_PATH)/tweak.mk
+
+after-install::
+	install.exec "killall -9 SpringBoard"
+
+```
 
 1.设备安装openSSH插件, 安装usbmuxd(brew install usbmuxd)
 2.把当前连接设备的22端口(SSH端口)映射到电脑的2222端口:(iproxy 2222 22)
