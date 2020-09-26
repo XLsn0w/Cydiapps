@@ -8,6 +8,32 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## dpkg-deb
+```
+1、dpkg-deb -x ./original.deb ./repackage
+2、得到头文件class-dump -H original.app -o ./header
+ 
+但如果对其逆向，修改后，要重新打包，则步骤如下：
+1、建立文件夹目录
+./repackage/DEBIAN
+ 
+2、拆包
+dpkg-deb -x ./original.deb ./repackage
+执行之后，目录结构为：
+./repackage/DEBIAN
+./repackage/Applications
+./repackage/Library
+./repackage/usr
+ 
+3、得到原deb信息
+dpkg-deb -e ./original.deb repackage/DEBIAN
+在DEBIAN目录下会得到包含control等5个文件
+ 
+4、打包
+dpkg-deb -b repackage new.deb
+
+```
+
 ## dpkg
 
 安装deb -i == -install
