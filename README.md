@@ -8,6 +8,16 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## 什么是 dyld?
+
+dyld 是苹果的动态加载器 , 用来加载 image ( 注意: 这里的 image 不是指图片 , 而是 Mach-O 格式的二进制文件  )
+
+当程序启动时 , 系统内核会首先加载 dyld , 而 dyld 会将我们的 APP 所依赖的各种库加载到内存中 ,
+其中就包括 libobjc ( OC 和 runtime ) , 这些工作是在 APP 的 main 函数执行之前完成的.
+
+_objc_init 是 Object-C - runtime 库的入口函数 , 在这里主要是读取 Mach-O 文件 OC 对应的 Segment section , 
+并根据其中的数据代码信息 , 完成为 OC 的内存布局 , 以及初始化 runtime 相关的数据结构.
+
 ## dpkg-deb
 ```
 1、dpkg-deb -x ./original.deb ./repackage
