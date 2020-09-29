@@ -8,6 +8,14 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## Tagged Pointer
+
+1️⃣ : Tagged Pointer 专门用来存储小的对象，例如 NSNumber 和 NSDate
+2️⃣ : Tagged Pointer 指针的值不再是地址了，而是真正的值。所以，实际上它不再是一个对象了，它只是一个披着对象皮的普通变量而已。所以，它的内存并不存储在堆中，也不需要 malloc 和 free
+3️⃣ :  在内存读取上有着 3 倍的效率，创建时比以前快 106 倍 ( objc_msgSend 能识别 Tagged Pointer，比如 NSNumber 的 intValue 方法，直接从指针提取数据 )
+4️⃣ : 使用 Tagged Pointer 后，指针内存储的数据变成了 Tag + Data，也就是将数据直接存储在了指针中 .
+
+## lldb po
 p 是 expr -的缩写。它的工作是把接收到的参数在当前环境下进行编译，然后打印出对应的值。
 
 po 即 expr -o-。它所做的操作与p相同。如果接收到的参数是一个指针，那么它会调用对象的 description 方法并打印。如果接收到的参数是一个 core foundation 对象，那么它会调用 CFShow 方法并打印。如果这两个方法都调用失败，那么 po 打印出和 p 相同的内容。
