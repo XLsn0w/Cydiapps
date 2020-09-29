@@ -11,8 +11,11 @@
 ## Tagged Pointer
 
 1️⃣ : Tagged Pointer 专门用来存储小的对象，例如 NSNumber 和 NSDate
+
 2️⃣ : Tagged Pointer 指针的值不再是地址了，而是真正的值。所以，实际上它不再是一个对象了，它只是一个披着对象皮的普通变量而已。所以，它的内存并不存储在堆中，也不需要 malloc 和 free
+
 3️⃣ :  在内存读取上有着 3 倍的效率，创建时比以前快 106 倍 ( objc_msgSend 能识别 Tagged Pointer，比如 NSNumber 的 intValue 方法，直接从指针提取数据 )
+
 4️⃣ : 使用 Tagged Pointer 后，指针内存储的数据变成了 Tag + Data，也就是将数据直接存储在了指针中 .
 
 ## lldb po
