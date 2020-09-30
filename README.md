@@ -13,14 +13,14 @@
 1. .framework
 下载yololib
 将其复制到 usr/local/bin 中 
-手动 cd 到Mach-O 文件这个目录(XLsn0w.framework)
+手动 cd 到Mach-O 文件这个目录(eg. XLsn0w.framework)
 ```
 yololib Wechat Frameworks/XLsn0w.framework/XLsn0w
 ```
 
-2. .dylib
+2. .dylib (eg. XLsn0w.dylib)
 ```
-yololib "$TARGET_APP_PATH/$APP_BINARY" "Frameworks/libLBHookDylib.dylib"
+yololib "$TARGET_APP_PATH/$APP_BINARY" "Frameworks/XLsn0w.dylib"
 ```
 
 ### 2. 汇编修改Mach-O
