@@ -8,6 +8,24 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## 修改iOS程序
+### 1. 利用代码注入
+1. .framework
+下载yololib
+将其复制到 usr/local/bin 中 
+手动 cd 到Mach-O 文件这个目录(XLsn0w.framework)
+```
+yololib Wechat Frameworks/XLsn0w.framework/XLsn0w
+```
+
+2. .dylib
+```
+yololib "$TARGET_APP_PATH/$APP_BINARY" "Frameworks/libLBHookDylib.dylib"
+```
+
+### 2. 汇编修改Mach-O
+修改 Mach-O 文件的 Load Commands
+
 ## Shell (.sh脚本)
 ```
 # ${SRCROOT} 它是工程文件所在的目录
