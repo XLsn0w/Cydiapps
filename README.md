@@ -1,12 +1,24 @@
 # iOS逆向工程越狱开发 
 # iOS Jailbreak Develop/hook/Reverse
-![iPod touch4](https://github.com/XLsn0w/Cydia/blob/master/iOS%206.1.6%20jailbreak.JPG?raw=true)
-
 # 我的微信公众号: Cydia
 ![Cydia](https://github.com/XLsn0w/XLsn0w/raw/XLsn0w/XLsn0w/Cydiapple.png?raw=true)
-
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
+
+## Mach-O 的组成结构
+
+---- Header 包含该二进制文件的一般信息
+
+字节顺序、架构类型、加载指令的数量等。
+
+使得可以快速确认一些信息，比如当前文件用于 32 位还是 64 位，对应的处理器是什么、文件类型是什么
+
+---- Load commands 一张包含很多内容的表
+
+内容包括区域的位置、符号表、动态符号表等。
+     __TEXT
+---- __Data 通常是对象文件中最大的部分
+包含 Segement / Section
 
 ## 修改iOS程序
 ### 1. 利用代码注入
@@ -261,6 +273,7 @@ Unpacking cn.xlsn0w.dock (1.1.5-4) ...
 Setting up cn.xlsn0w.dock (1.1.5-4) ...
 install.exec "killall -9 SpringBoard"
 ```
+![iPod touch4](https://github.com/XLsn0w/Cydia/blob/master/iOS%206.1.6%20jailbreak.JPG?raw=true)
 
 ## .app手动压缩改后缀.ipa
 ```
