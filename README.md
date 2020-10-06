@@ -5,6 +5,41 @@
 # 我的私人公众号: XLsn0w
 ![XLsn0w](https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true)
 
+## Lua 脚本
+```
+     Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放，
+     其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
+     
+     Lua的应用场景：
+
+     游戏开发
+     独立应用脚本
+     Web 应用脚本
+     扩展和数据库插件如：MySQL Proxy 和 MySQL
+     WorkBench
+     安全系统，如入侵检测系统
+
+
+     触动精灵的应用场景：
+
+     编写自己App的脚本完成自动化测试
+     开挂刷机
+     微信机器人（包括开发任意应用的机器人）
+     因此我们可以轻易做出上面效果图的功能，但是需要移动设备必须是以下其一：
+
+     完美越狱的iOS设备
+     Root权限的Android设备
+     具有Root权限的Android模拟器
+     提醒：Android与iOS兼容大部分函数。
+     模拟器连接编辑器比较麻烦，具体操作请查看官方文档。推荐使用天天模拟器，具有别的模拟器不具备的特性。
+     开发所需的必备工具：
+
+     具备windows环境开发
+     在移动设备上安装触动精灵App
+     IDE 脚本编辑器TouchSprite Studio
+     取点抓色器TSColorPicker
+```
+
 ## Mach-O 的组成结构
 
 ---- Header 包含该二进制文件的一般信息
