@@ -27,14 +27,16 @@
      微信机器人（包括开发任意应用的机器人）
      因此我们可以轻易做出上面效果图的功能，但是需要移动设备必须是以下其一：
 
-     完美越狱的iOS设备
+     (Root权限)越狱的iOS设备
      Root权限的Android设备
      具有Root权限的Android模拟器
      提醒：Android与iOS兼容大部分函数。
      模拟器连接编辑器比较麻烦，具体操作请查看官方文档。推荐使用天天模拟器，具有别的模拟器不具备的特性。
+     
+     
      开发所需的必备工具：
 
-     具备windows环境开发
+     具备windows/Mac环境开发(lua安装)
      在移动设备上安装触动精灵App
      IDE 脚本编辑器TouchSprite Studio
      取点抓色器TSColorPicker
