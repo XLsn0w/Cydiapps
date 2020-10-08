@@ -1,9 +1,9 @@
 # iOS逆向工程越狱开发 
 # iOS Jailbreak Develop/hook/Reverse
 # 我的微信公众号: Cydia
-<img src="https://github.com/XLsn0w/XLsn0w/blob/XLsn0w/XLsn0w/Cydiapple.png?raw=true" alt="XLsn0w" width="150" height="150" align="bottom" />
+<img src="https://github.com/XLsn0w/XLsn0w/blob/XLsn0w/XLsn0w/Cydiapple.png?raw=true" alt="XLsn0w" width="160" height="160" align="bottom" />
 # 我的私人公众号: XLsn0w
-<img src="https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true" alt="XLsn0w" width="120" height="120" align="bottom" />
+<img src="https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true" alt="XLsn0w" width="160" height="200" align="bottom" />
 
 # iOS动画
 1. CoreGraphics：
