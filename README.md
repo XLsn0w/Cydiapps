@@ -8,6 +8,103 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+1、说一下OC的反射机制；
+系统Foundation框架为我们提供了一些方法反射的API，我们可以通过这些API执行将字符串转为SEL等操作。由于OC语言的动态性，这些操作都是发生在运行时的。
+// SEL和字符串转换
+FOUNDATION_EXPORT NSString *NSStringFromSelector(SEL aSelector);
+FOUNDATION_EXPORT SEL NSSelectorFromString(NSString *aSelectorName);
+// Class和字符串转换
+FOUNDATION_EXPORT NSString *NSStringFromClass(Class aClass);
+FOUNDATION_EXPORT Class __nullable NSClassFromString(NSString *aClassName);
+// Protocol和字符串转换
+FOUNDATION_EXPORT NSString *NSStringFromProtocol(Protocol *proto) NS_AVAILABLE(10_5, 2_0);
+FOUNDATION_EXPORT Protocol * __nullable NSProtocolFromString(NSString *namestr) NS_AVAILABLE(10_5, 2_0);
+
+2、block的实质是什么？有几种block？分别是怎样产生的？
+实质也是OC对象 因为具有isa指针
+根据isa指针，block一共有3种类型的block
+_NSConcreteGlobalBlock 
+全局静态_NSConcreteStackBlock 保存在栈中，出函数作用域就销毁
+_NSConcreteMallocBlock 保存在堆中，retainCount == 0销毁
+
+
+3、__block修饰的变量为什么能在block里面能改变其值？
+加了__block, 并不是直接传递对象的值了，而是把对象的地址传过去了，所以在block内部便可以修改到外面的变量了。
+
+4、说一下线程之间的通信。(多线程几种方式)
+- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait;
+GCD/NSThread/NSOperation
+
+5、应用的崩溃？
+存在CPU无法运行的代码
+不存在或者无法执行
+操作系统执行某项策略，终止程序
+启动时间过长或者消耗过多内存时，操作系统会终止程序运行
+编程语言为了避免错误终止程序：抛出异常
+开发者为了避免失败终止程序：Assert
+
+符号化
+app.xcarchive文件，包内容包含dSYM和应用的二进制文件。
+更精确的符号化，可以结合崩溃日志、项目二进制文件、dSYM文件，对其进行反汇编，从而获得更详细的信息
+
+6、说一下hash算法
+MD5加密
+哈希（Hash）算法，即散列函数。它是一种单向密码体制，即它是一个从明文到密文的不可逆的映射，只有加密过程，没有解密过程。同时，哈希函数可以将任意长度的输入经过变化以后得到固定长度的输出。哈希函数的这种单向特征和输出数据长度固定的特征使得它可以生成消息或者数据。
+
+7、NSDictionary的实现原理是什么？
+8、你们的App是如何处理本地数据安全的（比如用户名的密码）？
+9、遇到过BAD_ACCESS的错误吗？你是怎样调试的？
+10、什么是指针常量和常量指针？
+11、不借用第三个变量，如何交换两个变量的值？要求手动写出交换过程。
+12、若你去设计一个通知中心，你会怎样设计？
+13、如何去设计一个方案去应对后端频繁更改的字段接口？
+14、KVO、KVC的实现原理
+15、用递归算法求1到n的和
+16、category为什么不能添加属性？
+17、说一下runloop和线程的关系。
+18、说一下autoreleasePool的实现原理。
+19、说一下简单工厂模式，工厂模式以及抽象工厂模式？
+20、如何设计一个网络请求库？
+21、说一下多线程，你平常是怎么用的？
+22、说一下UITableViewCell的卡顿你是怎么优化的？
+23、看过哪些三方库？说一下实现原理以及好在哪里？
+24、说一下HTTP协议以及经常使用的code码的含义。
+25、设计一套缓存策略。
+26、设计一个检测主线和卡顿的方案。
+27、说一下runtime，工作是如何使用的？看过runtime源码吗？
+28、说几个你在工作中使用到的线程安全的例子。
+29、用过哪些锁？哪些锁的性能比较高？
+30、说一下HTTP和HTTPs的请求过程？
+31、说一下TCP和UDP
+
+32、说一下静态库和动态库之间的区别
+
+33、load和initialize方法分别在什么时候调用的？
+load和initialize方法都会在实例化对象之前调用，以main函数为分水岭，load在main函数之前调用，后者在之后调用。这两个方法会被自动调用，不能手动调用它们。
+
+load和initialize方法都不用显示的调用父类的方法而是自动调用，即使子类没有initialize方法也会调用父类的方法，而load方法则不会调用父类。
+
+load方法通常用来进行Method Swizzle，initialize方法一般用于初始化全局变量或静态变量。
+
+load和initialize方法内部使用了锁，因此它们是线程安全的。实现时要尽可能保持简单，避免阻塞线程，不要再使用锁。
+
+
+34、NSNotificationCenter是在哪个线程发送的通知？
+NSNotificationCenter通知中心是同步操作
+接收通知和发送通知时所在线程一致，和监听时所在线程无关。
+
+35、用过swift吗？如果没有，平常有学习吗？
+class struct
+
+36、说一下你对架构的理解？
+MVVM
+
+37、为什么一定要在主线程里面更新UI？
+  a. UIKit并不是一个 线程安全 的类，UI操作涉及到渲染访问各种View对象的属性，如果异步操作下会存在读写问题，而为其加锁则会耗费大量资源并拖慢运行速度。
+  b. 整个程序的起点UIApplication是在主线程进行初始化，所有的用户事件都是在主线程上进行传递（如点击、拖动），所以view只能在主线程上才能对事件进行响应。
+  c. 渲染方面由于图像的渲染需要以60帧的刷新率在屏幕上同时更新，在非主线程异步化的情况下无法确定这个处理过程能够实现同步更新。
+
 # iOS动画
 1. CoreGraphics：
 
