@@ -114,6 +114,7 @@ swift
 
 1、说一下OC的反射机制；
 系统Foundation框架为我们提供了一些方法反射的API，我们可以通过这些API执行将字符串转为SEL等操作。由于OC语言的动态性，这些操作都是发生在运行时的。
+```
 // SEL和字符串转换
 FOUNDATION_EXPORT NSString *NSStringFromSelector(SEL aSelector);
 FOUNDATION_EXPORT SEL NSSelectorFromString(NSString *aSelectorName);
@@ -123,7 +124,7 @@ FOUNDATION_EXPORT Class __nullable NSClassFromString(NSString *aClassName);
 // Protocol和字符串转换
 FOUNDATION_EXPORT NSString *NSStringFromProtocol(Protocol *proto) NS_AVAILABLE(10_5, 2_0);
 FOUNDATION_EXPORT Protocol * __nullable NSProtocolFromString(NSString *namestr) NS_AVAILABLE(10_5, 2_0);
-
+```
 2、block的实质是什么？有几种block？分别是怎样产生的？
 实质也是OC对象 因为具有isa指针
 根据isa指针，block一共有3种类型的block
