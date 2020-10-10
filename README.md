@@ -8,21 +8,100 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## FFmpeg
+FFmpeg是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。
+采用LGPL或GPL许可证。它提供了录制、转换以及流化音视频的完整解决方案，包括了领先的音、视频编码库libavcodec等。
+```
+libavformat：用于各种音视频封装格式的生成和解析；
+libavcodec： 用于各种类型声音、图像编解码；
+libavutil：  包含一些公共的工具函数；
+libswscale： 用于视频场景比例缩放、色彩映射转换；
+libpostproc：用于后期效果处理；
+ffmpeg：     该项目提供的一个工具，可用于格式转换、解码或电视卡即时编码等；
+ffsever：    一个 HTTP 多媒体即时广播串流服务器；
+ffplay：     是一个简单的播放器，使用ffmpeg 库解析和解码，通过SDL显示；
+```
+
+1. 下载 https://github.com/kewlbear/FFmpeg-iOS-build-script
+2. cd 路径 打开终端 $  sh build-ffmpeg.sh
+步骤2执行完成后运行sh build-ffmpeg.sh lipo将.a文件合并成一个；
+步骤3执行完成将FFmpeg-iOS文件夹拖到目标工程并添加libz.dylib、libbz2.dylib、libiconv.dylib三个库，xcode7 及以上则是添加libz.tbd、libbz2.tbd、libiconv.tbd，
+并添加框架VideoToolbox.framework（此框架是 iOS8 新增的，用于硬解码）
+
+设置头文件路径$(PROJECT_DIR)/$(PRODUCT_NAME)/FFmpeg-iOS/include：
+OC 工程在调用的时候直接#include "avformat.h"；
+swift 工程创建桥接头文件，在头文件内添加#import "avformat.h"
+
 objc
 0. 静态变量和全局变量区别
+作用域的区别
+
 1. 日常使用的修饰属性的关键字都有哪些？作用分别是什么？
 2. 属性的实质是什么？
 3. 深拷贝和浅拷贝，`NSString` 为什么要用 `copy` 修饰，换成 `strong` 会有什么问题？`NSMutableString` 可以用 `copy` 修饰吗？会有什么问题吗？
+使用 NSMutableString 肯定是想用字符串的可变这个属性，但如果你用 copy 去修饰，那么生成的将会是不可变的，当你去调用可变方法时，程序将会崩溃！
+
 4. 说一下 `static` 关键字
 5. 什么情况下会引发循环引用？怎么解决？
 6. `include` 和 `import` 作用是什么？它们有什么区别？
+
 7. 介绍一下 `KVC` 和 `KVO` 及其实现原理
+KVO - Key-Value-Observing 键值观察是基于KVC实现的一种观察者机制，提供了观察对象的某一个属性变化的监听方法。
+KVO利用runtime的机制，当对一个对象进行观察时，会在运行时创建一个该对象的子类，这个子类一般以NSKVONotifying_xxx（xxx为父类的名字）命名，子类中会重写所有被观察属性的set方法，除了创建子类，还会将该对象的isa指针指向这个子类，当被观察的对象属性修改时，通过isa找到子类，在通过子类的方法列表找到对应的set方法，set方法是被重写过得，里面实现了相关的通知。
+
 8. 介绍一下 OC 的消息传递机制
 9. 介绍一下 OC 的消息转发机制
 10. OC 支持多继承吗？如何实现 OC 的多继承？
 11. OC 支持方法重载吗？
 12. `CALayer` 有哪三种树？
-13. 什么是隐式动画？如何关闭隐式动画？
+layer tree  分为 model layer tree(模型图层树) 、presentation layer tree（表示图层树） 、render layer tree（渲染图层树）
+模型图层树 中的对象是应用程序与之交互的对象。此树中的对象是存储任何动画的目标值的模型对象。每当更改图层的属性时，都使用其中一个对象。
+modelLayer
+
+表示图层树 中的对象包含任何正在运行的动画的飞行中值。层树对象包含动画的目标值，而表示树中的对象反映屏幕上显示的当前值。您永远不应该修改此树中的对象。相反，您可以使用这些对象来读取当前动画值，也许是为了从这些值开始创建新动画。
+presentationLayer
+
+渲染图层树 中的对象执行实际动画，并且是Core Animation的私有动画。使用不上
+
+ self.layer = self.layer.modelLayer 、self.layer != self.layer.presentationLayer。 
+ ### layer本身就是一个modelLayer，只不过它拥有presentationLayer。
+ 
+ Core Animation动画执行的时间取决于当前事务的设置，动画类型取决于图层行为。
+
+
+13. 什么是隐式动画？如何关闭隐式动画？ CATransaction
+任何Layer的animatable属性的设置都应该属于某个CA事务(CATransaction),事务的作用是为了保证多个animatable属性的变化同时进行,不管是同一个layer还是不同的layer之间的.CATransaction也分两类,显式的和隐式的,当在某次RunLoop中设置一个animatable属性的时候,如果发现当前没有事务,则会自动创建一个CA事务,在线程的下个RunLoop开始时自动commit这个事务,如果在没有RunLoop的地方设置layer的animatable属性,则必须使用显式的事务.
+
+事务：包含一系列属性动画集合的机制，用指定事务去改变可以做动画的图层属性不会立刻发生变化，而是当事务一旦提交的时候开始用一个动画过渡到新值.
+事务 通过CATransaction类来做管理，CATransaction可以用加号方法+begin和+commit分别来入栈或者出栈。并且遵循先进后出
+任何可以做动画的图层属性都会被添加到栈顶的事务，你可以通过+setAnimationDuration:方法设置当前事务的动画时间，或者通过+animationDuration方法来获取值（默认0.25秒）。
+
+显式事务的使用如下：
+[CATransaction begin];
+
+...  
+
+[CATransaction commit];
+
+事务可以嵌套.当事务嵌套时候,只有当最外层的事务commit了之后,整个动画才开始.
+
+可以通过CATransaction来设置一个事务级别的动画属性,覆盖隐式动画的相关属性,比如覆盖隐式动画的duration,timingFunction.如果是显式动画没有设置duration或者timingFunction,那么CA事务设置的这些参数也会对这个显式动画起作用.
+//关闭隐式动画
+CATransaction 在 Core Animation framework中主要扮演了“整体舞台设定的角色”。
+
+使用 CATransaction 的方式就是把我们想做的特别的设定的动画代码，用 CATransaction 的class method前后包起来。
+
+比方说，我们现在不希望产生动画，便可以这样写：
+[CATransaction begin];
+[CATransaction setDisableActions:YES];
+//原本动画的代码
+[CATransaction commit];
+
+如果我们想要改变动画时间：
+
+[CATransaction begin];
+[CATransaction setAnimationDuration:1.0];
+    
 14. 介绍一下 `block` 及其实现原理
 15. 如何在`block` 内部修改外部变量？
 16. `block` 种类有哪些？ `block`  为什么要用 `copy` 修饰？
