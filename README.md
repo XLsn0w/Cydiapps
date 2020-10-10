@@ -8,6 +8,73 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+### 怎么让CALayer响应点击事件呢？
+1. 是利用containsPoint
+2. 是利用hitTest
+```
+import UIKit
+
+class ViewController: UIViewController {
+
+    let layerOne = CALayer()
+    let layerTwo = CALayer()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.yellowColor()
+
+        layerOne.frame = CGRectMake(100, 100, 50, 50)
+        layerOne.backgroundColor = UIColor.redColor().CGColor
+        view.layer.addSublayer(layerOne)
+
+        layerTwo.frame = CGRectMake(100, 200, 50, 50)
+        layerTwo.backgroundColor = UIColor.blueColor().CGColor
+        view.layer.addSublayer(layerTwo)
+
+    }
+
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+
+        //方法一:运用containsPoint
+        var p = (touches as NSSet).anyObject()?.locationInView(view)
+        p = view.layer.convertPoint(p!, fromLayer: view.layer)
+
+        if view.layer.containsPoint(p!) {
+
+            let b = layerOne.convertPoint(p!, fromLayer: view.layer)
+            if layerOne.containsPoint(b) {
+                let alert = UIAlertView.init(title: "提示", message: "点击了红色按钮", delegate: nil, cancelButtonTitle: "取消")
+                alert.show()
+            }
+
+           let a = layerTwo.convertPoint(p!, fromLayer: view.layer)
+            if layerTwo.containsPoint(a) {
+                let alert = UIAlertView.init(title: "提示", message: "点击了蓝色按钮", delegate: nil, cancelButtonTitle: "取消")
+                alert.show()
+            }
+        }
+
+//        //方法二：运用hitTest
+//        let p = (touches as NSSet).anyObject()?.locationInView(view)
+//        
+//        let clickLayer = layerOne.hitTest(p!)
+//        
+//        if clickLayer == layerOne {
+//            let alert = UIAlertView.init(title: "提示", message: "点击了红色按钮", delegate: nil, cancelButtonTitle: "取消")
+//            alert.show()
+//        }
+//        
+//        let anotherLayer = layerTwo.hitTest(p!)
+//        
+//        if anotherLayer == layerTwo {
+//            let alert = UIAlertView.init(title: "提示", message: "点击了蓝色按钮", delegate: nil, cancelButtonTitle: "取消")
+//            alert.show()
+//        }
+
+    }
+
+}
+```
 ## OpenGL
 
 1、OpenGL
