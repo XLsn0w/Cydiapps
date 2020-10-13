@@ -8,10 +8,11 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
-DYLD_INSERT_LIBRARIES
-This  is  a colon separated list of dynamic libraries to load before the ones specified in the program.  This lets you test new modules of existing dynamic shared libraries that are used in flat-namespace images by loading a temporary dynamic shared library with just the new modules.
-Note that this has no effect on images built a two-level  namespace  images  using  a  dynamic shared library unless DYLD_FORCE_FLAT_NAMESPACE is also used.
-系统会在程序加载前加载我们在该变量中指定的任何dylib，实际上就是将dylib注入应用程序中
+## DYLD_INSERT_LIBRARIES
+dylib本质上是一个Mach-O格式的文件，它与普通的Mach-O执行文件几乎使用一样的结构，只是在文件类型上一个是MH_DYLIB，一个是MH_EXECUTE。
+在系统的/usr/lib目录下，存放了大量供系统与应用程序调用的动态库文件
+
+循环遍历DYLD_INSERT_LIBRARIES环境变量中指定的动态库列表，并调用loadInsertedDylib()将其(插件dylib)加载。该函数调用load()完成加载工作。
 
 ```
 #ifndef SUBSTRATE_ENVIRONMENT_HPP
@@ -427,15 +428,16 @@ hook系统一些私有方法：vfork | fork | hook_popen（打开管道）
 hook runtime
 hook_dladdr dladdr可以用来获取方法或image对应的信息，比如所属的动态库的名称，这里hook如果是忽略的文件，则返回0，所以如果返回0，要再判断下是否数据真的是空的。
 ```
-## 如何防止shadow等插件绕过
-
+### 如何防止shadow等插件绕过
+```
 检测这些插件的关键指纹，比如检测只有他们有的类, 查看是否有异常类和异常的动态库的实现
 
 阻止DYLD_INSERT_LIBRARIES生效, 阻止DYLD_INSERT_LIBRARIES生效 。（这个可以通过修改macho，重新打包来绕过）
 
-发布前，使用objc_copyImageNames方法记录使用的所有动态库，做成白名单，在运行过程中，再运行objc_copyImageNames去查看当前的动态库是否一致
+使用objc_copyImageNames方法记录使用的所有动态库，做成白名单，在运行过程中，再运行objc_copyImageNames去查看当前的动态库是否一致
+```
 
-### 怎么让CALayer响应点击事件呢？
+### CALayer响应点击事件
 1. 是利用containsPoint
 2. 是利用hitTest
 ```
