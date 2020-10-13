@@ -8,6 +8,54 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## 越狱注入的原理
+1.利用Cydia Substrate会将 SpringBoard 的 [FBApplicationInfo environmentVariables] hook ，
+
+2. 将环境变量DYLD_INSERT_LIBRARIES设定新增需要载入的动态库，但是应用的二进制包无需做任何变化，
+
+3. dyld会在载入应用的时候因为DYLD_INSERT_LIBRARIES去插入具体的库。 
+
+屏蔽越狱检测插件shadow主要逻辑为：
+
+shadow会维护一个列表，检索哪些文件是越狱需要保护的文件
+
+hook相关的类，如果要检索这些文件，就影藏，返回修改后的结果。
+```
+hook c的类,主要是各种判断文件权限和执行命令的方法,比如：
+access
+getenv
+fopen
+freopen
+stat
+dlopen
+hook_NSFileManager | NSFileHandle |  NSDirectoryEnumerator | hook_NSFileVersion | NSBundle
+hook_NSURL
+hook_UIApplication
+hook_NSBundle
+hook_CoreFoundation
+hook UIImage
+hook NSMutableArray | NSArray | NSMutableDictionary | NSDictionary | NSString
+hook 第三方库检测方法
+hook hook_debugging
+sysctl 主要用来检测是否当前进程挂载了P_TRACED
+getppid 返回当前的pid
+_ptrace
+hook_dyld_image 。hook image动态加载的方法
+_dyld_image_count 获取image的数量
+_dyld_get_image_name 获取动态库的名字
+hook_dyld_dlsym。hook 用来检测是否可以加载动态库。功能和dlopen一样
+hook系统一些私有方法：vfork | fork | hook_popen（打开管道）
+hook runtime
+hook_dladdr dladdr可以用来获取方法或image对应的信息，比如所属的动态库的名称，这里hook如果是忽略的文件，则返回0，所以如果返回0，要再判断下是否数据真的是空的。
+```
+## 如何防止shadow等插件绕过
+
+检测这些插件的关键指纹，比如检测只有他们有的类, 查看是否有异常类和异常的动态库的实现
+
+阻止DYLD_INSERT_LIBRARIES生效, 阻止DYLD_INSERT_LIBRARIES生效 。（这个可以通过修改macho，重新打包来绕过）
+
+发布前，使用objc_copyImageNames方法记录使用的所有动态库，做成白名单，在运行过程中，再运行objc_copyImageNames去查看当前的动态库是否一致
+
 ### 怎么让CALayer响应点击事件呢？
 1. 是利用containsPoint
 2. 是利用hitTest
