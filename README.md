@@ -8,6 +8,9 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## iOS私有库 头文件查询网址
+## https://developer.limneos.net/
+
 ## DYLD_INSERT_LIBRARIES
 dylib本质上是一个Mach-O格式的文件，它与普通的Mach-O执行文件几乎使用一样的结构，只是在文件类型上一个是MH_DYLIB，一个是MH_EXECUTE。
 在系统的/usr/lib目录下，存放了大量供系统与应用程序调用的动态库文件
