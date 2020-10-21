@@ -253,10 +253,263 @@ iPhone注销主屏幕
     system("killall -9 SpringBoard");
 }
 ```
-
 #### 资料:
 https://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSpecifier_runtime_properties_of_plist_keys
 http://iphonedevwiki.net/index.php/Preferences_specifier_plist
+
+### 自定义微信骰子
+
+通过发送表情的 View 找到其 Controller，再在 Controller 中找到发送表情这个操作的响应方法。
+然后通过逆向二进制文件得到的反汇编源码，以该方法作为入口，逐层分析调用关系，直到找到关键方法，进而分析该表情的 Model 并完成修改。
+准备工作
+
+#### 砸壳、头文件获取
+App Store 里 App 的二进制文件被进行了加密，无法直接反汇编分析，也无法通过 class-dump 获取头文件，因此首先需要对其进行解密，通常称之为「砸壳」。
+~  class-dump -S -s -H ./WeChat -o ./headers/
+
+#### debugserver 与 LLDB 配置
+LLDB 是 Xcode 内置的调试器，debugserver 则是运行在 iOS 上的调试服务端，我们将使用它们对微信进行动态调试分析。
+在将设备添加到 Xcode 之后，debugserver 会被自动安装到设备的 /Developer/usr/bin/ 目录下。
+但由于缺少 task_for_pid 权限，这里的 debugserver 只能用来调试自己开发的 App，因此需要对其进行处理。
+将 debugserver 拷贝到 Mac，首先通过以下命令对其进行「瘦身」。其中 arm64 为64位处理器架构，此参数因设备而异（如对于 iPhone 5 就应是 armv7s）。
+~ lipo -thin arm64 ./debugserver -output ./debugserver
+
+然后为其添加 task_for_pid 权限，下载这个 ent.plist 文件对其进行签名。
+~ codesign -s - --entitlements ent.plist -f debugserver
+完成上述步骤后将 debugserver 拷贝回设备的 /usr/bin/ 目录下，并赋予可执行权限即可。
+LLDB 支持 Python 脚本，使用 Python 可以大幅提高调试效率。Chisel 是 Facebook 开源的一个 LLDB Python 命令集，我们将使用它帮助我们的调试。用 Homebrew 安装 Chisel 并将其添加进 LLDB 的初始化脚本中。
+```
+~ brew install chisel
+~ echo command script import /path/to/fblldb.py >> ~/.lldbinit
+```
+
+#### 定位入口方法
+使用 debugserver 启动微信。
+iPhone:~ root# debugserver *:1234 -x backboard /path/to/WeChat.app/WeChat
+然后在 Mac 上用 LLDB 连接到 debugserver，并让微信继续运行。
+```
+~ lldb
+(lldb) process connect connect://IOS_IP:1234
+Process 51735 stopped
+* thread #1: tid = 0xb076f, 0x000000018270d014 libsystem_kernel.dylib`semaphore_wait_trap + 8, queue = 'com.apple.main-thread', stop reason = signal SIGSTOP
+    frame #0: 0x000000018270d014 libsystem_kernel.dylib`semaphore_wait_trap + 8
+libsystem_kernel.dylib`semaphore_wait_trap:
+->  0x18270d014 <+8>: ret
+
+libsystem_kernel.dylib`semaphore_wait_signal_trap:
+    0x18270d018 <+0>: movn   x16, #0x24
+    0x18270d01c <+4>: svc    #0x80
+    0x18270d020 <+8>: ret
+(lldb) c
+Process 51735 resuming
+```
+
+待微信启动完毕之后，先打开微信 Mac 版，借助文件传输助手构建一个收发双端的测试环境（有小号或者有女朋友愿意配合测试的也可）。进入到发送骰子的界面，中断微信，打印出当前的 UI 结构。
+```
+(lldb) process interrupt
+(lldb) po [[UIApp keyWindow] recursiveDescription]
+<iConsoleWindow: 0x13df5dd20; baseClass = UIWindow; frame = (0 0; 375 667); autoresize = W+H; gestureRecognizers = <NSArray: 0x13df4e8f0>; layer = <UIWindowLayer: 0x13dde49a0>>
+   | <UILayoutContainerView: 0x13f3ba980; frame = (0 0; 375 667); autoresize = W+H; layer = <CALayer: 0x13f3ba880>>
+   |    | <UITransitionView: 0x13f3bb560; frame = (0 0; 375 667); clipsToBounds = YES; autoresize = W+H; layer = <CALayer: 0x13dd02a90>>
+   ...
+    <EmoticonViewWithPreview: 0x13fae98a0; frame = (116 18; 56.5 56.5); layer = <CALayer: 0x13fd2f230>>
+打印出的 UI 结构非常复杂，经过一番仔细寻找，发现 EmoticonViewWithPreview 这个 View 的名称比较吻合，且数量是 7 个，和我在这个界面上的表情数相同，初步确定它就是表情显示的 View。因为骰子是第二个表情，所以找到第二个 EmoticonViewWithPreview 的地址 0x13fae98a0，尝试使用 hide 0x13fae98a0 命令，果然发现设备上的骰子消失了，猜想得到了验证。
+下面定位它的 Controller，使用 presponder 命令打印其响应链。
+(lldb) presponder 0x13fae98a0
+<EmoticonViewWithPreview: 0x13fae98a0; frame = (202.5 18; 56.5 56.5); layer = <CALayer: 0x13fb14360>>
+   | <EmoticonGridView: 0x13f8e2600; frame = (0 0; 375 187); gestureRecognizers = <NSArray: 0x13fbe45f0>; layer = <CALayer: 0x13fbc4470>>
+   |    | <EmoticonBoardPageCollectionEmoticonGridCell: 0x13fd39720; baseClass = UICollectionViewCell; frame = (2250 0; 375 187); layer = <CALayer: 0x13faf4d20>>
+   |    |    | <UICollectionView: 0x13e899a00; frame = (0 160; 375 187); gestureRecognizers = <NSArray: 0x13fc2cb40>; layer = <CALayer: 0x13f9f2db0>; contentOffset: {2250, 0}; contentSize: {10875, 187}> collection view layout: <UICollectionViewFlowLayout: 0x13fc29b70>
+   |    |    |    | <UIView: 0x13f91c520; frame = (0 -160; 375 347); clipsToBounds = YES; layer = <CALayer: 0x13f909ea0>>
+   |    |    |    |    | <EmoticonBoardView: 0x13f4c4130; frame = (0 443; 375 224); layer = <CALayer: 0x13fc035f0>>
+   |    |    |    |    |    | <MMInputToolView: 0x13f5b7cf0; frame = (0 0; 375 667); text = ''; layer = <CALayer: 0x13fa6cc40>>
+   |    |    |    |    |    |    | <UIView: 0x13f4981b0; frame = (0 0; 375 667); autoresize = W+H; layer = <CALayer: 0x13f90a7c0>>
+   |    |    |    |    |    |    |    | <BaseMsgContentViewController: 0x13e42be00>
+   |    |    |    |    |    |    |    ...
+可以看到 BaseMsgContentViewController 就是它的 Controller，我们打开 BaseMsgContentViewController.h 观察一下，尝试寻找点击骰子之后的响应方法。
+这个头文件有多达 600 多行（一个类写成这样真的没问题吗？），使用关键词 emoticon 搜索，容易发现 — (void)SendEmoticonMesssageToolView:(id)arg1; 方法较为可疑，我们来验证一下这个方法的作用。
+使用 Hopper Disassembler v3 对「砸壳」过后的微信二进制文件进行反汇编分析，找到该方法。
+-[BaseMsgContentViewController SendEmoticonMesssageToolView:]:
+00000001018eb1e8    stp     x24, x23, [sp, #0xffffffc0]!
+...
+00000001018eb2f4    b       imp___stubs__objc_release
+                            ; endp
+```
+下面我们在该方法入口地址处下断点。首先找到微信的 ASLR 偏移地址。
+(lldb) im li -o
+[  0] 0x000000000005c000
+[  1] 0x000000010388c000
+...
+ASLR 偏移为 0x5c000，方法入口地址为 0x1018eb1e8，因此该命令在内存中的地址应为 0x5c000+0x1018eb1e8=0x1019471e8，我们在该处下断点。
+(lldb) br s -a 0x5c000+0x1018eb1e8
+Breakpoint 1: where = WeChat`___lldb_unnamed_function82507$$WeChat, address = 0x00000001019471e8
+按照同样的方法，在该方法最后一条语句处也下断点。然后让微信恢复运行，点击骰子，入口的断点果然被触发了。
+```
+Process 51735 stopped
+* thread #1: tid = 0xb076f, 0x00000001019471e8 WeChat`___lldb_unnamed_function82507$$WeChat, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x00000001019471e8 WeChat`___lldb_unnamed_function82507$$WeChat
+WeChat`___lldb_unnamed_function82507$$WeChat:
+->  0x1019471e8 <+0>:  stp    x24, x23, [sp, #-64]!
+    0x1019471ec <+4>:  stp    x22, x21, [sp, #16]
+    0x1019471f0 <+8>:  stp    x20, x19, [sp, #32]
+    0x1019471f4 <+12>: stp    x29, x30, [sp, #48]
+(lldb)
+```
+这时收发双方均未出现骰子。输入 c 让微信继续运行，断点 2 随即被触发。输入 ni 跳出方法，这时可以观察到，接收方已经收到了骰子，而本机尚未出现。这说明产生骰子点数的关键就在这个方法内部，随后只会进行一些本地 UI 的更新。我们成功找到了入口方法，接下来就是顺着调用链继续摸索下去。
+探索调用链
+
+在入口方法中，我们将着重关注形如 00000001018eb23c bl imp___stubs__objc_msgSend 方法调用语句。这是因为 Objective-C 中，[SomeObject someMethod] 的底层实现是 objc_msgSend(SomeObject, someMethod)，因此在这些语句处下断点，并打印出参数，就可以得知调用的是哪个类的哪个方法，从而逐层进行寻找。
+简单粗暴地在每一个 objc_msgSend 处下断点，观察执行完哪一句之后，接收方收到了骰子即可。于是顺利地定位到了 0x018eb2cc 处的语句，在该语句处查看参数就可以得知是调用的是哪个方法了。在 64 位系统中，函数的参数存放在 X0~XN 寄存器中，所以 X0 应是类/实例，而 X1 应是方法名，它可以被强制转换为字符串。
+```
+(lldb) po [$x0 class]
+WeixinContentLogicController
+
+(lldb) p (char *)$x1
+(char *) $115 = 0x00000001026c34ce "SendEmoticonMessage:"
+```
+可见此处调用的是 [WeixinContentLogicController SendEmoticonMessage:] 方法。直接在 Hopper 中搜不到这个方法，打开 WeixinContentLogicController.h 观察，原来这个方法定义在其基类 BaseMsgContentLogicController 中，这样就可以成功在 Hopper 中找到它。
+接下来如法炮制，在 [BaseMsgContentLogicController SendEmoticonMessage:] 中再次找到了一个关键的 objc_msgSend，调用的是 [GameController sendGameMessage:toUsr:] 这个方法。
+继续顺藤摸瓜，在 Hopper 中定位到 [GameController sendGameMessage:toUsr:] 方法，大致一扫，马上观察到了嫌疑人的身影：这个方法中调用了 random 随机数函数。
+Image for post
+看来骰子点数就是在这之后产生的，继续从这一句之后进行分析。依然采用之前的方法层层深入，最终可以摸索出如下的调用链。
+Image for post
+定位 Model
+整理出调用链后，我们直接在调用最后一个上传方法 [CEmoticonUploadMgr StartUpload:] 时下断点，查看它的参数（应在 X2 寄存器）。
+(lldb) po [$x2 class]
+CMessageWrap
+至此我们成功定位了骰子表情的 Model — — 它是一个 CMessageWrap 类的实例，我们在头文件中进行搜索，发现这个类具有多个 category（实际上该类是所有微信消息的 Model，考虑到微信文字、语音、表情等多种多样的消息类型，category 是一个很自然的实现方式）。我们直接打开 CMessageWrap-Emoticon.h 查看。
+Image for post
+容易发现其中下面两行很有可能与我们的目标有关。
+@property(nonatomic) unsigned int m_uiGameContent; // @dynamic m_uiGameContent;
+@property(nonatomic) unsigned int m_uiGameType; // @dynamic m_uiGameType;
+
+#### 下面我们编写 Tweak，
+
+hook [CEmoticonUploadMgr StartUpload:] 这个方法，将参数的这两个属性打印出来观察。过程略过，最终经过多次实验，可以得到如下结论。
+
+m_uiGameType 为 1 代表剪刀石头布，2 代表骰子，0 则是普通表情；m_uiGameContent 的值从 1 至 9，依次代表剪刀、石头、布以及骰子的 1 ~ 6 点。
+修改结果
+首先尝试直接在 [CEmoticonUploadMgr StartUpload:] 中截获传入的参数，根据 m_uiGameType 判断表情类型，然后修改 m_uiGameContent。此时结果是（感谢小伙伴们配合测试）：本机没有效果；接收方若是 iPhone 则可以显示修改后的结果，若是 Android 设备或 Mac 则同样无效果，且结果与本机显示的相同。
+这说明两点问题：第一，随机数产生后，在之前得出的调用链中传递给了其他没有分析到的方法，造成本机不生效；第二，最终上传的 CMessageWrap 中除了 m_uiGameContent 属性外，仍有其他属性记录了骰子的真实值。
+为验证第二点，我们打印出 [CEmoticonUploadMgr StartUpload:] 的参数的所有信息进行查看。
+```
+(lldb) pinternals $x2
+(CMessageWrap) $129 = {
+  MMObject = {
+    NSObject = {
+      isa = CMessageWrap
+    }
+  }
+  m_bIsSplit = false
+  m_bNew = true
+  m_uiMesLocalID = 328
+  m_n64MesSvrID = 0
+  m_nsFromUsr = 0xa0a0d02812812039
+  m_nsToUsr = 0xa0221102a012405a
+  m_uiMessageType = 47
+  m_nsContent = 0x000000013f489e40 @"<msg><emoji md5=\"5ba8e9694b853df10b9f2a77b312cc09\" type=\"1\" len = \"8636\" productid=\"custom_emoticon_pid\"></emoji><gameext type=\"2\" content=\"9\" ></gameext></msg>"
+  m_uiStatus = 1
+  ...
+  
+  ```
+可以发现 m_nsContent 属性的值是一个 xml 格式的字符串，其中 <gameext type=\”2\” content=\”9\” ></gameext> 就是骰子的信息。也就是说，修改过后 m_nsContent 和 m_uiGameContent 两个属性中的信息出现了矛盾，而微信不同平台的客户端也许在此处的接收逻辑有所差异，导致了上述结果。
+要解决这个问题，本质上与解决第一点是等价的，无非是往调用链的上游寻找遗漏点。过程与之前类似，
+最终找到了 [GameController getMD5ByGameContent:] 这个方法（红色方框）与结果有关，其参数就是 m_uiGameContent 的值。
+```
+#import "headers/CEmoticonWrap.h"
+#import "headers/CMessageWrap.h"
+#import "headers/WCDUserDefaultsMgr.h"
+#import <UIKit/UIKit.h>
+
+CMessageWrap *setDice(CMessageWrap *wrap, unsigned int point) {
+	if (wrap.m_uiGameType == 2) {
+		wrap.m_uiGameContent = point + 3;
+	}
+	return wrap;
+}
+
+CMessageWrap *setJsb(CMessageWrap *wrap, unsigned int type) {
+	if (wrap.m_uiGameType == 1) {
+		wrap.m_uiGameContent = type;
+	}
+	return wrap;
+}
+
+WCDUserDefaultsMgr *prefs = nil;
+
+%hook GameController
+
++ (id)getMD5ByGameContent:(unsigned int)arg1 {
+	prefs = [WCDUserDefaultsMgr sharedUserDefaults];
+	if (arg1 > 3 && arg1 < 10) {
+		if (prefs.diceEnabled) {
+			return %orig(prefs.dicePoint + 3);
+		} else {
+			return %orig;
+		}
+	} else if (arg1 > 0 && arg1 < 4) {
+		if (prefs.jsbEnabled) {
+			return %orig(prefs.jsbType);
+		} else {
+			return %orig;
+		}
+	} else {
+		return %orig;
+	}
+}
+
+%end
+
+%hook CMessageMgr
+
+- (void)AddEmoticonMsg:(id)arg1 MsgWrap:(id)arg2 {
+	CMessageWrap *wrap = (CMessageWrap *)arg2;
+	if (prefs == nil) { prefs = [WCDUserDefaultsMgr sharedUserDefaults]; }
+	if (wrap.m_uiGameType == 2) {
+		if (prefs.diceEnabled) {
+			%orig(arg1, setDice(arg2, prefs.dicePoint));
+		} else {
+			%orig;
+		}
+	} else if (wrap.m_uiGameType == 1) {
+		if (prefs.jsbEnabled) {
+			%orig(arg1, setJsb(arg2, prefs.jsbType));
+		} else {
+			%orig;
+		}
+	} else {
+		%orig;
+	}
+}
+
+%end
+
+%hook CEmoticonUploadMgr
+
+- (void)StartUpload:(id)arg1 {
+	CMessageWrap *wrap = (CMessageWrap *)arg1;
+	if (prefs == nil) { prefs = [WCDUserDefaultsMgr sharedUserDefaults]; }
+	if (wrap.m_uiGameType == 2) {
+		if (prefs.diceEnabled) {
+			%orig(setDice(arg1, prefs.dicePoint));
+		} else {
+			%orig;
+		}
+	} else if (wrap.m_uiGameType == 1) {
+		if (prefs.jsbEnabled) {
+			%orig(setJsb(arg1, prefs.jsbType));
+		} else {
+			%orig;
+		}
+	} else {
+		%orig;
+	}
+}
+
+%end
+
+```
+#### hook如上3个方法，就可以成功地控制骰子/剪刀石头布游戏的结果
 
 ## DYLD_INSERT_LIBRARIES
 dylib本质上是一个Mach-O格式的文件，它与普通的Mach-O执行文件几乎使用一样的结构，只是在文件类型上一个是MH_DYLIB，一个是MH_EXECUTE。
