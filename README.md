@@ -28,7 +28,235 @@ Info.plist	        主要记录这个preference bundle的配置信息，一般�
 Root.plist	        重点编写的文件，主要配置插件界面的https://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSpecifier_runtime_properties_of_plist_keys
 ML格式，好像还有一种类似JSON格式的
 ```
-资料: https://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSpecifier_runtime_properties_of_plist_keys
+首先来看 entry.plist。这个文件定义了我们的 Preference Bundle 在「设置」App 中的入口信息，我们只需关注 label 和 icon 字段，它们分别决定了入口的显示名称和图标。
+xxx/Resources/Root.plist 这个文件中定义。打开观察，有 Awesome Switch 1 的字样
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>cnxlsn0w First Page</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>cn.xl.sn0w</string>
+			<key>key</key>
+			<string>AwesomeSwitch1</string>
+			<key>label</key>
+			<string>Awesome Switch 1</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>cnxlsn0w</string>
+</dict>
+</plist>
+```
+编辑这个 plist 文件，构建出适合我们的设置界面UI
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Semester Setting</string>
+			<key>footerText</key>
+			<string>Make sure your input is in the correct format.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<string></string>
+			<key>keyboard</key>
+			<string>numbers</string>
+			<!-- <key>isNumeric</key>
+			<true/> -->
+			<key>placeholder</key>
+			<string>yyyyMMdd (eg. 20160627)</string>
+			<key>defaults</key>
+			<string>com.wangjinli.weekcountpb</string>
+			<key>key</key>
+			<string>StartDateStr</string>
+			<key>label</key>
+			<string>Start Date</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Duration</string>
+			<key>id</key>
+			<string>SliderLabelCell</string>
+			<key>footerText</key>
+			<string>Total weeks in the semester.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>defaults</key>
+			<string>com.wangjinli.weekcountpb</string>
+			<key>min</key>
+			<integer>1</integer>
+			<key>max</key>
+			<integer>30</integer>
+			<key>default</key>
+			<integer>18</integer>
+			<key>showValue</key>
+			<true/>
+			<key>isSegmented</key>
+			<true/>
+			<key>segmentCount</key>
+			<integer>29</integer>
+			<key>key</key>
+			<string>Duration</string>
+			<key>label</key>
+			<string>Duration</string>
+			<key>PostNotification</key>
+			<string>com.wangjinli.weekcountpb/prefsChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>First Weekday</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSegmentCell</string>
+			<key>defaults</key>
+			<string>com.wangjinli.weekcountpb</string>
+			<key>key</key>
+			<string>WeekStartDay</string>
+			<key>label</key>
+			<string>First Weekday</string>
+			<key>validValues</key>
+			<array>
+				<string>Monday</string>
+				<string>Sunday</string>
+			</array>
+			<key>validTitles</key>
+			<array>
+				<string>Monday</string>
+				<string>Sunday</string>
+			</array>
+			<key>default</key>
+			<string>Monday</string>
+			<key>PostNotification</key>
+			<string>com.wangjinli.weekcountpb/prefsChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Display Settings</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>defaults</key>
+			<string>com.wangjinli.weekcountpb</string>
+			<key>label</key>
+			<string>Lock Screen</string>
+			<key>key</key>
+			<string>LockScreenEnabled</string>
+			<key>default</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.wangjinli.weekcountpb/prefsChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>defaults</key>
+			<string>com.wangjinli.weekcountpb</string>
+			<key>label</key>
+			<string>Notification Center</string>
+			<key>key</key>
+			<string>NCEnabled</string>
+			<key>default</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.wangjinli.weekcountpb/prefsChanged</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string></string>
+			<key>footerText</key>
+			<string>Use %W to denote where the week number should be displayed.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>default</key>
+			<string></string>
+			<!-- <key>keyboard</key>
+			<string>numbers</string> -->
+			<!-- <key>isNumeric</key>
+			<true/> -->
+			<key>placeholder</key>
+			<string></string>
+			<key>defaults</key>
+			<string>com.wangjinli.weekcountpb</string>
+			<key>key</key>
+			<string>DisplayFormat</string>
+			<key>label</key>
+			<string>Display Format</string>
+			<key>default</key>
+			<string>Week %W</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Respring to apply changes.</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Respring</string>
+			<key>action</key>
+			<string>respring</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>© 2016  Li</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>WeekCount</string>
+</dict>
+</plist>
+```
+iPhone注销主屏幕
+```
+- (void)respring {
+    system("killall -9 SpringBoard");
+}
+```
+
+#### 资料:
+https://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSpecifier_runtime_properties_of_plist_keys
+http://iphonedevwiki.net/index.php/Preferences_specifier_plist
 
 ## DYLD_INSERT_LIBRARIES
 dylib本质上是一个Mach-O格式的文件，它与普通的Mach-O执行文件几乎使用一样的结构，只是在文件类型上一个是MH_DYLIB，一个是MH_EXECUTE。
