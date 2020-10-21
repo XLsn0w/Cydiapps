@@ -11,6 +11,25 @@
 ## iOS私有库 头文件查询网址
 ## https://developer.limneos.net/
 
+### Preference Bundle
+插件设置项Preference Bundle
+一个tweak可能要设置一些选项，就像App Store上的App一样，在设置应用里面可以设置，
+在theos里，可以通过创建Preference Bundle来为插件提供设置界面,有点类似于Xcode里的Setting Bundle,
+Preference Bundle安装到手机后会在/Library/PreferenceBundles/目录生成一个对应的bundle,
+此bundle会基于PreferenceLoader注入到设置应用(Setting.app)，
+而PreferenceLoader是基于Cydia Substrate的工具，主要为插件在系统设置界面添加一个设置入口。
+```
+文件	                  作用
+entry.plist	        为插件在系统设置应用界面添加一个入口，一般修改icon与label即可
+XXXRootListController	XXXRootListController必须继承PSListController或者PSViewController，且必须实现- (id)specifiers方法，因为PSListController依赖_specifiers来获得metadata和group
+Makefile	        preference bundle的Makefile，一般不用过多修改与操作，编译Tweak的Makefile会跟随着一起编译
+Resources文件夹下的文件如下	
+Info.plist	        主要记录这个preference bundle的配置信息，一般不用修改
+Root.plist	        重点编写的文件，主要配置插件界面的https://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSpecifier_runtime_properties_of_plist_keys
+ML格式，好像还有一种类似JSON格式的
+```
+资料: https://iphonedevwiki.net/index.php/Preferences_specifier_plist#PSSpecifier_runtime_properties_of_plist_keys
+
 ## DYLD_INSERT_LIBRARIES
 dylib本质上是一个Mach-O格式的文件，它与普通的Mach-O执行文件几乎使用一样的结构，只是在文件类型上一个是MH_DYLIB，一个是MH_EXECUTE。
 在系统的/usr/lib目录下，存放了大量供系统与应用程序调用的动态库文件
