@@ -8,6 +8,330 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+### 浅析Tweak loader(MobileSubstrate的替代品)
+
+搜到的源码是：https://github.com/chr1s0x1/TweakInject
+
+代码本身很简单，就是去/Library/MobileSubstrate/DynamicLibraries下面去搜索，
+通过plist文件里面的字段决定是否将dylib加载到当前进程中，
+就和平时开发tweak去hook那些app的过程一样。
+不过我感到疑问的地方在于那本身这个tweak loader dylib又是谁以及何时被加载到进程中的呢。
+这里不难想到应该就是越狱后支持hook环境相关，所以我又去翻阅相关越狱源码。
+
+#Electra
+研究的越狱源码是：https://github.com/coolstar/electra
+
+至于为什么会选择Electra，而且是早期的一个版本？有以下几点原因：
+coolstar由于在开发Electra越狱后,没有开发插件hook环境
+而Cydia之父saurik没有提供substrate的支持，
+所以自己实现了类似Cydia Substrate完整的hook环境，
+这里面很多东西都是重新研究实现的，保留了很多当时的曲折过程，而这些恰好很便于去学习。
+代码开源，而且早期一切都是以实用为主，代码都比较有代表性。
+
+#pspawn_payload
+回到之前的问题，tweak loader是谁负责加载的呢？最直接相关的代码在:
+
+https://github.com/coolstar/electra/blob/master/basebinaries/pspawn_payload/pspawn_payload.m
+
+代码里面的SBInject.dylib就是tweak loader，如下
+
+#define SBINJECT_PAYLOAD_DYLIB "/usr/lib/SBInject.dylib"
+这个模块叫做pspawn_payload，你在coolstar系越狱里进程模块里面就会有这个模块名。
+
+下面是该模块初始化的代码
+
+__attribute__ ((constructor))
+static void ctor(void) {
+    if (getpid() == 1) {
+        current_process = PROCESS_LAUNCHD;
+        pthread_t thd;
+        pthread_create(&thd, NULL, thd_func, NULL);
+    } else {
+        current_process = PROCESS_XPCPROXY;
+        rebind_pspawns();
+    }
+}
+代码就是如果当前进程不是launchd，就hook pspawns函数。pspawns正是创建一个新进程的函数，所以hook以后会在创建前注入dylib。下面简单列举里面几个关键地方的代码
+
+int fake_posix_spawn_common(pid_t * pid, const char* path, const posix_spawn_file_actions_t *file_actions, posix_spawnattr_t *attrp, char const* argv[], const char* envp[], pspawn_t old) {
+
+    ...
+    if (strcmp(path, "/usr/libexec/amfid") == 0) {
+        DEBUGLOG("Starting amfid -- special handling");
+        inject_me = AMFID_PAYLOAD_DYLIB;
+    } else {
+        inject_me = SBINJECT_PAYLOAD_DYLIB;
+    }
+    ...
+
+    int envcount = 0;
+
+    if (envp != NULL){
+        DEBUGLOG("Env: ");
+        const char** currentenv = envp;
+        while (*currentenv != NULL){
+            DEBUGLOG("\t%s", *currentenv);
+            if (strstr(*currentenv, "DYLD_INSERT_LIBRARIES") == NULL) {
+                envcount++;
+            }
+            currentenv++;
+        }
+    }
+
+    char const** newenvp = malloc((envcount+2) * sizeof(char **));
+    int j = 0;
+    for (int i = 0; i < envcount; i++){
+        if (strstr(envp[j], "DYLD_INSERT_LIBRARIES") != NULL){
+            continue;
+        }
+        newenvp[i] = envp[j];
+        j++;
+    }
+
+    char *envp_inject = malloc(strlen("DYLD_INSERT_LIBRARIES=") + strlen(inject_me) + 1);
+
+    envp_inject[0] = '\0';
+    strcat(envp_inject, "DYLD_INSERT_LIBRARIES=");
+    strcat(envp_inject, inject_me);
+
+    newenvp[j] = envp_inject;
+    newenvp[j+1] = NULL;
+
+    ...
+
+    origret = old(pid, path, file_actions, newattrp, argv, newenvp);
+
+}
+这里我分析下几个关键的地方，第一是如果当前要创建进程为/usr/libexec/amfid（也就是验证代码签名的进程），那么就注入AMFID_PAYLOAD_DYLIB模块，这个模块主要就是去patch验证签名的地方，这样才能执行任意代码；如果是其他进程，那么就注入SBINJECT_PAYLOAD_DYLIB模块（也就是tweak loader）。第二个地方是介绍了注入的实现方式，原理就是设置当前的环境变量，在调用原函数前，将当前DYLD_INSERT_LIBRARIES这个环境变量里面增加一个dylib路径，这样在进程穿件后就会去加载tweak loader。到这里，我们明白了tweak loader原来就是在这里被注入进去的。但同时又引出了一个问题，pspawn_payload模块本身又是谁加载的呢？这不又回到了之前的问题，接着分析。
+
+#the fun part
+这里的名字并不是我随便起的，因为在Electra里面就是就是。相关的代码路径在
+
+https://github.com/coolstar/electra/blob/02858b14dac30c9ba868bd3024529e9ae6592e67/electra/the%20fun%20part/fun.c
+这个文件里面的代码会做Post exploit patching所有事情，即在漏洞完成利用以后的所有事，这里当然就是指越狱环境。和其他越狱一样，主要就下面几个工作
+
+初始化jailbreakd
+setuid(0)：将当前进程设为root进程
+Remap tfp0
+Remount / as rw :重新挂起根目录，实现任意文件读写
+Prepare bootstrap binary：准备预装的一些基本的二进制文件，包括sshd，gnu命令等
+setup hook enviroment : 支持hook环境
+
+launch some daemon：加载一些守护进程
+
+respring ：重启Springboard
+这里的最后一步如果完成，也就是平时看到的那样，代表越狱成功了。
+
+回我之前的问题，这些步骤里面我们关心的地方就是hook环境的支持，直接相关代码在
+
+if (enable_tweaks){
+    const char* args_launchd[] = {BinaryLocation, itoa(1), "/bootstrap/pspawn_payload.dylib", NULL};
+    rv = posix_spawn(&pd, BinaryLocation, NULL, NULL, (char **)&args_launchd, NULL);
+    waitpid(pd, NULL, 0);
+
+    const char* args_recache[] = {"/bootstrap/usr/bin/recache", "--no-respring", NULL};
+    rv = posix_spawn(&pd, "/bootstrap/usr/bin/recache", NULL, NULL, (char **)&args_recache, NULL);
+    waitpid(pd, NULL, 0);
+}
+也就是说如果设置了支持tweak的话，就会将pspawn_payload模块注入到1号进程，而1号进程就是launchd进程。另外你可能想问，那这里的注入又是怎么实现的呢？不可能又是hook posix_spawn注入环境变量吧，这不就产生鸡生蛋和蛋生鸡的问题了吗？事实上这里的注入并不是通过hook posix_spawn，注入的实现在
+
+https://github.com/coolstar/electra/tree/02858b14dac30c9ba868bd3024529e9ae6592e67/basebinaries/inject_criticald
+注入的原理就是通过task_for_pid来实现的，如果你的设备是用的coolstar系越狱（Electra或者Chimera）的话，你会在越狱目录下存在这个可执行文件，下面是Chimera越狱的信息
+
+xia0:/chimera root# ls -la
+total 1100
+drwxr-xr-x  8 root wheel    256 Feb 26 13:19 ./
+drwxr-xr-x 28 root wheel    896 Sep 16 17:44 ../
+-rwxr-xr-x  1 root wheel 168736 Sep 17 10:21 inject_criticald*
+-rwxr-xr-x  1 root wheel 207920 Sep 17 10:21 jailbreakd*
+-rwxr-xr-x  1 root wheel 133840 Sep 17 10:21 jailbreakd_client*
+-rwxr-xr-x  1 root wheel 167296 Sep 17 10:21 libjailbreak.dylib*
+-rwxr-xr-x  1 root wheel 236896 Sep 17 10:21 pspawn_payload-stg2.dylib*
+-rwxr-xr-x  1 root wheel 202640 Sep 17 10:21 pspawn_payload.dylib*
+xia0:/chimera root# ./inject_criticald 
+Usage: inject_criticald <pid> <dylib>
+inject_criticald这个命令可以直接对进程进行注入dylib。到这里，关于tweak loader的加载问题已经得到了解决，整个加载的过程可以说就是越狱的整个过程。现在tweak loader由谁加载的问题解决了，但是何时被加载和初始化的问题还没解决？接下来就和越狱本身不相关了，要从DYLD_INSERT_LIBRARIES说起
+
+#DYLD_INSERT_LIBRARIES && dyld
+下面就抛开越狱，进入DYLD_INSERT_LIBRARIES和dyld的实现细节里面，由于dyld本事是开源的，所以从源码开始分析。直接搜索DYLD_INSERT_LIBRARIES最可疑的地方就在这里
+
+// In order for register_func_for_add_image() callbacks to to be called bottom up,
+// we need to maintain a list of root images. The main executable is usally the
+// first root. Any images dynamically added are also roots (unless already loaded).
+// If DYLD_INSERT_LIBRARIES is used, those libraries are first.
+static void addRootImage(ImageLoader* image)
+{
+    //dyld::log("addRootImage(%p, %s)\n", image, image->getPath());
+    // add to list of roots
+    sImageRoots.push_back(image);
+}
+注释里面说到了一句，If DYLD_INSERT_LIBRARIES is used, those libraries are first.
+
+也就是说，如果DYLD_INSERT_LIBRARIES环境变量注入的模块会被优先处理。本身这个函数的话是在下面函数中调用
+
+void link(ImageLoader* image, bool forceLazysBound, bool neverUnload, const ImageLoader::RPathChain& loaderRPaths)
+{
+    // add to list of known images.  This did not happen at creation time for bundles
+    if ( image->isBundle() && !image->isLinked() )
+        addImage(image);
+
+    // we detect root images as those not linked in yet 
+    if ( !image->isLinked() )
+        addRootImage(image);
+
+    // process images
+    try {
+        image->link(gLinkContext, forceLazysBound, false, neverUnload, loaderRPaths);
+    }
+    catch (const char* msg) {
+        garbageCollectImages();
+        throw;
+    }
+}
+接下来一个重要的函数就是initializeMainExecutable()
+
+void initializeMainExecutable()
+{
+    // record that we've reached this step
+    gLinkContext.startedInitializingMainExecutable = true;
+
+    // run initialzers for any inserted dylibs
+    ImageLoader::InitializerTimingList initializerTimes[sAllImages.size()];
+    initializerTimes[0].count = 0;
+    const size_t rootCount = sImageRoots.size();
+    if ( rootCount > 1 ) {
+        for(size_t i=1; i < rootCount; ++i) {
+            sImageRoots[i]->runInitializers(gLinkContext, initializerTimes[0]);
+        }
+    }
+
+    // run initializers for main executable and everything it brings up 
+    sMainExecutable->runInitializers(gLinkContext, initializerTimes[0]);
+
+    // register cxa_atexit() handler to run static terminators in all loaded images when this process exits
+    if ( gLibSystemHelpers != NULL ) 
+        (*gLibSystemHelpers->cxa_atexit)(&runAllStaticTerminators, NULL, NULL);
+
+    // dump info if requested
+    if ( sEnv.DYLD_PRINT_STATISTICS )
+        ImageLoaderMachO::printStatistics((unsigned int)sAllImages.size(), initializerTimes[0]);
+}
+这里可以看到会去先初始化sImageRoots，然后才初始化sMainExecutable。当然后面就是一个递归的初始化过程，即是说如果初始化的模块依赖其他模块，那么又先初始化依赖的模块。在递归初始化函数之中有个地方
+
+void ImageLoader::recursiveInitialization(const LinkContext& context, mach_port_t this_thread,
+                                          InitializerTimingList& timingInfo, UninitedUpwards& uninitUps)
+{
+    ...
+    // let objc know we are about to initialize this image
+    uint64_t t1 = mach_absolute_time();
+    fState = dyld_image_state_dependents_initialized;
+    oldState = fState;
+    context.notifySingle(dyld_image_state_dependents_initialized, this);
+
+    // initialize this image
+    bool hasInitializers = this->doInitialization(context);
+
+    // let anyone know we finished initializing this image
+    fState = dyld_image_state_initialized;
+    oldState = fState;
+    context.notifySingle(dyld_image_state_initialized, this);
+
+    ...
+}
+从这里可以看出，+load函数确实会比mod_init_func优先执行。
+
+最后总结一下，由于tweak loader是通过DYLD_INSERT_LIBRARIES注入的，所以会优先初始化，只有这样才能实现加载tweak模块的功能。到这里tweak loader何时被初始化的疑问也得到了解决，后面会用实验去验证这个分析。
+
+#实验
+前面分析了这么多，那实际情况到底是不是这样的呢。首先我们还是对CFBundleGetMainBundle、App里面的+load和mod_init_func下断点，首先断下来的是：
+
+(lldb) bt
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 4.1
+  * frame #0: 0x00000001fd2d18ac CoreFoundation`CFBundleGetMainBundle
+    frame #1: 0x00000001fdbfeadc Foundation`+[NSBundle mainBundle] + 112
+    frame #2: 0x00000001024a2ee0 TweakInject.dylib`___lldb_unnamed_symbol1$$TweakInject.dylib + 96
+    frame #3: 0x000000010256f56c dyld`ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) + 424
+    frame #4: 0x000000010256f7ac dyld`ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) + 40
+    frame #5: 0x0000000102569f64 dyld`ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) + 512
+    frame #6: 0x0000000102568dd8 dyld`ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) + 152
+    frame #7: 0x0000000102568e98 dyld`ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) + 88
+    frame #8: 0x00000001025567d4 dyld`dyld::initializeMainExecutable() + 188
+    frame #9: 0x000000010255b88c dyld`dyld::_main(macho_header const*, unsigned long, int, char const**, char const**, char const**, unsigned long*) + 4708
+    frame #10: 0x0000000102555044 dyld`_dyld_start + 68
+从调用链来看initializeMainExecutable后就是先初始化TweakInject.dylib，这时候app自身代码还没执行。接下来断下来是
+
+(lldb) bt
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 3.1
+  * frame #0: 0x000000010244e7f0 TestAPP`+[OCClassDemo load](self=OCClassDemo, _cmd="load") at OCClassDemo.m:20:5
+    frame #1: 0x00000001fc476a24 libobjc.A.dylib`call_load_methods + 188
+    frame #2: 0x00000001fc477d94 libobjc.A.dylib`load_images + 148
+    frame #3: 0x00000001025564c4 dyld`dyld::notifySingle(dyld_image_states, ImageLoader const*, ImageLoader::InitializerTimingList*) + 488
+    frame #4: 0x0000000102569f40 dyld`ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) + 476
+    frame #5: 0x0000000102568dd8 dyld`ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) + 152
+    frame #6: 0x0000000102568e98 dyld`ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) + 88
+    frame #7: 0x00000001025567f8 dyld`dyld::initializeMainExecutable() + 224
+    frame #8: 0x000000010255b88c dyld`dyld::_main(macho_header const*, unsigned long, int, char const**, char const**, char const**, unsigned long*) + 4708
+    frame #9: 0x0000000102555044 dyld`_dyld_start + 68
+从调用链看，这时候开始初始化主模块，而且正是+load函数，所以+load就是app最早执行代码的地方。而且是通知libobjc.A.dylib去完成的。这里可以回到dyld的源码中：
+
+static void notifySingle(dyld_image_states state, const ImageLoader* image)
+{
+    //dyld::log("notifySingle(state=%d, image=%s)\n", state, image->getPath());
+    std::vector<dyld_image_state_change_handler>* handlers = stateToHandlers(state, sSingleHandlers);
+    if ( handlers != NULL ) {
+        dyld_image_info info;
+        info.imageLoadAddress    = image->machHeader();
+        info.imageFilePath        = image->getRealPath();
+        info.imageFileModDate    = image->lastModified();
+        for (std::vector<dyld_image_state_change_handler>::iterator it = handlers->begin(); it != handlers->end(); ++it) {
+            const char* result = (*it)(state, 1, &info);
+            if ( (result != NULL) && (state == dyld_image_state_mapped) ) {
+                //fprintf(stderr, "  image rejected by handler=%p\n", *it);
+                // make copy of thrown string so that later catch clauses can free it
+                const char* str = strdup(result);
+                throw str;
+            }
+        }
+    }
+    ...
+}
+notifySingle函数会循环调用所有注册通知的处理模块
+
+// Callback that provides a bottom-up array of images
+// For dyld_image_state_[dependents_]mapped state only, returning non-NULL will cause dyld to abort loading all those images
+// and append the returned string to its load failure error message. dyld does not free the string, so
+// it should be a literal string or a static buffer
+//
+typedef const char* (*dyld_image_state_change_handler)(enum dyld_image_states state, uint32_t infoCount, const struct dyld_image_info info[]);
+这里就是由libobjc.A.dylib去处理的+load函数。最后断下来的就是：
+
+(lldb) bt
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+  * frame #0: 0x000000010242bd20 TestAPP`temp_init at temp.c:98:5
+    frame #1: 0x000000010256f56c dyld`ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) + 424
+    frame #2: 0x000000010256f7ac dyld`ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) + 40
+    frame #3: 0x0000000102569f64 dyld`ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) + 512
+    frame #4: 0x0000000102568dd8 dyld`ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) + 152
+    frame #5: 0x0000000102568e98 dyld`ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) + 88
+    frame #6: 0x00000001025567f8 dyld`dyld::initializeMainExecutable() + 224
+    frame #7: 0x000000010255b88c dyld`dyld::_main(macho_header const*, unsigned long, int, char const**, char const**, char const**, unsigned long*) + 4708
+    frame #8: 0x0000000102555044 dyld`_dyld_start + 68
+这里看出就是mod_init_func了，当然在dyld中调用这个函数的地方就是
+
+bool ImageLoaderMachO::doInitialization(const LinkContext& context)
+{
+    CRSetCrashLogMessage2(this->getPath());
+
+    // mach-o has -init and static initializers
+    doImageInit(context);
+    doModInitFunctions(context);
+
+    CRSetCrashLogMessage2(NULL);
+
+    return (fHasDashInit || fHasInitializers);
+}
+其中doModInitFunctions就会解析load command找到_DATA,_mod_init_func列表进行初始化调用。
+
 ### 解决“XX.app”已损坏,无法打开。 您应该将它移到废纸篓。
 
 通常在非 Mac App Store下载的软件都会提示“xxx已损坏，打不开。
