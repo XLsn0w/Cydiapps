@@ -12,14 +12,17 @@
 ### MacOS解决安装MonkeyDev等遇见Failed to connect to raw.githubusercontent.com port 443问题 : https://www.jianshu.com/p/6ea74620caae
 ```
 Mac 文件夹搜索进入/etc/hosts
+![](https://upload-images.jianshu.io/upload_images/14363383-05259ba1e54ca565.png?imageMogr2/auto-orient/strip|imageView2/2/w/824/format/webp)
 
 找到hosts 输入以下文字(不要输入其他文字)  (无权限可以复制到桌面 然后替换源文件)
+![](https://upload-images.jianshu.io/upload_images/14363383-39e4a6a34f97aa51.png?imageMogr2/auto-orient/strip|imageView2/2/w/766/format/webp)
 
 199.232.96.133     raw.githubusercontent.com
 
 浏览器直接打开raw.githubusercontent.com  出现github网站就OK
 
 199.232.96.133 raw.githubusercontent.com # comments. put the address here
+![](https://upload-images.jianshu.io/upload_images/14363383-bbffc82ba3dce51d.png?imageMogr2/auto-orient/strip|imageView2/2/w/838/format/webp)
 
 然后成功下载
 ```
