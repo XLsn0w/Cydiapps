@@ -8,6 +8,22 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## raw.githubusercontent.com port 443问题
+### MacOS解决安装MonkeyDev等遇见Failed to connect to raw.githubusercontent.com port 443问题 : https://www.jianshu.com/p/6ea74620caae
+```
+Mac 文件夹搜索进入/etc/hosts
+
+找到hosts 输入以下文字(不要输入其他文字)  (无权限可以复制到桌面 然后替换源文件)
+
+199.232.96.133     raw.githubusercontent.com
+
+浏览器直接打开raw.githubusercontent.com  出现github网站就OK
+
+199.232.96.133 raw.githubusercontent.com # comments. put the address here
+
+然后成功下载
+```
+
 ## iOS Hook Fake Detection
 ```
 #import "iOSHookDetection.h"
