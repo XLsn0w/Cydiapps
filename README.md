@@ -8,6 +8,11 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## 安装最新版本theos终端命令行
+```
+$ sudo git clone --recursive https://github.com/theos/theos.git /opt/theos
+```
+
 ## raw.githubusercontent.com port 443问题
 ### MacOS解决安装MonkeyDev等遇见Failed to connect to raw.githubusercontent.com port 443问题 : https://www.jianshu.com/p/6ea74620caae
 
