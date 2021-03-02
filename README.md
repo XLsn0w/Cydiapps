@@ -8,6 +8,49 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## shsh2是什么？
+```
+APTicket是从iOS5开始由苹果推出的最新安全检查功能，最主要功能是防止iPhone、iPad、iPod用户设备检验的降级限制，目前也仅有Apple Server才能拥有发送与解开  APTicket 密钥，那  APTicket 怎么获得呢？
+
+在我们设备手上的设备都会有一组固定的16码ECID（Exclusive Chip ID）号码，当我们要透过iTunes进行升降级时，会先连至苹果验证服务器（gs.apple.com），丢出「讯息」内会夹带一次性唯一码、设备ECID与19个BLOB的验证码，而服务器接收到后，就会返回一组随机APTicket和当前iOS版本的SHSH验证码，当验证符合时，才能够进行接下来的升降级动作。
+
+所以在iOS验证关闭后，就算你有备份SHSH其实也无法实现降级，因为还有  APTicket验证要解决。
+
+在32位元设备中，有存有硬体设备漏洞，可直接绕过  APTicket 验证，直接实现靠SHSH就可以降级。也有一款降级工具「odysseusOTA」推出后，就能够让不少32位元设备，如iPhone5、5c、4s、iPad3、iPad2都能降回至旧  iOS版本上。
+
+目前我们还可以备份  SHSH 吗？前提要再  SHSH 认证开启状态下才能够用tsschecker工具备份。
+
+shsh2是什么？有什么作用？
+
+之前iOS 要备份SHSH 可达成降级，相信还会有不少用户搞不清楚，怎么又跳出SHSH2 这东西，这与SHSH又有什么关系？
+
+加上因iOS 验证的API有改变，造成nonce是无法从Apple验证服务器上取得，目前还保留在sign内，导致已经无法使用之前用小红伞工具来获取旧版SHSH文件，因为这方法其实是没有包含nonce值，同等于就没有任何作用。
+
+因此ihmstar 推出了最新的保存脚本工具tsschecker ，可来获取设备的SHSH2档案，不过这脚本工具里面所保存的SHSH2档案不包括有Nonce仅只有Generator，这串数值可搭配Prometheus 降级工具使用，能够让iOS使用Generator 和SHSH2 档案产生最关键的「APNonce」，如此一来有了SHSH2档案后，后续就可以自由的进行升降级工作。
+
+但目前由于还没突破降级限制，在拥有SHSH2 大部分条件情况下也仅能够实现升级与重刷，除了A7处理器设备iPhone 5s / iPad Air 1 / iPad Mini 2 能实现降级外。又加上苹果会不定时改变SEP 要来阻止用户可透过Prometheus 升、降级，才会导致过去曾经发生过iOS 11~iOS 11.2.6 与iOS 11.3 SEP 不同，这算是首次出现的现象，以往过去都是在iOS 大版本更新才会改变SEP，但苹果也不断持续提升安全性与防御机制。
+
+该怎么备份shsh2？=> 参考微信公众号Cydia文章
+
+不管未来有没有打算要越狱，或许可先跑一次备份iOS 的shsh2 ，未来如果漏洞可开发出降级工具用来自由升降iOS版本时，保存好的shsh2 这就是你手中握有最佳降级的关键钥匙。如果都没备份，那永远都是没有这个机会。
+
+发现到不少用户会误解备份shsh2一定要透过电脑或是升级上iOS版本才可以，这些都是错误的想法，iOS shsh2 备份是在任何可开启网页版本状态下就可以操作，且不需要透过电脑也可以直接透过iOS 执行操作，前提是需要查好ECID和Internal Name/Model就可以，这部分可以直接存在iOS备忘录内，每次iOS 新版本推出时，就可以直接复制贴上执行shsh2 备份。
+
+futurerestore 工具
+一个可执行文件
+
+SEP 文件
+解压下载的系统固件
+在 Firmware/all_flash 目录下，有一堆以 “sep” 开头的文件，但是它有很多种，比如我这里有 j120、j121 等
+
+基带固件
+在解压缩的系统固件的 Firmware 文件夹里，通常还有一些 .bbfw 格式的文件，这些是基带文件。这就需要你查一下你手机对应的是哪个基带文件了，我这里是 WLAN 版 iPad，所以只有一个
+
+BuildManifest.plist 文件
+解压缩系统固件，在根目录就能看到这个文件
+...
+```
+
 ## pre-jailbreak 漏洞
 ```
 
