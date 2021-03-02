@@ -1,4 +1,4 @@
-# iOS逆向工程越狱开发 
+# iOS逆向工程越狱开发  [iOS逆向请加QQ群号: 751433362]
 # iOS Jailbreak Develop/hook/Reverse
 # 我的微信公众号: Cydia
 <img src="https://github.com/XLsn0w/XLsn0w/blob/XLsn0w/XLsn0w/Cydiapple.png?raw=true" alt="XLsn0w" width="160" height="160" align="bottom" />
