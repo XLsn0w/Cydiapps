@@ -9,16 +9,16 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## FutureRestore GUI界面化降级教程
 
 FutureRestore GUI提供了与经典命令行界面版本相同的功能，
 但是可以通过界面化来单击按钮来启动该过程，而不是使用Terminal命令。
 适用于小白新手很方便, 摆脱命令行, 快速操作shsh2来降级iOS固件
 
 FutureRestore GUI应用程序仍然要求用户拥有他们计划降级或升级到的版本的.shsh2 blob和.ipsw固件文件。
-
 对futurerestore的命令行界面版本的所有相同限制和限制仍然适用，因此我们鼓励越狱者为此目的保存对应的.shsh2 blob。
 
-QQ群文件下载工具
+## QQ群文件下载工具
 
 ![](https://mmbiz.qpic.cn/mmbiz_png/Rgn7gtr1jyqKh0AB6YGjnVYeogcNvBUBVN7tJ0ku95RxVIWMeTiaXkypqPiaiczpd7MuCmsvCsicwjS2lwdYmNUelw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
@@ -29,17 +29,13 @@ QQ群文件下载工具
 https://halo-michael.github.io/repo
 并安装名为Generator Auto Setter的软件包 。安装后，在“设置” 应用中进行调整，找到“生成器自动设置器”，输入您选择的生成器，然后选择“ 设置”。
 
-图片
+![](https://mmbiz.qpic.cn/mmbiz_jpg/Rgn7gtr1jyqKh0AB6YGjnVYeogcNvBUBhAiclOKMWdE4FwhIr2ichzUMNTT0PqnnibNuBuENUf5yHIQibIRo2d7XUw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
 请注意，设置什么发生器都没有关系。重要的是，在发现匹配的Apnonce之前， 您必须知道设置了哪个生成器。他们成对，更换发电机会改变Apnonce。我们需要知道是什么生成器创建了Apnonce，我们将在后续步骤中发现它们。
-
-图片
 
 许多生成器设置器使用默认值。例如，默认情况下unc0ver和Generator Auto Setter 都使用0x1111111111111111。您的发电机设置器可能使用其他值。您可以将生成器设置保留为默认值（推荐），也可以更改它。不管它不 只要你知道你已经将它设置为，并记下来。
 
 将越狱设备上的生成器成功设置为已知值（例如0x1111111111111111）并将设备插入计算机后，我们可以继续进行。
-
-图片
 
 请记住：知道您的生成器值是什么，并在将来安全的地方（例如文本文档）记录下来！如果您不再知道用来创建Apnonce的生成器（用于保存Blob），则SHSH Blob将无效。
 
@@ -48,37 +44,44 @@ https://halo-michael.github.io/repo
 如果这些命令中的任何一个在Mac或Linux上失败，请尝试在命令前面加上sudo 来运行 它们。输入以下内容：
 
 现在输入：
-
+```
 ideviceenterrecovery UDID
+
+```
 将UDID替换为您在上一步中记下的UniqueDeviceID（一长串数字和字母）。您的设备现在将重新启动进入恢复模式，并且您应该在屏幕上看到随附的图形。
 
 现在输入：
-
+```
 irecovery -q
+```
+
 您应该看到设备的另一个值列表。您将需要复制ECID （这是设备的ECID，每次保存Blob时都需要）和NONC （这是我们已经听到很多次的至关重要的Apnonce，并且与生成器唯一配对）的值设置得更早）。
-
-
 
 请在安全的地方记下这些值，例如在之前保存了生成器，HardwareModel和ProductType的文本文档中。以后每次保存shsh2时，都将需要它们。
 
 最后，输入：
-
+```
 irecovery -n
+```
+
 这会将您的设备重新启动，使其退出恢复模式。请勿使用物理按钮重新启动设备，因为它将始终返回到恢复模式。请改用此命令。
 
+```
+硬件型号（之前称为 HardwareModel）
+设备型号（之前称为 ProductType）
+设备ECID（字母数字字符串，可能以0x开头...）
+生成器（由您在开始时设置，例如0x1111111111111111）
+Apnonce（长字母数字字符串，仅对您在上面设置的生成器有效）
+```
 
-您的电路板配置（之前称为 HardwareModel）
-您的确切设备型号（之前称为 ProductType）
-您的ECID（字母数字字符串，可能以0x开头...）
-您已知的生成器（由您在开始时设置，例如0x1111111111111111）
-您的Apnonce（长字母数字字符串，仅对您在上面设置的生成器有效）
 现在，您可以使用TSS Saver为您的A12 +设备保存.shsh2 blob。以后无需重复以上操作即可保存该设备的Blob。为了保存Blob，您甚至不必对其进行越狱
 
 ![](https://mmbiz.qpic.cn/mmbiz_jpg/Rgn7gtr1jyofHOIOrF8zA2HfBYUf7cqsBLEdOHp4ia0T7eBehVhicYlicwNFePhfujH2qDBSGDwSp9geM6TAial74w/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-
+```
 因为这个FutureRestore GUI是基于Java来开发的
 所以用户需要在MacOS上安装Java 8才能使用它
 https://www.java.com/en/download/
+```
 
 ## shsh2是什么？
 ```
