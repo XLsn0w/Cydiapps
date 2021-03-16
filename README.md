@@ -39,6 +39,18 @@ https://halo-michael.github.io/repo
 
 请记住：知道您的生成器值是什么，并在将来安全的地方（例如文本文档）记录下来！如果您不再知道用来创建Apnonce的生成器（用于保存Blob），则SHSH Blob将无效。
 
+## Mac打开 Terminal 运行 commands:
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+然后安装libirecovery
+```
+brew install --HEAD usbmuxd
+brew install --HEAD libimobiledevice
+brew install libirecovery
+```
+
 然后打开一个终端窗口。在Windows上，在运行以下命令之前，您还需要导航到下载的二进制文件的存储位置。
 
 如果这些命令中的任何一个在Mac或Linux上失败，请尝试在命令前面加上sudo 来运行 它们。输入以下内容：
