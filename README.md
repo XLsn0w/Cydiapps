@@ -11,24 +11,28 @@
 
 ## iOS改机原理是什么?
 ```
-在iOS上目前所有流行的改机工具，本质上是利用substrate框架对某些用来获取设备和系统参数函数进行hook，从而欺骗App达到修改的目的，具体的如下：
+在iOS上目前所有流行的改机工具，本质上是利用substrate框架对某些用来获取设备和系统参数函数进行hook，
+从而欺骗App达到修改的目的，具体的如下：
 
-用作获取设备参数的函数，无论是C函数，还是Objective-C/Swift函数，可以使用hook框架来修改其返回值
+用作获取设备参数的函数(无论是C函数，还是Objective-C/Swift函数，可以使用hook框架来修改其返回值)
 屏蔽VPN／HTTP代理检测
 屏蔽越狱检测
-一键新机怎么实现的?
-在用户进行一键新机时，ALS有如下操作：
+```
+
+## 一键新机怎么实现的?
+```
+在进行一键新机时, 操作如下：
 
 生成设备参数并保存到文件
 /private/var/mobile/Library/Preferences/
-com.app1e.mobile.ifalscommon.plist  保存伪造设备参数数据
+com.app1e.mobile.ifalscommon.plist   保存伪造设备参数数据
 com.app1e.mobile.ifalslocation.plist 保存伪造位置数据
 
 将应用沙盒目录下的数据备份，同时为新环境创建沙盒目录结构
-备份的数据存放在/private/var/mobile/alsdata下
+备份的数据存放在/private/var/mobile/fackedata下
 
-应用启动后，ALS.dylib会hook关键函数，并根据plist文件修改函数返回的数据
-在这一步，ALS还会根据情况清理keychain,同时做简单的反越狱检测
+应用启动后，fackedata.dylib会hook关键函数，并根据plist文件修改函数返回的数据
+在这一步，fackedata还会根据情况清理keychain, 同时做简单的反越狱检测
 ```
 
 ## FutureRestore GUI界面化降级教程
