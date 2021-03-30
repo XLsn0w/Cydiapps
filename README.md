@@ -9,6 +9,18 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+```
+Signing for "xxx" requires a development team. 
+Select a development team in the Signing & Capabilities editor. 
+(in target 'xxxDylib' from project 'xxx')
+
+使用monkeydev动态调试工具，xcode新建文件之后编译一直报错证书问题， 无论怎么修改证书为开发团队也不行。
+解决方案：
+
+target 选择xxxDylib buildsetting 添加CODE_SIGNING_ALLOWED，设置为=NO
+
+```
+
 ## iOS改机原理是什么?
 ```
 在iOS上目前所有流行的改机工具，本质上是利用substrate框架对某些用来获取设备和系统参数函数进行hook，
