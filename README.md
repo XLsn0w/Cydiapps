@@ -9,6 +9,159 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## Needle绕过iOS越狱检测
+
+### Needle使用教程
+
+由于每个模块都专注于特定任务，并且核心处理常见问题（例如与设备的通信，命令的实际执行等），因此创建新模块只需几行python代码即可。
+
+“ show modules”命令可用于列出框架中当前可用的所有模块。
+
+[needle][install] > show modules
+
+Binary
+  ------
+    binary/info/checksums
+    binary/info/compilation_checks
+    binary/info/metadata
+    binary/info/provisioning_profile
+    binary/info/universal_links
+    binary/installation/install
+    binary/installation/pull_ipa
+    binary/reversing/class_dump
+    binary/reversing/class_dump_frida_enum-all-methods
+    binary/reversing/class_dump_frida_enum-classes
+    binary/reversing/class_dump_frida_find-class-enum-methods
+    binary/reversing/shared_libraries
+    binary/reversing/strings
+
+  Comms
+  -----
+    comms/certs/delete_ca
+    comms/certs/export_ca
+    comms/certs/import_ca
+...
+否则，“ search <query>”命令可用于搜索与查询匹配的可用模块。
+
+[needle] > search binary
+[*] Searching for "binary"...
+
+Binary
+------
+    binary/info/checksums
+    binary/info/compilation_checks
+    binary/info/metadata
+    binary/info/provisioning_profile
+    binary/info/universal_links
+    binary/installation/install
+    binary/installation/pull_ipa
+    binary/reversing/class_dump
+    binary/reversing/class_dump_frida_enum-all-methods
+    binary/reversing/class_dump_frida_enum-classes
+    binary/reversing/class_dump_frida_find-class-enum-methods
+    binary/reversing/shared_libraries
+    binary/reversing/strings
+
+Storage
+-------
+    storage/data/files_binarycookies 
+选择后，“ info”命令可用于显示特定模块的详细信息。
+
+[needle] > use binary/reversing/strings
+[needle][strings] > info
+
+Name: Strings
+Path: modules/binary/reversing/strings.py
+Author: @LanciniMarco (@MWRLabs)
+
+Description:
+Find strings in the (decrypted) application binary, then try to extract URIs and ViewControllers
+
+Options:
+ Name     Current Value                    Required   Description
+ -------  -------------                    --------   -----------
+ ANALYZE  True                             no         Analyze recovered strings and try to recover URI
+ FILTER                                    no         Filter the output (grep)
+ LENGTH   10                               yes        Minimum length for a string to be considered
+ OUTPUT   /root/.needle/tmp/strings.txt    no         Full path of the output file 
+或者，仅获取可用选项：
+
+[needle][strings] > show options
+ Name     Current Value                    Required   Description
+ -------  -------------                    --------   -----------
+ ANALYZE  True                             no         Analyze recovered strings and try to recover URI
+ FILTER                                    no         Filter the output (grep)
+ LENGTH   10                               yes        Minimum length for a string to be considered
+ OUTPUT   /root/.needle/tmp/strings.txt    no         Full path of the output file 
+像全局选项一样，甚至模块特定的选项也可以使用“ set”和“ unset”命令进行编辑。
+
+[needle][strings] > set FILTER password
+FILTER => password
+[needle][strings] > show options
+ Name     Current Value                    Required   Description
+ -------  -------------                    --------   -----------
+ ANALYZE  True                             no         Analyze recovered strings and try to recover URI
+ FILTER   password                         no         Filter the output (grep)
+ LENGTH   10                               yes        Minimum length for a string to be considered
+ OUTPUT   /root/.needle/tmp/strings.txt    no         Full path of the output file 
+当所有选项均设置为首选时，“ run”命令可用于启动模块的执行。如果尚未选择目标应用程序（全局选项“ TARGET_APP”仍未设置），Needle将首先启动向导，该向导将帮助用户选择目标。
+
+[needle][strings] > run
+[*] Checking connection with device...
+[+] Already connected to: 127.0.0.1
+[V] Creating temp folder: /var/root/needle/
+[*] Target app not selected. Launching wizard...
+[V] Refreshing list of installed apps...
+[+] Apps found:
+    0 - com.highaltitudehacks.dvia
+    1 - uk.co.bbc.newsuk
+Please select a number: 0
+[+] Target app: com.highaltitudehacks.dvia
+[*] Decrypting the binary...
+[?] The app might be already decrypted. Trying to retrieve the IPA...
+[V] Decrypted IPA stored at: /var/root/needle/decrypted.ipa
+[*] Unpacking the decrypted IPA...
+[V] Analyzing binary...
+[+] The following strings has been found: 
+     %@: Unable to get password of credential %@
+     %s -- Cannot be used in OpenSSL mode. An IV or password is required
+     Both password and the key (%d) or HMACKey (%d) are set.
+     CFHTTPMessageAddAuthentication(httpMsg, _responseMsg, (__bridge CFStringRef)_credential.user, (__bridge CFStringRef)password, kCFHTTPAuthenticationSchemeBasic, _httpStatus == 407)
+     Cannot sign up without a password.
+     Congrats! You've found the right username and password!
+     Huh, couldn't get password of %@; trying again
+     Please enter a password
+     T@"NSString",&,N,V_password
+     T@"NSString",C,N,V_password
+     T@"UITextField",&,N,V_passwordTextField
+     ...
+[*] Saving output to file: /root/.needle/tmp/strings.txt
+最后，“ show source”命令可用于检查所选模块的实际源代码。
+
+[needle][strings] > show source
+ 1|from core.framework.module import BaseModule
+ 2|
+ 3|
+ 4|class Module(BaseModule):
+ 5|    meta = {
+ 6|           'name': 'Strings',
+ 7|           'author': '@LanciniMarco (@MWRLabs)',
+ 8|           'description': 'Find strings in the (decrypted) application binary, then try to extract URIs and ViewControllers',
+ 9|           'options': (
+10|                      ('length', 10, True, 'Minimum length for a string to be considered'),
+11|                      ('filter', '', False, 'Filter the output (grep)'),
+12|                      ('output', True, False, 'Full path of the output file'),
+13|                      ('analyze', True, False, 'Analyze recovered strings and try to recover URI'),
+14|          ),
+15|    }
+16|
+17|    # ====================================================================
+18|    # UTILS
+19|    # ====================================================================
+20|    def __init__(self, params):
+21|        BaseModule.__init__(self, params)
+...
+
 ```
 Signing for "xxx" requires a development team. 
 Select a development team in the Signing & Capabilities editor. 
