@@ -77,6 +77,7 @@ Author: @LanciniMarco (@MWRLabs)
 Description:
 Find strings in the (decrypted) application binary, then try to extract URIs and ViewControllers
 
+```
 Options:
  Name     Current Value                    Required   Description
  -------  -------------                    --------   -----------
@@ -139,6 +140,7 @@ Please select a number: 0
 最后，“ show source”命令可用于检查所选模块的实际源代码。
 
 [needle][strings] > show source
+
  1|from core.framework.module import BaseModule
  2|
  3|
@@ -160,7 +162,7 @@ Please select a number: 0
 19|    # ====================================================================
 20|    def __init__(self, params):
 21|        BaseModule.__init__(self, params)
-...
+```
 
 ```
 Signing for "xxx" requires a development team. 
