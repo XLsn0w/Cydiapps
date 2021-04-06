@@ -9,6 +9,21 @@
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="400" height="667" align="bottom" />
 
+## -----------------------------------
+
+## 解除网页禁止复制粘贴
+
+如果发现网页无法选择文字，
+找到你要复制文字的地方,
+显示源代码
+找到-webkit-user-select字段
+```
+-webkit-user-select: none
+```
+如果有，将其去掉保存刷新
+
+## -----------------------------------
+
 ## Needle绕过iOS越狱检测
 
 ### Needle使用教程
