@@ -11,6 +11,56 @@
 
 ## -----------------------------------
 
+## Mach-O注入/删除动态库
+
+### optool神器就是命令行注入
+```
+使用方法:
+
+  install -c <command> -p <payload> -t <target> [-o=<output>] [-b] [--resign] In
+  serts an LC_LOAD command into the target binary which points to the payload. T
+  his may render some executables unusable.
+
+  uninstall -p <payload> -t <target> [-o=<output>] [-b] [--resign] Removes any L
+  C_LOAD commands which point to a given payload from the target binary. This ma
+  y render some executables unusable.
+
+  strip [-w] -t <target> Removes a code signature load command from the given bi
+  nary.
+
+  restore -t <target> Restores any backup made on the target by this tool.
+
+  aslr -t <target> [-o=<output>] [-b] [--resign] Removes an ASLR flag from the m
+  acho header if it exists. This may render some executables unusable
+
+
+OPTIONS:
+  [-w --weak] Used with the STRIP command to weakly remove the signature. Withou
+  t this, the code signature is replaced with null bytes on the binary and its L
+  OAD command is removed.
+
+  [--resign] Try to repair the code signature after any operations are done. Thi
+  s may render some executables unusable.
+
+  -t|--target <target> Required of all commands to specify the target executable
+   to modify
+
+  -p|--payload <payload> Required of the INSTALL and UNINSTALL commands to speci
+  fy the path to a DYLIB to point the LOAD command to
+
+  [-c --command] Specify which type of load command to use in INSTALL. Can be re
+  export for LC_REEXPORT_DYLIB, weak for LC_LOAD_WEAK_DYLIB, upward for LC_LOAD_
+  UPWARD_DYLIB, or load for LC_LOAD_DYLIB
+
+  [-b --backup] Backup the executable to a suffixed path (in the form of _backup
+  .BUNDLEVERSION)
+
+  [-h --help] Show this message
+
+```
+
+## -----------------------------------
+
 ## 解除网页禁止复制粘贴
 
 如果发现网页无法选择文字,
