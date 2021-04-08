@@ -15,6 +15,17 @@
 
 ### optool神器就是命令行注入
 ```
+optool install -c load -p "@executable_path/RedEnvelop.dylib" -t WeChat
+//这就是给WeChat加载抢红包插件
+
+//如果要unstall，要这样：
+optool uninstall -p "@executable_path/RedEnvelop.dylib" -t WeChat
+
+//具体 dylib 的路径可以用 otool 查看：
+otool -L WeChat
+```
+
+```
 使用方法:
 
   install -c <command> -p <payload> -t <target> [-o=<output>] [-b] [--resign] In
