@@ -14,9 +14,10 @@
 ## Mach-O注入/删除动态库 insert_dylib  optool
 
 如果要让现成的App，执行自己的代码可以通过注入动态库，
+
 静态的注入可以使用optool工具修改MachO的Load Commands然后重签，
 
-动态运行时可以使用dlopen或者Bundle(path: "**.bundle").load()加载
+动态运行时可以使用dlopen   或    Bundle(path: "**.bundle").load()加载
 ```
 通过 otool -L命令查看你生成的.dylib文件
 otool -L ioswechatselectall.dylib
