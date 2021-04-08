@@ -34,7 +34,7 @@
   acho header if it exists. This may render some executables unusable
 
 
-OPTIONS:
+可选的:
   [-w --weak] Used with the STRIP command to weakly remove the signature. Withou
   t this, the code signature is replaced with null bytes on the binary and its L
   OAD command is removed.
