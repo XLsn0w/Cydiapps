@@ -13,6 +13,10 @@
 
 ## Mach-O注入/删除动态库
 
+如果要让现成的App，执行自己的代码可以通过注入动态库，
+静态的注入可以使用optool工具修改MachO的Load Commands然后重签，
+动态运行时可以使用dlopen或者Bundle(path: "**.bundle").load()加载
+
 ### optool神器就是命令行注入
 ```
 optool install -c load -p "@executable_path/RedEnvelop.dylib" -t WeChat
