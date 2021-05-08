@@ -39,6 +39,47 @@
 
 ## -----------------------------------
 
+## install_name_tool 注入动态库 使用说明
+
+```
+INSTALL_NAME_TOOL(1)					      General Commands Manual					      INSTALL_NAME_TOOL(1)
+
+NAME
+
+       install_name_tool - change dynamic shared library install names
+
+SYNOPSIS
+
+       install_name_tool [-change old new ] ... [-rpath old new ] ... [-add_rpath new ] ... [-delete_rpath new ] ... [-id name] file
+
+DESCRIPTION
+
+       Install_name_tool  changes the dynamic shared library install names and or adds, changes or deletes the rpaths recorded in a Mach-O binary.
+       For this tool to work when the install names or rpaths are larger the binary should be built with  the  ld(1)  -headerpad_max_install_names
+       option.
+
+       -change old new
+	      Changes  the dependent shared library install name old to new in the specified Mach-O binary.  More than one of these options can be
+	      specified.  If the Mach-O binary does not contain the old install name in a specified -change option the option is ignored.
+
+       -id name
+	      Changes the shared library identification name of a dynamic shared library to name.  If the Mach-O binary is not	a  dynamic  shared
+	      library and the -id option is specified it is ignored.
+
+       -rpath old new
+	      Changes  the  rpath  path  name old to new in the specified Mach-O binary.  More than one of these options can be specified.  If the
+	      Mach-O binary does not contain the old rpath path name in a specified -rpath it is an error.
+
+       -add_rpath new
+	      Adds the rpath path name new in the specified Mach-O binary.  More than one of these options can be specified.  If the Mach-O binary
+	      already contains the new rpath path name specified in -add_rpath it is an error.
+
+       -delete_rpath old
+	      deletes  the  rpath  path  name old in the specified Mach-O binary.  More than one of these options can be specified.  If the Mach-O
+	      binary does not contains the old rpath path name specified in -delete_rpath it is an error.
+
+```
+
 ## 基于cynject注入dylib
 ```
 #include <sys/cdefs.h>
