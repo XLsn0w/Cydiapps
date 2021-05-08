@@ -39,6 +39,115 @@
 
 ## -----------------------------------
 
+## 基于cynject注入dylib
+```
+#include <sys/cdefs.h>
+#include <sys/types.h>
+#include <sys/param.h>
+#include <mach/mach.h>
+#include <mach/boolean.h>
+#include <dispatch/dispatch.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <spawn.h>
+#include <assert.h>
+extern char ***_NSGetEnviron(void);
+extern int proc_listallpids(void *, int);
+extern int proc_pidpath(int, void *, uint32_t);
+static const char *cynject_path = "/usr/bin/cynject";
+static const char *dispatch_queue_name = NULL;
+static int process_buffer_size = 4096;
+static pid_t process_pid = -1;
+static boolean_t find_process(const char *name, pid_t *ppid_ret) {
+    pid_t *pid_buffer;
+    char path_buffer[MAXPATHLEN];
+    int count, i, ret;
+    boolean_t res = FALSE;
+    
+    pid_buffer = (pid_t *)calloc(1, process_buffer_size);
+    assert(pid_buffer != NULL);
+    
+    count = proc_listallpids(pid_buffer, process_buffer_size);
+    if (count) {
+        for (i = 0; i < count; i++) {
+            pid_t ppid = pid_buffer[i];
+            
+            ret = proc_pidpath(ppid, (void *)path_buffer, sizeof(path_buffer));
+            if (ret < 0) {
+                printf("(%s:%d) proc_pidinfo() call failed.\n", __FILE__, __LINE__);
+                continue;
+            }
+            
+            if (strstr(path_buffer, name)) {
+                res = TRUE;
+                *ppid_ret = ppid;
+                break;
+            }
+        }
+    }
+    
+    free(pid_buffer);
+    return res;
+}
+static void inject_dylib(const char *name, pid_t pid, const char *dylib) {
+    char **argv;
+    char pid_buf[32];
+    int res;
+    pid_t child;
+    
+    argv = calloc(4, sizeof(char *));
+    assert(argv != NULL);
+    
+    snprintf(pid_buf, sizeof(pid_buf), "%d", pid);
+    
+    argv[0] = (char *)name;
+    argv[1] = (char *)pid_buf;
+    argv[2] = (char *)dylib;
+    argv[3] = NULL;
+    
+    printf("(%s:%d) calling \"%s %s %s\"\n", __FILE__, __LINE__, argv[0], argv[1], argv[2]);
+    
+    res = posix_spawn(&child, argv[0], NULL, NULL, argv, (char * const *)_NSGetEnviron());
+    assert(res == 0);
+    
+    return;
+}
+int main(int argc, char *argv[]) {
+    printf("***** pp_inject by piaoyun ***** \n");
+    if (geteuid() != 0) {
+        printf("FATAL: must be run as root.\n");
+        return 1;
+    }
+    
+    if (argc < 3 ) {
+        printf("FATAL: ppinject <pid> <dylib>.\n");
+        return 2;
+    }
+    
+    const char *process_name = argv[1];
+    const char *dylib_path = argv[2];
+    
+    
+    printf("Creating queue...\n");
+    dispatch_queue_t queue = dispatch_queue_create(dispatch_queue_name, 0);
+    
+    printf("Finding %s PID...\n", process_name);
+    dispatch_async(queue, ^{ while (!find_process(process_name, &process_pid)); });
+    
+    printf("Waiting for queue to come back...\n");
+    dispatch_sync(queue, ^{});
+    
+    printf("%s PID is %d\n", process_name, process_pid);
+    
+    printf("Injecting %s into %s...\n", dylib_path, process_name);
+    inject_dylib(cynject_path, process_pid, dylib_path);
+    
+    return 0;
+}
+
+```
+
 ## Mach-O注入/删除动态库 insert_dylib  optool
 
 如果要让现成的App，执行自己的代码可以通过注入动态库，
