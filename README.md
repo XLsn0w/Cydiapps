@@ -41,6 +41,14 @@
 
 ## install_name_tool 注入动态库 使用说明
 
+     （1）@executable_path。这个path很少用，本质上就是可执行程序的路径。在动态库中基本上不使用这个path.
+
+      (2) @loader_path。这个path在之前的应用中用的非常多，可以通过这个path来设置动态库的install path name。
+      但是它有自己的局限性，就是当一个动态库同时被多个程序引用时，如果位置不一样的话仍然需要手动修改。这个在参考链接中有说明。  
+      (3) @rpath  它是run path的缩写。本质上它不是一个明确的path，甚至可以说它不是一个path。
+      它只是一个变量，或者叫占位符。这个变量通过XCode中的run path选项设置值，或者通过install_name_tool的-add_rpath设置值。
+      设置好run path之后，所有的@rpath都会被替换掉。此外，run path是可以设置多个值的
+      
 ```
 INSTALL_NAME_TOOL(1)					      General Commands Manual					      INSTALL_NAME_TOOL(1)
 
