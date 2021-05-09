@@ -41,6 +41,8 @@
 
 ## -----------------------------------
 
+iOS动态库注入工具：cynject、yololib、insert_dylib、optool、install_name_tool
+
 ## Cycript
 
 cycript是大神saurik开发的一个非常强大的工具,
