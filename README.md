@@ -45,8 +45,13 @@
 ![](https://github.com/CoocooFroggy/FutureRestore-GUI/blob/master/.github/Dark.png?raw=true)
 
 ### 命令行安装FutureRestore-GUI
+
+Mac利用brew命令行安装
 ```
-Mac: brew install futurerestore-gui
+macOS: brew install futurerestore-gui
+```
+Windows利用winget命令行安装
+```
 Windows: winget install futurerestore-gui
 ```
 
