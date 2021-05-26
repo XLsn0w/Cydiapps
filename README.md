@@ -40,7 +40,7 @@
 # -----------------------------------
 # -----------------------------------
 
-## FutureRestore-GUI
+## FutureRestore-GUI:  https://github.com/CoocooFroggy/FutureRestore-GUI
 ![](https://github.com/CoocooFroggy/FutureRestore-GUI/blob/master/.github/Light.png?raw=true)
 ![](https://github.com/CoocooFroggy/FutureRestore-GUI/blob/master/.github/Dark.png?raw=true)
 
