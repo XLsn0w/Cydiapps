@@ -1,5 +1,6 @@
 # iOS逆向工程越狱开发教程  
 # [iOS逆向请加QQ群号: 751433362]
+# [iOS逆向请加QQ群号: 582415518]
 # iOS Jailbreak Develop/hook/Reverse
 # 我的微信公众号: Cydia
 <img src="https://github.com/XLsn0w/XLsn0w/blob/XLsn0w/XLsn0w/Cydiapple.png?raw=true" alt="XLsn0w" width="360" height="360" align="middle" />
@@ -39,6 +40,26 @@
 
 # -----------------------------------
 # -----------------------------------
+
+## debugserver - iOS逆向调试
+
+一 lldb调试原理：debugserver
+xcode的lldb之所以能调试app，是因为手机运行app，lldb会把调试指令发给手机的debugServer; 
+debugServer是由Xcode第一次运行程序给安装到手机上。
+
+Xcode上查看debugserver：
+按住command键点击Xcode，找到xcode.app显示包内容/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/15.0 
+找到DeveloperDiskImage.dmg 里的usr -> bin -> debugserver
+
+手机的根目录下的 Developer -> usr -> bin 里能找到debugserver，越狱手机可以查看
+越狱环境下，lldb连接手机的debugserver,然后就可以通过debugserver调试某个app
+
+debugserver如何调试app？
+
+## ptrace函数
+debugserver通过ptrace函数调试app
+ptrace是系统函数，此函数提供一个进程去监听和控制另一个进程，
+并且可以检测被控制进程的内存和寄存器里面的数据。ptrace可以用来实现断点调试和系统调用跟踪。
 
 ## FutureRestore-GUI:  https://github.com/CoocooFroggy/FutureRestore-GUI
 ![](https://github.com/CoocooFroggy/FutureRestore-GUI/blob/master/.github/Light.png?raw=true)
