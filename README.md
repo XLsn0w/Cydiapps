@@ -41,6 +41,22 @@
 # -----------------------------------
 # -----------------------------------
 
+## iOS逆向App流程
+```
+1. Clutch、frida, CrackXI 砸壳ipa；
+
+2. class-dump导出class类头文件；
+
+3. Reveal、Cycript, FLEX分析界面；
+
+4. 分析类关系、函数调用逻辑，尝试进行hook；
+
+5. theos调试、编译、打包、安装；
+
+6. codesign重签名、发布；
+
+```
+
 ## debugserver - iOS逆向调试
 
 一 lldb调试原理：debugserver
