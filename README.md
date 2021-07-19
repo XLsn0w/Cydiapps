@@ -51,10 +51,9 @@
 
 4. 分析类关系、函数调用逻辑，尝试进行hook；
 
-5. theos调试、编译、打包、安装；
+5. theos调试、编译、打包、注入dylib；
 
 6. codesign重签名、发布；
-
 ```
 
 ## debugserver - iOS逆向调试
