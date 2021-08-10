@@ -73,13 +73,9 @@
 
 # -----------------------------------
 
-## frida-ios-hook-jailbreak
+## python3-frida-ios-hook-jailbreak
 ```
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-# Author : AloneMonkey
-# blog: www.alonemonkey.com
 
 import sys
 import codecs
