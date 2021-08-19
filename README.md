@@ -73,6 +73,23 @@
 
 # -----------------------------------
 
+## 浅谈iOS ipa砸壳知识
+```
+App Store上下载的包
+苹果会对Mach-O里面__TETX段里面的内容进行加密，如果不解密无法做后续操作。
+
+所以砸壳dump ipa技术就应运而生
+砸壳分为静态砸壳和动态砸壳
+
+动态砸壳的原理主要是
+虽然Mach-O中的__TEXT段被苹果加密了，
+但是系统如果要运行程序，肯定需要对内容进行解密。
+所以就不去主动的砸掉原有的加密壳，而是当应用程序打开运行后，壳被系统自动解密后，
+在内存中把解密后的数据二进制文件提取出来，也就达到了砸壳的目的。
+(手机端插件CrackerXI砸壳, frida-ios-dump电脑砸壳)
+iOS利用CrackerXI（脱壳）: https://www.jianshu.com/p/97a97ff81384
+```
+
 ## iOS AutoreleasePool原理
 ```
 自动释放池本质是一个AutoreleasePoolPage结构体对象，栈结构存储，每一个AutoreleasePoolPage以双向链表形式连接
