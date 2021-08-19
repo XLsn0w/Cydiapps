@@ -73,12 +73,26 @@
 
 # -----------------------------------
 
+## iOS AutoreleasePool原理
+```
+自动释放池本质是一个AutoreleasePoolPage结构体对象，栈结构存储，每一个AutoreleasePoolPage以双向链表形式连接
+自动释放的压栈和出栈本质上是调用AutoreleasePoolPage的push和pop方法
+push 压栈
+判断hotPage是否存在
+不存在，autoreleaseNoPage创建新hotPage，调用add方法将对象添加至page栈中
+存在满了，autoreleaseFullPage初始新的page
+存在没满，调用add方法将对象添加到page的next指针，next指针++
+pop 出栈
+执行pop出栈时，会传入push操作的返回值，即POOL_BOUNDARY的内存地址token，根据token找到哨兵对象所在，并释放之前的对象，next指针--
+```
+
 ## 响应式编程
 ```
-也叫做声明式编程，这是现在前端开发的主流，当然对于客户端开发的一种趋势，比如 Jetpack Compose 、SwiftUI 。
+也叫做声明式编程，这是现在前端开发的主流，当然对于客户端开发的一种趋势，比如SwiftUI 。
 
 响应式简单来说其实就是你不需要手动更新界面，只需要把界面通过代码“声明”好，然后把数据和界面的关系接好，数据更新了界面自然就更新了。
-从代码层面看，对于原生开发而言，没有 xml 的布局，没有 storyboard，布局完全由代码完成，所见即所得，同时也不会需要操作界面“对象”去进行赋值和更新，你所需要做的就是配置数据和界面的关系。
+从代码层面看，对于原生开发而言，没有 xml 的布局，没有 storyboard，布局完全由代码完成，所见即所得，
+同时也不会需要操作界面“对象”去进行赋值和更新，你所需要做的就是配置数据和界面的关系。
 
 响应式开发比数据绑定或者 MVVM 不同的地方是，它每次都是重新构建和调整整个渲染树，而不是简单的对 UI 进行 visibility 操作。
 ```
