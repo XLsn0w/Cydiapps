@@ -73,6 +73,25 @@
 
 # -----------------------------------
 
+# Cydia Substrate
+Cydia Substrate 原名为 Mobile Substrate ，
+它的主要作用是针对OC方法、C函数以及函数地址进行HOOK操作。当然它并不是仅仅针对iOS而设计的，安卓一样可以用。
+官方地址：http://www.cydiasubstrate.com/
+
+Cydia Substrate主要由3部分组成：
+
+MobileHooker
+MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层调用objc的runtime和fishhook来替换系统或者目标应用的函数.
+```
+其中有两个函数:
+ void MSHookMessageEx(Class class, SEL selector, IMP replacement, IMP result)
+ 主要作用于Objective-C方法
+ 
+ void MSHookFunction(voidfunction,void* replacement,void** p_original)
+ 主要作用于C和C++函数, Logos语法的%hook 就是对此函数做了一层封装
+``` 
+ # -----------------------------------
+
 # iOS动态库注入方式
 ```
 dylib注入也有三种方式：
