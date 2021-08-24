@@ -73,8 +73,9 @@
 
 # -----------------------------------
 
-# Cydia Substrate
-Cydia Substrate 原名为 Mobile Substrate ，
+# Cydia Substrate - 底层使用Method Swizzle 和 fishhook实现
+
+Cydia Substrate 原名为 Mobile Substrate 由SaurikIT开发
 它的主要作用是针对OC方法、C函数以及函数地址进行HOOK操作。当然它并不是仅仅针对iOS而设计的，安卓一样可以用。
 官方地址：http://www.cydiasubstrate.com/
 
