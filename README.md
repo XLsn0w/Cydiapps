@@ -94,6 +94,15 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
 ``` 
  # -----------------------------------
  
+ ## Charles 抓包工具
+ # -----------------------------------
+  Charles激活码:  https://www.zzzmode.com/mytools/charles/
+  安装使用最新版，官方下载地址 https://www.charlesproxy.com/download
+  此工具用于计算Charles激活码，下载代码 ，在线运行代码：https://play.golang.org/p/Qtt2CmHbTzU
+  blog介绍: https://blog.zzzmode.com/2017/05/16/charles-4.0.2-cracked
+  输入RegisterName(此名称随意，用于显示 Registered to xxx)，点击生成计算出注册码，打开Charles输入注册码即可。
+ # -----------------------------------
+ 
 ## dyld 苹果操作系统的动态链接器
  ```
 dyld和操作系统的关系准确来说，操作系统通过映射的方式将它加载到进程的地址空间中。
