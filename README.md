@@ -94,6 +94,39 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
 ``` 
  # -----------------------------------
  
+ ## 越狱iOS系统内存限制修改
+
+在 iOS 中重要的监控网络进程内存使用量和停止溢出限制的边缘配置在它的配置 Jetsam 中有相关的内存做限制的，
+它的一般文件在/System/Library/LaunchDaemons/com.apple.jetsamproperties.{Model}.plist，
+模型在各个手机上可能里面对 VPN 进程做限制的条目是：
+
+				<key>com.apple.networkextension.packet-tunnel</key>
+				<dict>
+					<key>ActiveHardMemoryLimit</key>
+					<integer>15</integer>
+					<key>InactiveHardMemoryLimit</key>
+					<integer>15</integer>
+					<key>JetsamPriority</key>
+					<integer>14</integer>
+				</dict>
+打开文件后搜索packet-tunnel找到，其中有两个15就是 iOS 对 VPN 进程的内存限制值 15MB。
+
+要修改iOS VPN进程的内存限制，我们很容易复制iFile等文件管理工具找到这些配置文件，到电脑上然后对相关数值进行修改，修改后覆盖原始文件，恢复一下手机智能。
+
+打开要这些plist文件需要一些特殊的编辑器;如果你用的是macOS，且安装有Xcode中，那就可以直接双击打开，
+
+要修改的很明显，就是要把内容改大就行，比如把原来的15MB的限制改为30MB的限制：
+
+				<key>com.apple.networkextension.packet-tunnel</key>
+				<dict>
+					<key>ActiveHardMemoryLimit</key>
+					<integer>30</integer>
+					<key>InactiveHardMemoryLimit</key>
+					<integer>30</integer>
+					<key>JetsamPriority</key>
+					<integer>14</integer>
+				</dict>
+ 
  ## Charles 抓包工具
   Charles激活码:  https://www.zzzmode.com/mytools/charles/
   ```
