@@ -94,6 +94,21 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
 ``` 
  # -----------------------------------
  
+ ### 自定义创建.dylib文件
+ ```
+ 1.创建新工程 , 选择OS X ->Framework&Library-> Library
+ 
+ 2.TARGETS ->Build Settings -> Installation Directory 修改成@executable_path/
+ 
+ 3.TARGETS -> Build Settings -> Base SDK 改成Latest iOS或者iOS X.X
+ 
+ 4.PROJECT->Info->iOS Deployment Target 选择版本支持
+ 
+ 5.Project->Build Settings ->Base SDK 改成Latest iOS或者iOS X.X6.选择证书
+ 
+ 7.选择设备, 运行
+ ```
+ 
  ## 越狱iOS系统内存限制修改
 
 在 iOS 中重要的监控网络进程内存使用量和停止溢出限制的边缘配置在它的配置 Jetsam 中有相关的内存做限制的，
