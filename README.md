@@ -95,8 +95,7 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
  # -----------------------------------
  
   ### iOS群控实现 - WebDriverAgent
-  ### [iPhone群控测试开发教程](
-  https://mp.weixin.qq.com/s?__biz=MjM5MjUxODExMQ==&mid=2652393753&idx=1&sn=1edb1a7db6b4225dbd4b6b4df8af96f7&chksm=bd49eba98a3e62bf45ec72d14dd0640268bef05efb4489edd3c0c4803049e50f369fa98c4711&mpshare=1&scene=22&srcid=11160hQ6GGnxFSQxIxb5Yf2N&sharer_sharetime=1637022101829&sharer_shareid=7a5b79e2ee76a21460e7fe67bd1a6b50#rd)
+  ## [iPhone群控测试开发教程](https://mp.weixin.qq.com/s?__biz=MjM5MjUxODExMQ==&mid=2652393753&idx=1&sn=1edb1a7db6b4225dbd4b6b4df8af96f7&chksm=bd49eba98a3e62bf45ec72d14dd0640268bef05efb4489edd3c0c4803049e50f369fa98c4711&mpshare=1&scene=22&srcid=11160hQ6GGnxFSQxIxb5Yf2N&sharer_sharetime=1637022101829&sharer_shareid=7a5b79e2ee76a21460e7fe67bd1a6b50#rd)
  ```
 WebDriverAgent是用于iOS的WebDriver服务器实现，
 可用于远程控制iOS设备。它允许您启动和终止应用程序，
