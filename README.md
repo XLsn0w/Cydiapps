@@ -94,6 +94,86 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
 ``` 
  # -----------------------------------
  
+  ### iOS群控实现 - WebDriverAgent
+  ### [iPhone群控测试开发教程](
+  https://mp.weixin.qq.com/s?__biz=MjM5MjUxODExMQ==&mid=2652393753&idx=1&sn=1edb1a7db6b4225dbd4b6b4df8af96f7&chksm=bd49eba98a3e62bf45ec72d14dd0640268bef05efb4489edd3c0c4803049e50f369fa98c4711&mpshare=1&scene=22&srcid=11160hQ6GGnxFSQxIxb5Yf2N&sharer_sharetime=1637022101829&sharer_shareid=7a5b79e2ee76a21460e7fe67bd1a6b50#rd)
+ ```
+WebDriverAgent是用于iOS的WebDriver服务器实现，
+可用于远程控制iOS设备。它允许您启动和终止应用程序，
+点击并滚动视图或确认屏幕上是否存在视图。
+这使其成为用于应用程序端到端测试或通用设备自动化的理想工具。
+
+它通过链接XCTest.framework和调用Apple的API
+来直接在设备上执行命令来工作。
+WebDriverAgent是Facebook开发和用于端到端测试的
+
+
+安装 homebrew
+homebrew 是 Mac OS 下最优秀的包管理工具，没有之一。
+xcode-select --install ruby -e "$(curl -fsSLhttps://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+安装 python
+脚本语言 python 用来编写模拟的用户操作。
+brew install python3
+
+安装 libimobiledevice
+libimobiledevice 是一个使用原生协议与苹果iOS设备进行通信的库。
+通过这个库我们的 Mac OS 能够轻松获得 iOS 设备的信息。
+brew install --HEAD libimobiledevice
+
+
+查看 iOS 设备日志
+
+
+idevicesyslog
+查看链接设备的UDID
+
+
+idevice_id --list
+查看设备信息
+
+
+ideviceinfo
+获取设备时间
+
+
+idevicedate
+获取设备名称
+
+
+idevicename
+端口转发
+
+
+iproxy XXXX YYYY
+屏幕截图
+idevicescreenshot
+
+安装 Carthage
+
+Carthage 是一款iOS项目依赖管理工具，与 Cocoapods 有着相似的功能，可以帮助你方便的管理三方依赖。它会把三方依赖编译成 framework，以 framework 的形式将三方依赖加入到项目中进行使用和管理。
+
+WebDriverAgent 本身使用了 Carthage 管理项目依赖，因此需要提前安装 Carthage。
+
+brew install carthage
+
+安装 WebDriverAgent
+
+WebDriverAgent 是 Facebook 推出的一款 iOS 移动测试框架，能够支持模拟器以及真机。
+
+WebDriverAgent 在 iOS 端实现了一个 WebDriver server ，借助这个 server 我们可以远程控制 iOS 设备。你可以启动、杀死应用，点击、滚动视图，或者确定页面展示是否正确。
+
+从 github 克隆 WebDriverAgent 的源码。
+
+git clone https://github.com/facebook/WebDriverAgent.git
+
+运行初始化脚本，确保之前已经安装过 Carthage。
+
+iPhone群控测试开发教程
+https://mp.weixin.qq.com/s?__biz=MjM5MjUxODExMQ==&mid=2652393753&idx=1&sn=1edb1a7db6b4225dbd4b6b4df8af96f7&chksm=bd49eba98a3e62bf45ec72d14dd0640268bef05efb4489edd3c0c4803049e50f369fa98c4711&mpshare=1&scene=22&srcid=11160hQ6GGnxFSQxIxb5Yf2N&sharer_sharetime=1637022101829&sharer_shareid=7a5b79e2ee76a21460e7fe67bd1a6b50#rd
+
+ ```
+ 
  ### 自定义创建.dylib文件
  ```
  1.创建新工程 , 选择OS X ->Framework&Library-> Library
