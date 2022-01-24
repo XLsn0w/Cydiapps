@@ -93,6 +93,42 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
  主要作用于C和C++函数, Logos语法的%hook 就是对此函数做了一层封装
 ``` 
 
+# -----------------------------------
+
+## 关于4个 0day iOS 漏洞
+
+Denis Tokarev 发表文章公开披露 4 个 0-day iOS 漏洞，
+
+吐槽苹果没有署名感谢，最关键是苹果没有给赏金！
+
+作者怒了, 一口气开源4个漏洞  https://github.com/illusionofchaos/ios-nehelper-wifi-info-0day
+
+以下是作者披露文章：
+
+文章:  Disclosure of three 0-day iOS vulnerabilities and critique of Apple Security Bounty program / Хабр
+https://habr.com/ru/post/579714/
+
+# -----------------------------------
+
+二、事件始末
+
+从 Twitter 可知 illusionofchaos 为化名的研究人员真名是 Denis Tokarev（丹尼斯·托卡列夫），
+
+目前关于 Denis Tokarev 个人资料并不多，通过其使用俄语的网页披露漏洞，猜测他是俄罗斯人。
+
+作者称在今年 3 月 10 日 ~ 5 月 4 日之间给苹果报告了 4 个 0-day 漏洞，
+
+只在 iOS 14.7 修复了一个，但苹果在iOS 14.7 安全性内容
+
+更新页面并没有披露出来！当作者向苹果(Apple Product Security)提出质疑时，他们承诺在下一次系统版本更新的页面中列出，
+
+但此后的三次版本发布都没有列出。所以作者怒了！决定披露出来！
+
+0-day 漏洞
+
+0day，zero-day vulnerability，0-day vulnerability，零日漏洞或零时差漏洞。
+# -----------------------------------
+
 ## `iOS`平台付费软件篇 (iOS)
 
 评分   | 名称  | 功能简述 | 单价 | 测评
