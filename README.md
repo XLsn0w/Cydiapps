@@ -93,6 +93,22 @@ MobileHooker顾名思义用于HOOK。它定义一系列的宏和函数，底层�
  
  void MSHookFunction(voidfunction,void* replacement,void** p_original)
  主要作用于C和C++函数, Logos语法的%hook 就是对此函数做了一层封装
+ 
+ 利用DCRM V4搭建Cydia Repo教程 https://github.com/XLsn0w/Dumb-Cydia-Repository-Manager
+
+添加公众号Cydia源:
+Cydia Repo: https://XLsn0w.github.io/tweak/
+Cydia Repo: https://XLsn0w.github.io/tweaks/
+Cydia Repo: https://XLsn0w.github.io/Cydiapp/
+
+iOS进阶福利群
+QQ会员群号: 582415518 (内含稀缺资源下载)
+点击赞赏二维码+WeChat
+
+iOS教学
+Cydia C++源码
+iOS13-14越狱源代码
+iOS14.5完美越狱实现源码
 ``` 
 
 # -----------------------------------
