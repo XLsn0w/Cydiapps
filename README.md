@@ -1,4 +1,6 @@
 # iOS应用逆向工程-Cydia越狱开发  
+# 我的微信公众号: Cydiapp
+# VIP QQ群号: 582415518
 ```
 //                            _ooOoo_
 //                           o8888888o
@@ -35,8 +37,8 @@
 
 # -----------------------------------
 
-# 我的微信公众号: Cydia
 # 我的微信公众号: Cydiapp
+# 我的微信公众号: Cydia
 # 我的微信公众号: Cydia开发者
 <img src="https://github.com/XLsn0w/XLsn0w/blob/XLsn0w/XLsn0w/Cydiapple.png?raw=true" alt="XLsn0w" width="360" height="360" align="middle" />
 
