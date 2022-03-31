@@ -81,6 +81,34 @@
 ## 修复Xcode12 MacOSX Package Types.xcspec not found报错
 下载地址: https://github.com/XLsn0w/MonkeyDev_Xcode12
 
+# -----------------------------------
+# 遇到的问题
+# libstdc++
+`Xcode 10`之后删除的`libstdc++`库
+
+1. 先下载下来这个项目，然后打开终端`cd`到`libstdc--master`文件夹；
+2. 如果你使用的是 Xcode 10，则将`install-xcode_10.sh`拖到终端中执行即可；
+3. Xcode 11 之后的版本则将`install-xcode_11+.sh`拖到终端中执行。
+
+## iOS file not found: /usr/lib/libstdc++.dylib
+```
+~ % git clone https://github.com/MonkeyDev_Xcode12/Xcode11+libstdc++
+
+~ % cd /Users/apple/libstdc- 
+
+~ % sudo sh install-xcode_11+.sh
+```
+# -----------------------------------
+### “MonkeyDev error: Signing for “xlsn0wDylib” requires a development team.”
+### “Select a development team in the Signing & Capabilities editor.”
+
+在Xcode中 选中Dylib对应的target (in target ‘xlsn0wDylib’)
+
+点击Build Settings 中
+
+添加"CODE_SIGNING_ALLOWED = NO" 关闭对Dylib的Code签名
+# -----------------------------------
+
 # Cydia Substrate 
 ## - 底层使用Method Swizzle 和 fishhook实现
 
