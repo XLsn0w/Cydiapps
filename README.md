@@ -92,12 +92,13 @@
 
 ## iOS file not found: /usr/lib/libstdc++.dylib
 ```
-~ % git clone https://github.com/MonkeyDev_Xcode12/Xcode11+libstdc++
+下载解压这个文件 https://github.com/MonkeyDev_Xcode12/Xcode11+libstdc++
 
-~ % cd /Users/apple/libstdc- 
+~ % cd /Users/xlsn0w/libstdc- 
 
 ~ % sudo sh install-xcode_11+.sh
 ```
+
 # -----------------------------------
 ### “MonkeyDev error: Signing for “xlsn0wDylib” requires a development team.”
 ### “Select a development team in the Signing & Capabilities editor.”
