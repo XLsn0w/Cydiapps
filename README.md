@@ -77,6 +77,10 @@
 
 # -----------------------------------
 
+# MonkeyDev 支持Xcode 12安装
+## 修复Xcode12 MacOSX Package Types.xcspec not found报错
+下载地址: https://github.com/XLsn0w/MonkeyDev_Xcode12
+
 # Cydia Substrate 
 ## - 底层使用Method Swizzle 和 fishhook实现
 
