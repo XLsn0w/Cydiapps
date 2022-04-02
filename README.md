@@ -39,11 +39,11 @@
 
 # 我的微信公众号: Cydiapp
 # 我的微信公众号: Cydia
-# 我的微信公众号: Cydia开发者
-<img src="https://github.com/XLsn0w/XLsn0w/blob/XLsn0w/XLsn0w/Cydiapple.png?raw=true" alt="XLsn0w" width="360" height="360" align="middle" />
 
-# 我的私人公众号: XLsn0w
-<img src="https://github.com/XLsn0w/iOS-Reverse/blob/master/XLsn0w.jpeg?raw=true" alt="XLsn0w" width="350" height="400" align="middle" />
+### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
+### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
+
+<img src="https://mmbiz.qpic.cn/mmbiz_png/e1CScbLqXaDLNkHOHfTk0u2AMqoibONBGibqic0tAATsf1Hzusibe3YvvaDMiamagt9OfGHsEicuu9YsfxibIsy0EmEjA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="XLsn0w" width="330" height="200" align="bottom" />
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="600" height="1000" align="middle" />
 
