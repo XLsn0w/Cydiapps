@@ -117,6 +117,13 @@ Cydia Substrate 原名为 Mobile Substrate 由SaurikIT开发
 它的主要作用是针对OC方法、C函数以及函数地址进行HOOK操作。当然它并不是仅仅针对iOS而设计的，安卓一样可以用。
 官方地址：http://www.cydiasubstrate.com/
 
+## libsubstrate.dylib 库文件
+## libsubstitute.dylib 库文件
+
+从越狱的iPhone上拷贝/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate 到Mac电脑的目录 /opt/theos/lib/ ,并修改名称为 libsubstrate.dylib
+
+### 如果是使用unc0ver越狱的话, 用Filza从 /usr/lib/libsubstitute.dylib 复制到Mac电脑的目录 /opt/theos/lib/
+
 Cydia Substrate主要由3部分组成：
 
 MobileHooker
