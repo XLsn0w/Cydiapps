@@ -179,6 +179,29 @@ iOS13-14越狱源代码
 iOS14.5完美越狱实现源码
 ``` 
 
+## 如果.ipa或.app是做了防护 只能runtime classdumpdyld弄了
+参考文章: https://mp.weixin.qq.com/s/m1TUrSfc4cvYbGAcGAtQeg
+![](https://mmbiz.qpic.cn/mmbiz/e1CScbLqXaDU745odDN2fHpcCu9VhicGElVgalW9QJcKLicRqJNHor0FgMxuicX8CKnbeqMV6Svib6EQ9BbXbfAv7g/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1)
+```
+#cycript -p SpringBoard
+
+@import net.limneos.classdumpdyld;
+
+classdumpdyld.dumpClass(SpringBoard);
+@"Wrote file /tmp/SpringBoard.h"
+
+classdumpdyld.dumpBundle([NSBundle mainBundle]);
+@"Wrote all headers to /tmp/SpringBoard"
+
+// Dump any bundle other than the main bundle 
+classdumpdyld.dumpBundle([NSBundle bundleWithIdentifier:@"com.apple.UIKit"]);
+@"Wrote all headers to /tmp/UIKit"
+
+// Dump any image loaded in the process using any class name it contains
+classdumpdyld.dumpBundleForClass(CallBarControllerModern);
+@"Wrote all headers to /tmp/CallBar7"
+```
+
 ###  iOS untethered jailbreak for iOS 9.x and 10.x p0laris Implementation principle
 ```
 #include <Foundation/Foundation.h>
