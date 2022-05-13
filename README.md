@@ -179,6 +179,9 @@ iOS13-14越狱源代码
 iOS14.5完美越狱实现源码
 ``` 
 
+## iOS获取任何砸壳ipa的资源图片工具
+iOS Images Extractor : https://github.com/devcxm/iOS-Images-Extractor
+
 ## 如果.ipa或.app是做了防护 只能runtime classdumpdyld弄了
 参考文章: https://mp.weixin.qq.com/s/m1TUrSfc4cvYbGAcGAtQeg
 ![](https://mmbiz.qpic.cn/mmbiz/e1CScbLqXaDU745odDN2fHpcCu9VhicGElVgalW9QJcKLicRqJNHor0FgMxuicX8CKnbeqMV6Svib6EQ9BbXbfAv7g/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1)
