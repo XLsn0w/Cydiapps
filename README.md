@@ -1,6 +1,5 @@
 # iOS应用逆向工程-Cydia越狱开发  
 # 我的微信公众号: Cydiapp
-# VIP QQ群号: 582415518
 ```
 //                            _ooOoo_
 //                           o8888888o
@@ -181,6 +180,11 @@ iOS14.5完美越狱实现源码
 
 ## iOS获取任何砸壳ipa的资源图片工具
 iOS Images Extractor : https://github.com/devcxm/iOS-Images-Extractor
+
+## iOS调试UI的工具Lookin
+Lookin 可以查看与修改 iOS App 里的 UI 对象，
+类似于 Xcode 自带的 UI Inspector 工具，
+或另一款叫做 Reveal 的软件。 官网：https://lookin.work/
 
 ## 如果.ipa或.app是做了防护 只能runtime classdumpdyld弄了
 参考文章: https://mp.weixin.qq.com/s/m1TUrSfc4cvYbGAcGAtQeg
