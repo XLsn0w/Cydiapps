@@ -177,6 +177,24 @@ Cydia C++源码
 iOS13-14越狱源代码
 iOS14.5完美越狱实现源码
 ``` 
+## 解决MacFailed to connect to raw.githubusercontent.com port 443
+## 解决raw.githubusercontent.com 无法访问
+1.打开
+https://www.ipaddress.com
+这个网站中的查询框中输入：raw.githubusercontent.com
+回车就能有下图中的网页，在里面找到相应的的ipv4地址：
+这四个地址随便选一个即可：
+```
+🇺🇸 raw.githubusercontent.com	A	185.199.108.133
+🇺🇸 raw.githubusercontent.com	A	185.199.109.133
+🇺🇸 raw.githubusercontent.com	A	185.199.110.133
+🇺🇸 raw.githubusercontent.com	A	185.199.111.133
+```
+在cmd+shift+G 输入/etc/hosts
+在hosts 添加一行代码 如下
+```
+185.199.108.133     raw.githubusercontent.com
+```
 
 ## iOS获取任何砸壳ipa的资源图片工具
 iOS Images Extractor : https://github.com/devcxm/iOS-Images-Extractor
