@@ -3,6 +3,8 @@
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 # 我的微信公众号: Cydiapp
+
+
 ```
 //                            _ooOoo_
 //                           o8888888o
@@ -35,9 +37,8 @@
 //                  别人笑我忒疯癫，我笑自己命太贱；
 //                  不见满街漂亮妹，哪个归得程序员？
 ```
-# iOS Jailbreak Develop-hook-Reverse
 
-# -----------------------------------
+# iOS Jailbreak Develop-hook-Reverse
 
 # 我的微信公众号: Cydiapp
 # 我的微信公众号: Cydia
@@ -45,8 +46,6 @@
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="600" height="1000" align="middle" />
-
-# -----------------------------------
 
 # MonkeyDev 支持Xcode 12安装
 ## 修复Xcode12 MacOSX Package Types.xcspec not found报错
