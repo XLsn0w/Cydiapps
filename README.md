@@ -1,4 +1,7 @@
 # iOS应用逆向工程-Cydia越狱开发  
+### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
+### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
+<img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 # 我的微信公众号: Cydiapp
 ```
 //                            _ooOoo_
@@ -38,12 +41,9 @@
 
 # 我的微信公众号: Cydiapp
 # 我的微信公众号: Cydia
-
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
-
-<img src="[https://mmbiz.qpic.cn/mmbiz_png/e1CScbLqXaDLNkHOHfTk0u2AMqoibONBGibqic0tAATsf1Hzusibe3YvvaDMiamagt9OfGHsEicuu9YsfxibIsy0EmEjA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1](https://github.com/XLsn0w/Cydiapp/raw/main/XLsn0w's%20Cydia%20Repo.png?raw=true)" alt="XLsn0w" width="580" height="340" align="bottom" />
-
+<img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="600" height="1000" align="middle" />
 
 # -----------------------------------
