@@ -42,37 +42,9 @@
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
 
-<img src="https://mmbiz.qpic.cn/mmbiz_png/e1CScbLqXaDLNkHOHfTk0u2AMqoibONBGibqic0tAATsf1Hzusibe3YvvaDMiamagt9OfGHsEicuu9YsfxibIsy0EmEjA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="XLsn0w" width="580" height="340" align="bottom" />
+<img src="[https://mmbiz.qpic.cn/mmbiz_png/e1CScbLqXaDLNkHOHfTk0u2AMqoibONBGibqic0tAATsf1Hzusibe3YvvaDMiamagt9OfGHsEicuu9YsfxibIsy0EmEjA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1](https://github.com/XLsn0w/Cydiapp/raw/main/XLsn0w's%20Cydia%20Repo.png?raw=true)" alt="XLsn0w" width="580" height="340" align="bottom" />
 
 <img src="https://upload-images.jianshu.io/upload_images/1155391-084275e043ff1f1c.png?imageMogr2/auto-orient/strip|imageView2/2/w/928/format/webp" width="600" height="1000" align="middle" />
-
-```
-                                               .=====__
-                                           /==Z' .===_ ~~=,_===\
-                                         _/  |   |    YZ, `\,   ~\
-                                         |   |   | _/=j'\   !,   d
-                                  __====_|   |   b/    V`;  /'  .M ,
-                          `5\==/~~       W,  t   d+,  .D4| /   /'|/~~~\=__     .-
-                           `\            t~\ |   |t`~~T/'|Z  :/  |        ~~\=/V
-                             \           |  \4,  | ~/~' :Z  -!   |             |
-                              \,      /\__|   \\.!     :XG   \   / ._,       ./'
-                               `L    |    ~;    V;  _//' |    \ .f~' `~;    .b_
-                              ./ \\__JL    `;    Y7~     |    / /     d   //'  \,
-                             .!       `D\,  `\,   |     .!   .t/    .(_/=~      \
-                             /         `;`~~~=+=qLb,   jK_L==f'    j''          `;
-                           ./          .(r,        `~\5'   ~\\,._r/              |
-                        ~=m!         ./D' `\,          \,     !G~                 t
-                           ~==___===/'/   .!`\__       /! __=~\\~=_                TG=
-                                     |   .|     ~\=\=r@/~5 \   !,  ~=_,        __//'
-                                     |./~V           ||  `| \,  t     ~~~~\==~~
-                                     t|  |           | |  |  !\, \=_,
-                                     !   t          .! !, \    `\/~~~
-                                         |          /   !\/\
-                                         `;       ./      `~-
-                                          t      .!
-                                           N,  ./'
-                                            `\/'
-```
 
 # -----------------------------------
 
@@ -113,12 +85,14 @@ macOS, Linux, and Windows programs.
 <a href="https://theos.dev/discord">Discord</a>
 </p>
 
-
-       在对一个应用或游戏进行静态分析或动态调试找到关键逻辑点后，要实现特殊功能可以直接修改其内存的opcode，但这种修改方法只能在当前进程生效一次，程序重启后又得重新修改。因此，比较通用、有效的方法是注入程序，利用代码实现自己想修改的逻辑。类似于android平台的ptrace注入，ios平台也有一套成熟的注入框架，本章就将着重介绍ios平台的注入实现。
+## 越狱以及Theos环境搭建
+```
 一、越狱以及Theos环境搭建
-      在实现IOS注入前，需要搭建相关的越狱开发环境，具体需要安装的工具和步骤可以参考上一节《IOS平台GDB动态调试介绍》中第一小节的内容。
+      在实现iOS注入前，需要搭建相关的越狱开发环境，具体需要安装的工具和步骤可以参考上一节《IOS平台GDB动态调试介绍》中第一小节的内容。
+
 二、利用Theos实现注入
       在相关的环境配置好后，就可以着手对ios平台的程序进行注入了，这里使用的是Theos越狱工具开发工具包，该工具功能强大、易于安装、操作简单，是ios平台理想的越狱开发工具，有兴趣的读者可以在github上查看工具的源码。接下来主要介绍theos的相关操作。
+
 2.1 新建工程
       在Mac终端的命令行中切换目录至常用的工程目录，并输入“/opt/theos/bin/nic.pl”命令，此时命令行会显示以下列表：
 UseriMac:~ user$ /opt/theos/bin/nic.pl
@@ -139,7 +113,7 @@ Author/Maintainer Name [xx]: xxx
 Instantiating iphone/tweak in testdxy/...
 Done.
       其中Project Name、Package Name和Author Name都比较好理解；第四个MobileSubstrate Bundle filter是要注入程序的BundleID，默认的进程为com.apple.springboard，为了演示方便，在此先使用默认进程作为注入对象，读者可以根据各自需要输入对应的进程名；List of applications to terminate upon installation是tweak安装后要重启的进程名，该信息和刚输入的进程BundleID对应，此处笔者同样输入默认的进程名SpringBoard。配置输入完后命令行出现“Done.”时即完成了工程的创建工作。
-
+```
 
 ##      Tweak工程目录文件介绍
 
