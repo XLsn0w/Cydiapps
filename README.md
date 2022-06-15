@@ -113,6 +113,100 @@ macOS, Linux, and Windows programs.
 <a href="https://theos.dev/discord">Discord</a>
 </p>
 
+
+       在对一个应用或游戏进行静态分析或动态调试找到关键逻辑点后，要实现特殊功能可以直接修改其内存的opcode，但这种修改方法只能在当前进程生效一次，程序重启后又得重新修改。因此，比较通用、有效的方法是注入程序，利用代码实现自己想修改的逻辑。类似于android平台的ptrace注入，ios平台也有一套成熟的注入框架，本章就将着重介绍ios平台的注入实现。
+一、越狱以及Theos环境搭建
+      在实现IOS注入前，需要搭建相关的越狱开发环境，具体需要安装的工具和步骤可以参考上一节《IOS平台GDB动态调试介绍》中第一小节的内容。
+二、利用Theos实现注入
+      在相关的环境配置好后，就可以着手对ios平台的程序进行注入了，这里使用的是Theos越狱工具开发工具包，该工具功能强大、易于安装、操作简单，是ios平台理想的越狱开发工具，有兴趣的读者可以在github上查看工具的源码。接下来主要介绍theos的相关操作。
+2.1 新建工程
+      在Mac终端的命令行中切换目录至常用的工程目录，并输入“/opt/theos/bin/nic.pl”命令，此时命令行会显示以下列表：
+UseriMac:~ user$ /opt/theos/bin/nic.pl
+NIC 2.0 - New Instance Creator
+------------------------------
+  [1.] iphone/application
+  [2.] iphone/library
+  [3.] iphone/preference_bundle
+  [4.] iphone/tool
+  [5.] iphone/tweak
+      接下来选择“5”就能创建一个tweak工程，然后按照命令行提示输入要创建工程的配置信息，具体内容如下：
+Choose a Template (required): 5
+Project Name (required): test
+Package Name [com.yourcompany.test]: com.gameprotect.test
+Author/Maintainer Name [xx]: xxx
+[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: com.apple.springboard
+[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]: SpringBoard
+Instantiating iphone/tweak in testdxy/...
+Done.
+      其中Project Name、Package Name和Author Name都比较好理解；第四个MobileSubstrate Bundle filter是要注入程序的BundleID，默认的进程为com.apple.springboard，为了演示方便，在此先使用默认进程作为注入对象，读者可以根据各自需要输入对应的进程名；List of applications to terminate upon installation是tweak安装后要重启的进程名，该信息和刚输入的进程BundleID对应，此处笔者同样输入默认的进程名SpringBoard。配置输入完后命令行出现“Done.”时即完成了工程的创建工作。
+
+
+##      Tweak工程目录文件介绍
+
+## control文件
+      首先介绍的是control文件，该文件记录了工程的基本信息，新建的test工程中control文件各字段内容如下：
+```
+Package: com.gameprotect.test
+Name: test
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: xxx
+Author: xxx
+Section: Tweaks
+```
+       从上面的内容可以看出，Package、Name、Maintainer、Author等字段是在建立工程时由命令行输入的；
+       而Depends、Version、Description等字段从字面意义也很好理解，
+       值得说明的是Depends字段，读者可以根据需要指定工程的固件版本、软件程序等依赖条件，
+       若运行环境不满足依赖条件则程序无法运行，这三个字段在一般情况下可以不用更改；
+       最后是Architecture和Section字段，该字段指定了要安装的程序的设备架构以及程序类型，不能更改。
+
+##  MakeFile文件
+      接下来介绍MakeFile文件，该文件用来指定工程要用到的文件、框架等信息，
+      新建的test工程中MakeFile文件各字段内容如下：
+```
+include theos/makefiles/common.mk
+TWEAK_NAME = test
+test_FILES = Tweak.xm
+include $(THEOS_MAKE_PATH)/tweak.mk
+after-install::
+    install.exec "killall -9 SpringBoard"
+```
+       其中第一行的include字段指定了工程的common.mk文件，
+       该文件通常不会变化，因此不需修改
+       ；TWEAK_NAME字段填入的是建立工程时命令行输入的Project Name；
+       test_FILES字段指定工程包含的源文件，如果工程中需要用到多个源文件则用空格将各个文件名分开；
+       第三行的include字段指定工程的mk文件，这里新建的是tweak工程，
+       所以填入的是tweak.mk文件，还可以根据需求填入application.mk以及tweak.mk文件；
+       最后一行after-install字段指定安装程序后需要执行的操作，
+       这里需要注入SpringBoard进程并执行自己的代码，
+       因此需要重启SpringBoard进程达到目的。
+       
+       MakeFile文件除了自动生成的这些字段外，
+       还可以根据功能手动添加其他字段：
+       ARCHS字段可以用来指定处理器架构，
+       一般情况下填写“ARCHS = arm64 arm64e”即可；
+       TARGET字段用来指定SDK版本；
+       framework字段可以指定要导入的框架，
+       比如这里的测试demo中填写的是“test_FRAMEWORKS = UIKit”，
+       UIKit为后续测试代码需要用到的框架，
+       另一方面，还可以通过test_PRIVATE_FRAMEWORKS字段指定要导入的私有库，
+       格式不变。
+       
+     测试的MakeFile文件修改后的完整内容如下：
+
+```
+ARCHS = armv7 arm64
+include theos/makefiles/common.mk
+TWEAK_NAME = test
+test_FILES = Tweak.xm
+test_FRAMEWORKS = UIKit
+include $(THEOS_MAKE_PATH)/tweak.mk
+after-install::
+    install.exec "killall -9 SpringBoard"
+```
+
 ## Contributors
 <table>
 <tr>
