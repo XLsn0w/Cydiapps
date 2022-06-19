@@ -46,6 +46,48 @@
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
+## iOS iBoot
+iBoot是一个二级bootloader，
+负责iOS系统的恢复模式。
+它可以在手机上运行也可以通过USB线或串口线连接到电脑上。
+
+当设备不处于恢复模式时，iBoot会验证目前设备运行的iOS版本是否合法。
+如果发现iOS系统版本非法，就会强迫设备系统重启并强制运行iBoot软件。
+
+这个bootloader以加密的方式存储在设备内部，
+是用来保护iOS系统完整性的重要组成部分。
+```
+void find_boot_images(void) {// 查找启动镜像
+	PROFILE_ENTER('FBI');
+#if WITH_BLOCKDEV
+	struct blockdev *rom_bdev;
+	uint32_t i;
+
+	/* iterate over each of the rom devices, looking for images and syscfg data */
+	for (i=0; i < sizeof(platform_image_devices)/sizeof(platform_image_devices[0]); i++) {
+		rom_bdev = lookup_blockdev(platform_image_devices[i].name);
+		if (!rom_bdev)
+			continue;
+
+		image_search_bdev(rom_bdev, platform_image_devices[i].image_table_offset, 0);
+	}
+	
+#if WITH_SYSCFG
+	/* hook up syscfg data */
+	for (i=0; i < sizeof(platform_syscfg_devices)/sizeof(platform_syscfg_devices[0]); i++) {
+		if (lookup_blockdev(platform_syscfg_devices[i].name)) {
+			if (syscfgInitWithBdev(platform_syscfg_devices[i].name))
+				break;
+		}
+	}
+#endif /* WITH_SYSCFG */
+#endif /* WITH_BLOCKDEV */
+	
+	image_dump_list(false);
+	PROFILE_EXIT('FBI');
+}
+```
+
 # MonkeyDev 支持Xcode 12安装
 ## 修复Xcode12 MacOSX Package Types.xcspec not found报错
 下载地址: https://github.com/XLsn0w/MonkeyDev_Xcode12
