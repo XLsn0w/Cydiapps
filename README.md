@@ -90,6 +90,9 @@ void find_boot_images(void) {// 查找启动镜像
 }
 ```
 
+## PermasigneriOS: 签名任意ipa实现不过期
+[PermasigneriOS介绍](https://mp.weixin.qq.com/s?__biz=MzI4NjI4OTg1MA==&mid=2247493186&idx=1&sn=458945fddd390afe384aa93ff36dc406&chksm=ebdd9c97dcaa15813fd6f50750d2ad9c2525504b218461f0f5ca307fc99d847a09813bca989a&token=929453386&lang=zh_CN#rd)
+
 # MonkeyDev 支持Xcode 12安装
 ## 修复Xcode12 MacOSX Package Types.xcspec not found报错
 下载地址: https://github.com/XLsn0w/MonkeyDev_Xcode12
