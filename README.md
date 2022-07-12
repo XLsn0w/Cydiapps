@@ -134,6 +134,193 @@ macOS, Linux, and Windows programs.
 <a href="https://theos.dev/discord">Discord</a>
 </p>
 
+## Cydia和Sileo 插件源使用指南
+Cydia/Sileo 插件源使用指南
+
+图片
+
+Cydia /Sileo 自带源 都是正规, 非测试, 正版插件正版插件，
+
+部分实用工具需要付费购买功能。
+
+大部分插件可在下列源上安装。
+
+https://apt.bingner.com                             (Cydia 自带)
+
+http://apt.thebigboss.org/repofiles/cydia           (Cydia 自带)
+
+https://repo.chariz.com
+
+https://repo.dynastic.com
+
+https://repo.packix.com
+
+https://havoc.app                                   (Sileo 自带)
+
+
+普通人到这里就行了, 多安装瞎搞, 
+
+平刷还能回来, 不能只能升级系统了
+
+MYbloXX 降级必备
+
+http://myxxdev.github.io
+
+Odyssey https://repo.theodyssey.dev
+
+Rollectra / SemiRestore11
+
+平刷插件，理论上通用
+
+http://xnu.science/repo
+
+Succession iOS 通用平刷工具
+
+https://samgisaninja.github.io/test/ 
+
+https://samgisaninja.github.io
+
+
+
+必备依赖包插件!
+
+解决设置列表不显示插件入口(Preferenceloader)
+
+插件不需要安装, 在你安装其他插件会自带附带安装
+
+❶ AppList
+❷ Cephei Tweak Support
+❸ libcolorpicker
+
+rpetrich个人 源:https://rpetri.ch/repo
+
+❹ Preferenceloader
+❺ RocketBootstrap
+
+安装上述五个依赖解决!
+
+AppSync Unified 必备!无视签名，随意安装
+
+https://cydia.akemi.ai
+
+
+ichitaso个人源
+
+https://cydia.ichitaso.com
+
+
+
+iCleaner Pro  必备!最强清理神器
+
+https://ib-soft.net/cydia https://ib-soft.net/cydia/beta
+
+
+Filza  必备!最强文件管理器
+
+https://tigisoftware.com/cydia
+
+
+Battery Health Enable 解决更换电池健康度显示问题
+
+https://poomsmart.github.io/repo/
+
+
+Bakgrunnur 真实后台
+
+https://udevsharold.github.io/repo/
+
+
+OTAEnabler 恢复系统更新
+
+https://repo.cadoth.net
+
+
+
+OTADisabler 屏蔽系统更新
+
+https://cydia.ichitaso.com
+
+
+CrashReporter 崩溃报告
+
+https://cokepokes.github.io
+
+
+Appstore++ 应用降级
+
+https://cokepokes.github.io
+
+
+CyDown 推荐! 一键破解收费
+
+https://julio.hackyouriphone.org
+
+CrackerXI 砸壳工具
+
+http://cydia.iphonecake.com
+
+
+FlyJB X 屏蔽越狱检测
+
+https://repo.xsf1re.kr
+
+
+A-Bypass  推荐!超强屏蔽越狱检测
+
+https://repo.co.kr
+
+
+Haoict 个人源  社交 APP 去广告，保存视频
+
+https://haoict.github.io/cydia
+
+
+ReProvision Reborn
+
+复活版自签工具
+
+https://repo.packix.com
+
+
+Zebra 斑马越狱商店
+
+https://getzbra.com/repo
+
+
+Xenhtml 插件
+
+https://xenpublic.incendo.ws
+
+
+Xeninfo 插件
+
+http://junesiphone.com/supersecret
+
+Zetsu 分屏插件 iOS 14 
+
+https://dcsyhi1998.github.io
+
+PullOver Pro 分屏
+
+https://c1d3r.com/repo
+
+MilkyWay 分屏
+
+https://deontw.github.io/akusio-Repo-Mirror
+
+shuffle 设置归类
+
+https://creaturesurvive.github.io/repo
+
+Shortmoji 2 键盘增强
+
+https://miro92.com/repo/
+
+h2 作者源
+
+https://lzsxcl.github.io/repo
+
+
 ## 越狱以及Theos环境搭建
 ```
 一、越狱以及Theos环境搭建
