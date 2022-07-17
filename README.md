@@ -135,6 +135,7 @@ macOS, Linux, and Windows programs.
 </p>
 
 ## [iOS降级+SHSH备份教程](https://mp.weixin.qq.com/s?__biz=MzI4NjI4OTg1MA==&mid=2247493629&idx=1&sn=c631cd20df678e19d3b9efde790dbf32&chksm=ebdd9d28dcaa143e8585f34e2438cf68f9e35480e8c1f4233ffa52fd8ee9cdc6f55c6da9bea1&token=1447383827&lang=zh_CN#rd)
+### 在线备份shsh2 : https://tsssaver.1conan.com/v2/
 
 ## Cydia和Sileo 插件源使用指南
 Cydia/Sileo 插件源使用指南
