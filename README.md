@@ -42,12 +42,15 @@
 //                  不见满街漂亮妹，哪个归得程序员？
 ```
 
-# iOS Jailbreak Develop-hook-Reverse
-<img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
+# iOS Jailbreak Develop + iPhone App Reverse 
 # 我的微信公众号: Cydiapp
+
 # 我的微信公众号: Cydia
+
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
+
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
+
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
 ## iOS iBoot
