@@ -6,7 +6,7 @@
 ### Cydiapp's Cydia Repo: https://XLsn0w.github.io/Cydiapp/
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
-# 我的微信公众号: Cydiapp
+# 我的微信公众号: XLsnow
 
 
 ```
@@ -43,9 +43,9 @@
 ```
 
 # iOS Jailbreak Develop + iPhone App Reverse 
-# 我的微信公众号: Cydiapp
+# 我的微信公众号: XLsnow
 
-# 我的微信公众号: Cydia
+# 我的微信公众号: XLsnow
 
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
 
