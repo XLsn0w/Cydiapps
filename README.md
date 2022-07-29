@@ -106,7 +106,9 @@ void find_boot_images(void) {// 查找启动镜像
 ```
 
 ## 查看iOS固件验证关闭状态App
-详情链接:https://xlsn0w.github.io/jekyll/2022/07/27/XLsn0w/
+详情链接:  https://xlsn0w.github.io/jekyll/2022/07/27/XLsn0w/
+
+![](https://github.com/XLsn0w/XLsn0w.github.io/blob/master/Assets/IPSW_1.0.jpg?raw=true)
 
 # MonkeyDev 支持Xcode 12安装
 ## 修复Xcode12 MacOSX Package Types.xcspec not found报错
