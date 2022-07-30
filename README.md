@@ -110,6 +110,9 @@ void find_boot_images(void) {// 查找启动镜像
 
 ![](https://github.com/XLsn0w/XLsn0w.github.io/blob/master/Assets/IPSW_1.0.jpg?raw=true)
 
+## iOS逆向工程-Frida使用教程
+详情链接:  https://xlsn0w.github.io/jekyll/2022/07/28/XLsn0w/
+
 # MonkeyDev 支持Xcode 12安装
 ## 修复Xcode12 MacOSX Package Types.xcspec not found报错
 下载地址: https://github.com/XLsn0w/MonkeyDev_Xcode12
