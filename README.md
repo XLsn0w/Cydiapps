@@ -11,9 +11,9 @@ Apple  Developer iPhone  Hacker
 
 我的微信公众号-> XLsnow
 
-我的个人博客-> https://xlsn0w.github.io
+# 我的个人博客-> https://xlsn0w.github.io
 
-我的简书-> http://www.jianshu.com/u/eacc1a5d2fda
+## 我的简书-> http://www.jianshu.com/u/eacc1a5d2fda
 
 ![tease](https://github.com/XLsn0w/XLsn0w.github.io/blob/master/favicons/tease.gif?raw=true)
 
@@ -60,6 +60,13 @@ Apple  Developer iPhone  Hacker
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
+
+# XLsn0w博客文章
+
+## iOS 16 beta 5 重新显示电池百分比
+```
+https://xlsn0w.github.io/jekyll/2022/08/05/XLsn0w/
+```
 
 ## iOS iBoot
 iBoot是一个二级bootloader，
