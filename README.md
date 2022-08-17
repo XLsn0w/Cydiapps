@@ -63,6 +63,11 @@ Apple  Developer iPhone  Hacker
 
 # XLsn0w博客文章
 
+## 小火箭配置V2ray教程 
+```
+https://xlsn0w.github.io/jekyll/2022/08/07/XLsn0w/
+```
+
 ## iOS 16 beta 5 重新显示电池百分比
 ```
 https://xlsn0w.github.io/jekyll/2022/08/05/XLsn0w/
