@@ -63,6 +63,9 @@ Apple  Developer iPhone  Hacker
 
 # XLsn0w博客文章
 
+## TrollStore 永久签名工具
+下载地址:  https://github.com/opa334/TrollStore/releases/
+
 ## 小火箭配置V2ray教程 
 ```
 https://xlsn0w.github.io/jekyll/2022/08/07/XLsn0w/
