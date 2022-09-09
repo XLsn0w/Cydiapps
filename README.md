@@ -1,4 +1,4 @@
-# iOS应用逆向工程-Cydia越狱开发  
+# iOS应用逆向工程-Cydia越狱tweaks插件开发  
 
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
