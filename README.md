@@ -69,6 +69,7 @@ Apple  Developer iPhone  Hacker
 
 ## SHSH证书固定随机值Nonce工具-TrollNonce
 支持iOS 15.0 - 15.1.1, A10 - A15, 搭配使用TrollStore v1.0.9+
+
 下载地址:  https://github.com/opa334/TrollNonce
 
 ## TrollStore 永久签名工具
