@@ -85,6 +85,24 @@ https://xlsn0w.github.io/jekyll/2022/08/07/XLsn0w/
 https://xlsn0w.github.io/jekyll/2022/08/05/XLsn0w/
 ```
 
+## Github DNS 解析被污染
+github 的一些域名的 DNS 解析被污染，导致DNS 解析过程无法通过域名取得正确的IP地址。
+```
+解决方案
+打开 https://www.ipaddress.com/ 输入访问不了的域名
+
+查询之后可以获得正确的 IP 地址
+
+在本机的 host 文件中添加，建议使用 switchhosts 方便 host 管理
+
+199.232.68.133 raw.githubusercontent.com
+199.232.68.133 user-images.githubusercontent.com
+199.232.68.133 avatars2.githubusercontent.com
+199.232.68.133 avatars1.githubusercontent.com
+
+添加以上几条 host 配置，页面的图片展示就正常了，homebrew 也能装了，nvm 也行动灵活了。
+```
+
 # iOS 15 - iOS 16 开发 适配 总结帖
 
 ### iOS16 Xcode14适配内容：
