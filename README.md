@@ -67,6 +67,11 @@ Apple  Developer iPhone  Hacker
 
 # XLsn0w博客文章
 
+## Thor锤子抓包iOS教程
+```
+https://xlsn0w.github.io/jekyll/2022/08/25/XLsn0w/
+```
+
 ## SHSH证书固定随机值Nonce工具-TrollNonce
 支持iOS 15.0 - 15.1.1, A10 - A15, 搭配使用TrollStore v1.0.9+
 
