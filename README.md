@@ -128,6 +128,10 @@ Apple  Developer iPhone  Hacker
 | dotto+                    | ✔️         | -                                                                              | Notifications, your style                                                                                                                                                                                     | [Dynastic](https://repo.dynastic.co/)                                                                         |
 | lockdown beta             | ✔️         | -                                                                              | Re-enables passcode functionality on A10/A11 devices                                                                                                                                                          | [krit's repo](https://repo.krit.me/)                                                                          |
 
+## iOS 15.0-15.7不完美checkm8越狱 
+```
+https://xlsn0w.github.io/jekyll/2022/08/28/XLsn0w/
+```
 
 ## Thor锤子抓包iOS教程
 ```
