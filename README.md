@@ -67,6 +67,11 @@ Apple  Developer iPhone  Hacker
 
 # XLsn0w博客文章
 
+## iOS 15.4.1 Fugu15越狱
+```
+https://xlsn0w.github.io/jekyll/2022/08/30/XLsn0w/
+```
+
 ## iOS 15 运行插件适配表 Tweaks
 
 在iOS 15中有多种方法可以获得微调注入。最值得注意的是，它有一个被拴住的越狱。因为我们还没有一个合适的无根的微调注入器，所以到目前为止我们还不能使用半栓式或半栓式越狱。
