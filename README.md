@@ -67,6 +67,12 @@ Apple  Developer iPhone  Hacker
 
 # XLsn0w博客文章
 
+# BlizzardBoard
+```
+BlizzardBoard 是一个针对越狱和非越狱 iPhone 的新应用程序，
+可以通过 TrollStore安装, 对主屏应用程序图标进行主题修改。
+```
+
 ## iOS 15.4.1 Fugu15越狱
 ```
 https://xlsn0w.github.io/jekyll/2022/08/30/XLsn0w/
