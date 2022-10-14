@@ -65,9 +65,9 @@ Apple  Developer iPhone  Hacker
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
-# ========================== XLsn0w博客文章 ==========================
+# ==============| XLsn0w博客文章 |==============
 
-# BlizzardBoard
+## BlizzardBoard
 ```
 BlizzardBoard支持越狱和非越狱iOS设备，通过TrollStore安装, 对主屏应用程序图标进行主题修改。
 ```
