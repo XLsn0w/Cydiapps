@@ -67,7 +67,8 @@ Apple  Developer iPhone  Hacker
 
 # ==============| XLsn0w博客文章 |==============
 
-## 1.下载下面的Fugu15的IPA文件，用手机Safari浏览器下载上面的链接文件，
+# Fugu15 不过期 iOS15.4越狱教程
+## 1.用手机Safari浏览器打开下面链接,下载Fugu15越狱安装包
 ## 2.找到IPA文件，选项共享，选择巨魔TrollStore打开进行安装
 ```
 下载ipa包: https://share.weiyun.com/WiBhQ7aP
