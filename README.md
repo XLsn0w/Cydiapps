@@ -67,6 +67,12 @@ Apple  Developer iPhone  Hacker
 
 # ==============| XLsn0w博客文章 |==============
 
+## 1.下载下面的Fugu15的IPA文件，用手机Safari浏览器下载上面的链接文件，
+## 2.找到IPA文件，选项共享，选择巨魔TrollStore打开进行安装
+```
+下载ipa包: https://share.weiyun.com/WiBhQ7aP
+```
+
 ## BlizzardBoard
 ```
 BlizzardBoard支持越狱和非越狱iOS设备，通过TrollStore安装, 对主屏应用程序图标进行主题修改。
