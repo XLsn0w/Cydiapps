@@ -67,6 +67,14 @@ Apple  Developer iPhone  Hacker
 
 # ==============| XLsn0w博客文章 |==============
 
+ESign轻松签+iOS安装教程
+[安装教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484231&idx=1&sn=26515c3aed765fa40b4c3960891b3ae6&chksm=c04c718ff73bf8995fe9b2c30636311e707afc7b8795dbfa41a6be8c691f3214eb6b454229c5&mpshare=1&scene=23&srcid=1126nzRDaqw403EuATBt4VBJ&sharer_sharetime=1669427493997&sharer_shareid=f6fe18699713d8b520a88a9313eb5c64%23rd)
+
+永久签名工具版【轻松签+】，和巨魔支持的范围一样，
+支持 iOS 14.0 - iOS 15.4.1 以及 iOS 15.5 Beta 1 - Beta 4 系统，
+支持 A12 - A15 设备（即包括iPhone13pm以下设备）。
+意味着最高 iPhone13 Pro Max （15.5B4以下系统）可以摆脱证书限制
+
 # Fugu15 不过期 iOS15.4越狱教程
 ## 1.用手机Safari浏览器打开下面链接,下载Fugu15越狱安装包
 ## 2.找到IPA文件，选项共享，选择巨魔TrollStore打开进行安装
