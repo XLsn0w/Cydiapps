@@ -65,6 +65,9 @@ Apple  Developer iPhone  Hacker
 
 # ========| XLsn0w博客文章 |========
 
+AppsManager从备份恢复应用Pro会员教程
+
+
 ESign轻松签+iOS安装教程
 [安装教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484231&idx=1&sn=26515c3aed765fa40b4c3960891b3ae6&chksm=c04c718ff73bf8995fe9b2c30636311e707afc7b8795dbfa41a6be8c691f3214eb6b454229c5&mpshare=1&scene=23&srcid=1126nzRDaqw403EuATBt4VBJ&sharer_sharetime=1669427493997&sharer_shareid=f6fe18699713d8b520a88a9313eb5c64%23rd)
 
