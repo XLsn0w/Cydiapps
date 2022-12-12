@@ -66,10 +66,10 @@ Apple  Developer iPhone  Hacker
 # ========| XLsn0w博客文章 |========
 
 AppsManager从备份恢复应用Pro会员教程
-使用[教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484986&idx=1&sn=dda04d5734b249e09d7b4146fb52caf1&chksm=c04c74f2f73bfde4f7b7f72960041e5fbc74e145bee8134756d932f18e68d1dcf824768aed59&mpshare=1&scene=23&srcid=1210SxpMAoFsOUvKpldEB5ft&sharer_sharetime=1670635126948&sharer_shareid=16bb66cd5fc48e6ac890c05c43ce8981%23rd)
+--->[使用教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484986&idx=1&sn=dda04d5734b249e09d7b4146fb52caf1&chksm=c04c74f2f73bfde4f7b7f72960041e5fbc74e145bee8134756d932f18e68d1dcf824768aed59&mpshare=1&scene=23&srcid=1210SxpMAoFsOUvKpldEB5ft&sharer_sharetime=1670635126948&sharer_shareid=16bb66cd5fc48e6ac890c05c43ce8981%23rd)
 
 ESign轻松签+iOS安装教程
-[安装教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484231&idx=1&sn=26515c3aed765fa40b4c3960891b3ae6&chksm=c04c718ff73bf8995fe9b2c30636311e707afc7b8795dbfa41a6be8c691f3214eb6b454229c5&mpshare=1&scene=23&srcid=1126nzRDaqw403EuATBt4VBJ&sharer_sharetime=1669427493997&sharer_shareid=f6fe18699713d8b520a88a9313eb5c64%23rd)
+--->[安装教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484231&idx=1&sn=26515c3aed765fa40b4c3960891b3ae6&chksm=c04c718ff73bf8995fe9b2c30636311e707afc7b8795dbfa41a6be8c691f3214eb6b454229c5&mpshare=1&scene=23&srcid=1126nzRDaqw403EuATBt4VBJ&sharer_sharetime=1669427493997&sharer_shareid=f6fe18699713d8b520a88a9313eb5c64%23rd)
 
 永久签名工具版【轻松签+】，和巨魔支持的范围一样，
 支持 iOS 14.0 - iOS 15.4.1 以及 iOS 15.5 Beta 1 - Beta 4 系统，
