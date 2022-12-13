@@ -63,6 +63,28 @@ Apple  Developer iPhone  Hacker
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
+## iOS APP运行 编译过程及库
+在分析app启动之前，我们需要先了解iOSapp代码的编译过程以及动态库和静态库。
+
+编译过程
+其中编译过程如下图所示，主要分为以下几步：
+
+源文件：载入.h、.m、.cpp等文件
+预处理：替换宏，删除注释，展开头文件，产生.i文件
+编译：将.i文件转换为汇编语言，产生.s文件
+汇编：将汇编文件转换为机器码文件，产生.o文件
+链接：对.o文件中引用其他库的地方进行引用，生成最后的可执行文件
+
+dyld加载流程分析
+根据dyld源码，以及libobjc、libSystem、libdispatch源码协同分析
+
+什么是dyld？
+
+dyld（the dynamic link editor）是苹果的动态链接器，是苹果操作系统的重要组成部分，
+在app被编译打包成可执行文件格式的Mach-O文件后，交由dyld负责连接，加载程序
+
+
+
 # ========| XLsn0w博客文章 |========
 
 AppsManager从备份恢复应用Pro会员教程
