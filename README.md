@@ -63,6 +63,10 @@ Apple  Developer iPhone  Hacker
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
+## iOS或iPadOS 15.0-15.1.1的A12-A15芯片设备 XinaA15越狱工具
+这是xina520越狱（临时）的官方下载网站 加入不和谐频道报告错误!!!
+[xina520越狱下载](https://github.com/jacksight/xina520_official_jailbreak)
+
 ## iOS APP运行 编译过程及库
 在分析app启动之前，我们需要先了解iOSapp代码的编译过程以及动态库和静态库。
 
