@@ -541,9 +541,10 @@ https://github.com/pinauten/Fugu15
 URL Scheme（通用）
 Universal Link （iOS）
 App Link、Chrome Intents（android）
-URL Scheme（通用）
+
 ```
-这种方式是一种比较通用的技术，各平台的兼容性也很好，它一般由协议名、路径、参数组成。这个一般是由Native开发的同学提供，我们前端同学再拿到这个scheme之后，就可以用来打开APP或APP内的某个页面了。
+
+URL Scheme（通用）这种方式是一种比较通用的技术，各平台的兼容性也很好，它一般由协议名、路径、参数组成。这个一般是由Native开发的同学提供，我们前端同学再拿到这个scheme之后，就可以用来打开APP或APP内的某个页面了。
 
 URL Scheme 组成
 [scheme:][//authority][path][?query][#fragment]
