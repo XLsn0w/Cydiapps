@@ -112,7 +112,8 @@ ESign轻松签+iOS安装教程
 支持 A12 - A15 设备（即包括iPhone13pm以下设备）。
 意味着最高 iPhone13 Pro Max （15.5B4以下系统）可以摆脱证书限制
 
-
+# iOS巨魔商店
+![](https://media.idownloadblog.com/wp-content/uploads/2022/09/TrollStore-Logo-1024x1000.jpg)
 
 ## iOS汇编概述
 
