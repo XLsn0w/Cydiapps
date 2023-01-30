@@ -115,6 +115,17 @@ ESign轻松签+iOS安装教程
 # iOS巨魔商店
 ![](https://media.idownloadblog.com/wp-content/uploads/2022/09/TrollStore-Logo-1024x1000.jpg)
 
+TrollStore版本1.5.0 更新功能：
+
+–加高深设置选项卡，其中包含在已安装和自定义卸载方法
+之间切换的功能 - 将Idid更新与TrollStore更新分开;最新的 Idid 更新解决了 TrollStore 以前需要破解解决方法的错误，并且该解决方法现已删除
+– 如果尚未安装或安装的版本太过时，Idid 现在将在启动 TrollStore 时自动安装和/或更新，无法正确
+使用它 – 修复了卸载某些应用程序会失败
+的问题 – 自动使重新加载图标缓存按钮修复了一个股票 iOS 问题，其中臃肿的图标缓存可能导致应用程序安装和更新导致严重的系统范围滞后峰值 – 修复了应用程序插件的组容器可能被错误注册
+的错误
+– 切换到 TrollStore 自己的 CoreTrust 证书，以支持以前值得做得不好的证书
+
+
 ## iOS汇编概述
 
 
