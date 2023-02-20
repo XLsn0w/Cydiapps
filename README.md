@@ -91,9 +91,56 @@ dyld加载流程分析
 dyld（the dynamic link editor）是苹果的动态链接器，是苹果操作系统的重要组成部分，
 在app被编译打包成可执行文件格式的Mach-O文件后，交由dyld负责连接，加载程序
 
-
-
+# ========| 微信公众号Cydiapps |========
 # ========| XLsn0w博客文章 |========
+
+## iOS重签名.dylib动态库
+
+1）让可执行文件链接动态库
+
+可执行文件是不会主动启用自定义动态库，所以需要注入.dylib
+
+insert_dylib @executable_path/[动态库名称] [可执行文件名称] --all-yes --weak [新可执行文件名称]
+
+
+insert_dylib ：动态库加载路径
+
+--all-yes：后面所有的选择都为yes
+
+--weak：即使动态库找不到也不会报错
+
+insert_dylib的本质是往Mach-O文件的Load Commands中
+
+添加了一个LC_LOAD_DYLIB活LC_LOAD_WEAK_DYLIB。
+
+可以通过otool查看Mach-O的动态库依赖信息
+
+otool -L Mach-O文件
+
+
+2）修改CydiaSubstrate文件路径
+
+查看动态库(ResignTweak.dylib)的依赖库
+
+可以看到ResignTweak.dylib依赖的CydiaSubstrate路径为/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate。
+
+
+修改CydiaSubstrate路径
+
+因CydiaSubstrate路径变更，所以需要对它进行修改。
+
+install_name_tool -change [原路径] @loader_path/CydiaSubstrate [动态库名称]
+
+
+再次执行otool -L ResignTweak.dylib查看，可以看出CydiaSubstrate路径已经修改了。
+
+3）对动态库和CydiaSubstrate文件重签名
+
+codesign -fs [证书id] [文件名称]
+
+
+4）对APP包重签名并安装验证
+
 
 ## iOS巨魔盒子
 iOS巨魔盒子下载: https://share.weiyun.com/VdSYtnBm
