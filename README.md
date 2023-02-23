@@ -141,6 +141,8 @@ codesign -fs [证书id] [文件名称]
 
 4）对APP包重签名并安装验证
 
+## ra1ncloud Fugu15 不完美越狱工具
+https://github.com/iarchiveml/ra1ncloud
 
 ## iOS巨魔盒子
 iOS巨魔盒子下载: https://share.weiyun.com/VdSYtnBm
