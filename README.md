@@ -174,6 +174,9 @@ TrollStore版本1.5.0 更新功能：
 的错误
 – 切换到 TrollStore 自己的 CoreTrust 证书，以支持以前值得做得不好的证书
 
+##  边店SideStore自签名IPA工具
+
+软件官网下载: https://sidestore.io/
 
 ## iOS汇编概述
 
