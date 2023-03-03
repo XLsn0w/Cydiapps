@@ -15,7 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "bindings": "^1.5.0",
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.3",
     "should": "^13.2.3"
   }
 }
