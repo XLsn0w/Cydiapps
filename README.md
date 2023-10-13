@@ -180,6 +180,24 @@ TrollStore版本1.5.0 更新功能：
 
 软件官网下载: https://sidestore.io/
 
+# simctl Xcode模拟器命令行管理工具
+
+simctl类似于安卓的adb命令非常相似。
+
+虽然苹果官方文档没有对它进行任何说明。但是我们可以通过Applications/Xcode.app/Contents/Developer/usr/bin/simctl路径找到它。
+
+由于是XCode内置的命令，所以在使用的时候要在该命令前面加上xcrun。我们可以通过以下命令来查看该命令所有的功能选项。
+
+Xcode15 官网下载 iOS_17_Simulator_Runtime.dmg 后 手动添加模拟器SDK
+```
+sudo xcode-select -s /Applications/Xcode.app
+Password:
+h3lix@i0smX ~ % xcodebuild -runFirstLaunch
+h3lix@i0smX ~ % xcrun simctl runtime add "/Users/h3lix/Downloads/iOS_17.0.1_Simulator_Runtime.dmg"
+D: 432C1CED-ADBC-45F7-A7C8-A3A8FF031397 iOS (17.0.1 - 21A342) (Ready)
+```
+
+
 ## iOS汇编概述
 
 
