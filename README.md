@@ -150,6 +150,13 @@ iOS巨魔盒子下载: https://share.weiyun.com/VdSYtnBm
 
 请注意，TrollBox仅适用于TrollStore，因此它仅支持支持TrollStore（越狱与否）的设备，即运行iOS或iPadOS 14.0-15.4.1（以及一些15.5测试版）的设备。
 
+# RootHide Dopamine Jailbreak  屏蔽越狱检测 越狱工具
+下载: https://github.com/RootHide/Dopamine-roothide
+RootHide is a completely hidden rootless jailbreak solution without to inject/modify/patch/hook apps.
+
+This project is the RootHide implementation based on Dopamine Jailbreak.
+![](https://github.com/RootHide/Dopamine-roothide/blob/master/banner.png)
+
 AppsManager从备份恢复应用Pro会员教程
 --->[使用教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247484986&idx=1&sn=dda04d5734b249e09d7b4146fb52caf1&chksm=c04c74f2f73bfde4f7b7f72960041e5fbc74e145bee8134756d932f18e68d1dcf824768aed59&mpshare=1&scene=23&srcid=1210SxpMAoFsOUvKpldEB5ft&sharer_sharetime=1670635126948&sharer_shareid=16bb66cd5fc48e6ac890c05c43ce8981%23rd)
 
