@@ -1,5 +1,5 @@
-# iOS应用逆向工程-Cydia越狱tweaks插件开发  
-
+# iOS应用逆向工程-Cydia越狱tweaks插件开发  我的微信公众号-> Cydiapps
+# 我的微信公众号-> Cydiapps
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweak/
 ### XLsn0w's Cydia Repo: https://XLsn0w.github.io/tweaks/
 ### Cydiapp's Cydia Repo: https://XLsn0w.github.io/Cydiapp/
@@ -13,7 +13,8 @@ Apple  Developer iPhone  Hacker
 
 我的Github-> https://github.com/XLsn0w
 
-我的微信公众号-> XLsnow
+# 我的微信公众号-> Cydiapps
+我的微信公众号-> Cydiapps
 
 # 我的个人博客-> https://xlsn0w.github.io
 
