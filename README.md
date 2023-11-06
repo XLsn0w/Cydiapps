@@ -70,6 +70,14 @@ Apple  Developer iPhone  Hacker
 
 仓库地址:  https://github.com/XLsn0w/Taurine-kfd-Jailbreak
 
+#《生化危机:村庄》iOS 版本 
+
+《生化危机:村庄》定价 4990 日元(当前约 244 元人民币)， 《生化危机:村庄》可免费下载，这是一款“先玩后买”App
+
+![](https://pics6.baidu.com/feed/9825bc315c6034a83d46082072cbb2580b2376d4.jpeg@f_auto?token=9c2bb37cd5aa05314df0aea070991ceb)
+
+不过卡普空宣布 10 月 30 日至 11 月 20 日期间立减 60%，折后 含税 1990 日元(当前约 97 元人民币)。
+
 # iOS kfd漏洞 源代码
 ```
 //
