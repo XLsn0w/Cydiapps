@@ -70,6 +70,10 @@ Apple  Developer iPhone  Hacker
 
 仓库地址:  https://github.com/XLsn0w/Taurine-kfd-Jailbreak
 
+# Linus Henze 大神已经被 Apple 聘请了，之前 Linus Henze 大神提到过，如果苹果亲自邀请他，他必定会答应，这次真的来了，现在已经成功应聘上。
+也就是说！未来的 Linus Henze 大神所挖掘的漏洞，都属于 Apple 官方的了，他不能私自公开。根据我的了解得知，在安全研究实验室中，发现新的漏洞，都是属于团队的，不属于个人，自己是没权利公开。
+![](https://cdn.alxgo.com/wp-content/uploads/2023/10/51698126075.png)
+
 #《生化危机:村庄》iOS 版本 
 
 《生化危机:村庄》定价 4990 日元(当前约 244 元人民币)， 《生化危机:村庄》可免费下载，这是一款“先玩后买”App
