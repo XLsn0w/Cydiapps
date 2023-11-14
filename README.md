@@ -82,6 +82,19 @@ Apple  Developer iPhone  Hacker
 
 不过卡普空宣布 10 月 30 日至 11 月 20 日期间立减 60%，折后 含税 1990 日元(当前约 97 元人民币)。
 
+# WinRa1n越狱工具电脑版
+ 
+ 是由iKeystools团队开发的一款苹果iOS系统越狱工具。它的功能十分强大，支持IOS 12.2 ~ 16.6.1直接越狱，支持iPhone 5s ~ X，完美支持Windows平台，使用简单，操作容易上手，免费下载。
+ 【支持三种越狱模式】
+　　1、CheckM8 支持引导未签名的img4文件，说明白就是进入Pwndfu模式。新手用不上。
+
+　　2、Checkra1n 0.12.4 是我们熟知的checkra1n越狱，支持越狱iOS 12.2 ~ 14.8.1版本。
+
+　　3、Palera1n 2.0.0 beta7是iOS15 以上的越狱，可以越狱iOS 15.0 ~ 16.6.1的A8X ~ A11处理器。
+
+　![](http://www.downxia.com/uploadfiles/2023/0911/20230911080822635.png)
+ 
+
 # iOS kfd漏洞 源代码
 ```
 //
