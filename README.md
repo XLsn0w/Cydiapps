@@ -85,10 +85,12 @@ Apple  Developer iPhone  Hacker
 # WinRa1n越狱工具电脑版
  
  是由iKeystools团队开发的一款苹果iOS系统越狱工具。它的功能十分强大，
+ 
  支持iOS 12.2 ~ 16.7直接越狱，支持iPhone 5s ~ X，完美支持Windows平台，免费下载。
  
  
  【支持三种越狱模式】
+ 
 　
   1、CheckM8 支持引导未签名的img4文件，说明白就是进入Pwndfu模式。新手用不上。
 
