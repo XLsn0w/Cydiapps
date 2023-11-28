@@ -66,6 +66,12 @@ Apple  Developer iPhone  Hacker
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
+# iOS巨魔二代发布了
+
+安装包下载: https://github.com/opa334/TrollStore/releases
+
+有问题可以 联系公众号Cydiapps
+
 # A8-A14 devices on iOS 14.0-14.3 越狱源代码
 
 仓库地址:  https://github.com/XLsn0w/Taurine-kfd-Jailbreak
