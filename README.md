@@ -73,15 +73,22 @@ Apple  Developer iPhone  Hacker
 有问题可以 联系公众号Cydiapps
 
 # iOS巨魔V2.0 安装指南 TrollStore 二代
+![](https://mmbiz.qpic.cn/mmbiz_png/CqwzFPUx3cud7OvxDicIWBuNNtBsBRYcmlhwlIicibo0P9ia82gcL3GjQqHicFfe8tANSAmKE7vHdvNa5ibfeib6bRuog/640?wx_fmt=png&from=appmsg&wxfrom=5&wx_lazy=1&wx_co=1)
 
-![巨魔2代安装教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247498844&idx=1&sn=b497c933929829ae3775bfd5f9db2294&chksm=c04f8e94f73807822aff9f55a5abad8fb493a7a1a87e7fa3d3cc9e602d1ea5f2695419e25b92&mpshare=1&scene=23&srcid=1129WPEBZ0T9ak21rD5gAmiV&sharer_shareinfo=67a45866776d013ee0dd8d8fcd14e96e&sharer_shareinfo_first=67a45866776d013ee0dd8d8fcd14e96e#rd)
+[巨魔2代安装教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247498844&idx=1&sn=b497c933929829ae3775bfd5f9db2294&chksm=c04f8e94f73807822aff9f55a5abad8fb493a7a1a87e7fa3d3cc9e602d1ea5f2695419e25b92&mpshare=1&scene=23&srcid=1129WPEBZ0T9ak21rD5gAmiV&sharer_shareinfo=67a45866776d013ee0dd8d8fcd14e96e&sharer_shareinfo_first=67a45866776d013ee0dd8d8fcd14e96e#rd)
 
 # A8-A14 devices on iOS 14.0-14.3 越狱源代码
 
 仓库地址:  https://github.com/XLsn0w/Taurine-kfd-Jailbreak
 
-# Linus Henze 大神已经被 Apple 聘请了，之前 Linus Henze 大神提到过，如果苹果亲自邀请他，他必定会答应，这次真的来了，现在已经成功应聘上。
-也就是说！未来的 Linus Henze 大神所挖掘的漏洞，都属于 Apple 官方的了，他不能私自公开。根据我的了解得知，在安全研究实验室中，发现新的漏洞，都是属于团队的，不属于个人，自己是没权利公开。
+# Linus Henze 大神已经被 Apple 聘请了
+
+之前 Linus Henze 大神提到过，如果苹果亲自邀请他，他必定会答应，这次真的来了，现在已经成功应聘上。
+
+也就是说！未来的 Linus Henze 大神所挖掘的漏洞，都属于 Apple 官方的了，他不能私自公开。
+
+根据我的了解得知，在安全研究实验室中，发现新的漏洞，都是属于团队的，不属于个人，自己是没权利公开。
+
 ![](https://cdn.alxgo.com/wp-content/uploads/2023/10/51698126075.png)
 
 #《生化危机:村庄》iOS 版本 
