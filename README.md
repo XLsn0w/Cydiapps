@@ -80,7 +80,57 @@ Apple  Developer iPhone  Hacker
 下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
 
 ## misaka.ipa 支持Beta系统安装巨魔2代
-![](https://camo.githubusercontent.com/0754e94358a62d5ffe2a3d00b53b3ed77f726c86fbe57f45750e7fc2395b6523/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313135373735373039333039373532313136322f313138313234353939323832323132383634302f6f75742e706e67)
+
+# Misaka
+iOS customisation tool for KFD & MDC
+<div>
+  <a href="https://github.com/straight-tamago/misaka/releases"><img src="https://img.shields.io/github/downloads/straight-tamago/misaka/total?color=d774d5" /></a>
+  <a href="https://github.com/straight-tamago/misaka/releases/latest"><img src="https://img.shields.io/github/v/release/straight-tamago/misaka?color=d774d5" /></a>
+  <a href="https://bento.me/straight-tamago"><img src="https://img.shields.io/static/v1?style=social&message=@straight-tamago&color=768CFF&logo=X&logoColor=000000&label=" /></a>
+</div>
+<div class="clear"></div>
+
+#
+About
+======
+The purpose of this application is to give iPhone users the ability to customise their phones without a jailbreak.
+
+At this time we have over 24 default repositories and more than 400 tweaks available.
+
+*Misaka is offered at no charge if somebody tried to sell it to you, report it*
+#
+Versions Supported
+======
+| iOS Versions | MDC | KFD |
+| - | - | - |
+| 15.0 - 15.7.1 | ✓ | - |
+| 15.7.2 - 15.7.6 | - | ✓ |
+| 16.0 - 16.1.2 | ✓ | - |
+| 16.2 - 16.6 beta 1 | - | ✓ |
+| 17.0 & up | - | - |
+
+17.0 & up can use PiP tweaks
+
+
+Download
+======
+<h3>You can download the latest version of misaka from here:</h3>
+
+[Download IPA Here](https://github.com/straight-tamago/misaka/releases/latest)
+
+*Misaka is available at no cost, you can install it through AltStore, Sideloadly or TrollStore*
+
+Screenshots
+==========
+
+<p align="left">
+  <img src="https://media.discordapp.net/attachments/1157757093097521162/1181245992822128640/out.png" alt="misaka" width="MISAKA" height="600"/>
+</p>
+
+Installing TrollStore with misaka
+======
+[Official Guide](https://ios.cfw.guide/installing-trollhelper-misaka/)
+
 ipa下载: https://github.com/straight-tamago/misaka
 
 ## TrollStore2 安装指南 https://github.com/XLsn0w/TrollStore2
