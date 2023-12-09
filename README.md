@@ -79,7 +79,9 @@ Apple  Developer iPhone  Hacker
 
 下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
 
-## misaka-v3.2.8 支持Beta系统安装巨魔2代
+## misaka.ipa 支持Beta系统安装巨魔2代
+![](https://camo.githubusercontent.com/0754e94358a62d5ffe2a3d00b53b3ed77f726c86fbe57f45750e7fc2395b6523/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f313135373735373039333039373532313136322f313138313234353939323832323132383634302f6f75742e706e67)
+ipa下载: https://github.com/straight-tamago/misaka
 
 ## TrollStore2 安装指南 https://github.com/XLsn0w/TrollStore2
 
