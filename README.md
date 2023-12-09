@@ -83,7 +83,6 @@ Apple  Developer iPhone  Hacker
 ## misaka.ipa 支持Beta系统安装巨魔2代
 下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
 
-# Misaka
 iOS customisation tool for KFD & MDC
 <div>
   <a href="https://github.com/straight-tamago/misaka/releases"><img src="https://img.shields.io/github/downloads/straight-tamago/misaka/total?color=d774d5" /></a>
