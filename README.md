@@ -75,6 +75,10 @@ Apple  Developer iPhone  Hacker
 # iOS巨魔V2.0 安装指南 TrollStore 二代
 ![](https://mmbiz.qpic.cn/mmbiz_png/CqwzFPUx3cud7OvxDicIWBuNNtBsBRYcmlhwlIicibo0P9ia82gcL3GjQqHicFfe8tANSAmKE7vHdvNa5ibfeib6bRuog/640?wx_fmt=png&from=appmsg&wxfrom=5&wx_lazy=1&wx_co=1)
 
+<p align="left">
+  <img align="left" height="200" src="https://cdn.discordapp.com/attachments/1157757093097521162/1181224754993184848/App_Store-removebg-preview.png" alt="misaka" style="float: left; border-radius: 10px;"/>
+</p>
+
 ## 巨魔辅助安装器 Misaka
 
 下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
