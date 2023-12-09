@@ -79,11 +79,9 @@ Apple  Developer iPhone  Hacker
   <img align="left" height="200" src="https://cdn.discordapp.com/attachments/1157757093097521162/1181224754993184848/App_Store-removebg-preview.png" alt="misaka" style="float: left; border-radius: 10px;"/>
 </p>
 
-## 巨魔辅助安装器 Misaka
-
-下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
-
+# 巨魔辅助安装器 Misaka
 ## misaka.ipa 支持Beta系统安装巨魔2代
+下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
 
 # Misaka
 iOS customisation tool for KFD & MDC
