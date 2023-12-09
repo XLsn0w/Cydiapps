@@ -88,6 +88,11 @@ Apple  Developer iPhone  Hacker
 ## 巨魔2砸壳工具
 下载:  https://github.com/donato-fiore/TrollDecrypt/releases
 
+# TrollSpeed 状态栏网速显示
+
+下载地址: https://github.com/Lessica/TrollSpeed
+![](https://user-images.githubusercontent.com/5410705/213263734-1ef1b553-88d4-41cc-856e-891ea08d185c.jpeg)
+
 # 实现高版本watchOS绑定到低版本iOS
 
 ## 实现指南: [实现高版本watchOS绑定到低版本iOS教程](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247498980&idx=3&sn=dd98ca3d0d50cea061f51274f512f0be&chksm=c04f8e2cf738073af264ae583310a58826245d5135b3db757f2a80efe2ab603fbdb83b52b3a4&mpshare=1&scene=23&srcid=1201pduCWCJv7Ql88MPZpCn7&sharer_shareinfo=2c1c7403fc19fd9732bb2ca1411db6a3&sharer_shareinfo_first=2c1c7403fc19fd9732bb2ca1411db6a3#rd)
