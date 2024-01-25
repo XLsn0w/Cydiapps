@@ -66,6 +66,29 @@ Apple  Developer iPhone  Hacker
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
+# Mac电脑 修改hosts文件 以访问Github
+
+1. 打开 https://ping.chinaz.com/ 搜索github.com
+
+2. 找一个快的ip地址 我这里找的是
+
+德国   140.82.121.4  美国华盛顿西雅图 GitHub    <1ms
+
+打开终端，输入命令
+
+sudo vi /etc/hosts
+输入密码后，使用vi编辑hosts文件：增加
+
+140.82.121.4 github.com (相当于访问github.com 切换成 140.82.121.4)
+
+
+1) 按i进入编辑模式，开始编辑
+
+2) 编辑完成后按esc退出
+   
+3) 再按:wq回车保存
+
+
 # iOS巨魔二代发布了
 
 安装包下载: https://github.com/opa334/TrollStore/releases
