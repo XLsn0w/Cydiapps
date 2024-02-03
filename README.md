@@ -102,18 +102,31 @@ Description
 A certificate validation issue was addressed. This issue is fixed in iOS 16.7 and iPadOS 16.7, OS 17.0.1 and iPadOS 17.0.1, watchOS 9.6.3, macOS Ventura 13.6, watchOS 10.0.1. A malicious app may be able to bypass signature validation. Apple is aware of a report that this issue may have been actively exploited against versions of iOS before iOS 16.7.
 
 References
+
 https://nvd.nist.gov/vuln/detail/CVE-2023-41991
+
 https://support.apple.com/en-us/HT213926
+
 https://support.apple.com/en-us/HT213927
+
 https://support.apple.com/en-us/HT213928
+
 https://support.apple.com/en-us/HT213929
+
 https://support.apple.com/en-us/HT213931
+
 https://support.apple.com/kb/HT213926
+
 http://seclists.org/fulldisclosure/2023/Sep/14
+
 http://seclists.org/fulldisclosure/2023/Sep/15
+
 http://seclists.org/fulldisclosure/2023/Sep/16
+
 http://seclists.org/fulldisclosure/2023/Sep/17
+
 http://seclists.org/fulldisclosure/2023/Sep/19
+
 http://seclists.org/fulldisclosure/2023/Oct/5
 
 
