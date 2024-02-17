@@ -147,8 +147,6 @@ http://seclists.org/fulldisclosure/2023/Oct/5
 ## misaka.ipa 支持Beta系统安装巨魔2代
 下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
 
-## 巨魔状态栏修改网速神器
-下载: https://github.com/leminlimez/Helium
 
 iOS customisation tool for KFD & MDC
 <div>
@@ -207,6 +205,10 @@ ipa下载: https://github.com/straight-tamago/misaka
 
 ## 巨魔2砸壳工具
 下载:  https://github.com/donato-fiore/TrollDecrypt/releases
+
+## 巨魔状态栏修改网速神器
+
+下载: https://github.com/leminlimez/Helium
 
 # TrollSpeed 状态栏网速显示
 
