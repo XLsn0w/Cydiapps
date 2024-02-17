@@ -147,6 +147,9 @@ http://seclists.org/fulldisclosure/2023/Oct/5
 ## misaka.ipa 支持Beta系统安装巨魔2代
 下载链接: https://pan.baidu.com/s/1yDhkZ0fwbfcPr2sYTYKqNg?pwd=hedd 
 
+## 巨魔状态栏修改网速神器
+下载: https://github.com/leminlimez/Helium
+
 iOS customisation tool for KFD & MDC
 <div>
   <a href="https://github.com/straight-tamago/misaka/releases"><img src="https://img.shields.io/github/downloads/straight-tamago/misaka/total?color=d774d5" /></a>
