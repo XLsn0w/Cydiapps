@@ -129,6 +129,9 @@ http://seclists.org/fulldisclosure/2023/Sep/19
 
 http://seclists.org/fulldisclosure/2023/Oct/5
 
+# Dopamine 2.0
+## 多巴胺二代 iOS 15.0 - 16.6.1 越狱指南 Dopamine 2.0 分享下载
+## 教程指南: [教程指南](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247501067&idx=1&sn=6f9f9593c45d306abefb8665ff2a4d56&chksm=c04fb7c3f7383ed5578eac45c7e117b981304dbcb03a110f6357ff8010903dda572e6aa1d082&mpshare=1&scene=23&srcid=0220VmDogq6j8CKck41UfAHA&sharer_shareinfo=958ba8519e1011f509a07fe8b5e6f55a&sharer_shareinfo_first=958ba8519e1011f509a07fe8b5e6f55a#rd)
 
 # iOS巨魔二代发布了
 
