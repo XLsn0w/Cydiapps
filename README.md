@@ -22,6 +22,7 @@ Apple  Developer iPhone  Hacker
 # 我的个人博客-> https://xlsn0w.github.io
 
 ## 我的简书-> http://www.jianshu.com/u/eacc1a5d2fda
+![公众号](https://mmbiz.qpic.cn/mmbiz_png/CqwzFPUx3cuY1O72MD2es5icPhiboaB6gKveR3OvLWgFxZCmSdCcoR7rFgbWhVHGSZLV4o8UgUqAwdzyUfmJI1Qw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
 ![tease](https://github.com/XLsn0w/XLsn0w.github.io/blob/master/favicons/tease.gif?raw=true)
 
