@@ -104,6 +104,30 @@ sudo vi /etc/hosts
 🟢iOS 17.0 beta1-5 支持安装，但是目前成功率不高，可以试试！！！
 ![](https://mmbiz.qpic.cn/mmbiz_png/CqwzFPUx3cuxOXv4427PHbKicbiaE8PibVYXMC5sxGGYEmjiaGtKbplkU3IWOfcrqY5FfrmibuUmGao4suQdFyialX6A/640?wx_fmt=png&from=appmsg&wxfrom=5&wx_lazy=1&wx_co=1)
 
+# TrollRecorder 巨魔录音机
+
+🟡仅限使用 巨魔 TrollStore 用户
+
+🔴支持系统：iOS 15.0 至 16.6.1 和 17.0 系统
+
+🔵TrollRecorder中文名：巨魔录音机，是一款纯巨魔版通话录音，无需越狱环境
+
+🟢国人开发团队开发，核心功能可免费使用。通话录音功能免费，使用简单，大家放心使用
+
+巨魔录音机特点：
+
+🟢UI界面风格好看
+🟢录音支持所有（VX、YX）
+🟢能实现自动启动通话录音
+🟢支持应用程序启动期间启用生物识别验证
+🟢能记录录音地址及搜索能力
+🟢能为录音选择音频质量和格式
+高级功能功能，需要付费38元，有验证的，最多 5台设备使用。
+
+免费版：https://github.com/Lessica/TrollRecorder
+付费版：https://havoc.app/package/trollrecorder
+
+
 # iOS16 Bootstrap 半越狱工具
 Bootstrap 官方地址：
 https://github.com/RootHide/Bootstrap
