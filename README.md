@@ -1,5 +1,11 @@
 # iOS应用逆向工程-Cydia越狱-Tweaks插件开发  
 
+# 巨魔二代 iOS15.0-16.6.1 新手指南
+
+[巨魔二代 iOS15.0-16.6.1 新手指南](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247501758&idx=1&sn=2320b045097cbbacc74352b84e4b6f30&chksm=c04fb576f7383c60025081f01275fd0c668a8540f5d91065a845862b1da30b548c460e973ec7&token=1839537929&lang=zh_CN#rd)
+
+![](https://mmbiz.qpic.cn/mmbiz_png/CqwzFPUx3cvZEzUNY8a7ANK6n0LFwBHzVYFGNnd0sTLVMhVjozrRIQyf0BlOibtWPBaAz5URyIKAfvhTbtsDHQw/640?wx_fmt=png&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
 # 我的微信公众号-> Cydiapps
 ![百家号](https://mmbiz.qpic.cn/mmbiz_jpg/CqwzFPUx3ctlvhiaKFaaIwemTHgsib2zcTsXNvRxq9NGzEMQOUibFfKKvhuaC0U5SYLOV15EhjCLcvtruYkiaa6ang/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
 
