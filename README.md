@@ -74,6 +74,9 @@ Apple  Developer iPhone  Hacker
 
 <img src="https://github.com/XLsn0w/Cydiapp/blob/main/XLsn0w's%20Cydia%20Repo.png?raw=true" alt="XLsn0w" width="470" height="224" align="bottom" />
 
+## iOS刷Android -安卓越狱苹果
+[跳转=>iOS刷Android -安卓越狱苹果](https://mp.weixin.qq.com/s?__biz=Mzg5OTgzNTgxNQ==&mid=2247502831&idx=1&sn=fefc59a2c4ab363968fd966fc85b53ac&chksm=c04fb927f7383031afacc4f4cd67114cce6a7827c193d82ebf36a7a021fcdb9d4c89637b730d&token=482476876&lang=zh_CN#rd)
+
 # Mac电脑 修改hosts文件 以访问Github
 
 1. 打开 https://ping.chinaz.com/ 搜索github.com
